@@ -21,11 +21,10 @@ return new class extends Migration
             $table->integer('payment_id');
             $table->integer('coupon_id');
             $table->string('book_address');
-            $table->date('book_date');
-            $table->time('book_time_start');
-            $table->time('book_time_end');
-            $table->time('book_time_total');
-            $table->string('book_total');
+            $table->string('book_date');
+            $table->string('book_time_start');
+            $table->integer('book_time_number');
+            $table->integer('book_total');
             $table->string('book_options');
             $table->integer('book_status');
             $table->text('book_notes');

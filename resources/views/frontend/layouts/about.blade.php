@@ -3,8 +3,8 @@
         <div class="row g-5">
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                 <div class="d-flex flex-column">
-                    <img class="img-fluid rounded w-75 align-self-end" src="{{ asset('frontend/img/about-1.jpg') }}" alt="">
-                    <img class="img-fluid rounded w-50 bg-white pt-3 pe-3" src="{{ asset('frontend/img/about-2.jpg') }}" alt="" style="margin-top: -25%;">
+                    <img class="img-fluid rounded w-75 align-self-end" src="{{ asset('frontend/img/trongtre.png') }}" alt="">
+                    <img class="img-fluid rounded w-50 bg-white pt-3 pe-3" src="{{ asset('frontend/img/about2.png') }}" alt="" style="margin-top: -25%;">
                 </div>
             </div>
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">

@@ -31,19 +31,19 @@
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                 <div class="owl-carousel header-carousel">
                     <div class="owl-carousel-item position-relative">
-                        <img class="img-fluid" src="{{ asset('frontend/img/carousel-1.jpg') }}" alt="">
+                        <img class="img-fluid" src="{{ asset('frontend/img/cs1.jpg') }}" alt="">
                         <div class="owl-carousel-text">
                             <h1 class="display-1 text-white mb-0">Giúp việc theo giờ</h1>
                         </div>
                     </div>
                     <div class="owl-carousel-item position-relative">
-                        <img class="img-fluid" src="{{ asset('frontend/img/carousel-2.jpg') }}" alt="">
+                        <img class="img-fluid" src="{{ asset('frontend/img/cs2.png') }}" alt="">
                         <div class="owl-carousel-text">
-                            <h1 class="display-1 text-white mb-0">Tổng vệ sinh</h1>
+                            <h1 class="display-1 text-white mb-0">Đi chợ</h1>
                         </div>
                     </div>
                     <div class="owl-carousel-item position-relative">
-                        <img class="img-fluid" src="{{ asset('frontend/img/carousel-3.jpg') }}" alt="">
+                        <img class="img-fluid" src="{{ asset('frontend/img/chon-dich-vu-home-cooking.png') }}" alt="">
                         <div class="owl-carousel-text">
                             <h1 class="display-1 text-white mb-0">Nấu ăn</h1>
                         </div>

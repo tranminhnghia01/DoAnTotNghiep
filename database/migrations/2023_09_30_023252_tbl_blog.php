@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tbl_blog', function (Blueprint $table) {
-            $table->increments('id');
-            $table->String('blog_id')->unique();
+            $table->increments('blog_id');
             $table->String('blog_title');
             $table->String('blog_image');
             $table->text('blog_des');

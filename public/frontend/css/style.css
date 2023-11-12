@@ -25,6 +25,9 @@
     z-index: 99;
 }
 
+.bg-shop{
+    background-color: #FF8228;
+}
 
 /*** Spinner ***/
 #spinner {
@@ -427,7 +430,7 @@
 
 .testimonial-carousel .owl-item.center .testimonial-item img {
     background: var(--primary) !important;
-} 
+}
 
 .testimonial-carousel .owl-nav {
     position: absolute;

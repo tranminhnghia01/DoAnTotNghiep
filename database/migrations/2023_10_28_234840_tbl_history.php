@@ -14,12 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tbl_history', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('history_id');
+            $table->increments('history_id');
             $table->integer('book_id');
-            $table->string('collaborators_id');
-            $table->string('history_des');
-            $table->string('history_content');
+            $table->string('housekeeper_id');
+            $table->string('history_des')->nullable();
+            $table->string('history_content')->nullable();
             $table->integer('history_status');
 
 
