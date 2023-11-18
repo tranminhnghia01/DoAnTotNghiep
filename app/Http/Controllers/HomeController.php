@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Province;
+use App\Models\User;
 use App\Models\Ward;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 // session_start();
@@ -65,4 +67,5 @@ class HomeController extends Controller
             echo $output;
         }
     }
+
 }

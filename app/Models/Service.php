@@ -16,8 +16,6 @@ class Service extends Model
         'service_name',
         'service_image',
         'service_des',
-        'service_slug',
-        'service_tags',
         'service_content',
         'service_status',
     ];

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tbl_rate', function (Blueprint $table) {
             $table->increments('id');
-            $table->String('comment_id');
+            $table->integer('comment_id');
             $table->integer('rate');
             $table->timestamps();
         });

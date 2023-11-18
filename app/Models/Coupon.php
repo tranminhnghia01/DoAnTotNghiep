@@ -13,12 +13,13 @@ class Coupon extends Model
     	    'coupon_name',
             'coupon_code',
             'coupon_des',
-            'coupon_content',
-            'coupon_qty',
-            'coupon_status',
+            'coupon_time_start',
+            'coupon_time_end',
             'coupon_method',
             'coupon_number',
+            'coupon_status',
+
     ];
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'coupon_id';
  	protected $table = 'tbl_coupon';
 }

@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('tbl_shipping', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->string('shipping_id');
+            $table->string('user_id');
             $table->String('shipping_name');
             $table->String('shipping_email');
             $table->String('shipping_phone');

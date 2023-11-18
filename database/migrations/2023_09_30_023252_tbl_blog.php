@@ -19,7 +19,6 @@ return new class extends Migration
             $table->String('blog_image');
             $table->text('blog_des');
             $table->text('blog_content');
-            $table->text('blog_status');
             $table->timestamps();
         });
     }

@@ -17,9 +17,8 @@ return new class extends Migration
             $table->increments('history_id');
             $table->integer('book_id');
             $table->string('housekeeper_id');
-            $table->string('history_des')->nullable();
-            $table->string('history_content')->nullable();
-            $table->integer('history_status');
+            $table->string('housekeeper_status');
+            $table->string('history_status');
 
 
             $table->timestamps();

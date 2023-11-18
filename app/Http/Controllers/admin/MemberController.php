@@ -22,8 +22,8 @@ class MemberController extends Controller
     public function index()
     {
         $role = Role::all();
-        $AllUser = User::where('level',2)->get();
-        return view('admin.users.list')->with(compact('AllUser','role'));
+        $housekeepers = User::where('role_id',2)->get();
+        return view('admin.users.list')->with(compact('housekeepers','role'));
     }
 
     /**
@@ -168,8 +168,8 @@ class MemberController extends Controller
     public function Account_Giupviec()
     {
         $role = Role::all();
-        $AllUser = User::where('level',1)->get();
-        return view('admin.users.user_role_2.list')->with(compact('AllUser','role'));
+        $housekeepers = User::where('role_id',2)->get();
+        return view('admin.users.list')->with(compact('housekeepers','role'));
     }
 
 }

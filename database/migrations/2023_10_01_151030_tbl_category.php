@@ -18,10 +18,7 @@ return new class extends Migration
             $table->String('category_name');
             $table->String('category_image');
             $table->text('category_des');
-            $table->text('category_slug');
-            $table->text('category_tags');
             $table->text('category_content');
-            $table->text('category_level');
             $table->integer('category_status');
             $table->timestamps();
         });

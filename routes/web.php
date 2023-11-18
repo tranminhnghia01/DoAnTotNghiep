@@ -112,8 +112,19 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
     Route::post('/select-address',[App\Http\Controllers\HomeController::class,'select_address'])->name('select-address');
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/logout', [App\Http\Controllers\HomeController::class,'logout'])->name('logout');
-    Route::get('/account/profile', [App\Http\Controllers\admin\UserController::class,'index'])->name('account');
-    Route::post('/account/profile', [App\Http\Controllers\admin\UserController::class,'update'])->name('account.update');
+    Route::get('/account/profile', [App\Http\Controllers\admin\AccountController::class,'index'])->name('account');
+    Route::post('/account/profile', [App\Http\Controllers\admin\AccountController::class,'update'])->name('account.update');
+    Route::post('/change-password', [App\Http\Controllers\admin\AccountController::class, 'updatePassword'])->name('update-password');
+
+
+    Route::resource('housekeeper', App\Http\Controllers\admin\HousekeeperController::class);
+    Route::resource('Users', App\Http\Controllers\admin\UserController::class);
+
+
+    Route::resource('service', App\Http\Controllers\admin\ServiceController::class);
+    Route::resource('coupon', App\Http\Controllers\admin\CouponController::class);
+
+
     // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     // Route::get('/logout', [App\Http\Controllers\HomeController::class,'logout'])->name('logout');
     // Route::get('/account-setting/account', [App\Http\Controllers\admin\UserController::class,'index'])->name('account');
@@ -131,7 +142,6 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 
     // Route::resource('product', App\Http\Controllers\admin\ProductController::class);
     // Route::resource('account-users', App\Http\Controllers\admin\MemberController::class);
-    // Route::get('/account-giupviec', [App\Http\Controllers\admin\MemberController::class,'Account_Giupviec'])->name('account-giupviec');
 
     // Route::resource('account-order', App\Http\Controllers\admin\OrderController::class);
 

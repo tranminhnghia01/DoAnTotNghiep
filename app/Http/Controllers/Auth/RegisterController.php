@@ -70,7 +70,6 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role_id' => 1,
-            'company' => 'Hệ thống Website hỗ trợ giúp việc nhà theo giờ',
             'user_id' => $user_id,
 
         ]);

@@ -13,8 +13,8 @@ class Role extends Model
     protected $table = 'tbl_role';
 
     protected $fillable = [
-        'role_id','rolo_name'
+        'role_name'
     ];
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'role_id';
 
 }

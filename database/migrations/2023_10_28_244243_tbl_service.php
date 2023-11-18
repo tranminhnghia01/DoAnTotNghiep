@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('service_name');
             $table->string('service_image');
             $table->text('service_des');
-            $table->text('service_slug');
-            $table->text('service_tags');
             $table->text('service_content');
             $table->integer('service_status');
             $table->timestamps();

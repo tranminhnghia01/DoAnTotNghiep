@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_housekeeper', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('housekeeper_id');
-            $table->text('content');
-            $table->string('skills');
-            $table->string('files');
-            $table->string('status');
+        Schema::create('tbl_role', function (Blueprint $table) {
+            $table->increments('role_id');
+            $table->string('role_name');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_housekeeper');
+        Schema::dropIfExists('tbl_role');
     }
 };

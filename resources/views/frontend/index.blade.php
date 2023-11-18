@@ -2,6 +2,20 @@
 
  @include('frontend.layouts.navbar')
 
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<div class="container">
+    <h3>Bootstrap Multi Select Date Picker</h3>
+    <input type="text" class="form-control date" placeholder="Pick the multiple dates">
+</div>
+<script>
+    $('.date').datepicker({
+    multidate: true,
+    format: 'dd-mm-yyyy',
+    min
+});
+</script> --}}
+
     <!-- Header Start -->
     <div class="container-fluid header bg-primary p-0 mb-5">
         <div class="row g-0 align-items-center flex-column-reverse flex-lg-row">

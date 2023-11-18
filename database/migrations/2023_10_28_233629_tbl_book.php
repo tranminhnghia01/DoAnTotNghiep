@@ -19,13 +19,7 @@ return new class extends Migration
             $table->string('service_id');
             $table->integer('shipping_id');
             $table->integer('payment_id');
-            $table->integer('coupon_id');
-            $table->string('book_address');
-            $table->string('book_date');
-            $table->string('book_time_start');
-            $table->integer('book_time_number');
             $table->integer('book_total');
-            $table->string('book_options');
             $table->integer('book_status');
             $table->text('book_notes');
             $table->timestamps();
@@ -39,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_book');
+        Schema::dropIfExists('tbl_booking');
     }
 };

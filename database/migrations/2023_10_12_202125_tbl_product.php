@@ -21,8 +21,6 @@ return new class extends Migration
             $table->integer('product_qty');
             $table->string('product_des');
             $table->text('product_content');
-            $table->text('product_slug');
-            $table->string('product_tags');
             $table->integer('product_status');
             $table->timestamps();
         });

@@ -23,6 +23,7 @@ class CouponController extends Controller
     public function store(CouponRequest $request)
     {
         $data =$request->all();
+        // dd($data);
 
         if (Coupon::create($data)) {
             $style = 'success';

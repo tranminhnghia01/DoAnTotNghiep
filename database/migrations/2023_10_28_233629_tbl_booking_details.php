@@ -13,10 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_role', function (Blueprint $table) {
+        Schema::create('tbl_booking_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('role_id');
-            $table->string('role_name');
+            $table->string('book_id');
+            $table->integer('coupon_id');
+            $table->string('book_date');
+            $table->string('book_time_start');
+            $table->integer('book_time_number');
+            $table->integer('book_total');
+            $table->string('book_options');
             $table->timestamps();
         });
     }
@@ -28,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_role');
+        Schema::dropIfExists('tbl_booking_details');
     }
 };

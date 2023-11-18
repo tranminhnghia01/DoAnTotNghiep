@@ -13,13 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_order_details', function (Blueprint $table) {
+        Schema::create('tbl_housekeeper', function (Blueprint $table) {
             $table->increments('id');
-            $table->String('order_id');
-            $table->integer('product_id');
-            $table->String('product_name');
-            $table->String('product_price');
-            $table->integer('product_sales_qty');
+            $table->string('housekeeper_id');
+            $table->string('image');
+            $table->string('phone');
+            $table->integer('age');
+            $table->integer('gender');
+            $table->string('address');
+            $table->text('des');
+            $table->string('files');
+            $table->integer('status');
             $table->timestamps();
         });
     }
@@ -31,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_order_details');
+        Schema::dropIfExists('tbl_housekeeper');
     }
 };
