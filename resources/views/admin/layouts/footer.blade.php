@@ -59,7 +59,7 @@
 
 
         const img = document.querySelector(".profile-image"),
-        input =document.querySelector("#user-avatar");
+        input =document.querySelector("#uploadImage");
         input.addEventListener("change",()=>{
           img.src = URL.createObjectURL(input.files[0]);
         });

@@ -24,15 +24,10 @@ class ShippingRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'=>'required',
-            'last_name'=>'required',
+            'shipping_name'=>'required',
             'shipping_phone'=>'required|max:12',
             'shipping_email'=>'required',
             'shipping_address'=>'required',
-            'city_id'=>'required',
-            'province_id'=>'required',
-            'ward_id'=>'required',
-            'shipping_notes' =>'required'
         ];
     }
 }

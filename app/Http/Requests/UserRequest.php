@@ -25,21 +25,15 @@ class UserRequest extends FormRequest
     {
         return [
             'name'=>'required',
-            'age'=>'required',
-            'gender'=>'required',
-            'company'=>'required',
-            'des'=>'required',
-            'phone'=>'required|max:12',
             'email'=>'required',
-            'address'=>'required',
-            'ward_id'=>'required',
-            'image' =>'image|mimes:png,jpg|max:2048'
+            'password'=>'required',
         ];
     }
     public function messages()
     {
         return[
             'required' =>':attribute không được để trống',
+
         ];
     }
     public function attributes()
@@ -47,14 +41,6 @@ class UserRequest extends FormRequest
         return [
 
             'name'=>'Họ tên',
-            'age'=>'Tuổi',
-            'gender'=>'Giới tính',
-            'company'=>'',
-            'des'=>'Mô tả ',
-            'phone'=>'Số điện thoại',
-            'address'=>'Địa chỉ',
-            'ward_id'=>'Phường/Xã',
-            'image' =>'Hình ảnh'
         ];
     }
 }

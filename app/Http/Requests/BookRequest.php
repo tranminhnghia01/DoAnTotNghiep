@@ -24,22 +24,26 @@ class BookRequest extends FormRequest
     public function rules()
     {
         return [
-            'book_date'=>'required|date|after:'.now(),
+            'book_date'=>'required',
             'book_time_start' => 'required',
-            'book_time_end' => 'required',
-            'book_s' => 'required',
-            'book_notes' => 'required',
-            'book_address' => 'required',
+            'book_time_number'=>'required',
+
+        ];
+    }
+
+    public function messages()
+    {
+        return[
+            'required' =>'Vui lòng chọn :attribute',
         ];
     }
 
     public function attributes()
     {
         return[
-            'book_date'=>'Ngày đặt lịch',
-            'book_time_start'=>'Thời gian bắt đầu',
-            'book_time_end'=>'Thời gian kết thúc',
-            'book_address'=>'Địa chỉ công việc',
+            'book_date'=>'ngày đặt lịch',
+            'book_time_start'=>'thời gian bắt đầu',
+            'book_time_number'=>'thời lượng làm việc',
         ];
     }
 }

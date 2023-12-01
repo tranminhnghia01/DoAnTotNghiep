@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('housekeeper_id');
             $table->string('image');
+            $table->string('name');
             $table->string('phone');
             $table->integer('age');
             $table->integer('gender');

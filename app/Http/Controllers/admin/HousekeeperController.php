@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\HousekeeperRequest;
 use App\Models\City;
 use App\Models\Housekeeper;
 use App\Models\Role;
@@ -20,8 +21,10 @@ class HousekeeperController extends Controller
     public function index()
     {
         $role = Role::all();
-        $housekeepers = User::where('role_id',2)->get();
-        return view('admin.users.list')->with(compact('housekeepers','role'));
+        $user_house = User::where('role_id',2)->get();
+        $housekeepers = Housekeeper::join('users', 'users.user_id', '=', 'tbl_housekeeper.housekeeper_id')->orderBy('status', 'desc')->get();
+        // dd($housekeepers);
+        return view('admin.users.list')->with(compact('housekeepers','role','user_house'));
     }
 
     /**
@@ -43,7 +46,7 @@ class HousekeeperController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(HousekeeperRequest $request)
     {
         $data = $request->all();
         $user_id = substr(md5(microtime()),rand(0,26),5);
@@ -63,6 +66,8 @@ class HousekeeperController extends Controller
             $file = $request->image;
             if (!empty($file)) {
                 $data['image'] = $file->getClientOriginalName();
+            }else{
+                $data['image'] = "";
             }
             $housekeeper =[
                 'housekeeper_id'=> $user->user_id,
@@ -74,7 +79,7 @@ class HousekeeperController extends Controller
                 'address'=> $data['address'],
                 'des'=> $data['des'],
                 'files'=> $data['files'],
-                'status'=> 1,
+                'status'=> 0,
             ];
             if (Housekeeper::create($housekeeper)) {
                 if (!empty($file)) {
@@ -134,6 +139,9 @@ class HousekeeperController extends Controller
     {
         $data = $request->all();
         $housekeeper = Housekeeper::where('housekeeper_id',$id)->first();
+        $user = User::where('user_id',$id)->first();
+        $user->update(['name'=> $data['name'],]);
+
         $file = $request->image;
         // dd($data);
 

@@ -1,6 +1,7 @@
 /********** Template CSS **********/
 :root {
     --primary: #0463FA;
+    --orange: #fd7e14;
     --light: #EFF5FF;
     --dark: #1B2C51;
 }
@@ -103,7 +104,7 @@
 
 .navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-nav .nav-link.active {
-    color: var(--primary);
+    color: var(--orange);
 }
 
 @media (max-width: 991.98px) {
@@ -194,8 +195,8 @@
 
 .header-carousel .owl-nav .owl-prev:hover,
 .header-carousel .owl-nav .owl-next:hover {
-    background: var(--primary);
-    border-color: var(--primary);
+    background: var(--orange);
+    border-color: var(--orange);
 }
 
 .header-carousel .owl-dots {
@@ -233,8 +234,8 @@
 }
 
 .header-carousel .owl-dot.active {
-    background: var(--primary);
-    border-color: var(--primary);
+    background: var(--orange);
+    border-color: var(--orange);
 }
 
 .page-header {
@@ -332,14 +333,14 @@
 
 .team-item .team-social .btn {
     display: inline-flex;
-    color: var(--primary);
+    color: var(--orange);
     background: #FFFFFF;
     border-radius: 40px;
 }
 
 .team-item .team-social .btn:hover {
     color: #FFFFFF;
-    background: var(--primary);
+    background: var(--orange);
 }
 
 
@@ -363,11 +364,11 @@
 
 .bootstrap-datetimepicker-widget table td.active,
 .bootstrap-datetimepicker-widget table td.active:hover {
-    background: var(--primary);
+    background: var(--orange);
 }
 
 .bootstrap-datetimepicker-widget table td.today::before {
-    border-bottom-color: var(--primary);
+    border-bottom-color: var(--orange);
 }
 
 
@@ -415,7 +416,7 @@
 }
 
 .testimonial-carousel .owl-item.center .testimonial-text {
-    background: var(--primary);
+    background: var(--orange);
     transform: scale(1);
 }
 
@@ -429,7 +430,7 @@
 }
 
 .testimonial-carousel .owl-item.center .testimonial-item img {
-    background: var(--primary) !important;
+    background: var(--orange) !important;
 }
 
 .testimonial-carousel .owl-nav {
@@ -453,7 +454,7 @@
 .testimonial-carousel .owl-nav .owl-prev,
 .testimonial-carousel .owl-nav .owl-next {
     position: relative;
-    color: var(--primary);
+    color: var(--orange);
     font-size: 45px;
     transition: .5s;
 }
@@ -478,7 +479,7 @@
 }
 
 .footer .btn.btn-social:hover {
-    color: var(--primary);
+    color: var(--orange);
 }
 
 .footer .btn.btn-link {
@@ -502,7 +503,7 @@
 }
 
 .footer .btn.btn-link:hover {
-    color: var(--primary);
+    color: var(--orange);
     letter-spacing: 1px;
     box-shadow: none;
 }
@@ -518,5 +519,187 @@
 }
 
 .footer .copyright a:hover {
-    color: var(--primary);
+    color: var(--orange);
 }
+
+
+.btn-orange{color:#FF8228;background-color:#fff;border-color:#fff}.btn-orange:hover{color:#fff;background-color:#FF8228;border-color:#dfe4ec}.btn-check:focus+.btn-orange,.btn-orange:focus{color:#FF8228;background-color:#d7deeb;border-color:#dfe4ec;box-shadow:0 0 0 .25rem rgba(42,122,251,0.5)}.btn-check:checked+.btn-orange,.btn-check:active+.btn-orange,.btn-orange:active,.btn-orange.active,.show>.btn-orange.dropdown-toggle{color:#FF8228;background-color:#ebf1fa;border-color:#ebf1fa}.btn-check:checked+.btn-orange:focus,.btn-check:active+.btn-orange:focus,.btn-orange:active:focus,.btn-orange.active:focus,.show>.btn-orange.dropdown-toggle:focus{box-shadow:0 0 0 .25rem rgba(42,122,251,0.5)}.btn-orange:disabled,.btn-orange.disabled{color:#FF8228;background-color:#fff;border-color:#fff}
+.text-orange{color:#FF8228 !important};
+.bg-orange{background-color:#FF8228 !important}
+.role-4{
+    display: -webkit-box;
+    max-height: 7.2rem;
+   -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-line-clamp: 4;
+    line-height: 1.4rem;
+}
+.rad-label {
+    cursor: pointer;
+    margin-bottom: 20px;
+
+}
+
+.rad-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.rad-text {
+    color: hsl(0, 0%, 60%);
+    font-size: 18px;
+    padding: 14px 8px;
+    border-radius: 5px;
+    border: 1px solid #dfdfdf;
+    background-color: #fff;
+    text-align: center;
+}
+
+.rad-input:checked~.rad-text {
+    /* border: 1px solid orange;
+    color: orange; */
+    background-color: #FF8228;
+    color: #fff;
+}
+
+
+
+
+ .time-picker{
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    transition:all .4s ease;
+    height:0;
+    overflow:hidden;
+    .set-time{
+       display:flex;
+       justify-content:center;
+       margin-bottom:15px;
+     }
+    .label{
+          width:60px;
+          margin:0 5px;
+          text-align:center;
+          line-height:34px;
+          display:inline-style;
+          a{
+             display:block;
+             border:1px solid #DDDDDD;
+             cursor:pointer;
+             font-size:28px;
+             font-weight:bold;
+             border-radius:3px;
+             &:hover,
+             &:active{
+                background-color:#FF8228;
+                color:#FFFFFF;
+             }
+          }
+          .set{
+             text-align:center;
+             box-sizing:border-box;
+             width:100%;
+             height:40px;
+             line-height:34px;
+             font-size:20px;
+             font-weight:bold;
+             border:transparent;
+          }
+       }
+    #submitTime{
+       text-align:center;
+       line-height:34px;
+       border:1px solid #DDDDDD;
+       width:128px;
+       margin:auto;
+       border-radius:3px;
+       cursor:pointer;
+       text-transform:uppercase;
+       font-weight:bold;
+    }
+  }
+
+ .time-picker.open{
+    border:1px solid #DDDDDD;
+    padding:15px;
+    transition:all .5s ease;
+    height:auto;
+    background-color:#FCFCFC;
+    width: 200px;
+ }
+
+
+ .time-total-label {
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 20px;
+
+}
+
+.time-total-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.time-total-text {
+    color: hsl(0, 0%, 60%);
+    font-size: 18px;
+    padding: 14px 16px;
+    border-radius: 5px;
+    border: 1px solid #dfdfdf;
+    background-color: #fff;
+
+}
+
+.time-total-input:checked~.time-total-text {
+    /* border: 1px solid orange;
+    color: orange; */
+    /* background-color: #FF8228; */
+    border: 1px solid #FF8228;
+    color: #FF8228;
+}
+
+
+.options-label {
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 20px;
+
+}
+
+.options-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.options-text {
+    color: hsl(0, 0%, 60%);
+    font-size: 18px;
+    padding: 14px 16px;
+    border-radius: 5px;
+    border: 1px solid #dfdfdf;
+    background-color: #fff;
+
+}
+
+.options-input:checked~.options-text {
+    /* border: 1px solid orange;
+    color: orange; */
+    /* background-color: #FF8228; */
+    border: 1px solid #FF8228;
+    color: #FF8228;
+}
+
+

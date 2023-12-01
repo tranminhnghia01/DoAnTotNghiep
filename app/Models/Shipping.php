@@ -16,14 +16,9 @@ class Shipping extends Model
         'shipping_email',
         'shipping_address',
         'shipping_phone',
-        'province_id',
-        'ward_id',
-        'city_id',
-        'shipping_notes',
-
     ];
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'shipping_id';
 
     protected $hidden = [
         '_token',

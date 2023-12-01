@@ -23,42 +23,42 @@ class CheckoutController extends Controller
 {
     public function index(Request $request){
 
-        $user_id= Auth::id();
-        $user = User::findOrFail($user_id);
+        $id= Auth::id();
+        $user = User::findOrFail($id);
         $city = City::all();
-        $province = Province::all();
-        $ward = Ward::all();
         $payment = Payment::all();
 
         //get shipping info
-        $shipping = Shipping::where('user_id', $user_id)->first();
-        $name = explode(' ',$shipping->shipping_name);
-        $first_name = array_pop($name);
-        $last_name = implode(' ', $name);
+        $shipping = Shipping::where('user_id', $user->user_id)->first();
+        // dd($shipping);
 
-        return view("frontend.checkout.checkout")->with(compact('city','province','ward','user','payment','shipping','first_name','last_name'));
+        return view("frontend.checkout.checkout")->with(compact('city','user','payment','shipping'));
     }
 
 
 
-    public function update(Request $request, $id){
+    public function update(Request $request){
         $data= $request->all();
-        $data['shipping_name'] = $data['first_name'].' '.$data['last_name'];
+        // dd($data);
 
-        $user_id = Auth::id();
-        $data['user_id'] = $user_id;
+        $id = Auth::id();
+        $user = User::findOrFail($id);
 
-        $shipping = Shipping::where('user_id', $user_id)->first();
+
+        // $shipping = Shipping::where('user_id', $user_id)->first();
+        $shipping = Shipping::where('user_id', $user->user_id)->first();
+
+        // dd($shipping);
 
         if ($shipping->update($data)) {
             $msg = "Xác nhận địa chỉ thanh toán thành công";
             $style ="success";
         }
         else{
-            $msg = "Xác nhận địa chỉ thanh toán không thành công thành công";
-            $style ="warning";
+            $msg = "Đã  có lỗi xảy ra!";
+            $style ="danger";
         }
-        return redirect()->route('home.show-cart')->with(compact('msg','style'));
+        return redirect()->back()->with(compact('msg','style'));
 
     }
 

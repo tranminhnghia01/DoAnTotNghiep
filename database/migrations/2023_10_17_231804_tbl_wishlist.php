@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tbl_wishlist', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('shipping_id');
+            $table->increments('wishlist_id');
+            $table->integer('shipping_id');
             $table->string('housekeeper_id');
             $table->timestamps();
         });

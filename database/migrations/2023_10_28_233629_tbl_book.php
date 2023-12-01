@@ -16,12 +16,13 @@ return new class extends Migration
         Schema::create('tbl_booking', function (Blueprint $table) {
             $table->increments('id');
             $table->string('book_id');
-            $table->string('service_id');
+            $table->integer('service_id');
+            $table->integer('wishlist_id')->nullable();
             $table->integer('shipping_id');
-            $table->integer('payment_id');
             $table->integer('book_total');
             $table->integer('book_status');
-            $table->text('book_notes');
+            $table->string('book_address');
+            $table->text('book_notes')->nullable();
             $table->timestamps();
         });
     }

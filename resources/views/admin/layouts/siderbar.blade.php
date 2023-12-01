@@ -14,7 +14,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('admin.account') }}">
           <i class="bi bi-person"></i>
-          <span>Tài khoản cá nhân</span>
+          <span>Cài đặt tài khoản</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
@@ -147,7 +147,7 @@
         <ul id="comment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="icons-bootstrap.html">
-              <i class="bi bi-circle"></i><span>Khách hàng</span>
+              <i class="bi bi-circle"></i><span>Danh sách</span>
             </a>
           </li>
 
@@ -155,14 +155,14 @@
       </li><!-- End Icons Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="">
+        <a class="nav-link collapsed" href="#">
           <i class="bi bi-envelope"></i>
           <span>Liên hệ</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="">
+        <a class="nav-link collapsed" href="#">
           <i class="ri-price-tag-2-line"></i>
           <span>Bảng giá</span>
         </a>

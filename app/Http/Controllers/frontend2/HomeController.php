@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Product;
+use App\Models\Housekeeper;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -16,11 +16,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
-        $product = Product::paginate(8);
-        $category_parent = Category::where('category_level','0')->skip(0)->take(2)->get();
-        $category_child = Category::where('category_level','!=','0')->skip(0)->take(1)->get();
-        return view('frontend.index')->with(compact('category','category_parent','category_child','product'));
+        $service = Service::all();
+        $house = Housekeeper::paginate(8);
+        return view('frontend.index')->with(compact('service','house'));
     }
 
     /**

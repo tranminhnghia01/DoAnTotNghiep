@@ -18,11 +18,13 @@ class MemberAuthentication
             if (Auth::check()== false) {
             return $next($request);
         }
-        if( Auth::check() && Auth::user()->level == 2 ){
+        if( Auth::check() && Auth::user()->role_id == 3 ){
             return $next($request);
         }else{
             Auth::logout();
-           return redirect()->route('home.login');
+            $msg = 'Tài khoản của bạn không có quyền truy cập vào trang này. Vui lòng đăng ký hoặc dùng tài khoản khác!';
+            $style='danger';
+           return redirect()->route('home.login')->with(compact('msg','style'));
         }
     }
 }

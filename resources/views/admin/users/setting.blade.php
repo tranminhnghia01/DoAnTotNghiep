@@ -5,7 +5,11 @@
   <div class="row mb-3">
     <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Ảnh nền</label>
     <div class="col-md-8 col-lg-9">
-      <img src="{{ asset('uploads/users/'.$housekeeper->image) }}" alt="Profile">
+        @if (empty($housekeeper->image))
+                <img src="{{ asset('admin/assets/img/apple-touch-icon.png') }}" alt="Profile">
+            @else
+                <img src="{{ asset('uploads/users/'.$housekeeper->image) }}" alt="Profile">
+            @endif
       <div class="pt-2">
         <label for="uploadImage"  class="btn btn-primary btn-sm" title="Upload new profile image" style="color: #fff">
             <i class="bi bi-upload"><input type="file" name="image" id="uploadImage"  accept="image/png, image/jpeg" hidden /></i></label>

@@ -2,11 +2,11 @@
 
 @include('admin.layouts.header_page')
 
-@include('admin.layouts.siderbar')
-
-  <!-- ======= Header ======= -->
-
-  <!-- ======= Sidebar ======= -->
+@if (Auth::user()->role_id ==2)
+    @include('admin.layouts.houside')
+@else
+    @include('admin.layouts.siderbar')
+@endif
 
   <main id="main" class="main">
 

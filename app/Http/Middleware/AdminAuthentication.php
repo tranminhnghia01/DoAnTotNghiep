@@ -15,10 +15,10 @@ class AdminAuthentication
      */
     public function handle($request, Closure $next)
     {
-        if( Auth::check() && Auth::user()->level == 0 ){
+        if( Auth::check() && Auth::user()->role_id == 1 ){
             return $next($request);
         }
-        if(Auth::check() && Auth::user()->level == 1 ){
+        if(Auth::check() && Auth::user()->role_id == 2 ){
             return $next($request);
         }
         else{

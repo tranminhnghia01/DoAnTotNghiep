@@ -1,7 +1,11 @@
 @include('frontend.layouts.header')
 
  @include('frontend.layouts.navbar')
-
+ @if (session('msg'))
+ <div class="alert alert-{{session('style')}}">
+     {{ session('msg') }}
+ </div>
+ @endif
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <div class="container">
@@ -15,9 +19,8 @@
     min
 });
 </script> --}}
-
     <!-- Header Start -->
-    <div class="container-fluid header bg-primary p-0 mb-5">
+    <div class="container-fluid header bg-orange p-0 mb-5">
         <div class="row g-0 align-items-center flex-column-reverse flex-lg-row">
             <div class="col-lg-6 p-5 wow fadeIn" data-wow-delay="0.1s">
                 <h1 class="display-4 text-white mb-5">Website Giúp việc nhà theo giờ</h1>
