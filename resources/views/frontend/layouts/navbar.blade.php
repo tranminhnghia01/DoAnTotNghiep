@@ -37,7 +37,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="" class="nav-item nav-link active">Trang chủ</a>
+            <a href="{{ route('home.index') }}" class="nav-item nav-link active">Trang chủ</a>
             <a href="about.html" class="nav-item nav-link">Về chúng tôi</a>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Dịch vụ</a>
@@ -47,9 +47,9 @@
                     @endforeach --}}
                 </div>
             </div>
-            <a href="service.html" class="nav-item nav-link">Kinh nghiệm hay</a>
+            <a href="{{ route('home.giup-viec-ca-le') }}" class="nav-item nav-link">Kinh nghiệm hay</a>
             <a href="contact.html" class="nav-item nav-link">Liên Hệ</a>
-        <a href="contact.html" class="nav-item nav-link">Trở thành đối tác</a>
+        <a href="{{ route('home.housekeeper') }}" class="nav-item nav-link">Trở thành đối tác</a>
         </div>
         @if (Auth::check())
         <div class="nav-item dropdown">

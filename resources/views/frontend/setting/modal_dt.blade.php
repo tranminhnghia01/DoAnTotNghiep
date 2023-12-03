@@ -78,7 +78,7 @@
             </div>
 
             <div class="modal-footer">
-            <button type="submit" class="btn btn-primary w-100 py-3">Đặt lịch</button>
+            <button type="submit" class="btn btn-orange w-100 py-3">Đặt lịch</button>
             </div>
         </div>
     </div>

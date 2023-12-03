@@ -16,7 +16,7 @@
                 </div>
                 <div class="bg-light rounded d-flex align-items-center p-5">
                     <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
-                        <i class="fa fa-envelope-open text-primary"></i>
+                        <i class="fa fa-envelope-open text-orange"></i>
                     </div>
                     <div class="ms-4">
                         <p class="mb-2">Mail Us Now</p>
@@ -63,7 +63,7 @@
                                 <textarea class="form-control border-0" rows="5" placeholder="Describe your problem"></textarea>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Book Appointment</button>
+                                <button class="btn btn-orange w-100 py-3" type="submit">Book Appointment</button>
                             </div>
                         </div>
                     </form>

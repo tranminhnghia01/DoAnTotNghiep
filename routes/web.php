@@ -45,6 +45,7 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
     Route::get('/Account', [App\Http\Controllers\frontend\UserController::class,'index'])->name('appointment.index');
     Route::get('/Account/show', [App\Http\Controllers\frontend\UserController::class,'show'])->name('appointment.show');
+    Route::post('/Account/destroy', [App\Http\Controllers\frontend\UserController::class,'destroy'])->name('appointment.destroy');
 
 
 

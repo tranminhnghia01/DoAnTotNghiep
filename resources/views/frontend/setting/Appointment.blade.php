@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table">
+    <table class="table" style="text-align: center">
         <thead>
             <tr>
                 <th>Địa chỉ</th>
@@ -24,18 +24,18 @@
                     <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
                     @switch($value->book_status)
                         @case(1)
-                            <td><span class="btn btn-warning">Đang đợi xác nhận</span></td>
+                            <td><span class="btn btn-warning" style="color: white;width: 170px;">Đang đợi xác nhận</span></td>
                             @break
                         @case(2)
-                            <td><span class="btn btn-primary">Đã xác nhận </span></td>
+                            <td><span class="btn btn-primary" style="color: white;width: 170px;">Đã xác nhận </span></td>
                             @break
                         @case(3)
-                            <td><span class="btn btn-danger">Đã hủy</span></td>
+                            <td><span class="btn btn-danger" style="color: white;width: 170px;">Đã hủy</span></td>
                             @break
                         @default
-                            <td><span class="btn btn-success">Hoàn thành</span></td>
+                            <td><span class="btn btn-success" style="color: white;width: 170px;">Hoàn thành</span></td>
                     @endswitch
-                    <td><button type="submit" class="btn btn-info btn-details" id="{{ $value->book_id }}">Xem chi tiết</button></td>
+                    <td><button type="submit" class="btn btn-default btn-details" id="{{ $value->book_id }}">Xem chi tiết</button></td>
 
                 </tr>
                 @endforeach
@@ -61,18 +61,48 @@
                 data:{book_id:book_id},
                 success:function(data){
                    $('#modal-details').html(data);
+                   $('#exampleModal').modal('show');
+
                 }
             });
 
         });
 
-        $('.btn-close').on('click',function(){
-        alert('2');
-        });
-        $(document).on('click', '.btn-close', function(){
-            $('#modal-details').hide();
+        $(document).on('click', '.btn-change-book', function(e){
+            e.preventDefault(); //cancel default action
+            swal({
+                title: "Hủy ??",
+                text: 'Bạn có chắc muốn hủy đơn đặt lịch này!',
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                var book_id = $(this).data('book-id');
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url : "{{route('home.appointment.destroy')}}",
+                    method: 'POST',
+                    data:{book_id:book_id,_token:_token},
+                    success:function(data){
+                        swal("Thành công! Đơn đặt lịch của bạn đã được hủy!", {
+                            icon: "success",
+                            });
+                            window.setTimeout(function() {
+                                location.reload();
+                            },3000);
+                        }
+                    });
+            } else {
+                swal("Thoát thao tác thành công!");
+            }
+            });
 
-});
+
+        });
+
+
 
     });
 </script>

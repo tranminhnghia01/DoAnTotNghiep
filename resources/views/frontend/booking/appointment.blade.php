@@ -9,7 +9,7 @@
                 <p class="mb-4">Nhịp sống đô thị đang dần trở nên bận rộn hơn với công việc và xã hội. Đặc biệt thời gian của người phụ nữ dành cho gia đình và chăm sóc nhà cửa cũng càng trở nên eo hẹp hơn. Vậy làm sao để cân bằng được giữa công việc và gia đình luôn là vấn đề khúc mắc của nhiều gia đình Việt. Đã có nhiều gia đình bỏ ra một khoản tiền lớn hằng tháng chỉ để thuê giúp việc cố định nhưng đôi lúc việc này trở nên không thực sự cần thiết vì không phải lúc nào cũng có việc để người giúp việc làm liên tục. Lúc này giúp việc nhà theo giờ sẽ là giải pháp hợp lý cho mọi gia đình!</p>
                 <div class="bg-light rounded d-flex align-items-center p-5 mb-4">
                     <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
-                        <i class="fa fa-phone-alt text-primary"></i>
+                        <i class="fa fa-phone-alt text-orange"></i>
                     </div>
                     <div class="ms-4">
                         <p class="mb-2">Số điện thoại</p>
@@ -18,7 +18,7 @@
                 </div>
                 <div class="bg-light rounded d-flex align-items-center p-5">
                     <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
-                        <i class="fa fa-envelope-open text-primary"></i>
+                        <i class="fa fa-envelope-open text-orange"></i>
                     </div>
                     <div class="ms-4">
                         <p class="mb-2">Địa chỉ của tôi</p>
@@ -34,7 +34,16 @@
                             <input type="hidden" name="book_price" value="80000">
                             <input type="hidden" name="service_id" value="1">
                             <div class="col-md-12">
-                                <label style="color: #000;font-weight: 700" for="">Thời gian làm việc</label>
+                                <label style="font-size: 18px; color: #000;font-weight: 700" for="">Dịch vụ</label>
+                                <select class="form-select border-0" style="height: 55px;">
+                                    <option selected value="1">Giúp việc ca lẻ</option>
+                                    <option value="2">Giúp việc ca cố định</option>
+                                </select>
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <label style="font-size: 18px; color: #000;font-weight: 700" for="">Thời gian làm việc</label>
                                 <div id="dateweek"  style="display: flex;justify-content: space-around;" >
                                 </div>
                                 @error('book_date')
@@ -42,8 +51,51 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-12">
-                                <label style="color: #000;font-weight: 700" for="email">Thời lượng</label>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <label style="font-size: 18px; color: #000;font-weight: 700;margin-right: 20px" for="">Hoặc chọn trong lịch :</label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <div class="col-md-12" id="sandbox-container">
+                                        <div class="input-group date form-control border-0" style="height: 51px;">
+                                            <input type="text" class="form-control border-0" name="book_date"><span class="input-group-addon"><i class="far fa-calendar" style="height: 100%;
+                                                font-size: 21px;
+                                                margin: auto;
+                                                padding: 8px;
+                                                padding-right: 8px;
+                                                color: orange;
+                                                background: #fff;"></i></span>
+                                        </div>
+                                        <script src="{{ asset('date/bootstrap-datepicker.min.js') }}"></script>
+
+                                        <script>
+                                        $('#sandbox-container .input-group.date').datepicker({
+                                            format: "dd/mm/yyyy",
+                                            todayBtn: "linked",
+                                            clearBtn: true,
+                                            multidate: false,
+                                            todayHighlight: true,
+                                            startDate : date(),
+                                        });
+                                        function date() {
+                                                var today = new Date();
+                                                var dd = String(today.getDate()).padStart(2, '0');
+                                                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                                                var yyyy = today.getFullYear();
+                                                today = dd + '/' + mm + '/' + yyyy;
+                                                return today;
+                                        }
+                                        </script>
+                                        </div>
+                                </div>
+                            </div>
+
+
+                                <div class="col-md-12">
+                                <label style="font-size: 18px; color: #000;font-weight: 700" for="email">Thời lượng</label>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="">
@@ -83,7 +135,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-12">
-                                <label style="color: #000;font-weight: 700" for="email">Chọn Giờ làm</label>
+                                <label style="font-size: 18px; color: #000;font-weight: 700" for="email">Thời gian bắt đầu</label>
                                 <div class="form-floating">
                                     <input type="text"
                                         class="form-control border-0 col-sm-6 book_time_start"
@@ -95,7 +147,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-12">
-                                <label style="color: #000;font-weight: 700" for="email">Dịch vụ thêm</label>
+                                <label style="font-size: 18px; color: #000;font-weight: 700" for="email">Dịch vụ thêm</label>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="options-check">
@@ -133,16 +185,16 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <label style="color: #000;font-weight: 700" for="email">Ghi chú cho người làm <br>
+                                <label style="font-size: 18px; color: #000;font-weight: 700" for="email">Ghi chú cho người làm <br>
                                 <span style="font-weight: 300;color:#999">(Ghi chú này sẽ giúp CTV làm nhanh và tối hơn)</span></label>
                                 <div class="">
                                     <textarea class="form-control" rows="5" placeholder="Bạn có yêu cầu gì thêm, hãy nhập ở đây nhé" name="book_notes"></textarea>
                                 </div>
                             </div>
                             <div class="col-12 w-50 mx-auto">
-                                {{-- <button class="btn btn-primary w-100 py-3" type="submit">Book Đặt lịch</button> --}}
-                                <button type="button" class="btn btn-primary w-100 py-3" id="check" data-bs-toggle="modal" data-bs-target="#exampleModal">Tiếp theo</button>
-                                {{-- <button type="button" class="btn btn-primary w-100 py-3 btn-check-book">Tiếp theo</button> --}}
+                                {{-- <button class="btn btn-orange w-100 py-3" type="submit">Book Đặt lịch</button> --}}
+                                <button type="button" class="btn btn-orange w-100 py-3" id="check">Tiếp theo</button>
+                                {{-- <button type="button" class="btn btn-orange w-100 py-3 btn-check-book">Tiếp theo</button> --}}
                             </div>
                         </div>
                         <div id="modal-check"></div>

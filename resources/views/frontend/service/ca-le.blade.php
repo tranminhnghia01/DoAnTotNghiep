@@ -30,14 +30,14 @@
                         <p class="d-inline-block border rounded-pill py-1 px-4">Giới thiệu</p>
                         <h1 class="mb-4">Tại sao lại giúp việc nhà theo giờ? Hãy nói cho chúng tôi biết!</h1>
                         <p>{{ $service->service_des }}</p>
-                        <p><i class="far fa-check-circle text-primary me-3"></i>An toàn</p>
-                        <p><i class="far fa-check-circle text-primary me-3"></i>Chuyên gia</p>
-                        <p><i class="far fa-check-circle text-primary me-3"></i>Tiết kiệm thời gian</p>
-                        <p><i class="far fa-check-circle text-primary me-3"></i>Hỗ trợ</p>
+                        <p><i class="far fa-check-circle text-orange me-3"></i>An toàn</p>
+                        <p><i class="far fa-check-circle text-orange me-3"></i>Chuyên gia</p>
+                        <p><i class="far fa-check-circle text-orange me-3"></i>Tiết kiệm thời gian</p>
+                        <p><i class="far fa-check-circle text-orange me-3"></i>Hỗ trợ</p>
                         @if (Auth::check())
-                            <a class="btn btn-primary rounded-pill py-3 px-5 mt-3" href="{{ route('home.giup-viec-ca-le.create') }}">Đặt lịch</a>
+                            <a class="btn btn-orange rounded-pill py-3 px-5 mt-3" href="{{ route('home.giup-viec-ca-le.create') }}">Đặt lịch</a>
                         @else
-                            <a class="btn btn-primary rounded-pill py-3 px-5 mt-3" href="{{ route('home.login') }}">Đặt lịch</a>
+                            <a class="btn btn-orange rounded-pill py-3 px-5 mt-3" href="{{ route('home.login') }}">Đặt lịch</a>
 
                         @endif
                     </div>

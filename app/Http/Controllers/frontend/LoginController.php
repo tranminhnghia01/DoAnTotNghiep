@@ -106,8 +106,8 @@ class LoginController extends Controller
         return view('frontend.user.loghouse');
     }
 
-    public function housekeeper_store(HousekeeperRequest $req) {
-        $data = $req->all();
+    public function housekeeper_store(Request $request) {
+        $data = $request->all();
         dd($data);
     }
 

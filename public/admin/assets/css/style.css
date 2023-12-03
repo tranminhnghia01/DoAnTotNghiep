@@ -1231,3 +1231,14 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+.role-4{
+    display: -webkit-box;
+    max-height: 7.2rem;
+   -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-line-clamp: 4;
+    line-height: 1.4rem;
+}

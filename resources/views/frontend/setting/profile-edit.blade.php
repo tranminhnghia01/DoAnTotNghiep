@@ -83,7 +83,7 @@
                             </div>
 
                             <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Xác nhận địa chỉ</button>
+                                <button class="btn btn-orange w-100 py-3" type="submit">Xác nhận địa chỉ</button>
                             </div>
                         </div>
                     </form><!-- END -->

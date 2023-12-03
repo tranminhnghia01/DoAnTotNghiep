@@ -78,7 +78,7 @@
             </div>
 
             <div class="modal-footer">
-            <button type="submit" class="btn btn-primary w-100 py-3">Đặt lịch</button>
+            <button type="submit" class="btn btn-orange w-100 py-3">Đặt lịch</button>
             </div>
         </div>
     </div>
@@ -99,8 +99,9 @@
         console.log(book_date);
 
         if (isNaN(book_time_number) || book_date == undefined  ) {
-            alert('Vui long nhập đầy đủ thông tin!');
+            swal("Lỗi!", "Vui lòng điền đầy đủ thông tin!", "warning")
         }else{
+            $('#exampleModal').modal('show');
         var split_start_time= book_time_start.split(':');
         var start_end = parseInt(split_start_time[0])+parseInt(book_time_number) +':'+split_start_time[1];
 

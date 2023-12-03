@@ -7,7 +7,7 @@
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb text-uppercase mb-0">
                     <li class="breadcrumb-item"><a class="text-white" href="#">Trang chủ</a></li>
-                    <li class="breadcrumb-item text-primary active" aria-current="page">Liên hệ</li>
+                    <li class="breadcrumb-item text-orange active" aria-current="page">Liên hệ</li>
                 </ol>
             </nav>
         </div>
@@ -20,7 +20,7 @@
                 <div class="col-lg-4">
                     <div class="h-100 bg-light rounded d-flex align-items-center p-5">
                         <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
-                            <i class="fa fa-map-marker-alt text-primary"></i>
+                            <i class="fa fa-map-marker-alt text-orange"></i>
                         </div>
                         <div class="ms-4">
                             <p class="mb-2">Địa chỉ</p>
@@ -31,7 +31,7 @@
                 <div class="col-lg-4">
                     <div class="h-100 bg-light rounded d-flex align-items-center p-5">
                         <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
-                            <i class="fa fa-phone-alt text-primary"></i>
+                            <i class="fa fa-phone-alt text-orange"></i>
                         </div>
                         <div class="ms-4">
                             <p class="mb-2">Gọi ngay cho chúng tôi</p>
@@ -42,7 +42,7 @@
                 <div class="col-lg-4">
                     <div class="h-100 bg-light rounded d-flex align-items-center p-5">
                         <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
-                            <i class="fa fa-envelope-open text-primary"></i>
+                            <i class="fa fa-envelope-open text-orange"></i>
                         </div>
                         <div class="ms-4">
                             <p class="mb-2">Gửi thư cho chúng tôi</p>
@@ -82,7 +82,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Gửi tin nhắn</button>
+                                    <button class="btn btn-orange w-100 py-3" type="submit">Gửi tin nhắn</button>
                                 </div>
                             </div>
                         </form>

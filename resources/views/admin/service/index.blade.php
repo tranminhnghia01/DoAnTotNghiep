@@ -27,8 +27,12 @@
                     <th scope="row">{{ $key+1 }}</th>
                     <td><img src="{{ asset('uploads/services/'.$val->service_image) }}" alt="" style="max-width: 150px; max-height: 150px;"></td>
                     <td>{{ $val->service_name }}</td>
-                    <td>{{ $val->service_des }}</td>
-                    <td>{{ $val->service_status }}</td>
+                    <td class="role-4">{{ $val->service_des }}</td>
+                    <td>@if ($val->service_status == "on")
+                        <p class="badge bg-success">Kích hoạt</p>
+                    @else
+                        <p class="badge bg-warning">Đang phát triển</p>
+                    @endif</td>
                     <td><div class="dropdown">
                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                         <i class="bx bx-dots-vertical-rounded"></i>

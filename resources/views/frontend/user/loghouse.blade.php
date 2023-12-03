@@ -66,6 +66,19 @@
                                 <span style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-floating" style="font-size: 16px;padding: 5px 12px;">
+                                    <input type="radio"  id="Nu" name="gender" value="0">
+                                    Nữ
+
+                                    <input type="radio"  id="Nam" name="gender" value="1" style="margin-left: 20px">
+                                    Nam
+
+                                </div>
+                                @error('address')
+                                <span style="color: red">{{ $message }}</span>
+                                @enderror
+                            </div>
                             <div class="col-12">
                                 <div class="form-check">
                                   <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
@@ -74,7 +87,7 @@
                                 </div>
                               </div>
                             <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Đăng ký nhận việc</button>
+                                <button class="btn btn-orange w-100 py-3" type="submit">Đăng ký nhận việc</button>
                             </div>
 
                         </div>

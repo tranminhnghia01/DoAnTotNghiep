@@ -32,6 +32,7 @@ class UserController extends Controller
         $shipping = Shipping::where('user_id', $user->user_id)->first();
 
         $book = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')->where('shipping_id',$shipping->shipping_id)->orderBy('book_status', 'desc')->get();
+        // dd($book);
         $city = City::all();
 
         // $book = Book::where('shipping_id',$shipping->id)->get();
@@ -108,7 +109,7 @@ class UserController extends Controller
         }
         $split_time = explode(":",$book->book_time_start);
         $time_end = $split_time[0]+$book->book_time_number .':'.$split_time[1];
-        $output.='<div class="modal fade show" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" style="display: block;padding-left: 0px">
+        $output.='<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="bg-white modal-content">
                         <div class="modal-header">
@@ -171,7 +172,36 @@ class UserController extends Controller
                         </div>
 
                         <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary py-3">Xác nhận</button>
+                        <form>
+                        <input type="hidden" name="_token" value="'.csrf_token().'" />';
+                        switch ($book->book_status) {
+                            case 4:
+                                $output .='
+                            <button type="button"  class="btn btn-success py-3  "><i class="tf-ion-close" aria-hidden="true"> Đánh giá</i></button>
+                           ';
+                                break;
+
+                                case 3:
+                                    $output .='
+                             <button type="button"  class="btn btn-primary py-3  "><i class="tf-ion-close" aria-hidden="true">Đăng lại</i></button>
+                            ';
+                            break;
+
+                            default:
+                            $output .='
+                            <button type="button" class="btn btn-danger  py-3 btn-change-book" data-book-id="'.$book->book_id.'"  style="width:150px"><i class="tf-ion-close" aria-hidden="true">Hủy lịch</i></button>
+                        ';
+                                break;
+                        }
+                        // if ($book->book_status == 4) {
+
+                        // }if ($book->book_status == 3) {
+
+                        //  }else{
+
+                        // }
+                            $output .='
+                        </form>
                         </div>
                     </div>
                 </div>
@@ -179,22 +209,25 @@ class UserController extends Controller
         echo $output;
     }
 
-//     public function destroy(Request $request){
-//         $order_code = $request->order_code;
-//         $order = Order::where('order_code',$order_code)->first();
-//         if($order){
-//             $order->update(['order_status'=>3]);
-//             $msg = 'Hủy đơn đặt hàng thành công!';
-//             $style = 'success';
-//         }else{
-//             $msg = 'Có lỗi xảy ra khi hủy đơn đặt hàng';
-//             $style = 'danger';
-//         }
-//         echo $msg;
-//     }
+    public function destroy(Request $request){
+        $data = $request->all();
+        $book_id = $request->book_id;
+        $book = Book::where('book_id',$book_id)->first();
+        // dd($book);
 
-//     public function delete(Request $request){
-//         $data = $request->all();
-//         print_r($data);
-//     }
+        if($book){
+            $book->update(['book_status'=>3]);
+            $msg = 'Hủy đơn lịch thành công!';
+            $style = 'success';
+        }else{
+            $msg = 'Có lỗi xảy ra khi hủy đơn lịch';
+            $style = 'danger';
+        }
+        echo $msg;
+    }
+
+    public function delete(Request $request){
+        $data = $request->all();
+        dd($data);
+    }
 }

@@ -16,11 +16,11 @@
                     Giúp cải thiện chất lượng không khí, giảm mức tiêu thụ điện năng và tăng tuổi thọ máy lạnh tại nhà hay phòng làm việc của bạn. <br>
                 </p>
                 <p class="mb-4">An tâm với lựa chọn của bạn.</p>
-                <p><i class="far fa-check-circle text-primary me-3"></i>Đặt lịch nhanh chóng</p>
-                <p><i class="far fa-check-circle text-primary me-3"></i>Giá cả rõ ràng</p>
-                <p><i class="far fa-check-circle text-primary me-3"></i>Đa dạng dịch vụ</p>
-                <p><i class="far fa-check-circle text-primary me-3"></i>An toàn tối đa</p>
-                <a class="btn btn-primary rounded-pill py-3 px-5 mt-3" href="">Tìm hiểu thêm</a>
+                <p><i class="far fa-check-circle text-orange me-3"></i>Đặt lịch nhanh chóng</p>
+                <p><i class="far fa-check-circle text-orange me-3"></i>Giá cả rõ ràng</p>
+                <p><i class="far fa-check-circle text-orange me-3"></i>Đa dạng dịch vụ</p>
+                <p><i class="far fa-check-circle text-orange me-3"></i>An toàn tối đa</p>
+                <a class="btn btn-orange rounded-pill py-3 px-5 mt-3" href="">Tìm hiểu thêm</a>
             </div>
         </div>
     </div>

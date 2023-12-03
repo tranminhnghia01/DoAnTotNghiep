@@ -11,8 +11,8 @@
                         <img class="img-fluid" src="img/team-1.jpg" alt="">
                     </div>
                     <div class="team-text bg-light text-center p-4">
-                        <h5>Doctor Name</h5>
-                        <p class="text-primary">Department</p>
+                        <h5>Housekeeper Name</h5>
+                        <p class="text-orange">Department</p>
                         <div class="team-social text-center">
                             <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
@@ -27,8 +27,8 @@
                         <img class="img-fluid" src="img/team-2.jpg" alt="">
                     </div>
                     <div class="team-text bg-light text-center p-4">
-                        <h5>Doctor Name</h5>
-                        <p class="text-primary">Department</p>
+                        <h5>Housekeeper Name</h5>
+                        <p class="text-orange">Department</p>
                         <div class="team-social text-center">
                             <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
@@ -43,8 +43,8 @@
                         <img class="img-fluid" src="img/team-3.jpg" alt="">
                     </div>
                     <div class="team-text bg-light text-center p-4">
-                        <h5>Doctor Name</h5>
-                        <p class="text-primary">Department</p>
+                        <h5>Housekeeper Name</h5>
+                        <p class="text-orange">Department</p>
                         <div class="team-social text-center">
                             <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
@@ -59,8 +59,8 @@
                         <img class="img-fluid" src="img/team-4.jpg" alt="">
                     </div>
                     <div class="team-text bg-light text-center p-4">
-                        <h5>Doctor Name</h5>
-                        <p class="text-primary">Department</p>
+                        <h5>Housekeeper Name</h5>
+                        <p class="text-orange">Department</p>
                         <div class="team-social text-center">
                             <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
