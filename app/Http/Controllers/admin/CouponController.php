@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $data = Coupon::all();
@@ -100,4 +100,7 @@ class CouponController extends Controller
             $msg = 'Có lỗi xảy ra khi xóa mã giảm giá. ';
         };
     }
+
+
+
 }

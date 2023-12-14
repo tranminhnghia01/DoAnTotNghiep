@@ -13,11 +13,11 @@ use Illuminate\Http\Request;
 
 class HousekeeperController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $role = Role::all();
@@ -110,7 +110,6 @@ class HousekeeperController extends Controller
         $city = City::all();
 
         $user = User::where('user_id',$id)->first();
-        // dd($user->role_id);
         $role = Role::find($user->role_id);
 
         $housekeeper = Housekeeper::where('housekeeper_id',$id)->first();

@@ -703,3 +703,38 @@
 }
 
 
+
+
+.service2-label {
+    cursor: pointer;
+    margin-bottom: 20px;
+
+}
+
+.service2-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.service2-text {
+    color: hsl(0, 0%, 60%);
+    font-size: 18px;
+    padding: 14px 8px;
+    border-radius: 5px;
+    border: 1px solid #dfdfdf;
+    background-color: #fff;
+    text-align: center;
+}
+
+.service2-input:checked~.service2-text {
+    background-color: #FF8228;
+    color: #fff;
+}
+
+
+
+
+

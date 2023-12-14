@@ -3,9 +3,17 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
+use App\Models\Coupon;
+use App\Models\Payment;
+use App\Models\Service;
+use App\Models\Shipping;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class ServiceFixedController extends Controller
+class BookingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +22,7 @@ class ServiceFixedController extends Controller
      */
     public function index()
     {
-        return view('frontend.service.default.ca-co-dinh');
+        //
     }
 
     /**
@@ -24,7 +32,19 @@ class ServiceFixedController extends Controller
      */
     public function create()
     {
-        //
+        $today = Carbon::now()->format('l,d-m-Y');
+        $id= Auth::id();
+        $user = User::findOrFail($id);
+
+        $city = City::all();
+        $payment = Payment::all();
+        $coupon = Coupon::all();
+
+        //get shipping info
+        $shipping = Shipping::where('user_id', $user->user_id)->first();
+        $service = Service::all();
+
+        return view('frontend.booking.dat-lich')->with(compact('today','shipping','payment','coupon','service'));
     }
 
     /**

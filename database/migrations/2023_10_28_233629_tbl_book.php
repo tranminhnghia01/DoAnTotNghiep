@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tbl_booking', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('book_id');
+            $table->string('book_id')->unique();
             $table->integer('service_id');
             $table->integer('wishlist_id')->nullable();
             $table->integer('shipping_id');

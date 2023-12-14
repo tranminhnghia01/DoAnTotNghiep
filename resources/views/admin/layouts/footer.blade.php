@@ -5,7 +5,7 @@
     <!-- Vendor JS Files -->
     <script src="{{ asset('admin/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/vendor/chart.js') }}/chart.umd.js') }}"></script>
+    <script src="{{ asset('admin/assets/vendor/chart.js/chart.umd.js') }}"></script>
     <script src="{{ asset('admin/assets/vendor/echarts/echarts.min.js') }}"></script>
     <script src="{{ asset('admin/assets/vendor/quill/quill.min.js') }}"></script>
     <script src="{{ asset('admin/assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
@@ -18,6 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
+
 
             var address = '';
             $('.choose').on('change',function(){
@@ -63,8 +64,79 @@
         input.addEventListener("change",()=>{
           img.src = URL.createObjectURL(input.files[0]);
         });
+
+
+
       });
 
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.btn-chamcong').on('click',function(){
+                        var book_id = $(this).data('book_id');
+                        console.log(book_id);
+
+            });
+
+            //>>>>>>>> bắt đầu Ca lẻ
+
+
+
+    //>>>>>>>> bắt đầu Ca cố định
+    $('.btn-booking-details').on('click',function(){
+        $('#modal-details').show();
+         var action = $(this).data('action');
+         console.log(action);
+
+        var book_id = $(this).attr('id');
+        // var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url : "{{route('admin.details.show')}}",
+            method: 'GET',
+            data:{book_id:book_id,action:action},
+            success:function(data){
+                $('#modal-details').html(data);
+                $('#exampleModal').modal('show');
+
+            }
+        });
+
+    });
+    $(document).on('click', '.btn-change-bookdefault', function(e){
+        e.preventDefault(); //cancel default action
+        swal({
+            title: "Hủy ??",
+            text: 'Bạn có chắc muốn hủy đơn đặt lịch này!',
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                var book_id = $(this).data('book-id');
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url : "{{route('home.appointment.destroydefault')}}",
+                    method: 'POST',
+                    data:{book_id:book_id,_token:_token},
+                    success:function(data){
+                        swal("Thành công! Đơn đặt lịch của bạn đã được hủy!", {
+                            icon: "success",
+                            });
+                            window.setTimeout(function() {
+                                location.reload();
+                            },3000);
+                        }
+                    });
+            } else {
+                swal("Thoát thao tác thành công!");
+            }
+        });
+
+    });
+    // Kết thúc ca cố định<<<<<<<<<<
+
+        })
     </script>
 
     </body>

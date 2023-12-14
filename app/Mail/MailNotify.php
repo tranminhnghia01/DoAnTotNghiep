@@ -13,14 +13,15 @@ class MailNotify extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $book;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($book)
     {
-        //
+        $this->book = $book;
     }
 
     /**
@@ -31,7 +32,7 @@ class MailNotify extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Mail Notify',
+            subject: 'Đặt lịch dọn dẹp thành công',
         );
     }
 
@@ -43,7 +44,7 @@ class MailNotify extends Mailable
     public function content()
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.index',
         );
     }
 

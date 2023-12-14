@@ -1,10 +1,12 @@
 <div class="table-responsive">
-    <table class="table" style="text-align: center">
+    <table class="table datatable" style="text-align: center">
         <thead>
             <tr>
+                <th>STT</th>
                 <th>Địa chỉ</th>
-                <th>Ngày làm việc</th>
-                <th>Thời lượng</th>
+                <th>Ngày bắt đầu làm việc</th>
+                <th>Số buổi</th>
+                <th>Dịch vụ</th>
                 <th>Tổng hóa đơn</th>
                 <th>Tình trạng</th>
                 <th></th>
@@ -16,11 +18,27 @@
                 @php
                      $time= explode(':',$value->book_time_start);
                      $time_end = $time[0]+ $value->book_time_number.':'.$time[1];
+                     $weekday = [
+                        'Monday' => 'Thứ 2',
+                        'Tuesday' => 'Thứ 3',
+                        'Wednesday' => 'Thứ 4',
+                        'Thursday' => 'Thứ 5',
+                        'Friday' => 'Thứ 6',
+                        'Saturday' => 'Thứ 7',
+                        'Sunday' => 'Chủ nhật',
+                    ];
+                    $date =  explode(",",$value->book_date);
+                            $changedate = explode("/",$date[0]);
+                             $date[0] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
                 @endphp
                 <tr>
+                    <td>{{ $key+1}}</td>
                     <td>{{ $value->book_address }}</td>
-                    <td>{{ date('l d/m/Y',strtotime($value->book_date)).' - '. $value->book_time_start }}</td>
-                    <td>{{ $value->book_time_number .'giờ,'.$value->book_time_start .' - '.$time_end }}</td>
+
+                        <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start }}</td>
+                        <td>{{ Count($date) }}</td>
+
+                    <td>{{ $value->service_name }}</td>
                     <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
                     @switch($value->book_status)
                         @case(1)
@@ -35,7 +53,13 @@
                         @default
                             <td><span class="btn btn-success" style="color: white;width: 170px;">Hoàn thành</span></td>
                     @endswitch
-                    <td><button type="submit" class="btn btn-default btn-details" id="{{ $value->book_id }}">Xem chi tiết</button></td>
+                    @if ($value->service_id == 1)
+                         <td><button type="submit" class="btn btn-default btn-details" id="{{ $value->book_id }}">Xem chi tiết</button></td>
+                    @else
+                        {{-- <td><a href="{{ route('home.appointment.details',$value->book_id) }}" class="btn btn-default btn-details-fixed" id="{{ $value->book_id }}">Xem chi tiết</a></td> --}}
+                        <td><button type="submit" class="btn btn-default btn-details-fixed" id="{{ $value->book_id }}">Xem chi tiết</button></td>
+
+                    @endif
 
                 </tr>
                 @endforeach
@@ -48,36 +72,37 @@
     </table>
 </div>
 <script>
-    $(document).ready(function(){
-        $('.btn-details').on('click',function(){
-            $('#modal-details').show();
-            $("#address").val();
+$(document).ready(function(){
 
-            var book_id = $(this).attr('id');
-            // var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url : "{{route('home.appointment.show')}}",
-                method: 'GET',
-                data:{book_id:book_id},
-                success:function(data){
-                   $('#modal-details').html(data);
-                   $('#exampleModal').modal('show');
+    //>>>>>>>> bắt đầu Ca lẻ
+    $('.btn-details').on('click',function(){
+        $('#modal-details').show();
+        $("#address").val();
 
-                }
-            });
+        var book_id = $(this).attr('id');
+        // var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url : "{{route('home.appointment.show')}}",
+            method: 'GET',
+            data:{book_id:book_id},
+            success:function(data){
+                $('#modal-details').html(data);
+                $('#exampleModal').modal('show');
 
+            }
         });
 
-        $(document).on('click', '.btn-change-book', function(e){
-            e.preventDefault(); //cancel default action
-            swal({
-                title: "Hủy ??",
-                text: 'Bạn có chắc muốn hủy đơn đặt lịch này!',
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
+    });
+    $(document).on('click', '.btn-change-book', function(e){
+        e.preventDefault(); //cancel default action
+        swal({
+            title: "Hủy ??",
+            text: 'Bạn có chắc muốn hủy đơn đặt lịch này!',
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
             if (willDelete) {
                 var book_id = $(this).data('book-id');
                 var _token = $('input[name="_token"]').val();
@@ -97,12 +122,64 @@
             } else {
                 swal("Thoát thao tác thành công!");
             }
-            });
-
-
         });
 
+    });
+    // Kết thúc ca lẻ>>>>>>>>>>>
 
+
+    //>>>>>>>> bắt đầu Ca cố định
+    $('.btn-details-fixed').on('click',function(){
+        $('#modal-details').show();
+        $("#address").val();
+
+        var book_id = $(this).attr('id');
+        // var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url : "{{route('home.appointment.showfixed')}}",
+            method: 'GET',
+            data:{book_id:book_id},
+            success:function(data){
+                $('#modal-details').html(data);
+                $('#exampleModal').modal('show');
+
+            }
+        });
 
     });
+    $(document).on('click', '.btn-change-bookdefault', function(e){
+        e.preventDefault(); //cancel default action
+        swal({
+            title: "Hủy ??",
+            text: 'Bạn có chắc muốn hủy đơn đặt lịch này!',
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                var book_id = $(this).data('book-id');
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url : "{{route('home.appointment.destroydefault')}}",
+                    method: 'POST',
+                    data:{book_id:book_id,_token:_token},
+                    success:function(data){
+                        swal("Thành công! Đơn đặt lịch của bạn đã được hủy!", {
+                            icon: "success",
+                            });
+                            window.setTimeout(function() {
+                                location.reload();
+                            },3000);
+                        }
+                    });
+            } else {
+                swal("Thoát thao tác thành công!");
+            }
+        });
+
+    });
+    // Kết thúc ca cố định<<<<<<<<<<
+
+});
 </script>
