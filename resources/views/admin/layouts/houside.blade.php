@@ -21,21 +21,10 @@
       <li class="nav-heading">Chức năng</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('admin.Appoin-create') }}">
-          <i class="bi bi-person"></i>
-          <span>Đơn lịch mới</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-calendar-date"></i><span>Đơn lịch của tôi</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-calendar-date"></i><span>Danh sách đơn lịch</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-                <a href="{{ route('admin.Appoin-confirm') }}">
-                  <i class="bi bi-circle"></i><span>Mới</span>
-                </a>
-              </li>
           <li>
             <a href="{{ route('admin.Appoin-index') }}">
               <i class="bi bi-circle"></i><span>Chưa hoàn thành</span>

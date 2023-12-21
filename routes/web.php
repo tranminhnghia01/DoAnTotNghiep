@@ -70,10 +70,10 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
     Route::post('/Account/destroydefault', [App\Http\Controllers\frontend\UserController::class,'destroydefault'])->name('appointment.destroydefault');
 
     //ca cố định
-    Route::get('/Account/details/{book_id}', [App\Http\Controllers\frontend\UserController::class,'details'])->name('appointment.details');
 
 
-
+    //Phương thức thanh toán
+    Route::post('/Account/payment/online/{book_id}', [App\Http\Controllers\frontend\BookingController::class,'payment_Online'])->name('appointment.payment.online');
     Route::GET('dat-lich/thanks',[App\Http\Controllers\HomeController::class, 'thanks'])->name('thanks');
 
 
@@ -90,7 +90,7 @@ Auth::routes();
 Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 {
     Route::post('/select-address',[App\Http\Controllers\HomeController::class,'select_address'])->name('select-address');
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [App\Http\Controllers\admin\DashboardController::class, 'index'])->name('home');
     Route::get('/logout', [App\Http\Controllers\HomeController::class,'logout'])->name('logout');
     Route::get('/account/profile', [App\Http\Controllers\admin\AccountController::class,'index'])->name('account');
     Route::post('/account/profile', [App\Http\Controllers\admin\AccountController::class,'update'])->name('account.update');
@@ -98,13 +98,29 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 
 
     Route::resource('housekeeper', App\Http\Controllers\admin\HousekeeperController::class);
+     //show appointment housekeeper
+    Route::get('/details-housekeeper/{housekeeper_id}', [App\Http\Controllers\admin\HousekeeperController::class,'show_Details'])->name('housekeeper.appointment-details');
+
 
 
     Route::resource('service', App\Http\Controllers\admin\ServiceController::class);
     Route::resource('coupon', App\Http\Controllers\admin\CouponController::class);
 
+    ///Apppointment
     Route::resource('appointment', App\Http\Controllers\admin\BookingController::class);
+    Route::get('/appointment/confirm/{book_id}', [App\Http\Controllers\admin\BookingController::class,'confirm'])->name('appointment.confirm');
+    Route::post('/appointment-confirm/{book_id}', [App\Http\Controllers\admin\BookingController::class,'post_Confirm'])->name('appointment.post-confirm');
+
+    Route::get('/search-confirm', [App\Http\Controllers\admin\BookingController::class,'search_confirm'])->name('appointment.search-confirm');
+
+
+
+
+
     Route::resource('bill', App\Http\Controllers\admin\BillController::class);
+
+    Route::get('/Thong-ke', [App\Http\Controllers\admin\DashboardController::class, 'index'])->name('thongke-index');
+
 
 
 
@@ -112,19 +128,16 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 
     // Chức năng người giúp việc
 
-    Route::get('/Appoin/new', [App\Http\Controllers\Housepicker\BookingController::class,'create'])->name('Appoin-create');
-    Route::get('/Appoin/new/{book_id}', [App\Http\Controllers\Housepicker\BookingController::class,'store'])->name('Appoin-store');
-
-
-    Route::get('/Appoin/confirm-new', [App\Http\Controllers\Housepicker\BookingController::class,'confirm'])->name('Appoin-confirm');
     Route::get('/Appoin/list', [App\Http\Controllers\Housepicker\BookingController::class,'index'])->name('Appoin-index');
     Route::get('/Appoin/profile', [App\Http\Controllers\Housepicker\BookingController::class,'profile'])->name('Appoin-profile');
 
     Route::get('/Appoin/Bill', [App\Http\Controllers\Housepicker\BillController::class,'index'])->name('Appoin-bill');
     Route::get('/Appoin/ChamCong/{book_id}', [App\Http\Controllers\Housepicker\BillController::class,'ChamCong'])->name('Appoin-ChamCong');
+    Route::post('/Appoin/list/destroy', [App\Http\Controllers\Housepicker\BillController::class,'destroy'])->name('Appoin-detail-destroy');
 
 
-    Route::get('/Account/show', [App\Http\Controllers\admin\BookingController::class,'show'])->name('details.show');
+
+    Route::get('/Account/show', [App\Http\Controllers\admin\BookingController::class,'fast_Show'])->name('details.show');
 
 
 

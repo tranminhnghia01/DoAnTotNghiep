@@ -10,6 +10,7 @@ use App\Models\History;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Payment;
+use App\Models\PaymentOnline;
 use App\Models\Province;
 use App\Models\Shipping;
 use App\Models\User;
@@ -47,6 +48,8 @@ class UserController extends Controller
     {
 
     }
+
+
 
     public function update(Request $request, $id)
     {
@@ -91,9 +94,10 @@ class UserController extends Controller
         $id= Auth::id();
         $user = User::findOrFail($id);
         $shipping = Shipping::where('user_id', $user->user_id)->first();
-        $book = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')->where('tbl_booking.book_id',$book_id)->first();
+        $book = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
+        ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking.payment_id')->where('tbl_booking.book_id',$book_id)->first();
 
-        $payment = Payment::find($book->payment_id);
+        $payment = Payment::where('payment_id','!=',1)->get();
         $coupon = Coupon::find($book->coupon_id);
         if($coupon == true){
             $coupon_number = $coupon->coupon_number;
@@ -168,17 +172,44 @@ class UserController extends Controller
                                         <p class="check-notes">'.$book->book_notes.'</p>
                                     </div>
                                 </div>
-                                <div class="col-12 col-sm-6">
-                                    <h5 class="modal-title">Phương thức thanh toán</h5>
-                                </div>
-                                <div class="col-12 col-sm-6">
+                                <div style="display: flex; justify-content: space-between">
+                                <div class="col-sm-6">
                                     <h5 class="modal-title">Khuyễn mãi</h5>
                                 </div>
-                                <div class="col-12 col-sm-6">
-                                    <p class="form-control border-0 bg-light" style="height: 55px;color:#000">'.$payment->payment_method.'</p>
+                                <div class="col-sm-6">
+                                    <select class="form-select border-0" id="coupon" style="height: 55px;" name="coupon_id">
+                                        <option selected>'.$coupon_number.''.$method.'</option>
+                                    </select>
                                 </div>
-                                <div class="col-12 col-sm-6">
-                                    <p class="form-control border-0 bg-light" style="height: 55px;color:#000">'.$coupon_number.''.$method.'</p>
+                            </div>
+
+                                <div style="display: flex; justify-content: space-between">
+                                    <div class="col-sm-4">
+                                        <h5 class="modal-title">Phương thức thanh toán</h5>
+                                    </div>
+                                    <form action="'.route('home.appointment.payment.online',$book->book_id ).'" method="post"  class="col-sm-8">
+                                        <input type="hidden" name="_token" value="'.csrf_token().'" />
+                                        <div class="row">
+                                        <div class="col-sm-6">
+                                            <select class="form-select border-0" style="height: 55px;" name="payment_id">';
+                                            foreach ($payment as $key => $value) {
+                                                $output .=' <option selected value="'.$value->payment_id.'">'.$value->payment_method.'</option>';
+
+                                            }
+                                                $output .='
+                                            </select>
+                                        </div>';
+                                        if ($book->book_status == 2) {
+                                            $output .='
+                                            <div class="col-sm-6">
+                                                <button type="submit" name="redirect"  class="btn btn-primary py-3" style="width:100%" ><i class="tf-ion-close">Thanh toán Online</i></button>
+                                            </div>
+                                            </div>
+                                            ';
+                                        }
+
+                                        $output .='
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -266,16 +297,20 @@ class UserController extends Controller
             'Thursday' => 'Thứ 5',
             'Friday' => 'Thứ 6',
             'Saturday' => 'Thứ 7',
-            'Sunday' => 'Chủ nhật',
+            'Sunday' => 'CN',
         ];
         $output = '';
         $id= Auth::id();
         $user = User::findOrFail($id);
         $shipping = Shipping::where('user_id', $user->user_id)->first();
-        $book = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')->where('tbl_booking.book_id',$book_id)->first();
+        $book = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
+        ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking.payment_id')->where('tbl_booking.book_id',$book_id)->first();
 
-        $payment = Payment::find($book->payment_id);
+        $payment = Payment::where('payment_id','!=',1)->get();
         $coupon = Coupon::find($book->coupon_id);
+
+        $paymentonline = PaymentOnline::where('TxnRef',$book_id)->first();
+        // dd($paymentonline);
         if($coupon == true){
             $coupon_number = $coupon->coupon_number;
             if($coupon->coupon_method == 0){
@@ -336,13 +371,21 @@ class UserController extends Controller
                                 <h5 class="modal-title">Thông tin công việc</h5>
                                 <div class="col-sm-12" style="    border: 1px solid #ccc; border-radius: 5px; padding: 20px;">
                                     <p style="font-weight: 600">Thời gian làm việc</p>
-                                    <div style="display: flex; justify-content: space-between">
-                                        <label for="">Ngày bắt đầu làm việc</label>
-                                        <p class="check-date">'.$weekday[date('l',strtotime($listdate[0]))].', '.date('d/m/Y',strtotime($listdate[0])).'</p>
-                                    </div>
-                                    <div style="display: flex; justify-content: space-between">
-                                        <label for="">Ngày kết thúc làm việc</label>
-                                        <p class="check-date">'.$weekday[date('l',strtotime($listdate[$count_date-1]))].', '.date('d/m/Y',strtotime($listdate[$count_date-1])).'</p>
+                                    <div style="display: flex; justify-content: space-between;height:40px">
+                                        <label for="">Ngày làm việc</label>
+                                        <select class="check-time" style="outline: #ccc;
+                                            border: 1px solid #ccc;
+                                            border-radius: 5px;
+                                            padding: 0px 20px;">
+                                            ';
+
+                                            foreach ($listdate as $key => $value) {
+                                                $output.='
+                                                <option>'.$weekday[date('l',strtotime($listdate[$key]))].', '.date('d/m/Y',strtotime($listdate[$key])).'</option>
+                                                ';
+                                            }
+                                            $output .='
+                                        </select>
                                     </div>
 
                                     <div style="display: flex; justify-content: space-between">
@@ -370,17 +413,56 @@ class UserController extends Controller
                                         <p class="check-notes">'.$book->book_notes.'</p>
                                     </div>
                                 </div>
-                                <div class="col-12 col-sm-6">
-                                    <h5 class="modal-title">Phương thức thanh toán</h5>
+                            <div style="display: flex; justify-content: space-between">
+                                <div class="col-sm-6">
+                                    <h5 class="modal-title">Khuyễn mãi</h5>
                                 </div>
-                                <div class="col-12 col-sm-6">
-                                    <h5 class="modal-title">Khuyến mãi</h5>
+                                <div class="col-sm-6">
+                                    <select class="form-select border-0" id="coupon" style="height: 55px;" name="coupon_id">
+                                        <option selected>'.$coupon_number.''.$method.'</option>
+                                    </select>
                                 </div>
-                                <div class="col-12 col-sm-6">
-                                    <p class="form-control border-0 bg-light" style="height: 55px;color:#000">'.$payment->payment_method.'</p>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <p class="form-control border-0 bg-light" style="height: 55px;color:#000">'.$coupon_number.''.$method.'</p>
+                            </div>
+
+                                <div style="display: flex; justify-content: space-between">
+                                    <div class="col-sm-4">
+                                        <h5 class="modal-title">Phương thức thanh toán</h5>
+                                    </div>
+                                    <form action="'.route('home.appointment.payment.online',$book->book_id ).'" method="post"  class="col-sm-8">
+                                        <input type="hidden" name="_token" value="'.csrf_token().'" />
+                                        <div class="row">
+                                        <div class="col-sm-6">
+                                            <select class="form-select border-0" style="height: 55px;" name="payment_id">';
+                                            foreach ($payment as $key => $value) {
+                                                $output .=' <option selected value="'.$value->payment_id.'">'.$value->payment_method.'</option>';
+
+                                            }
+                                                $output .='
+                                            </select>
+                                        </div>';
+                                        if ($book->book_status == 2) {
+                                            if($paymentonline){
+
+                                            $output .='
+                                            <div class="col-sm-6">
+                                                <a class="btn btn-primary py-3" disable style="width:100%" ><i class="tf-ion-close">Đã thanh toán</i></a>
+                                            </div>
+                                            </div>
+                                            ';
+
+                                            }else{
+                                                $output .='
+                                                <div class="col-sm-6">
+                                                    <button type="submit" name="redirect"  class="btn btn-primary py-3" style="width:100%" ><i class="tf-ion-close">Thanh toán Online</i></button>
+                                                </div>
+                                                </div>
+                                                ';
+
+                                            }
+                                        }
+
+                                        $output .='
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -399,6 +481,12 @@ class UserController extends Controller
                            ';
                                 break;
 
+                                case 2:
+                                    $output .='
+                            <button type="button" class="btn btn-danger  py-3 btn-change-bookdefault" data-book-id="'.$book->book_id.'"  style="width:150px"><i class="tf-ion-close" aria-hidden="true">Hủy lịch</i></button>
+
+                            ';
+                            break;
                                 case 3:
                                     $output .='
                              <button type="button"  class="btn btn-primary py-3  "><i class="tf-ion-close" aria-hidden="true">Đăng lại</i></button>
@@ -458,7 +546,7 @@ class UserController extends Controller
         $data = $request->all();
         $book_id = $request->book_id;
         $book = Book::where('book_id',$book_id)->first();
-        dd($book);
+        // dd($book);
         $history = History::where('book_id',$book_id)->first();
 
         if($book){

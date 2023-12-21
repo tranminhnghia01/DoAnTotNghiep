@@ -3,10 +3,9 @@
 <section class="section">
     <div class="row">
       <div class="col-lg-12">
-
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Danh sách đơn lịch</h5>
+            <h5 class="card-title">Hóa đơn</h5>
             <!-- Table with stripped rows -->
             <div class="table-responsive">
                 <table class="table datatable" style="text-align: center">
@@ -14,12 +13,11 @@
                         <tr>
                             <th>STT</th>
                             <th>Tên</th>
-                            <th>Địa chỉ</th>
                             <th>Ngày bắt đầu làm việc</th>
                             <th>Dịch vụ</th>
                             <th>Đã hoàn thành(Buổi)</th>
-                            <th>Tổng hóa đơn</th>
-                            <th>Httt</th>
+                            <th>Tổng tiền</th>
+                            <th>Thanh toán</th>
                             <th>Trạng thái</th>
                             <th></th>
                         </tr>
@@ -37,7 +35,7 @@
                                     'Thursday' => 'Thứ 5',
                                     'Friday' => 'Thứ 6',
                                     'Saturday' => 'Thứ 7',
-                                    'Sunday' => 'Chủ nhật',
+                                    'Sunday' => 'CN',
                                 ];
                                     $date =  explode(",",$value->book_date);
                                         $changedate = explode("/",$date[0]);
@@ -47,7 +45,6 @@
                             <tr>
                                 <td>{{ $key+1}}</td>
                                 <td>{{ $value->shipping_name }}</td>
-                                <td>{{ $value->book_address }}</td>
                                     <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start }}</td>
 
                                     <td>{{ $value->service_name }}</td>
@@ -55,14 +52,18 @@
 
 
                                 <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
-                                <td>{{ $value->payment_method }} </td>
+                                <td>@if ($value->payment_id == 1)
+                                    <span class="badge border-success border-1 text-success">Tiền mặt</span>
+                                @else
+                                    <span class="badge border-success border-1 text-success">Đã thanh toán Online</span>
+                                @endif</td>
 
                                 @switch($value->book_status)
                                     @case(3)
-                                        <td><span class="btn btn-danger" style="color: white;width: 170px;">Đã hủy</span></td>
+                                        <td><span class="btn btn-danger" style="color: white;width: 170px;">Hủy</span></td>
                                         @break
                                     @default
-                                        <td><span class="btn btn-primary" style="color: white;width: 170px;">Đã hoàn thành</span></td>
+                                        <td><span class="btn btn-primary" style="color: white;width: 170px;">Hoàn thành</span></td>
                                 @endswitch
                                 <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}">Xem chi tiết</button></td>
 
@@ -71,17 +72,10 @@
                             @endif
 
                             @endforeach
-                            {{-- @else
-                                <tr><td>Bạn chưa có đơn đặt lịch nào!</td></tr>
-
-                        @endif --}}
                         <div id="modal-details"></div>
                     </tbody>
                 </table>
             </div>
-
-            <!-- End Table with stripped rows -->
-
           </div>
         </div>
 

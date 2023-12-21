@@ -56,7 +56,7 @@ class BookingController extends Controller
         $book = History::join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
             ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
             ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
-            ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking_details.payment_id')
+            ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking.payment_id')
             ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
             ->where('housekeeper_id',$user->user_id)->get();
             // dd($book);

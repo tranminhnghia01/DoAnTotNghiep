@@ -116,7 +116,7 @@
                 var book_id = $(this).data('book-id');
                 var _token = $('input[name="_token"]').val();
                 $.ajax({
-                    url : "{{route('home.appointment.destroydefault')}}",
+                    url : "{{route('admin.Appoin-detail-destroy')}}",
                     method: 'POST',
                     data:{book_id:book_id,_token:_token},
                     success:function(data){
@@ -137,6 +137,48 @@
     // Kết thúc ca cố định<<<<<<<<<<
 
         })
+
+
+    //search confirm
+    var selectstartage = '';
+    for (let i = 19; i <= 40; i++) {
+        selectstartage += "<option value='"+i+"'>"+i+"</option>";
+        }
+    $("#select-age-start").append(selectstartage);
+
+
+    var htmlage = '';
+    $('select[name="age_start"]').on('change',function(){
+        var age_start = $(this).val();
+
+        console.log(age_start);
+        for (let i = 40; i >= age_start; i--) {
+            htmlage += "<option value='"+i+"'>"+i+"</option>";
+        }
+        $("#select-age-end").html(htmlage);
+
+    });
+
+
+    $('.btn-search-confirm').on('click',function(){
+        var keywords = $('#search-confirm').find('input[name="keywords"]').val();
+        var gender = $('#search-confirm').find('select[name="gender"]').val();
+        var age_start = $('#search-confirm').find('select[name="age_start"]').val();
+        var age_end = $('#search-confirm').find('select[name="age_end"]').val();
+        var book_id = $('#search-confirm').find('input[name="book_id"]').val();
+        console.log(keywords);
+        console.log(gender);
+        console.log(age_start);
+        console.log(age_end);
+        $.ajax({
+            url : "{{route('admin.appointment.search-confirm')}}",
+            method: 'GET',
+            data:{keywords:keywords,gender:gender,age_start:age_start,age_end:age_end,book_id:book_id},
+            success:function(data){
+                $('#list-search-confirm').html(data);
+            }
+        });
+    });
     </script>
 
     </body>

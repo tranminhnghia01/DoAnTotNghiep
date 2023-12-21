@@ -28,6 +28,8 @@
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('admin/assets/css/style.css') }}" rel="stylesheet">
+  <link href="{{ asset('frontend/css/sweetalert.css') }}" rel="stylesheet">
+  <script src="{{ asset('frontend/css/sweetalert.min.js') }}"></script>
 
   <!-- =======================================================
   * Template Name: NiceAdmin

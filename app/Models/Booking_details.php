@@ -12,8 +12,6 @@ class Booking_details extends Model
 
     protected $fillable =[
         'book_id',
-        'coupon_id',
-        'payment_id',
         'book_date',
         'book_time_start',
         'book_time_number',

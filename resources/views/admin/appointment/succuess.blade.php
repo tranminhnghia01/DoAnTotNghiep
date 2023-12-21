@@ -7,10 +7,10 @@
                   <th>STT</th>
                   <th>Người nhận</th>
                   <th>Người đặt</th>
+                  <th>Địa chỉ</th>
                   <th>Ngày bắt đầu làm việc</th>
                   <th>Dịch vụ</th>
                   <th>Tổng hóa đơn</th>
-                  <th>Tình trạng</th>
                   <th></th>
               </tr>
           </thead>
@@ -33,16 +33,15 @@
                                   $changedate = explode("/",$date[0]);
                                   $date[0] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
                   @endphp
-                  @if ($value->book_status == 2)
+                  @if ($value->history_status == 2)
                       <tr>
                           <td>{{ $key+1}}</td>
                           <td>{{ $value->name }}</td>
                           <td>{{ $value->shipping_name }}</td>
                           <td>{{ $value->book_address }}</td>
-                          <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start.' - '. $value->book_time_start .'Tổng số buổi :'.count($date) }}</td>
+                          <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start.' - '. $value->book_time_start}}</td>
                           <td>{{ $value->service_name }}</td>
                           <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
-                          <td><span class="btn btn-success" style="color: white;width: 170px;">Chưa hoàn thành</span></td>
                           <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}">Xem chi tiết</button></td>
 
 

@@ -15,6 +15,7 @@ class History extends Model
             'history_status',
             'history_notes',
             'date_finish',
+            'history_pevious_date',
             'history_refund',
 
     ];

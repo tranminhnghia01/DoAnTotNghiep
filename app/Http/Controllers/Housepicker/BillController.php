@@ -28,9 +28,8 @@ class BillController extends Controller
             ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
             ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
             ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
-            ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking_details.payment_id')
+            ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking.payment_id')
             ->where('housekeeper_id',$user->user_id)->get();
-
         return view('housekeeper.bill')->with(compact('book','user'));
 
         // dd($book);
@@ -63,12 +62,13 @@ class BillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function ChamCong($book_id)
+    public function ChamCong(Request $request,$book_id)
     {
+        // dd($request->all());
         $id= Auth::id();
         $user = User::findOrFail($id);
 
-        $history = History::where('book_id',$book_id)->first();
+        $history = History::where('book_id',$book_id)->where('housekeeper_id',$user->user_id)->first();
         $book = Book::where('book_id',$book_id)->first();
         $bookdetail = Booking_details::where('book_id',$book_id)->first();
         $now = Carbon::now()->format('d/m/Y');
@@ -77,13 +77,13 @@ class BillController extends Controller
             $change = [
                 'date_finish'=>1,
                 'history_status'=> 4,
+                'history_notes'=> $request->history_notes,
             ];
-            // dd($bookdetail->book_date);
             if($now >= $bookdetail->book_date)
             {
                 $history->update($change);
                 $book->update(['book_status'=> 4]);
-                $msg = 'Chấm công thành công';
+                $msg = 'Công việc đã hoàn thành';
                 $style = 'success';
             }else{
                 $msg = 'Chấm công không thành công, có lỗi xảy ra! Vui lòng thử lại sau';
@@ -92,32 +92,33 @@ class BillController extends Controller
 
         }else{
             $days= explode(",",$bookdetail->book_date);
-            sort($days);
-            // dd($days);
-            $count_day= (count($days));
-            if($now == $days[$history->date_finish])
+            $checkday = $history->date_finish + $history->history_pevious_date;
+            if($now == $days[$checkday])
             {
                 $date_finish = $history->date_finish +1 ;
                 if($date_finish < count($days) )
                 {
-                    $change = ['date_finish'=>$date_finish,];
+                    $change = [
+                        'date_finish'=>$date_finish,
+                        'history_notes'=> $request->history_notes,
+                ];
+
                 }else{
                     $change = [
                         'date_finish'=>$date_finish,
                         'history_status'=> 4,
+                        'history_notes'=> $request->history_notes,
                     ];
                     $book->update(['book_status'=> 4]);
                 }
                 $history->update($change);
-                $msg = 'Chấm công thành công';
+                $msg = 'Công việc hôm nay đã hoàn thành';
                 $style = 'success';
             }else
             {
-                $msg = 'Chấm công không thành công, có lỗi xảy ra! Vui lòng thử lại sau';
+                $msg = 'Có lỗi xảy ra! Vui lòng kiểm tra lại công việc hôm nay';
                 $style = 'danger';
             }
-
-
         }
         return redirect()->back()->with(compact('msg','style'));
 
@@ -153,8 +154,28 @@ class BillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $data = $request->all();
+        $book_id = $data['book_id'];
+        $id= Auth::id();
+        $user = User::findOrFail($id);
+
+        $history = History::where('book_id',$book_id)->where('housekeeper_id',$user->user_id)->first();
+        if($history){
+            $book = Book::where('book_id',$book_id)->first();
+            $book->update(['book_status'=>1]);
+            $new = [
+                'book_id' => $history->book_id,
+                'history_status' => 1,
+                'housekeeper_id' => "",
+                'history_pevious_date' => $history->date_finish,
+            ];
+            $history->update(['history_status'=>3]);
+            // History::create($new);
+            $msg ='Đơn lịch đã hủy thành công';
+            $style ='success';
+            return redirect()->route('admin.Appoin-index')->with(compact('msg','style'));
+        }
     }
 }

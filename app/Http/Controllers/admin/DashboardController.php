@@ -1,38 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Book;
-use App\Models\History;
-use App\Models\Payment;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class BillController extends Controller
+class DashboardController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $id= Auth::id();
-        $user = User::findOrFail($id);
-
-        $book = History::join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
-                ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
-                ->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')
-                ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
-                ->where('tbl_history.history_status',4)
-                ->where('tbl_history.history_status',3)
-                ->orderBy('tbl_booking.created_at', 'desc')->get();
-        $bill = Payment::all();
-
-        // dd($book);
-        return view('admin.appointment.bill')->with(compact('book','user','bill'));
+        return view("admin.index");
     }
 
     /**

@@ -76,16 +76,25 @@ class AppointmentController extends Controller
 
 
     public function store(Request $request){
-
-
         $data = $request->all();
         // dd($data);
         $id= Auth::id();
         $user = User::findOrFail($id);
         $shipping = Shipping::where('user_id', $user->user_id)->first();
         $book_id = substr(md5(microtime()),rand(0,26),5);
-        $book_date = $request->book_date;
+        $book_date= explode(",",$request->book_date);
+        $count_day= (count($book_date));
+        for ($i=0; $i <count($book_date) ; $i++) {
+            $changedate = explode("/", $book_date[$i]);
+            $book_date[$i] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
+            $book_date[$i] =  (int ) strtotime($book_date[$i]);
 
+        };
+        sort($book_date);
+        for ($i=0; $i <count($book_date) ; $i++) {
+            $book_date[$i] = date('d/m/Y', $book_date[$i]);
+        };
+        // dd(implode(",", $book_date));
         if($data['service_id'] == 1){
             $book_options = $request->list_options;
         }else{
@@ -111,6 +120,8 @@ class AppointmentController extends Controller
             $booking = [
                 'book_id'=>$book_id,
                 'service_id'=>$data['service_id'],
+                'coupon_id'=>$coupon_id[0],
+                'payment_id'=>$data['payment_id'],
                 'shipping_id'=> $shipping->shipping_id,
                 'book_total'=>$book_total,
                 'book_status'=>1,
@@ -122,9 +133,7 @@ class AppointmentController extends Controller
             if($booking){
                 $booking_details = [
                     'book_id'=>$booking->book_id,
-                    'coupon_id'=>$coupon_id[0],
-                    'payment_id'=>$data['payment_id'],
-                    'book_date'=>$data['book_date'],
+                    'book_date'=>implode(",", $book_date),
                     'book_time_start'=>$data['book_time_start'],
                     'book_time_number'=>$data['book_time_number'],
                     'book_total'=>$booking->book_total,
@@ -132,31 +141,8 @@ class AppointmentController extends Controller
                 ];
 
                 $bookdetail = Booking_details::create($booking_details);
-                if($bookdetail->coupon_id == 0){
-                    $email = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
-                    ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
-                    ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
-                    ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking_details.payment_id')
-                    ->where('tbl_booking.book_id',$booking->book_id)->first();
-                }else{
-                    $email = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
-                    ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
-                    ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
-                    ->join('tbl_coupon', 'tbl_coupon.coupon_id', '=', 'tbl_booking_details.coupon_id')
-                    ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking_details.payment_id')
-                    ->where('tbl_booking.book_id',$booking->book_id)->first();
-                }
-
-
                     //Gửi mails
-                    Mail::to('minhnghia11a1@gmail.com')->send(new MailNotify($email));
-
-                    /// Thanh toán vnpay
-                    if($data['payment_id'] == 3){
-                        $this->vnpay_Payment($booking->book_id,$booking->book_total);
-                    }
-
-                $msg = 'Đặt đơn lịch thành công.';
+                $msg = 'Đặt đơn lịch thành công. Kiểm tra đơn hàng tại địa chỉ email của bạn sau khi chúng tôi xác nhận';
                 $style = 'success';
                 return redirect()->route('home.thanks')->with(compact('msg','style'));
 
@@ -176,7 +162,7 @@ class AppointmentController extends Controller
             'Thursday' => 'Thứ 5',
             'Friday' => 'Thứ 6',
             'Saturday' => 'Thứ 7',
-            'Sunday' => 'Chủ nhật',
+            'Sunday' => 'CN',
         ];
         $book_time_start = $data['book_time_start'];
         $book_price = $data['book_price'];
@@ -229,10 +215,12 @@ class AppointmentController extends Controller
         $user = User::findOrFail($id);
         $shipping = Shipping::where('user_id', $user->user_id)->first();
 
-        $payment = Payment::all();
+        $payment = Payment::find(1);
         $coupon = Coupon::all();
+
         $split_time = explode(":",$book_time_start);
         $time_end = $split_time[0]+$book_time_number .':'.$split_time[1];
+        sort($data['book_date']);
         $output.='<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="bg-white modal-content">
@@ -253,14 +241,22 @@ class AppointmentController extends Controller
                         <h5 class="modal-title">Thông tin công việc</h5>
                         <div class="col-sm-12" style="    border: 1px solid #ccc; border-radius: 5px; padding: 20px;">
                             <p style="font-weight: 600">Thời gian làm việc</p>
-                            <div style="display: flex; justify-content: space-between">
-                                <label for="">Ngày bắt đầu làm việc</label>
-                                <p class="check-date">'.$weekday[date('l',strtotime($data['book_date'][0]))].', '.date('d/m/Y',strtotime($data['book_date'][0])).'</p>
-                            </div>
-                            <div style="display: flex; justify-content: space-between">
-                                <label for="">Ngày kết thúc làm việc</label>
-                                <p class="check-date">'.$weekday[date('l',strtotime($data['book_date'][$count_date-1]))].', '.date('d/m/Y',strtotime($data['book_date'][$count_date-1])).'</p>
-                            </div>
+                            <div style="display: flex; justify-content: space-between;height:40px">
+                                        <label for="">Ngày làm việc</label>
+                                        <select class="check-time" style="outline: #ccc;
+                                            border: 1px solid #ccc;
+                                            border-radius: 5px;
+                                            padding: 0px 20px;">
+                                            ';
+
+                                            foreach ($data['book_date'] as $key => $value) {
+                                                $output.='
+                                                <option>'.$weekday[date('l',strtotime($data['book_date'][$key]))].', '.date('d/m/Y',strtotime($data['book_date'][$key])).'</option>
+                                                ';
+                                            }
+                                            $output .='
+                                        </select>
+                                    </div>
 
                             <div style="display: flex; justify-content: space-between">
                                 <label for="">Làm trong</label>
@@ -297,41 +293,44 @@ class AppointmentController extends Controller
                                     <h5 class="modal-title">Phương thức thanh toán</h5>
                                 </div>
                                 <div class="col-sm-6">
-                                    <h5 class="modal-title">Khuyễn mãi</h5>
+                                    <select class="form-select border-0" style="height: 55px;" name="payment_id">';
+                                        $output .=' <option selected value="'.$payment->payment_id.'">'.$payment->payment_method.'</option>';
+                                        $output .='
+                                    </select>
                                 </div>
+
                             </div>
 
                             <div style="display: flex; justify-content: space-between">
                                 <div class="col-sm-6">
-                                <select class="form-select border-0" style="height: 55px;" name="payment_id">';
-                                foreach ($payment as $key => $valP) {
-                                    if ($service_id == 2 && $key != 0) {
-                                        $output .=' <option value="'.$valP->payment_id.'">'.$valP->payment_method.'</option>';
-                                    }
-                                    if ($service_id == 1) {
-                                        $output .=' <option value="'.$valP->payment_id.'">'.$valP->payment_method.'</option>';
-                                    }
-                                }
-                                 $output .='
-                                </select>
+                                    <h5 class="modal-title">Khuyễn mãi</h5>
                                 </div>
                                 <div class="col-sm-6">
-                                <select class="form-select border-0" id="coupon" style="height: 55px;" name="coupon_id">
-                            <option selected  value="0,0,0">Khuyễn mãi</option>';
-                            foreach ($coupon as $key => $valC) {
-                                $time_end = date('d/m/Y',strtotime($valC->coupon_time_end));
-                                $today = date('d/m/Y',strtotime(now()));
-                                $output .=' <option value="'. $valC->coupon_id .','. $valC->coupon_method .','. $valC->coupon_number .'" ';
-                                if ( ($time_end <= $today)) {
-                                    $output.='disabled style="color: red"';
-                                }
-                                $output.='>'. $valC->coupon_name.'</option>';
-                            }
-                             $output .='
+                                    <select class="form-select border-0" style="height: 55px;" name="payment_id">';
+                                        $output .=' <option selected value="'.$payment->payment_id.'">'.$payment->payment_method.'</option>';
+                                        $output .='
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <select class="form-select border-0" id="coupon" style="height: 55px;" name="coupon_id">
+                                        <option selected  value="0,0,0">Khuyễn mãi</option>';
+                                        foreach ($coupon as $key => $valC) {
+                                            $time_end = date('d/m/Y',strtotime($valC->coupon_time_end));
+                                            $today = date('d/m/Y',strtotime(now()));
+                                            $output .=' <option value="'. $valC->coupon_id .','. $valC->coupon_method .','. $valC->coupon_number .'" ';
+                                            if ( ($time_end <= $today)) {
+                                                $output.='disabled style="color: red"';
+                                            }
+                                            $output.='>'. $valC->coupon_name.'</option>';
+                                        }
+                                        $output .='
 
-                        </select>
+
+                                    </select>
                                 </div>
                             </div>
+                        <label for="" style="color:red">Lưu ý khi thành toán Online,Thay đổi phương thức thanh toán sau khi đơn đã xác nhận</label>
+
                         </div>
 
                         <div style="display: flex; justify-content: space-between">
@@ -341,7 +340,7 @@ class AppointmentController extends Controller
                         </div>
 
                         <div class="modal-footer">
-                            <button type="submit" name="redirect" class="btn btn-orange w-100 py-3">Đặt lịch</button>
+                            <button type="submit" class="btn btn-orange w-100 py-3">Đặt lịch</button>
                         </div>
                     </div>
                 </div>
@@ -349,71 +348,4 @@ class AppointmentController extends Controller
         echo $output;
     }
 
-
-    public function vnpay_Payment($book_id,$book_total){
-        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://127.0.0.1:8000/Moon.com/thanks";
-        $vnp_TmnCode = "KETREN3N";//Mã website tại VNPAY
-        $vnp_HashSecret = "EVZTCKKWRQVUHMPECQCXZLPRAVYCPSJO"; //Chuỗi bí mật
-
-        $vnp_TxnRef = $book_id; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-        $vnp_OrderInfo = 'Thanh toán đơn đặt lịch';
-        $vnp_OrderType = 'billpayment';
-        $vnp_Amount = (int) $book_total * 100;
-        $vnp_Locale = 'vn';
-        $vnp_BankCode = 'NCB';
-        $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-
-        $inputData = array(
-            "vnp_Version" => "2.1.0",
-            "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => $vnp_Amount,
-            "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
-            "vnp_CurrCode" => "VND",
-            "vnp_IpAddr" => $vnp_IpAddr,
-            "vnp_Locale" => $vnp_Locale,
-            "vnp_OrderInfo" => $vnp_OrderInfo,
-            "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => $vnp_Returnurl,
-            "vnp_TxnRef" => $vnp_TxnRef
-        );
-
-        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-            $inputData['vnp_BankCode'] = $vnp_BankCode;
-        }
-        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
-            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
-        }
-
-        //var_dump($inputData);
-        ksort($inputData);
-        $query = "";
-        $i = 0;
-        $hashdata = "";
-        foreach ($inputData as $key => $value) {
-            if ($i == 1) {
-                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-            } else {
-                $hashdata .= urlencode($key) . "=" . urlencode($value);
-                $i = 1;
-            }
-            $query .= urlencode($key) . "=" . urlencode($value) . '&';
-        }
-
-        $vnp_Url = $vnp_Url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//
-            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-        }
-        $returnData = array('code' => '00'
-            , 'message' => 'success'
-            , 'data' => $vnp_Url);
-            if (isset($_POST['redirect'])) {
-                header('Location: ' . $vnp_Url);
-                die();
-            } else {
-                echo json_encode($returnData);
-            }
-     }
 }

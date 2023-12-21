@@ -3,14 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\MailNotify;
 use App\Models\Book;
+use App\Models\Booking_details;
 use App\Models\Coupon;
 use App\Models\History;
+use App\Models\Housekeeper;
 use App\Models\Payment;
 use App\Models\Shipping;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mail;
 
 class BookingController extends Controller
 {
@@ -44,29 +49,73 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function confirm($book_id){
+
+        $now = Carbon::now()->format('m');
+
+        $id= Auth::id();
+        $user = User::findOrFail($id);
+
+        $book = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
+        ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
+        ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
+        ->where('tbl_booking.book_id', $book_id)->first();
+        $checkhisbook = History::where('book_id',$book_id)->get();
+
+        $housekeeper = Housekeeper::where('status',0)->get();
+
+        $history = History::selectRaw('count(housekeeper_id) as total, housekeeper_id')->groupBy('housekeeper_id')->whereMonth('created_at', $now)->get();
+
+        $check_day = History::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_history.book_id')
+        ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_booking_details.book_id')->where('tbl_history.history_status',2)->get();
+
+        return view('admin.appointment.confirm')->with(compact('book','housekeeper','history','check_day','checkhisbook'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function post_Confirm(Request $request,$book_id){
+        $housekeeper_id = $request->housekeeper_id;
+        $housekeeper = Housekeeper::where('housekeeper_id',$housekeeper_id)->first();
+        $book = Book::where('tbl_booking.book_id',$book_id)->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
+        ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
+        ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')->first();
+        // dd($book);
+
+        $checkhis = History::latest()->where('book_id',$book_id)->first();
+        if($book){
+            if($checkhis){
+                $info = [
+                    'book_id' => $checkhis->book_id,
+                    'history_status' => 2,
+                    'housekeeper_id' => $housekeeper_id,
+                    'history_pevious_date' => $checkhis->date_finish,
+                ];
+            }else{
+                $info = [
+                    'book_id' => $book_id,
+                    'housekeeper_id' => $housekeeper_id,
+                    'history_status'=> 2,
+                ];
+            }
+
+            $history =History::create($info);
+            if ($history) {
+                $book->update(['book_status'=>2]);
+                Mail::to('minhnghia11a1@gmail.com')->send(new MailNotify($book));
+
+                $msg = "Đã giao công việc thành công";
+                $style = "success";
+
+            }else{
+                $msg = "Có lỗi xảy ra. Vui lòng kiểm tra lại!";
+                    $style = "danger";
+            };
+        return redirect()->route('admin.appointment.index')->with(compact('msg','style'));
+
+        }
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request){
+    public function fast_Show(Request $request){
         // dd($request->action);
         $book_id = $request->book_id;
         $weekday = [
@@ -155,24 +204,21 @@ class BookingController extends Controller
                                 <h5 class="modal-title">Thông tin công việc</h5>
                                 <div class="col-sm-12" style="    border: 1px solid #ccc; border-radius: 5px; padding: 20px;">
                                     <p style="font-weight: 600">Thời gian làm việc</p>
-                                    <div style="display: flex; justify-content: space-between">
-                                        <label for="">Ngày bắt đầu làm việc</label>
-                                        <p class="check-date">'.$weekday[date('l',strtotime($listdate[0]))].', '.date('d/m/Y',strtotime($listdate[0])).'</p>
+                                    <div style="display: flex; justify-content: space-between;height:40px">
+                                        <label for="">Ngày làm việc</label>
+                                        <select class="check-time" style="outline: #ccc;
+                                            border: 1px solid #ccc;
+                                            border-radius: 5px;
+                                            padding: 0px 20px;">
+                                            ';
+                                            foreach ($listdate as $key => $value) {
+                                                $output.='
+                                                <option>'.$weekday[date('l',strtotime($listdate[$key]))].', '.date('d/m/Y',strtotime($listdate[$key])).'</option>
+                                                ';
+                                            }
+                                            $output .='
+                                        </select>
                                     </div>
-
-
-
-                                    ';
-                                    if($book->service_id == 2){
-                                        $output.='
-                                        <div style="display: flex; justify-content: space-between">
-                                        <label for="">Ngày kết thúc làm việc</label>
-                                        <p class="check-date">'.$weekday[date('l',strtotime($listdate[$count_date-1]))].', '.date('d/m/Y',strtotime($listdate[$count_date-1])).'</p>
-                                    </div>
-                                        ';
-                                    }
-
-                                    $output.='
                                     <div style="display: flex; justify-content: space-between">
                                             <label for="">Làm trong</label>
                                             <p class="check-time">'.$book->book_time_number.' giờ, '.$book->book_time_start.' đến '.$time_end.'</p>
@@ -230,7 +276,7 @@ class BookingController extends Controller
                         ';
                         if ($request->action == "book_cance") {
                                 $output .='
-                                <button type="button" class="btn btn-danger  py-3 btn-change-bookdefault" data-book-id="'.$book->book_id.'"  style="width:150px"><i class="tf-ion-close" aria-hidden="true">Hủy lịch</i></button>
+                                <button type="button" class="btn btn-danger  py-3 btn-change-bookdefault" data-book-id="'.$book->book_id.'"  style="width:150px">Hủy lịch</button>
 
                            ';
                         }
@@ -243,37 +289,95 @@ class BookingController extends Controller
         echo $output;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function search_confirm(Request $request){
+
+        $data = $request->all();
+        $keywords = $data['keywords'];
+        $gender = $data['gender'];
+        $age_start = $data['age_start'];
+        $age_end = $data['age_end'];
+        $output = '';
+        $book_id = $data['book_id'];
+        $book = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
+        ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
+        ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
+        ->where('tbl_booking.book_id', $book_id)->first();
+
+        $now = Carbon::now()->format('m');
+        $history = History::selectRaw('count(housekeeper_id) as total, housekeeper_id')->groupBy('housekeeper_id')->whereMonth('created_at', $now)->get();
+
+        if($gender){
+            $house = Housekeeper::where('name','LIKE','%'.$keywords.'%')
+        ->where('age','>=',$age_start)
+        ->where('age','<=',$age_end)
+        ->where('gender',$gender)
+        ->get();
+        }else{
+            $house = Housekeeper::where('name','LIKE','%'.$keywords.'%')
+        ->where('age','>=',$age_start)
+        ->where('age','<=',$age_end)
+        ->get();
+        }
+        // dd($house);
+        $check_day = History::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_history.book_id')
+        ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_booking_details.book_id')->where('tbl_history.history_status',2)->get();
+        if($house){
+            $status = [];
+            foreach ($house as $key => $value) {
+                $status[$key] = 0;
+                foreach ($check_day as $check => $valcheck){
+                    $datecheck =  explode(",",$valcheck->book_date);
+                    $date =  explode(",",$book->book_date);
+                    // dd($date);
+
+                    if ($valcheck->housekeeper_id == $value->housekeeper_id){
+                        for ($i = 0; $i < count($date); $i++){
+                            if(in_array($date[$i], $datecheck)){
+                                 $status[$key] = 1;
+                            }
+                        }
+                    }
+                }
+                if($value->gender == 1){
+                    $type = 'Nam';
+                }else{
+                    $type = "Nữ";
+                }
+
+                $output.='<tr>
+                <td>'.$key.'</td>
+                <td>'.$value->housekeeper_id.'</td>
+                <td>'.$value->name.'</td>
+                <td>'.$type.'</td>
+                <td>'.$value->age.'</td>';
+
+                foreach ($history as $keyt => $valt) {
+                    if ($valt->housekeeper_id == $value->housekeeper_id)
+                    {
+                        $output.='<td style="color: green">'.$valt->total.'</td>';
+                    }else{
+                        $output.='<td style="color: red">0</td>';
+                    }
+                }
+                // dd($status);
+                if ($status[$key] == 1){
+                    $output.='<td><span style="color: red">Trùng lịch</span></td>
+                    <td><button class="btn btn-default">Giao công việc</button></td>';
+                }else{
+                        $output.='<td><span style="color: green">Không trùng lịch</span></td>
+                                <td><button type="button" class="btn btn-primary" data-id="'.$value->housekeeper_id.'" >Giao công việc</button></td>';
+                    }
+
+                    $output.='
+                    <td><a class="btn btn-default">Xem chi tiết</a></td>
+                ';
+                };
+
+
+            };
+
+// dd($status);
+        echo ($output);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

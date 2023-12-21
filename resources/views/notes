@@ -1,0 +1,21 @@
+
+Ngân hàng	NCB
+Số thẻ	9704198526191432198
+Tên chủ thẻ	NGUYEN VAN A
+Ngày phát hành	07/15
+Mật khẩu OTP	123456
+
+
+
+vnp_Amount=381000000
+&vnp_BankCode=NCB
+&vnp_BankTranNo=VNP14251670
+&vnp_CardType=ATM
+&vnp_OrderInfo=Thanh+to%C3%A1n+%C4%91%C6%A1n+%C4%91%E1%BA%B7t+l%E1%BB%8Bch
+&vnp_PayDate=20231219190810
+&vnp_ResponseCode=00
+&vnp_TmnCode=KETREN3N
+&vnp_TransactionNo=14251670
+&vnp_TransactionStatus=00
+&vnp_TxnRef=926cf
+&vnp_SecureHash=0c6f7aa560d723f530f7a42ba41604f184a0ae2674e4db071326112e89e35813999094e5857a7c2e75dac4e6c18ebca9f76dffd0c1313d50d954877cf2b54754

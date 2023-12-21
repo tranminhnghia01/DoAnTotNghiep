@@ -15,7 +15,8 @@ class Book extends Model
     protected $fillable =[
         'book_id',
         'shipping_id',
-        'wishlist_id',
+        'coupon_id',
+        'payment_id',
         'service_id',
         'book_address',
         'book_total',

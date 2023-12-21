@@ -28,9 +28,7 @@
                                     <th>Người đăng việc</th>
                                     <th>Ngày bắt đầu làm việc</th>
                                     <th>Dịch vụ</th>
-                                    <th>Tổng hóa đơn</th>
-                                    <th>Httt</th>
-                                    <th>Tình trạng</th>
+                                    <th>Tổng tiền</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -58,26 +56,12 @@
                                         <td>{{ $key+1}}</td>
                                         <td>{{ $value->shipping_name }}</td>
 
-                                            <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start .'số buổi :'.count($date)  }}  </td>
+                                            <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start}}  </td>
 
                                         <td>{{ $value->service_name }}</td>
-                                        <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
-                                        <td></td>
-
-                                        @switch($value->book_status)
-                                            @case(1)
-                                                <td><span class="btn btn-warning" style="color: white;width: 170px;">Đơn mới</span></td>
-                                                @break
-                                            @case(2)
-                                                <td><span class="btn btn-primary" style="color: white;width: 170px;">Đã xác nhận </span></td>
-                                                @break
-                                            @case(3)
-                                                <td><span class="btn btn-danger" style="color: white;width: 170px;">Đã hủy</span></td>
-                                                @break
-                                            @default
-                                                <td><span class="btn btn-success" style="color: white;width: 170px;">Hoàn thành</span></td>
-                                        @endswitch
-                                        <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}">Xem chi tiết</button></td>
+                                        <td>{{ number_format($value->book_total) }} <sup>đ</sup></td>
+                                        <td><a href="{{ route('admin.appointment.confirm',$value->book_id) }}" class="btn btn-primary">Xác nhận</a></td>
+                                        <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}">Xem nhanh</button></td>
 
                                     </tr>
                                     @endif

@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('tbl_booking_details', function (Blueprint $table) {
             $table->increments('id');
             $table->string('book_id');
-            $table->integer('coupon_id')->nullable();
-            $table->integer('payment_id');
             $table->string('book_date');
             $table->string('book_time_start');
             $table->integer('book_time_number');

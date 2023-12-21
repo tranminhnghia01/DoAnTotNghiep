@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HousekeeperRequest;
 use App\Models\City;
+use App\Models\History;
 use App\Models\Housekeeper;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -173,8 +174,14 @@ class HousekeeperController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function show_Details($housekeeper_id)
     {
-        //
+        $housekeeper = User::where('user_id',$housekeeper_id)
+        ->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'users.user_id')->first();
+        // dd($housekeeper);
+        $book = History::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_history.book_id')
+        ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_booking_details.book_id')->where('tbl_history.housekeeper_id',$housekeeper_id)->get();
+
+        return view('admin.users.appointmet-housekeeper')->with(compact('book','housekeeper'));
     }
 }

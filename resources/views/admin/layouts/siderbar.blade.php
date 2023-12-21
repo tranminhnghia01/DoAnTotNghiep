@@ -17,13 +17,7 @@
           <span>Cài đặt tài khoản</span>
         </a>
       </li><!-- End Profile Page Nav -->
-
-
-
-
-      <li class="nav-heading">Quản lý hệ thống</li>
-
-
+      <li class="nav-heading">Quản lý</li>
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="ri-file-list-3-line"></i><span>Dịch vụ</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -41,13 +35,20 @@
           </li>
         </ul>
     </li><!-- End Tables Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('admin.appointment.index') }}">
-                <i class="bi bi-calendar-date"></i>
-            <span>Đơn lịch</span>
+    <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#appointment-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-calendar-date"></i></i><span>Danh sách đơn lịch</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="appointment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('admin.appointment.index') }}">
+              <i class="bi bi-circle"></i><span>Mới</span>
             </a>
-        </li><!-- End Profile Page Nav -->
+          </li>
+
+        </ul>
+      </li><!-- End Icons Nav -->
+
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('admin.bill.index') }}">
                 <i class="bi bi-calendar-date"></i>
@@ -60,18 +61,8 @@
         </a>
         <ul id="chartsnav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Chart.js</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>ApexCharts</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
+            <a href="{{ route('admin.thongke-index') }}">
+              <i class="bi bi-circle"></i><span>Thống kê</span>
             </a>
           </li>
         </ul>
