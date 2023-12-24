@@ -60,7 +60,14 @@
 
                                         <td>{{ $value->service_name }}</td>
                                         <td>{{ number_format($value->book_total) }} <sup>đ</sup></td>
-                                        <td><a href="{{ route('admin.appointment.confirm',$value->book_id) }}" class="btn btn-primary">Xác nhận</a></td>
+
+                                        <td><a href="{{ route('admin.appointment.confirm',$value->book_id) }}" class="btn btn-primary">Xác nhận
+                                            @foreach ($bill as $keys )
+                                            @if ($keys->book_id == $value->book_id)
+                                                lại công việc
+                                            @endif
+                                        @endforeach
+                                        </a></td>
                                         <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}">Xem nhanh</button></td>
 
                                     </tr>

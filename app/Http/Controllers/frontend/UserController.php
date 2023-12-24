@@ -40,10 +40,9 @@ class UserController extends Controller
         $city = City::all();
 
         $check_comment = Comment::join('tbl_history', 'tbl_history.history_id', '=', 'tbl_comment.history_id')->get();
-        // dd($check_comment);
 
         // $book = Book::where('shipping_id',$shipping->id)->get();
-        // dd($book);
+        // dd($check_comment);
         return view('frontend.setting.profile')->with(compact('book','shipping','user','city','bookFixed','check_comment'));
     }
 
@@ -231,7 +230,7 @@ class UserController extends Controller
                         switch ($book->book_status) {
                             case 4:
                                 $output .='
-                            <button type="button"  class="btn btn-success py-3  "><i class="tf-ion-close" aria-hidden="true"> Đánh giá</i></button>
+                            <button type="button"  class="btn btn-success py-3  "><i class="tf-ion-close" aria-hidden="true">Xác nhận</i></button>
                            ';
                                 break;
 
@@ -243,7 +242,23 @@ class UserController extends Controller
 
                             default:
                             $output .='
-                            <button type="button" class="btn btn-danger  py-3 btn-change-book" data-book-id="'.$book->book_id.'"  style="width:150px"><i class="tf-ion-close" aria-hidden="true">Hủy lịch</i></button>
+                            <div style="display: flex; justify-content: space-between">
+                                        <label for="" style="width:50%">
+                                            <span style="font-weight:800;color:black">Lý do hủy: </span><br>
+                                            <span style="color:red;font-size: 14px;">
+                                            Quy định hủy lịch khi đã thanh toán ca cố định:<br>Hoàn tiền những buổi chưa làm việc và trừ 20% tổng giá trị ban đầu.
+                                            </span>
+                                        </label>
+                                             <textarea class="destroy-text" id="history_notes" name="history_notes" rows="4" cols="50"></textarea>
+                                    </div>
+
+                                    <div style="    display: flex;
+                                    justify-content: space-between;
+                                    padding-left: 16%;padding-top: 12px; ">
+                                    <button type="button"  class="btn btn-info py-3 btn-danhgia" data-book-id="'.$book->book_id.'"   style="width:150px">Đánh giá</button>
+                                    <button type="button" class="btn btn-danger  py-3 btn-change-book" data-book-id="'.$book->book_id.'"  style="width:150px"><i class="tf-ion-close" aria-hidden="true">Hủy lịch</i></button>
+
+                                </div>
                         ';
                                 break;
                         }
@@ -472,20 +487,35 @@ class UserController extends Controller
                         </div>
 
                         <div class="modal-footer">
-                        <form>
+                        <form style="width:100%">
                         <input type="hidden" name="_token" value="'.csrf_token().'" />';
                         switch ($book->book_status) {
                             case 4:
                                 $output .='
-                                    <button type="button"  class="btn btn-success py-3 btn-danhgia">Đánh giá</button>
+                                    <button type="button"  class="btn btn-primary py-3 btn-danhgia">Xác nhận</button>
                                 ';
                             break;
 
                             case 2:
                                 $output .='
-                                    <button type="button"  class="btn btn-info py-3 btn-danhgia" data-book-id="'.$book->book_id.'">Đánh giá</button>
+                                    <div style="display: flex; justify-content: space-between">
+                                        <label for="" style="width:50%">
+                                            <span style="font-weight:800;color:black">Lý do hủy: </span><br>
+                                            <span style="color:red;font-size: 14px;">
+                                            Quy định hủy lịch khi đã thanh toán ca cố định:<br>Hoàn tiền những buổi chưa làm việc và trừ 20% tổng giá trị ban đầu.
+                                            </span>
+                                        </label>
+                                             <textarea class="destroy-text" id="history_notes" name="history_notes" rows="4" cols="50"></textarea>
+                                    </div>
+
+                                    <div style="    display: flex;
+                                    justify-content: space-between;
+                                    padding-left: 16%;padding-top: 12px; ">
+                                    <button type="button"  class="btn btn-info py-3 btn-danhgia" data-book-id="'.$book->book_id.'"   style="width:150px">Đánh giá</button>
                                     <button type="button" class="btn btn-danger  py-3 btn-change-bookdefault" data-book-id="'.$book->book_id.'"  style="width:150px"><i class="tf-ion-close" aria-hidden="true">Hủy lịch</i></button>
-                                ';
+
+                                </div>
+                                  ';
                             break;
                             case 3:
                                 $output .='
@@ -519,17 +549,22 @@ class UserController extends Controller
         $book = Book::where('book_id',$book_id)->first();
         // dd($book);
         $history = History::where('book_id',$book_id)->first();
-
+        //Kiểm tra khách hàng thanh toán chưa
+        $checkpeyOnl = PaymentOnline::where('TxnRef',$book_id)->first();
         if($book){
-            $book->update(['book_status'=>3]);
+            $book->update(['book_status'=>3,'book_notes' => $request->history_notes]);
             if($history){
-                $history->update(['history_status'=>3]);
+                if($checkpeyOnl){
+                    $history->update(['history_status'=>3]);
+                    $msg = 'Hủy đơn lịch thành công! Chúng tôi sẽ xem xét và hoàn tiền, Bạn vui lòng chờ chúng tôi xử lý.';
+                }else{
+                    $history->delete();
+                    $msg = 'Hủy đơn lịch thành công! Hẹn gặp lại bạn.';
+                }
+            }else{
+                $book->delete();
+                $msg = 'Hủy đơn lịch thành công! Hẹn gặp lại bạn.';
             }
-            $msg = 'Hủy đơn lịch thành công!';
-            $style = 'success';
-        }else{
-            $msg = 'Có lỗi xảy ra khi hủy đơn lịch';
-            $style = 'danger';
         }
         echo $msg;
     }
@@ -540,18 +575,30 @@ class UserController extends Controller
         $book_id = $request->book_id;
         $book = Book::where('book_id',$book_id)->first();
         // dd($book);
-        $history = History::where('book_id',$book_id)->first();
+
+        //Lấy cái đơn cuối cùng người giúp việc nhận
+        $history = History::latest()->where('book_id',$book_id)->first();
+
+        //Kiểm tra khách hàng thanh toán chưa
+        $checkpeyOnl = PaymentOnline::where('TxnRef',$book_id)->first();
+
 
         if($book){
-            $book->update(['book_status'=>3]);
-            if($history){
+            $book->update(['book_status'=>3,
+                        'book_notes' => $request->history_notes,
+                    ]);
+            if($checkpeyOnl){
                 $history->update(['history_status'=>3]);
+
+            $msg = 'Hủy đơn lịch thành công! Chúng tôi sẽ xem xét và hoàn tiền, Bạn vui lòng chờ chúng tôi xử lý.';
             }
-            $msg = 'Hủy đơn lịch thành công!';
-            $style = 'success';
+            else{
+                $history->delete();
+                $msg = 'Hủy đơn lịch thành công! Hẹn gặp lại bạn.';
+            }
+
         }else{
-            $msg = 'Có lỗi xảy ra khi hủy đơn lịch';
-            $style = 'danger';
+            $msg = 'Có lỗi xảy ra khi hủy đơn lịch!Vui lòng kiểm tra lại';
         }
         echo $msg;
     }

@@ -82,48 +82,47 @@ class BookingController extends Controller
 
         $checkhis = History::latest()->where('book_id',$book_id)->first();
         if($book){
-            if($housekeeper_id == $checkhis->housekeeper_id){
-                $checkhis->update(['history_status'=>2]);
-                $msg = "Giao lại công việc cho người giúp việc này!";
-                $style = "success";
-            }else{
-                if($checkhis){
+            if($checkhis){
+                $checkYoN = History::where('book_id',$book_id) ->where('housekeeper_id',$housekeeper_id)->first();
+                if($checkYoN){
+                    $checkhis->update(['history_status'=>2]);
+                    $msg = "Giao lại công việc cho người giúp việc này!";
+                    $style = "success";
+                }else{
                     $info = [
                         'book_id' => $checkhis->book_id,
                         'history_status' => 2,
                         'housekeeper_id' => $housekeeper_id,
-                        'history_pevious_date' => $checkhis->date_finish,
-                    ];
-                }else{
-                    $info = [
-                        'book_id' => $book_id,
-                        'housekeeper_id' => $housekeeper_id,
-                        'history_status'=> 2,
+                        'history_previous_date' => $checkhis->date_finish,
                     ];
                 }
-                $history =History::create($info);
-                if ($history) {
-                    $book->update(['book_status'=>2]);
-                    Mail::to('minhnghia11a1@gmail.com')->send(new MailNotify($book));
 
-                    $msg = "Đã giao công việc thành công";
-                    $style = "success";
-
-                }else{
-                    $msg = "Có lỗi xảy ra. Vui lòng kiểm tra lại!";
-                        $style = "danger";
-                };
+            }else{
+                $info = [
+                    'book_id' => $book_id,
+                    'housekeeper_id' => $housekeeper_id,
+                    'history_status'=> 2,
+                ];
             }
 
+            $history = History::create($info);
+            if ($history) {
+                $bookupdate = Book::where('book_id',$book_id)->first();
+                $bookupdate->update(['book_status'=>2]);
+                Mail::to('minhnghia11a1@gmail.com')->send(new MailNotify($book));
+                $msg = "Đã giao công việc thành công";
+                $style = "success";
+
+            }else{
+                $msg = "Có lỗi xảy ra. Vui lòng kiểm tra lại!";
+                    $style = "danger";
+            };
         }
         else{
             $msg = "Có lỗi xảy ra. Vui lòng kiểm tra lại!";
                 $style = "danger";
         };
-
         return redirect()->route('admin.appointment.index')->with(compact('msg','style'));
-
-
     }
 
     public function fast_Show(Request $request){

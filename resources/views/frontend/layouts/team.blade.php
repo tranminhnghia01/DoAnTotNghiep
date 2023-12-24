@@ -9,7 +9,7 @@
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="team-item position-relative rounded overflow-hidden">
                     <div class="overflow-hidden">
-                        <img class="img-fluid" src="{{ asset('uploads/users/'.$val->image) }}" alt="" style="height: 35 0px">
+                        <img class="img-fluid" src="{{ asset('uploads/users/'.$val->image) }}" alt="" style="width: 100%; height: 300px">
                     </div>
                     <div class="team-text bg-light text-center p-4">
                         <h5>{{  $val->name }}</h5>

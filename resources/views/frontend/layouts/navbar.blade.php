@@ -38,7 +38,7 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
             <a href="{{ route('home.index') }}" class="nav-item nav-link active">Trang chủ</a>
-            <a href="about.html" class="nav-item nav-link">Về chúng tôi</a>
+            <a href="{{ route('home.home-housekeeper') }}" class="nav-item nav-link"> Giúp việc</a>
             <a href="{{ route('home.home-service') }}" class="nav-item nav-link">Dịch vụ</a>
 
             <a href="{{ route('home.giup-viec-ca-le') }}" class="nav-item nav-link">Kinh nghiệm hay</a>

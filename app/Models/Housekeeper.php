@@ -18,6 +18,7 @@ class Housekeeper extends Model
             'gender',
             'address',
             'des',
+            'content',
             'files',
             'status',
 

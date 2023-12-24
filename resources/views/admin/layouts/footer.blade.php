@@ -247,7 +247,7 @@
 
             chart60day();
 
-            var chart = new Morris.Area({
+            var chart = new Morris.Line({
             element: 'myfirstchart',
             lineColors: ['#819C79', '#fc8710', '#ff6541','#a4add3','#766b56'],
             barColors: ['#819C79', '#fc8710', '#ff6541','#a4add3','#766b56'],

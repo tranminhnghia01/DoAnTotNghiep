@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('gender');
             $table->string('address');
             $table->text('des');
+            $table->text('content');
             $table->string('files');
             $table->integer('status');
             $table->timestamps();

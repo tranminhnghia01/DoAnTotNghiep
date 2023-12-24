@@ -6,8 +6,10 @@ use App\Models\Book;
 use App\Models\Booking_details;
 use App\Models\PaymentOnline;
 use App\Models\Province;
+use App\Models\Statistic;
 use App\Models\User;
 use App\Models\Ward;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,11 +54,32 @@ class HomeController extends Controller
             'TxnRef'=> $_GET['vnp_TxnRef'],
             'SecureHash'=> $_GET['vnp_SecureHash'],
         ];
-            PaymentOnline::create($data);
-            $book= Book::where('book_id',$_GET['vnp_TxnRef'])->first();
-            $book->update(['payment_id'=>3]);
-        }
 
+            $paymentOnline = PaymentOnline::create($data);
+            if($paymentOnline){
+                $book= Book::where('book_id',$_GET['vnp_TxnRef'])->first();
+                $book->update(['payment_id'=>3]);
+
+                $now = Carbon::now()->format('Y-m-d');
+                $update_statistical = Statistic::where('date' ,$now)->first();
+                if($update_statistical){
+                    $info_static = [
+                        'sales' => $update_statistical->sales + ($paymentOnline->Amount)/10,
+                        'profit' => $update_statistical->profit + ($paymentOnline->Amount)*0.1,
+                        'total_appointment'=> $update_statistical->total_appointment + 1,
+                    ];
+                    $update_statistical->update($info_static);
+                }else{
+                    $info_static = [
+                        'date' => $now,
+                        'sales' => ($paymentOnline->Amount)/100,
+                        'profit' => ($paymentOnline->Amount)/1000,
+                        'total_appointment'=> 1,
+                    ];
+                    Statistic::create($info_static);
+                }
+            }
+        }
         $msg = 'Giao dịch thành công';
         $style ="success";
         return view('frontend.thanks')->with(compact('msg','style'));

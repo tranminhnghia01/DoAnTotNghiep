@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Housekeeper;
-use App\Models\Service;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $service = Service::all();
-        $house = Housekeeper::paginate(8);
-        return view('frontend.index')->with(compact('service','house'));
+        //
     }
 
     /**

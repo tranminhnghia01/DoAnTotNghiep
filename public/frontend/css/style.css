@@ -853,3 +853,11 @@
   .post-columns .post-entry p:last-child {
     margin: 0;
   }
+
+
+  .destroy-text {
+    outline: lightblue;
+    border: 1px solid lightblue;
+    padding: 5px 20px;
+    font-size: 14px;
+  }

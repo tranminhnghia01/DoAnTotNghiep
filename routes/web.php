@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/test', [MailController::class,'index']);
 Route::get('/modal', [MailController::class,'modal']);
 
-
 Route::prefix('/Moon.com')->name('home.')->group(function (){
     Route::get('/', [App\Http\Controllers\frontend\HomeController::class, 'index'])->name('index');
     Route::get('/login', [App\Http\Controllers\frontend\LoginController::class,'index'])->name('login')->middleware('memberNotLogin');
@@ -30,9 +29,10 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
 
     // begin Nav
-    Route::get('/services', [App\Http\Controllers\frontend\HomeController::class, 'service'])->name('home-service');
-    Route::get('/houses', [App\Http\Controllers\frontend\HomeController::class, 'housekeeper'])->name('home-housekeeper');
-    Route::get('/houses/show/{housekeepet_id}', [App\Http\Controllers\frontend\HomeController::class, 'housekeeper_show'])->name('home-housekeeper.show');
+        Route::get('/services', [App\Http\Controllers\frontend\HomeController::class, 'service'])->name('home-service');
+        Route::get('/houses', [App\Http\Controllers\frontend\HomeController::class, 'housekeeper'])->name('home-housekeeper');
+        Route::get('/houses/show/{housekeepet_id}', [App\Http\Controllers\frontend\HomeController::class, 'housekeeper_show'])->name('home-housekeeper.show');
+        Route::resource('blog', App\Http\Controllers\frontend\BlogController::class);
 
     // End Nav
 
@@ -82,10 +82,6 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
     Route::post('/Account/payment/online/{book_id}', [App\Http\Controllers\frontend\BookingController::class,'payment_Online'])->name('appointment.payment.online');
     Route::GET('dat-lich/thanks',[App\Http\Controllers\HomeController::class, 'thanks'])->name('thanks');
 
-
-
-
-
 });
 
 
@@ -124,7 +120,11 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 
 
 
-    Route::resource('bill', App\Http\Controllers\admin\BillController::class);
+    // Route::resource('bill', App\Http\Controllers\admin\BillController::class);
+    Route::get('/hoa-don/chua-duyet', [App\Http\Controllers\admin\BillController::class, 'index'])->name('hoadon');
+    Route::get('/hoa-don/chua-duyet/update/{history_id}', [App\Http\Controllers\admin\BillController::class,'index_handle'])->name('hoadon-update');
+    Route::get('/hoa-don/da-duyet', [App\Http\Controllers\admin\BillController::class, 'hoadon_processing'])->name('hoadon-processing');
+
 
     Route::get('/Thong-ke', [App\Http\Controllers\admin\DashboardController::class, 'index'])->name('thongke-index');
     Route::get('/Thong-ke/don-lich', [App\Http\Controllers\admin\DashboardController::class, 'thongke_donlich'])->name('thongke-donlich');

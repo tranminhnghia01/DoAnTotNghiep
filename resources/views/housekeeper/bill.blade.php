@@ -48,28 +48,31 @@
                                     <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start }}</td>
 
                                     <td>{{ $value->service_name }}</td>
-                                    <td>{{ $value->date_finish }}/1</td>
+                                    <td>{{ $value->date_finish }}/{{ count($date)-$value->history_previous_date }}</td>
 
 
                                 <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
-                                <td>@if ($value->payment_id == 1)
-                                    @if ($value->service_id == 2)
-                                        <span class="badge border-danger border-1 text-danger">Khách hàng chưa thanh toán</span>
-                                    @else
-                                    <span class="badge border-success border-1 text-success">Tiền mặt</span>
+                                <td>
+                                    @if ($value->payment_id == 1)
+                                        @if ($value->service_id == 2)
+                                            <span class="badge border-danger border-1 text-danger">Khách hàng chưa thanh toán</span>
+                                        @else
+                                            <span class="badge border-success border-1 text-success">Tiền mặt</span>
 
+                                        @endif
+                                    @else
+                                        <span class="badge border-success border-1 text-success">Đã thanh toán Online</span>
                                     @endif
-                                @else
-                                    <span class="badge border-success border-1 text-success">Đã thanh toán Online</span>
-                                @endif</td>
+                                </td>
 
                                 @switch($value->book_status)
                                     @case(3)
-                                        <td><span class="btn btn-danger" style="color: white;width: 170px;">Hủy</span></td>
+                                        <td><span class="btn btn-danger" style="color: white;width: 170px;">Khách hàng đã hủy lịch</span></td>
                                         @break
                                     @default
                                         <td><span class="btn btn-primary" style="color: white;width: 170px;">Hoàn thành</span></td>
                                 @endswitch
+
                                 <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}">Xem chi tiết</button></td>
 
 

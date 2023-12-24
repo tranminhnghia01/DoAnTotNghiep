@@ -17,10 +17,12 @@ return new class extends Migration
             $table->increments('history_id');
             $table->integer('book_id');
             $table->string('housekeeper_id');
-            $table->string('history_status');
             $table->string('history_notes')->nullable();
             $table->string('history_refund')->nullable();
             $table->integer('date_finish')->nullable();
+            $table->integer('history_previous_date')->nullable();
+            $table->integer('history_status');
+            $table->integer('processing')->default(1);
             $table->timestamps();
         });
     }

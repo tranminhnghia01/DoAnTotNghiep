@@ -30,6 +30,8 @@
                     $date =  explode(",",$value->book_date);
                             $changedate = explode("/",$date[0]);
                              $date[0] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
+
+                    $checkcomment = 0;
                 @endphp
                 <tr>
                     <td>{{ $key+1}}</td>
@@ -51,15 +53,21 @@
                             <td><span class="btn btn-danger" style="color: white;width: 170px;">Đã hủy</span></td>
                             @break
                         @default
-                            <td><span class="btn btn-success" style="color: white;width: 170px;">Hoàn thành</span><br>
+                            <td><span class="btn btn-success" style="color: white;width: 170px;">Hoàn thành</span><br></td>
                                 @foreach ($check_comment as $checkCM =>$valCM )
                                     @if ($valCM->book_id == $value->book_id)
-                                        <a id="xemdanhgia" class="xemdanhgia" data-book_id="{{ $value->book_id }}">Xem đánh giá</a></td>
-
-                                    @else
-                                        <a id="danhgia" class="danhgia" data-book_id="{{ $value->book_id }}">Đánh giá</a></td>
+                                        @php
+                                            $checkcomment = 1;
+                                        @endphp
                                     @endif
                                 @endforeach
+
+                                @if ($checkcomment == 1)
+                                <td><a href="{{ route('home.home-housekeeper.show',$valCM->housekeeper_id) }}">Xem đánh giá</a></td>
+                                @else
+                                    <td><a id="danhgia" class="danhgia" data-book_id="{{ $value->book_id }}">Đánh giá</a></td>
+                                @endif
+                        @break
                     @endswitch
                     @if ($value->service_id == 1)
                          <td><button type="submit" class="btn btn-default btn-details" id="{{ $value->book_id }}">Xem chi tiết</button></td>
@@ -104,34 +112,46 @@ $(document).ready(function(){
     });
     $(document).on('click', '.btn-change-book', function(e){
         e.preventDefault(); //cancel default action
-        swal({
+        var history_notes = $('textarea[name="history_notes"]').val();
+        if (history_notes == "") {
+            swal({
+                    title: "Lỗi!",
+                    text: "Vui lòng nếu lý do trước để tiếp tục hủy!",
+                    icon: "warning",
+                    dangerMode: true,
+                    });
+        }else{
+            swal({
             title: "Hủy ??",
             text: 'Bạn có chắc muốn hủy đơn đặt lịch này!',
             icon: "warning",
             buttons: true,
             dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                var book_id = $(this).data('book-id');
-                var _token = $('input[name="_token"]').val();
-                $.ajax({
-                    url : "{{route('home.appointment.destroy')}}",
-                    method: 'POST',
-                    data:{book_id:book_id,_token:_token},
-                    success:function(data){
-                        swal("Thành công! Đơn đặt lịch của bạn đã được hủy!", {
-                            icon: "success",
-                            });
-                            window.setTimeout(function() {
-                                location.reload();
-                            },3000);
-                        }
-                    });
-            } else {
-                swal("Thoát thao tác thành công!");
-            }
-        });
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var book_id = $(this).data('book-id');
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url : "{{route('home.appointment.destroy')}}",
+                        method: 'POST',
+                        data:{book_id:book_id,_token:_token},
+                        success:function(data){
+                            swal("Thành công! Đơn đặt lịch của bạn đã được hủy!", {
+                                icon: "success",
+                                });
+                                window.setTimeout(function() {
+                                    location.reload();
+                                },3000);
+                            }
+                        });
+                } else {
+                    swal("Thoát thao tác thành công!");
+                }
+            });
+        };
+
+
 
     });
     // Kết thúc ca lẻ>>>>>>>>>>>
@@ -158,7 +178,16 @@ $(document).ready(function(){
     });
     $(document).on('click', '.btn-change-bookdefault', function(e){
         e.preventDefault(); //cancel default action
-        swal({
+         var history_notes = $('textarea[name="history_notes"]').val();
+        if (history_notes  == "") {
+            swal({
+                    title: "Lỗi!",
+                    text: "Vui lòng nếu lý do trước để tiếp tục hủy!",
+                    icon: "warning",
+                    dangerMode: true,
+                    });
+        }else{
+            swal({
             title: "Hủy ??",
             text: 'Bạn có chắc muốn hủy đơn đặt lịch này!',
             icon: "warning",
@@ -172,8 +201,9 @@ $(document).ready(function(){
                 $.ajax({
                     url : "{{route('home.appointment.destroydefault')}}",
                     method: 'POST',
-                    data:{book_id:book_id,_token:_token},
+                    data:{book_id:book_id,_token:_token,history_notes:history_notes},
                     success:function(data){
+                        console.log(data);
                         swal("Thành công! Đơn đặt lịch của bạn đã được hủy!", {
                             icon: "success",
                             });
@@ -186,6 +216,8 @@ $(document).ready(function(){
                 swal("Thoát thao tác thành công!");
             }
         });
+        };
+
 
     });
     // Kết thúc ca cố định<<<<<<<<<<
@@ -193,7 +225,7 @@ $(document).ready(function(){
 
 
     //Dánh giá modal
-    $('#danhgia').on('click',function(){
+    $('.danhgia').on('click',function(){
         // $('#modal-details').show();
         // alert('234');
         var book_id = $(this).data('book_id');

@@ -14,10 +14,10 @@
                         <tr>
                             <th>STT</th>
                             <th>Người giúp việc</th>
-                            <th>Số buổi đã hoàn thành</th>
-                            <th>HTTT</th>
-                            <th>Hóa đơn gốc</th>
-                            <th>Thanh toán</th>
+                            <th>Người hẹn</th>
+                            <th>Dịch vụ</th>
+                            <th>Ngày bắt đầu làm việc</th>
+                            <th>Tổng hóa đơn</th>
                             <th>Xem nhanh</th>
                             <th></th>
                         </tr>
@@ -25,28 +25,39 @@
                     <tbody>
                         {{-- @if (!empty($book)) --}}
                             @foreach ($book as $key=>$value )
+                            @php
+                                 $time= explode(':',$value->book_time_start);
+                                 $time_end = $time[0]+ $value->book_time_number.':'.$time[1];
+                                 $weekday = [
+                                    'Monday' => 'Thứ 2',
+                                    'Tuesday' => 'Thứ 3',
+                                    'Wednesday' => 'Thứ 4',
+                                    'Thursday' => 'Thứ 5',
+                                    'Friday' => 'Thứ 6',
+                                    'Saturday' => 'Thứ 7',
+                                    'Sunday' => 'Chủ nhật',
+                                ];
+                            @endphp
                             <tr>
                                 <td>{{ $key+1}}</td>
                                 <td>{{ $value->name }}</td>
+                                <td>{{ $value->shipping_name }}</td>
+                                <td>{{ $value->service_name }}</td>
+
+                                @if ($value->service_id == 1)
+                                    <td>{{ $weekday[date('l',strtotime($value->book_date))].', '. date('d/m/Y',strtotime($value->book_date)).' - '. $value->book_time_start }}</td>
+
+                                @else
                                     @php
                                         $date =  explode(",",$value->book_date);
+                                        $changedate = explode("/",$date[0]);
+                                         $date[0] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
                                     @endphp
+                                    <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start }}</td>
 
-                                <td>{{ $value->date_finish }} / {{  count($date)-$value->history_previous_date }}</td>
-                                <td>
-                                    @if ($value->payment_id == 1)
-                                        <span class="badge border-primary border-1 text-primary">Tiền mặt</span>
-                                    @else
-                                        <span class="badge border-success border-1 text-success">Đã thanh toán</span>
-                                    @endif
+                                @endif
 
-                                </td>
-
-                                @php
-                                    $total_price = $value->book_total/count($date) *$value->date_finish;
-                                @endphp
-                                <td>{{ number_format($value->book_total - $value->book_total/count($date) *$value->history_previous_date ) }} <sup>đ</sup> </td>
-                                <td>{{ number_format($total_price) }} <sup>đ</sup> </td>
+                                <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
                                 @switch($value->history_status)
                                     @case(3)
                                         <td><span class="btn btn-danger" style="color: white;width: 170px;">Đã hủy</span></td>
@@ -54,17 +65,6 @@
                                     @default
                                         <td><span class="btn btn-primary" style="color: white;width: 170px;">Hoàn thành</span></td>
                                 @endswitch
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('admin.hoadon-update',$value->history_id) }}"
-                                            ><i class="bx bx-edit-alt me-1"></i> Duyệt</a>
-                                        </div>
-                                    </div>
-                                </td>
                                 <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}">Xem chi tiết</button></td>
 
 
