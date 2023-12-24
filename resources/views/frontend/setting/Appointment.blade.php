@@ -51,7 +51,15 @@
                             <td><span class="btn btn-danger" style="color: white;width: 170px;">Đã hủy</span></td>
                             @break
                         @default
-                            <td><span class="btn btn-success" style="color: white;width: 170px;">Hoàn thành</span></td>
+                            <td><span class="btn btn-success" style="color: white;width: 170px;">Hoàn thành</span><br>
+                                @foreach ($check_comment as $checkCM =>$valCM )
+                                    @if ($valCM->book_id == $value->book_id)
+                                        <a id="xemdanhgia" class="xemdanhgia" data-book_id="{{ $value->book_id }}">Xem đánh giá</a></td>
+
+                                    @else
+                                        <a id="danhgia" class="danhgia" data-book_id="{{ $value->book_id }}">Đánh giá</a></td>
+                                    @endif
+                                @endforeach
                     @endswitch
                     @if ($value->service_id == 1)
                          <td><button type="submit" class="btn btn-default btn-details" id="{{ $value->book_id }}">Xem chi tiết</button></td>
@@ -68,6 +76,7 @@
 
             @endif --}}
             <div id="modal-details"></div>
+            <div id="modal-danhgia"></div>
         </tbody>
     </table>
 </div>
@@ -180,6 +189,33 @@ $(document).ready(function(){
 
     });
     // Kết thúc ca cố định<<<<<<<<<<
+
+
+
+    //Dánh giá modal
+    $('#danhgia').on('click',function(){
+        // $('#modal-details').show();
+        // alert('234');
+        var book_id = $(this).data('book_id');
+        // alert(book_id);
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url : "{{route('home.appointment.danhgia')}}",
+            method: 'GET',
+            data:{book_id:book_id},
+            success:function(data){
+                $('#modal-danhgia').html(data);
+                $('#Modaldanhgia').modal('show');
+
+            }
+        });
+
+
+
+    });
+
+
+
 
 });
 </script>

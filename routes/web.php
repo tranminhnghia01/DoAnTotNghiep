@@ -32,6 +32,7 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
     // begin Nav
     Route::get('/services', [App\Http\Controllers\frontend\HomeController::class, 'service'])->name('home-service');
     Route::get('/houses', [App\Http\Controllers\frontend\HomeController::class, 'housekeeper'])->name('home-housekeeper');
+    Route::get('/houses/show/{housekeepet_id}', [App\Http\Controllers\frontend\HomeController::class, 'housekeeper_show'])->name('home-housekeeper.show');
 
     // End Nav
 
@@ -58,10 +59,13 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
 
     //end service
-    Route::get('/checkout', [App\Http\Controllers\frontend\CheckoutController::class,'index'])->name('checkout');
-    Route::post('/checkout', [App\Http\Controllers\frontend\CheckoutController::class,'update']);
+    // Route::get('/checkout', [App\Http\Controllers\frontend\CheckoutController::class,'index'])->name('checkout');
+    // Route::post('/checkout', [App\Http\Controllers\frontend\CheckoutController::class,'update']);
+    Route::get('/checkout', [App\Http\Controllers\frontend\UserController::class,'index'])->name('checkout');
+    Route::post('/checkout', [App\Http\Controllers\frontend\UserController::class,'update']);
 
     Route::get('/Account', [App\Http\Controllers\frontend\UserController::class,'index'])->name('appointment.index');
+    Route::post('/Account/update', [App\Http\Controllers\frontend\UserController::class,'update'])->name('Account.update');
 
     Route::get('/Account/show', [App\Http\Controllers\frontend\UserController::class,'show'])->name('appointment.show');
     Route::get('/Account/fixed-show', [App\Http\Controllers\frontend\UserController::class,'showfixed'])->name('appointment.showfixed');
@@ -70,6 +74,8 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
     Route::post('/Account/destroydefault', [App\Http\Controllers\frontend\UserController::class,'destroydefault'])->name('appointment.destroydefault');
 
     //ca cố định
+    Route::get('/Account/Danh-gia', [App\Http\Controllers\frontend\BookingController::class,'danhgia'])->name('appointment.danhgia');
+    Route::post('/Account/Danh-gia', [App\Http\Controllers\frontend\BookingController::class,'post_danhgia']);
 
 
     //Phương thức thanh toán
@@ -98,6 +104,7 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 
 
     Route::resource('housekeeper', App\Http\Controllers\admin\HousekeeperController::class);
+    Route::resource('Nguoi-dung', App\Http\Controllers\admin\MemberController::class);
      //show appointment housekeeper
     Route::get('/details-housekeeper/{housekeeper_id}', [App\Http\Controllers\admin\HousekeeperController::class,'show_Details'])->name('housekeeper.appointment-details');
 
@@ -120,8 +127,17 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
     Route::resource('bill', App\Http\Controllers\admin\BillController::class);
 
     Route::get('/Thong-ke', [App\Http\Controllers\admin\DashboardController::class, 'index'])->name('thongke-index');
+    Route::get('/Thong-ke/don-lich', [App\Http\Controllers\admin\DashboardController::class, 'thongke_donlich'])->name('thongke-donlich');
+    Route::post('/Thong-ke/filter-by-date', [App\Http\Controllers\admin\DashboardController::class, 'filter_by_date'])->name('thongke-filter-by-date');
+    Route::post('/Thong-ke/dashboard-filter', [App\Http\Controllers\admin\DashboardController::class, 'dashboard_filter'])->name('thongke-dashboard-filter');
+    Route::post('/Thong-ke/dashboard-days', [App\Http\Controllers\admin\DashboardController::class, 'dashboard_days'])->name('thongke-dashboard-days');
 
 
+    ///Đánh giá bình luận
+    Route::get('/Đanh-gia', [App\Http\Controllers\admin\CommentController::class, 'index'])->name('comment.index');
+
+    //Bảng giá
+    Route::get('/Bang-gia', [App\Http\Controllers\admin\CommentController::class, 'banggia'])->name('banggia.index');
 
 
 

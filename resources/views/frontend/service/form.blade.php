@@ -27,13 +27,6 @@
                 </div>
             </div>
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s" style="color: #000">
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Dịch vụ</a>
-                    <div class="dropdown-menu rounded-0 rounded-bottom m-0">
-                            <a href="{{ route('home.giup-viec-ca-le.create') }}" class="dropdown-item">Giúp việc nhà theo giờ</a>
-                            <a href="{{ route('home.giup-viec-ca-co-dinh.create') }}" class="dropdown-item">Giúp việc nhà ca cố định</a>
-                    </div>
-                </div>
                 <div class="bg-light rounded h-100 d-flex align-items-center p-5">
                     @yield('form-service')
                 </div>

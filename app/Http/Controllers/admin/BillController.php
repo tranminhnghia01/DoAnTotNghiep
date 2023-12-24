@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\History;
 use App\Models\Payment;
+use App\Models\PaymentOnline;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,10 +27,10 @@ class BillController extends Controller
                 ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
                 ->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')
                 ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
-                ->where('tbl_history.history_status',4)
-                ->where('tbl_history.history_status',3)
-                ->orderBy('tbl_booking.created_at', 'desc')->get();
-        $bill = Payment::all();
+                ->whereBetween('tbl_history.history_status', [3, 4])
+                ->orderBy('tbl_booking.created_at', 'desc')
+                ->get();
+        $bill = PaymentOnline::all();
 
         // dd($book);
         return view('admin.appointment.bill')->with(compact('book','user','bill'));

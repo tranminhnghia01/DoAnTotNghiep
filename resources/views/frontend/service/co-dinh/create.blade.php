@@ -4,8 +4,8 @@
     <form method="post" action="{{ route('home.giup-viec.store') }}">
     @csrf
     <div class="row g-3">
-        <input type="hidden" name="book_price" value="80000">
-        <input type="hidden" name="service_id" value="2">
+        <input type="hidden" name="book_price" value="{{ $service->service_price }}">
+        <input type="hidden" name="service_id" value="{{ $service->service_id }}">
         <div class="col-md-12">
             <label style="font-size: 18px; color: #000;font-weight: 700" for="">Thời gian làm việc</label>
             <div id="dateweek"  style="display: flex;justify-content: space-around;" >
@@ -350,7 +350,6 @@
             var book_notes = $('textarea[name="book_notes"]').val();
 
             var package_type = Number($('input[name="package_type"]:checked').val());
-
             $.ajax({
                 url : "{{route('home.giup-viec.check-Booking')}}",
                 method: 'GET',

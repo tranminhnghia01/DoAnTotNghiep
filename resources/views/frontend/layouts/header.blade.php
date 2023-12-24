@@ -40,6 +40,9 @@
     <link href="{{ asset('frontend/css/sweetalert.css') }}" rel="stylesheet">
     <script src="{{ asset('frontend/css/sweetalert.min.js') }}"></script>
 
+    <link type="text/css" rel="stylesheet" href="{{ asset('rate/css/rate.css') }}">
+
+
 
 
 </head>

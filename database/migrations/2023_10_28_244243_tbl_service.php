@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('service_image');
             $table->text('service_des');
             $table->string('service_slug');
+            $table->string('service_price')->nullable();
             $table->text('service_content');
             $table->string('service_status');
             $table->timestamps();

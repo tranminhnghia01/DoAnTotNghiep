@@ -2,6 +2,40 @@
 @section('container')
 <section class="section dashboard">
     <div class="row">
+        {{-- <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Thống kê</h5>
+
+                <!-- Browser Default Validation -->
+                <form class="row g-3">
+                  <div class="col-md-4">
+                    <label for="validationDefault01" class="form-label">Từ ngày:</label>
+                    <input type="date" class="form-control">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="validationDefault02" class="form-label">Đến ngày:</label>
+                    <input type="date" class="form-control">
+
+                  </div>
+                  <div class="col-md-3">
+                    <label for="validationDefault04" class="form-label">Lọc theo:</label>
+                    <select class="form-select" id="validationDefault04">
+                        <option selected="" disabled="" value="">Choose...</option>
+                        <option value="1">Hôm nay</option>
+                        <option value="2">Tháng này</option>
+                        <option value="3">Năm này</option>
+                    </select>
+                  </div>
+
+                  <div class="col-12">
+                    <button class="btn btn-primary" type="submit">Lọc kết quả</button>
+                  </div>
+                </form>
+                <!-- End Browser Default Validation -->
+              </div>
+            </div>
+        </div> --}}
 
       <!-- Left side columns -->
       <div class="col-lg-8">
@@ -11,78 +45,41 @@
           <!-- Reports -->
           <div class="col-12">
             <div class="card">
-
-              <div class="filter">
-                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <li class="dropdown-header text-start">
-                    <h6>Filter</h6>
-                  </li>
-
-                  <li><a class="dropdown-item" href="#">Hôm nay</a></li>
-                  <li><a class="dropdown-item" href="#">Tháng này</a></li>
-                  <li><a class="dropdown-item" href="#">Năm nay</a></li>
-                </ul>
-              </div>
-
               <div class="card-body">
-                <h5 class="card-title">Báo cáo <span>/Hôm nay</span></h5>
+                <h5 class="card-title">Thống kê</h5>
+                <form class="row g-3" autocomplete="off">
+                    @csrf
+                    <div class="col-md-4">
+                      <label for="validationDefault01" class="form-label">Từ ngày:</label>
+                      <input type="date" name="from_date" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                      <label for="validationDefault02" class="form-label">Đến ngày:</label>
+                      <input type="date" name="to_date" class="form-control">
+
+                    </div>
+                    <div class="col-md-3">
+                      <label for="validationDefault04" class="form-label">Lọc theo:</label>
+                      <select class="form-select dashboard-filter" id="validationDefault04">
+                          <option selected="" disabled="" value="">Chọn...</option>
+                          <option value="7ngay">7 ngày qua</option>
+                          <option value="thangtruoc">Tháng trước</option>
+                          <option value="thangnay">Tháng này</option>
+                          <option value="365ngay">1 năm qua</option>
+                      </select>
+                    </div>
+
+                    <div class="col-12">
+                      <button type="button" class="btn btn-primary btn-dashboard-filter">Lọc kết quả</button>
+                    </div>
+                  </form>
 
                 <!-- Line Chart -->
-                <div id="reportsChart"></div>
+                <div id="myfirstchart" style="width: 100%;height: 300px;">
 
-                <script>
-                  document.addEventListener("DOMContentLoaded", () => {
-                    new ApexCharts(document.querySelector("#reportsChart"), {
-                      series: [{
-                        name: 'Đơn lịch',
-                        data: [31, 40, 28, 51, 42, 82, 56],
-                      }, {
-                        name: 'Doanh thu',
-                        data: [11, 32, 45, 32, 34, 52, 41]
-                      }, {
-                        name: 'Người dùng',
-                        data: [15, 11, 32, 18, 9, 24, 11]
-                      }],
-                      chart: {
-                        height: 350,
-                        type: 'area',
-                        toolbar: {
-                          show: false
-                        },
-                      },
-                      markers: {
-                        size: 4
-                      },
-                      colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                      fill: {
-                        type: "gradient",
-                        gradient: {
-                          shadeIntensity: 1,
-                          opacityFrom: 0.3,
-                          opacityTo: 0.4,
-                          stops: [0, 90, 100]
-                        }
-                      },
-                      dataLabels: {
-                        enabled: false
-                      },
-                      stroke: {
-                        curve: 'smooth',
-                        width: 2
-                      },
-                      xaxis: {
-                        type: 'datetime',
-                        categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                      },
-                      tooltip: {
-                        x: {
-                          format: 'dd/MM/yy HH:mm'
-                        },
-                      }
-                    }).render();
-                  });
-                </script>
+                </div>
+
+
                 <!-- End Line Chart -->
 
               </div>
@@ -106,62 +103,31 @@
           <div class="card-body pb-0">
             <h5 class="card-title">Tổng đơn lịch, dịch vụ bài viết trên Hệ thống</h5>
 
-            <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
+            <div id="donut" style="min-height: 400px;" class="echart">
 
+
+            </div>
             <script>
-              document.addEventListener("DOMContentLoaded", () => {
-                echarts.init(document.querySelector("#trafficChart")).setOption({
-                  tooltip: {
-                    trigger: 'item'
-                  },
-                  legend: {
-                    top: '5%',
-                    left: 'center'
-                  },
-                  series: [{
-                    name: 'Thống kê',
-                    type: 'pie',
-                    radius: ['40%', '70%'],
-                    avoidLabelOverlap: false,
-                    label: {
-                      show: false,
-                      position: 'center'
-                    },
-                    emphasis: {
-                      label: {
-                        show: true,
-                        fontSize: '18',
-                        fontWeight: 'bold'
-                      }
-                    },
-                    labelLine: {
-                      show: false
-                    },
-                    data: [{
-                        value: 10,
-                        name: 'Đơn lịch'
-                      },
-                      {
-                        value: 6,
-                        name: 'bài viết'
-                      },
-                      {
-                        value: 5,
-                        name: 'Khách hàng'
-                      },
-                      {
-                        value: 7,
-                        name: 'Người giúp việc'
-                      },
-                      {
-                        value: 6,
-                        name: 'Dịch vụ'
-                      }
-                    ]
-                  }]
-                });
-              });
-            </script>
+                    Morris.Donut({
+                        element: 'donut',
+                        resize: true,
+                        colors: [
+                            '#a8328e',
+                            '#61a1ce',
+                            '#ce8f61',
+                            '#f5b942',
+                            '#4842f5',
+                        ],
+                        //labelColor:"#cccccc", // text color
+                        //backgroundColor: '#333333', // border color
+                        data: [
+                            {label:"Đơn lịch", value:{{ $Count_book }}},
+                            {label:"Dịch vụ", value:{{ $Count_service }}},
+                            {label:"Người giúp việc", value:{{ $Count_house }}},
+                            {label:"Khách hàng", value:{{ $Count_user }}}
+                        ]
+                    });
+                    </script>
 
           </div>
         </div><!-- End Website Traffic -->

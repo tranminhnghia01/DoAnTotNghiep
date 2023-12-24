@@ -27,8 +27,10 @@ class MemberController extends Controller
     public function index()
     {
         $role = Role::all();
-        $housekeepers = User::where('role_id',2)->get();
-        return view('admin.users.list')->with(compact('housekeepers','role'));
+        $member = User::where('role_id',3)
+        ->join('tbl_shipping', 'tbl_shipping.user_id', '=', 'users.user_id')
+        ->get();
+        return view('admin.users.Nguoi-dung')->with(compact('member','role'));
     }
 
     /**

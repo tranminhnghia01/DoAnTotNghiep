@@ -31,6 +31,10 @@
   <link href="{{ asset('frontend/css/sweetalert.css') }}" rel="stylesheet">
   <script src="{{ asset('frontend/css/sweetalert.min.js') }}"></script>
 
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+{{-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script> --}}
+
+
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2

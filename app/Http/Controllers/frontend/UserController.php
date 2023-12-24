@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\City;
+use App\Models\Comment;
 use App\Models\Coupon;
 use App\Models\History;
 use App\Models\Order;
@@ -38,9 +39,12 @@ class UserController extends Controller
 
         $city = City::all();
 
+        $check_comment = Comment::join('tbl_history', 'tbl_history.history_id', '=', 'tbl_comment.history_id')->get();
+        // dd($check_comment);
+
         // $book = Book::where('shipping_id',$shipping->id)->get();
         // dd($book);
-        return view('frontend.setting.profile')->with(compact('book','shipping','user','city','bookFixed'));
+        return view('frontend.setting.profile')->with(compact('book','shipping','user','city','bookFixed','check_comment'));
     }
 
 
@@ -51,25 +55,28 @@ class UserController extends Controller
 
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $data =$request->all();
-        $data['name'] = $data['firstname'].' '.$data['lastname'];
+        $id= Auth::id();
         $user = User::findOrFail($id);
+        $shipping = Shipping::where('user_id', $user->user_id)->first();
 
-        if ($user->avatar != 0) {
-            $old_img = $user->avatar;
+        // dd($user);
+        if ($shipping->shipping_image != 0) {
+            $old_img = $shipping->shipping_image;
         }
         // dd($old_img);
-        $file = $request->avatar;
+        $file = $request->shipping_image;
+        // dd($file);
         if (!empty($file)) {
-            $data['avatar'] = rand(0,99).$file->getClientOriginalName();
+            $data['shipping_image'] = "nguoidung".rand(0,99).$file->getClientOriginalName();
         }
 
-        if($user->update($data)){
+        if($shipping->update($data)){
             if (!empty($file)) {
-                $file->move('uploads/users',$data['avatar']);
-                if($old_img){
+                $file->move('uploads/users',$data['shipping_image']);
+                if(!empty($old_img)){
                     $path = public_path('uploads/users/'. $old_img);
                     unlink($path);
                 }
@@ -81,7 +88,7 @@ class UserController extends Controller
             $msg = 'Có lỗi xảy ra khi tiến hành cập nhật. ';
         };
 
-        return redirect()->route('home.account.index')->with(compact('msg','style'));
+        return redirect()->back()->with(compact('msg','style'));
     }
 
 
@@ -240,13 +247,6 @@ class UserController extends Controller
                         ';
                                 break;
                         }
-                        // if ($book->book_status == 4) {
-
-                        // }if ($book->book_status == 3) {
-
-                        //  }else{
-
-                        // }
                             $output .='
                         </form>
                         </div>
@@ -477,35 +477,28 @@ class UserController extends Controller
                         switch ($book->book_status) {
                             case 4:
                                 $output .='
-                            <button type="button"  class="btn btn-success py-3  "><i class="tf-ion-close" aria-hidden="true"> Đánh giá</i></button>
-                           ';
+                                    <button type="button"  class="btn btn-success py-3 btn-danhgia">Đánh giá</button>
+                                ';
+                            break;
+
+                            case 2:
+                                $output .='
+                                    <button type="button"  class="btn btn-info py-3 btn-danhgia" data-book-id="'.$book->book_id.'">Đánh giá</button>
+                                    <button type="button" class="btn btn-danger  py-3 btn-change-bookdefault" data-book-id="'.$book->book_id.'"  style="width:150px"><i class="tf-ion-close" aria-hidden="true">Hủy lịch</i></button>
+                                ';
+                            break;
+                            case 3:
+                                $output .='
+                                    <button type="button"  class="btn btn-primary py-3  "><i class="tf-ion-close" aria-hidden="true">Đăng lại</i></button>
+                                    ';
                                 break;
-
-                                case 2:
-                                    $output .='
-                            <button type="button" class="btn btn-danger  py-3 btn-change-bookdefault" data-book-id="'.$book->book_id.'"  style="width:150px"><i class="tf-ion-close" aria-hidden="true">Hủy lịch</i></button>
-
-                            ';
-                            break;
-                                case 3:
-                                    $output .='
-                             <button type="button"  class="btn btn-primary py-3  "><i class="tf-ion-close" aria-hidden="true">Đăng lại</i></button>
-                            ';
-                            break;
 
                             default:
-                            $output .='
-                            <button type="button" class="btn btn-danger  py-3 btn-change-bookdefault" data-book-id="'.$book->book_id.'"  style="width:150px"><i class="tf-ion-close" aria-hidden="true">Hủy lịch</i></button>
-                        ';
-                                break;
+                                $output .='
+                                    <button type="button" class="btn btn-danger  py-3 btn-change-bookdefault" data-book-id="'.$book->book_id.'"  style="width:150px"><i class="tf-ion-close" aria-hidden="true">Hủy lịch</i></button>
+                                ';
+                            break;
                         }
-                        // if ($book->book_status == 4) {
-
-                        // }if ($book->book_status == 3) {
-
-                        //  }else{
-
-                        // }
                             $output .='
                         </form>
                         </div>

@@ -21,43 +21,28 @@
         <table class="table table-borderless">
           <thead>
             <tr>
-              <th scope="col"></th>
+              <th scope="col">STT</th>
               <th scope="col">Tên</th>
               <th scope="col">Tổng tiền</th>
               <th scope="col">Số lần dùng dịch vụ</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row"><a href="#"><img src="assets/img/product-1.jpg" alt=""></a></th>
-              <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas nulla</a></td>
-              <td>$64</td>
-              <td class="fw-bold">124</td>
-            </tr>
-            <tr>
-              <th scope="row"><a href="#"><img src="assets/img/product-2.jpg" alt=""></a></th>
-              <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td>
-              <td>$46</td>
-              <td class="fw-bold">98</td>
-            </tr>
-            <tr>
-              <th scope="row"><a href="#"><img src="assets/img/product-3.jpg" alt=""></a></th>
-              <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a></td>
-              <td>$59</td>
-              <td class="fw-bold">74</td>
-            </tr>
-            <tr>
-              <th scope="row"><a href="#"><img src="assets/img/product-4.jpg" alt=""></a></th>
-              <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum error</a></td>
-              <td>$32</td>
-              <td class="fw-bold">63</td>
-            </tr>
-            <tr>
-              <th scope="row"><a href="#"><img src="assets/img/product-5.jpg" alt=""></a></th>
-              <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus repellendus</a></td>
-              <td>$79</td>
-              <td class="fw-bold">41</td>
-            </tr>
+            @foreach ($count_appointmemt as $key => $val)
+                @foreach ($getName as $val_name)
+                    @if ($val_name->shipping_id == $val->shipping_id)
+                <tr>
+
+                    <th scope="row"><a href="#"><img src="assets/img/product-1.jpg" alt="">{{ $key+1 }}</a></th>
+                    <td><a href="#"class="text-primary fw-bold">{{$val_name->name}}</a></td>
+                    <td class="fw-bold">{{ $val->total }}</td>
+                    <td>{{ $val->count_booking }}</td>
+                </tr>
+
+                    @endif
+                @endforeach
+
+            @endforeach
           </tbody>
         </table>
 

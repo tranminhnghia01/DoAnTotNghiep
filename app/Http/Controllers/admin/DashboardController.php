@@ -3,6 +3,14 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
+use App\Models\Book;
+use App\Models\Housekeeper;
+use App\Models\Service;
+use App\Models\Shipping;
+use App\Models\Statistic;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,7 +22,28 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view("admin.index");
+        $Count_house = Housekeeper::all()->count();
+        $Count_user = User::all()->count();
+        $Count_service = Service::all()->count();
+        $Count_book = Book::all()->count();
+        $book = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
+        ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
+        ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
+        ->join('users', 'users.user_id', '=', 'tbl_shipping.user_id')->orderBy('tbl_booking.created_at','ASC')->get();
+        $All_user = User::where('role_id',3)->get();
+        // >whereMonth('created_at', $now)
+        $count_appointmemt = Book::selectRaw('count(tbl_booking.shipping_id) as count_booking, shipping_id,sum(tbl_booking.book_total) as total')
+        ->groupBy('shipping_id')->orderBy('count_booking','DESC')->get();
+        $getName = Shipping::join('users', 'users.user_id', '=', 'tbl_shipping.user_id')->get();
+
+        $count_service = Book::selectRaw('count(tbl_booking.service_id) as count_service, service_id')
+        ->groupBy('service_id')->orderBy('count_service','DESC')->get();
+        $service = Service::all();
+
+
+
+        $sum_book = Book::selectRaw('count(id) as total_booking,sum(book_total) as total')->where('book_status','!=',1)->first();
+        return view("admin.index")->with(compact('Count_house','Count_user','Count_service','Count_book','book','All_user','count_appointmemt','getName','count_service','service','sum_book'));
     }
 
     /**
@@ -22,64 +51,92 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function thongke_donlich(){
+
+    }
+    public function filter_by_date(Request $request){
+        $data =$request->all();
+        $from_date = $data['from_date'];
+        $to_date = $data['to_date'];
+
+        $get = Statistic::whereBetween('date',[$from_date,$to_date])->orderBy('date','ASC')->get();
+        foreach ($get as $key => $value) {
+            $chart_data[] = array(
+                'date' => $value->date,
+                'sales' => $value->sales,
+                'profit' => $value->profit,
+                'appointment' => $value->total_appointment,
+            );
+        }
+        echo $data = json_encode($chart_data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function dashboard_filter(Request $request){
+        $data =$request->all();
+        $dashboard_value = $data['dashboard_value'];
+
+
+        $dauthangnay = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $dauthang_truoc = Carbon::now()->subMonth()->startOfMonth()->format('Y-m-d');
+        $cuoithang_truoc = Carbon::now()->subMonth()->endOfMonth()->format('Y-m-d');
+
+        $sub7days = Carbon::now()->subDays(7)->format('Y-m-d');
+        $sub365days = Carbon::now()->subDays(365)->format('Y-m-d');
+
+        $now = Carbon::now()->format('Y-m-d');
+
+        switch ($dashboard_value) {
+            case '7ngay':
+                $get = Statistic::whereBetween('date',[$sub7days,$now])->orderBy('date','ASC')->get();
+                break;
+                case 'thangtruoc':
+                    $get = Statistic::whereBetween('date',[$dauthang_truoc,$now])->orderBy('date','ASC')->get();
+                    break;
+                case 'thangnay':
+                    $get = Statistic::whereBetween('date',[$dauthangnay,$now])->orderBy('date','ASC')->get();
+                    break;
+                case '365ngay':
+                    $get = Statistic::whereBetween('date',[$sub365days,$now])->orderBy('date','ASC')->get();
+                    break;
+
+            default:
+                    $get = Statistic::all()->orderBy('date','ASC');
+                break;
+        }
+        if($get){
+            foreach ($get as $key => $value) {
+                $chart_data[] = array(
+                    'date' => $value->date,
+                    'sales' => $value->sales,
+                    'profit' => $value->profit,
+                    'appointment' => $value->total_appointment,
+                );
+            }
+            echo $data = json_encode($chart_data);
+        }
+
+
+
+
+        // $get = Statistic::whereBetween('date',[$from_date,$to_date])->orderBy('date','ASC')->get();
+
+    }
+    public function dashboard_days(Request $request){
+        $subdays = Carbon::now()->subDays(60)->format('Y-m-d');
+
+        $now = Carbon::now()->format('Y-m-d');
+
+        $get = Statistic::whereBetween('date',[$subdays,$now])->orderBy('date','ASC')->get();
+        foreach ($get as $key => $value) {
+            $chart_data[] = array(
+                'date' => $value->date,
+                'sales' => $value->sales,
+                'profit' => $value->profit,
+                'appointment' => $value->total_appointment,
+            );
+        }
+        echo $data = json_encode($chart_data);
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

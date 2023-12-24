@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('image');
             $table->string('comment');
+            $table->text('reply');
+            $table->integer('rate');
             $table->timestamps();
         });
     }

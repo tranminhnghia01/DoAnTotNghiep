@@ -3,19 +3,48 @@
         <div class="row g-5 bg-light" >
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                 <div class="d-flex flex-column">
-                    <h1 style="width: 200px;">Thu nhập nhiều hơn.
-                        Cuộc sống tốt hơn.</h1>
-                        <p>Giờ đây, bạn không chỉ dễ dàng kiếm tiền từ việc giúp việc nhà theo giờ, mà còn chủ động về thời gian của bạn để cải thiện chất lượng cuộc sống.</p>
-                    <img src="{{ asset('frontend/img/210721-partner-home-cleaning-dang-ky-doi-tac.png') }}" alt="" height="100%">
+                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                        @if ($shipping->shipping_image)
+                        <img src="{{ asset('uploads/users/'.$shipping->shipping_image) }}" alt="Profile" class="rounded-circle" style="width: 250px">
+                    @else
+                        <img src="{{ asset('admin/assets/img/apple-touch-icon.png') }}" alt="Profile" class="rounded-circle">
+                    @endif
+                        <h2> {{ $shipping->shipping_name }} </h2>
+                        <h3></h3>
+                        <div class="social-links mt-2">
+                          <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                      </div>
                 </div>
             </div>
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" >
                 <div class="rounded p-5" style="background-color: #fff; padding-bottom: 3rem;">
                     <p class="d-inline-block border rounded-pill py-1 px-4">Hồ sơ</p>
                     <h1 class="mb-4">Thông tin cá nhân</h1>
-                    <form method="POST">
+                    <form action="{{ route('home.Account.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row g-3">
+                            <div class="col-md-12" style="">
+                                @if ($shipping->shipping_image)
+                                <img src="{{ asset('uploads/users/'.$shipping->shipping_image) }}" alt="Profile" style="margin: 0 auto;display: flex;
+                                justify-content: center;width: 250px;height: 200px">
+                            @else
+                                <img src="{{ asset('admin/assets/img/apple-touch-icon.png') }}" alt="Profile" style="margin: 0 auto;display: flex;
+                                justify-content: center;">
+                            @endif
+                            <div class="pt-2" style="margin: 0 auto;display: flex;
+                            justify-content: center;">
+                                <label for="uploadImage" class="btn btn-primary btn-sm" title="Upload new profile image" style="color: #fff">
+                                    <i class="bi bi-upload" style="font-size: 16px"><input type="file" name="shipping_image" id="uploadImage" accept="image/png, image/jpeg" hidden=""></i></label>
+                                <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image" style="margin-left: 40px;"><i class="bi bi-trash"style="font-size: 16px"></i></a>
+                            </div>
+                            @error('shipping_image')
+                                    <span style="color: red">{{ $message }}</span>
+                                @enderror
+                         </div>
                             <div class="col-md-12">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="name" name="shipping_name" placeholder="Họ tên" value="{{ $shipping->shipping_name }}">

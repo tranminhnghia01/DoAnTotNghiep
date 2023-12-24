@@ -5,8 +5,8 @@
 
     @csrf
     <div class="row g-3">
-        <input type="hidden" name="book_price" value="80000">
-        <input type="hidden" name="service_id" value="1">
+        <input type="hidden" name="book_price" value="{{ $service->service_price }}">
+        <input type="hidden" name="service_id" value="{{ $service->service_id }}">
         <div class="col-md-12">
             <label style="font-size: 18px; color: #000;font-weight: 700" for="">Thời gian làm việc</label>
             <div id="dateweek"  style="display: flex;justify-content: space-around;" >
@@ -314,24 +314,42 @@
                 $('textarea[name="list_options"]').val(book_options);
             });
 
-            console.log(book_time_number);
-            console.log(service_id);
-            $.ajax({
-                url : "{{route('home.giup-viec.check-Booking')}}",
-                method: 'GET',
-                data:{book_date:book_date,
-                    book_options:book_options,
-                    book_price:book_price,
-                    book_time_number:book_time_number,
-                    book_time_start:book_time_start,
-                    service_id:service_id,
-                    Klcv:Klcv,book_notes:book_notes},
-                success:function(data){
-                   $('#modal-check').html(data);
-                   $('#exampleModal').modal('show');
-
+            var date = new Date();
+            var checkhours = true;
+            var now = date.toLocaleDateString();
+            var hoursnow =  date.getHours();
+            if (now == book_date) {
+                var split_time = book_time_start.split(':');
+                var hous_start = Number(split_time[0]) - 2;
+                if (hous_start >= hoursnow) {
+                    checkhours = true;
+                }else{
+                    checkhours = false;
                 }
-            });
+            }else{
+                checkhours = true;
+            }
+            if (checkhours == true) {
+                $.ajax({
+                    url : "{{route('home.giup-viec.check-Booking')}}",
+                    method: 'GET',
+                    data:{book_date:book_date,
+                        book_options:book_options,
+                        book_price:book_price,
+                        book_time_number:book_time_number,
+                        book_time_start:book_time_start,
+                        service_id:service_id,
+                        Klcv:Klcv,book_notes:book_notes},
+                    success:function(data){
+                    $('#modal-check').html(data);
+                    $('#exampleModal').modal('show');
+
+                    }
+                });
+
+            }else{
+                alert('Thời gian không họp lệ, Vui lòng chọn lại');
+            };
 
             $(document).on('change', '#coupon', function(e){
                 var coupon = $(this).val();

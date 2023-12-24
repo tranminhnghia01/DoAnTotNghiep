@@ -74,7 +74,7 @@
         </a>
         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="icons-bootstrap.html">
+            <a href="{{ route('admin.Nguoi-dung.index') }}">
               <i class="bi bi-circle"></i><span>Khách hàng</span>
             </a>
           </li>
@@ -92,7 +92,7 @@
         </a>
         <ul id="comment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="icons-bootstrap.html">
+            <a href="{{ route('admin.comment.index') }}">
               <i class="bi bi-circle"></i><span>Danh sách</span>
             </a>
           </li>
@@ -149,7 +149,7 @@
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="{{ route('admin.banggia.index') }}">
           <i class="ri-price-tag-2-line"></i>
           <span>Bảng giá</span>
         </a>

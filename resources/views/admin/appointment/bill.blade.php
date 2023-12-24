@@ -38,8 +38,6 @@
                                     'Sunday' => 'Chủ nhật',
                                 ];
                             @endphp
-                            @if ($value->book_status == 3 || $value->book_status == 4)
-
                             <tr>
                                 <td>{{ $key+1}}</td>
                                 <td>{{ $value->name }}</td>
@@ -60,7 +58,7 @@
                                 @endif
 
                                 <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
-                                @switch($value->book_status)
+                                @switch($value->history_status)
                                     @case(1)
                                         <td><span class="btn btn-warning" style="color: white;width: 170px;">Đang đợi xác nhận</span></td>
                                         @break
@@ -77,9 +75,6 @@
 
 
                             </tr>
-                            @else
-
-                            @endif
                             @endforeach
                             {{-- @else
                                 <tr><td>Bạn chưa có đơn đặt lịch nào!</td></tr>

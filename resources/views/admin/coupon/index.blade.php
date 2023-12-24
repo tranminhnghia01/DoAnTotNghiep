@@ -25,24 +25,25 @@
               </thead>
               <tbody>
                 @foreach ($data as $key => $value)
-                @php
-                    $time_start = date('d/m/Y',strtotime($value->coupon_time_start));
-                    $time_end = date('d/m/Y',strtotime($value->coupon_time_end));
-                    $today = date('d/m/Y',strtotime(now()));
-                @endphp
+                    @php
+                        $today = date('Y-m-d',strtotime(now()));
+                    @endphp
                     <tr>
                         <td>{{ $key+1 }}</td>
                         <td>{{ $value->coupon_name }}</td>
                         <td>{{ $value->coupon_code }}</td>
-                        <td>@if ($value->coupon_method == 0)
-                            {{ $value->coupon_number }}%
-                        @else
-                            {{ number_format($value->coupon_number) }} <sup>đ</sup>
-                        @endif</td>
-                        <td>{{ $time_start }}</td>
-                        <td>{{ $time_end }}</td>
                         <td>
-                            @if ($time_end < $today)
+                            @if ($value->coupon_method == 0)
+                                {{ $value->coupon_number }}%
+                            @else
+                                {{ number_format($value->coupon_number) }} <sup>đ</sup>
+                            @endif
+                        </td>
+                        <td>{{ $value->coupon_time_start }}</td>
+                        <td>{{ $value->coupon_time_end }}</td>
+                        <td>
+
+                            @if ($value->coupon_time_end < $today)
                             <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Hết hạn</span>
 
                             @else

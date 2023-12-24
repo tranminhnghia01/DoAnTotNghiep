@@ -82,36 +82,47 @@ class BookingController extends Controller
 
         $checkhis = History::latest()->where('book_id',$book_id)->first();
         if($book){
-            if($checkhis){
-                $info = [
-                    'book_id' => $checkhis->book_id,
-                    'history_status' => 2,
-                    'housekeeper_id' => $housekeeper_id,
-                    'history_pevious_date' => $checkhis->date_finish,
-                ];
+            if($housekeeper_id == $checkhis->housekeeper_id){
+                $checkhis->update(['history_status'=>2]);
+                $msg = "Giao lại công việc cho người giúp việc này!";
+                $style = "success";
             }else{
-                $info = [
-                    'book_id' => $book_id,
-                    'housekeeper_id' => $housekeeper_id,
-                    'history_status'=> 2,
-                ];
+                if($checkhis){
+                    $info = [
+                        'book_id' => $checkhis->book_id,
+                        'history_status' => 2,
+                        'housekeeper_id' => $housekeeper_id,
+                        'history_pevious_date' => $checkhis->date_finish,
+                    ];
+                }else{
+                    $info = [
+                        'book_id' => $book_id,
+                        'housekeeper_id' => $housekeeper_id,
+                        'history_status'=> 2,
+                    ];
+                }
+                $history =History::create($info);
+                if ($history) {
+                    $book->update(['book_status'=>2]);
+                    Mail::to('minhnghia11a1@gmail.com')->send(new MailNotify($book));
+
+                    $msg = "Đã giao công việc thành công";
+                    $style = "success";
+
+                }else{
+                    $msg = "Có lỗi xảy ra. Vui lòng kiểm tra lại!";
+                        $style = "danger";
+                };
             }
 
-            $history =History::create($info);
-            if ($history) {
-                $book->update(['book_status'=>2]);
-                Mail::to('minhnghia11a1@gmail.com')->send(new MailNotify($book));
+        }
+        else{
+            $msg = "Có lỗi xảy ra. Vui lòng kiểm tra lại!";
+                $style = "danger";
+        };
 
-                $msg = "Đã giao công việc thành công";
-                $style = "success";
-
-            }else{
-                $msg = "Có lỗi xảy ra. Vui lòng kiểm tra lại!";
-                    $style = "danger";
-            };
         return redirect()->route('admin.appointment.index')->with(compact('msg','style'));
 
-        }
 
     }
 
@@ -138,7 +149,6 @@ class BookingController extends Controller
         $history = History::join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
         ->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')
         ->where('tbl_history.book_id',$book_id)->first();
-
         // dd($book);
         $payment = Payment::find($book->payment_id);
         $coupon = Coupon::find($book->coupon_id);
@@ -162,8 +172,30 @@ class BookingController extends Controller
                  $listdate[$i] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
             }
 
+
+
         $split_time = explode(":",$book->book_time_start);
         $time_end = $split_time[0]+$book->book_time_number .':'.$split_time[1];
+
+            //check thanh toán
+            $now = Carbon::now()->format('m/d/Y');
+            $hours_now =  Carbon::now()->format('H');
+            // dd($hours_now);15
+            $checkhours = $split_time[0] - 2;
+            // dd($checkhours);
+            // dd($now);
+            // dd($listdate[0]);
+            $check_payment = true;
+            if($book->service_id == 2 && $book->payment_id == 1){
+                if($listdate[0] == $now && $hours_now > $checkhours ){
+                    $check_payment = false;
+                }else{
+                    $check_payment = true;
+
+                }
+            }
+
+
         $output.='<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="bg-white modal-content">
@@ -275,10 +307,19 @@ class BookingController extends Controller
 
                         ';
                         if ($request->action == "book_cance") {
+                            if($check_payment == true){
+
                                 $output .='
                                 <button type="button" class="btn btn-danger  py-3 btn-change-bookdefault" data-book-id="'.$book->book_id.'"  style="width:150px">Hủy lịch</button>
+                           ';
+
+                            }else{
+                                $output .='
+                                <button type="button" class="btn btn-danger  py-3 btn-bookdestroy" data-book-id="'.$book->book_id.'"  style="width:150px">Hủy lịch</button>
 
                            ';
+
+                            }
                         }
                             $output .='
                         </form>

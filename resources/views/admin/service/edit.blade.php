@@ -48,6 +48,18 @@
           </div>
 
           <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="basic-default-email">Giá dịch vụ/ 1h</label>
+            <div class="col-sm-10">
+              <div class="input-group input-group-merge">
+                <input type="text" id="basic-default-email" class="form-control" aria-describedby="basic-default-email2" name="service_price" value="{{ $service->service_price }}"/>
+              </div>
+              @error('service_price')
+              <span style="color: red">{{ $message }}</span>
+            @enderror
+            </div>
+          </div>
+
+          <div class="row mb-3">
             <label class="col-sm-2 col-form-label" for="basic-default-message" >Nội dung</label>
             <div class="col-sm-10">
               <textarea name="service_content" id="blog_content" class="form-control" placeholder="Hi, Do you have a moment to talk Joe?"

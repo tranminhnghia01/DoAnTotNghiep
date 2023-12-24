@@ -23,35 +23,21 @@
                 <tr>
                   <th scope="col"></th>
                   <th scope="col">Tên</th>
-                  <th scope="col">Số lần</th>
+                  <th scope="col">Số đơn lịch</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row"><a href="#"><img src="assets/img/product-1.jpg" alt=""></a></th>
-                  <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas nulla</a></td>
-                  <td>$64</td>
-                </tr>
-                <tr>
-                  <th scope="row"><a href="#"><img src="assets/img/product-2.jpg" alt=""></a></th>
-                  <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td>
-                  <td>$46</td>
-                </tr>
-                <tr>
-                  <th scope="row"><a href="#"><img src="assets/img/product-3.jpg" alt=""></a></th>
-                  <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a></td>
-                  <td>$59</td>
-                </tr>
-                <tr>
-                  <th scope="row"><a href="#"><img src="assets/img/product-4.jpg" alt=""></a></th>
-                  <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum error</a></td>
-                  <td>$32</td>
-                </tr>
-                <tr>
-                  <th scope="row"><a href="#"><img src="assets/img/product-5.jpg" alt=""></a></th>
-                  <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus repellendus</a></td>
-                  <td>$79</td>
-                </tr>
+                @foreach ($count_service as $keyc=>$valc)
+                    @foreach ($service as $key=>$val )
+                        @if ($valc->service_id == $val->service_id)
+                        <tr>
+                            <th scope="row"><a href="#"><img src="{{ asset('uploads/services/'.$val->service_image) }}" alt=""></a></th>
+                            <td><a href="#" class="text-primary fw-bold">{{ $val->service_name }}</a></td>
+                            <td> {{ $valc->count_service }} </td>
+                          </tr>
+                        @endif
+                    @endforeach
+                @endforeach
               </tbody>
             </table>
 

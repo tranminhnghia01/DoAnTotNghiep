@@ -12,6 +12,7 @@ use App\Models\Payment;
 use App\Models\Service;
 use App\Models\Shipping;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Mail;
@@ -77,13 +78,17 @@ class AppointmentController extends Controller
 
     public function store(Request $request){
         $data = $request->all();
-        // dd($data);
         $id= Auth::id();
         $user = User::findOrFail($id);
         $shipping = Shipping::where('user_id', $user->user_id)->first();
         $book_id = substr(md5(microtime()),rand(0,26),5);
         $book_date= explode(",",$request->book_date);
         $count_day= (count($book_date));
+        $book_time_start= $data['book_time_start'];
+        $split_time = explode(":",$book_time_start);
+        $hous_start = $split_time[0]- 2;
+        // dd($hous_start);
+
         for ($i=0; $i <count($book_date) ; $i++) {
             $changedate = explode("/", $book_date[$i]);
             $book_date[$i] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
@@ -94,6 +99,17 @@ class AppointmentController extends Controller
         for ($i=0; $i <count($book_date) ; $i++) {
             $book_date[$i] = date('d/m/Y', $book_date[$i]);
         };
+
+        $now = Carbon::now()->format('d/m/Y');
+        $time = Carbon::now()->format('H');
+        if($book_date[0] == $now){
+            if($hous_start < $time){
+                $msg = 'Thời gian bắt đầu làm việc trong ngày: '.$book_date[0].' phải sau '.($time+2).':00 giờ. Vui lòng chọn lại giờ bắt đầu hoặc ngày khác!';
+                $style ="warning";
+                return redirect()->back()->with(compact('msg','style'));
+            };
+        };
+
         // dd(implode(",", $book_date));
         if($data['service_id'] == 1){
             $book_options = $request->list_options;
@@ -168,6 +184,7 @@ class AppointmentController extends Controller
         $book_price = $data['book_price'];
 
 
+
         $book_time_number = $data['book_time_number'];
 
 
@@ -176,6 +193,14 @@ class AppointmentController extends Controller
         $klcv = $data['Klcv'];
         $book_notes = $data['book_notes'];
         $service_id = $data['service_id'];
+
+
+
+        if($service_id == 2){
+            if($book_time_number > 2){
+                $book_price = $book_price-10000;
+            }
+        };
 
         // Tổng ngày
         $data['book_date']= explode(",",$data['book_date']);
@@ -204,11 +229,7 @@ class AppointmentController extends Controller
             }
             $data['book_options']=implode(",",$data['book_options']);
         }
-        if($service_id == 2){
-            if($book_time_number > 2){
-                $book_price = $book_price-10000;
-            }
-        };
+
 
         $output = '';
         $id= Auth::id();
@@ -304,12 +325,6 @@ class AppointmentController extends Controller
                             <div style="display: flex; justify-content: space-between">
                                 <div class="col-sm-6">
                                     <h5 class="modal-title">Khuyễn mãi</h5>
-                                </div>
-                                <div class="col-sm-6">
-                                    <select class="form-select border-0" style="height: 55px;" name="payment_id">';
-                                        $output .=' <option selected value="'.$payment->payment_id.'">'.$payment->payment_method.'</option>';
-                                        $output .='
-                                    </select>
                                 </div>
                                 <div class="col-sm-6">
                                     <select class="form-select border-0" id="coupon" style="height: 55px;" name="coupon_id">

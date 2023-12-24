@@ -24,13 +24,8 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment_id'=>'required',
-            'user_id'=>'required',
-            'name'=>'required',
-            'image'=>'required',
             'comment'=>'required',
-            'level'=>'required',
-
+            'rate'=>'required',
         ];
     }
 }

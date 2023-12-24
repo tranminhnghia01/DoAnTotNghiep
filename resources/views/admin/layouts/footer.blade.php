@@ -16,6 +16,9 @@
     <script src="{{ asset('admin/assets/js/main.js') }}"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
 
@@ -102,6 +105,7 @@
         });
 
     });
+
     $(document).on('click', '.btn-change-bookdefault', function(e){
         e.preventDefault(); //cancel default action
         swal({
@@ -179,6 +183,137 @@
             }
         });
     });
+
+    $(document).on('click', '.btn-bookdestroy', function(e){
+        alert('destroy');
+        e.preventDefault(); //cancel default action
+        swal({
+            title: "Hủy ??",
+            text: 'Bạn có chắc muốn hủy đơn đặt lịch này!',
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                var book_id = $(this).data('book-id');
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url : "{{route('admin.Appoin-detail-destroy')}}",
+                    method: 'POST',
+                    data:{book_id:book_id,_token:_token},
+                    success:function(data){
+                        swal("Thành công! Đơn đặt lịch của bạn đã được hủy!", {
+                            icon: "success",
+                            });
+                            window.setTimeout(function() {
+                                location.reload();
+                            },3000);
+                        }
+                    });
+            } else {
+                swal("Thoát thao tác thành công!");
+            }
+        });
+
+    });
+    </script>
+    <script>
+        $(document).ready(function(){
+
+            $('#collapse0').show();
+
+
+            Morris.Donut({
+                element: 'donut',
+                resize: true,
+                colors: [
+                    '#a8328e',
+                    '#61a1ce',
+                    '#ce8f61',
+                    '#f5b942',
+                    '#4842f5',
+                ],
+                //labelColor:"#cccccc", // text color
+                //backgroundColor: '#333333', // border color
+                data: [
+                    {label:"Đơn lịch", value:{{ $Count_book }}},
+                    {label:"Dịch vụ", value:{{ $Count_service }}},
+                    {label:"Người giúp việc", value:{{ $Count_house }}},
+                    {label:"Khách hàng", value:{{ $Count_user }}}
+                ]
+            });
+
+
+            chart60day();
+
+            var chart = new Morris.Area({
+            element: 'myfirstchart',
+            lineColors: ['#819C79', '#fc8710', '#ff6541','#a4add3','#766b56'],
+            barColors: ['#819C79', '#fc8710', '#ff6541','#a4add3','#766b56'],
+            pointFillColors: ['#ffffff'],
+            pointStrokeColors: ['black'],
+            fillOpacity :0.6,
+            hideHOver : 'auto',
+            parseTime :false,
+
+            xkey: 'date',
+            ykeys: ['appointment','sales','profit'],
+            behaveLikeLine: true,
+            labels: ['Đơn lịch','Doanh số','Lợi nhuận']
+            });
+
+            function chart60day() {
+                var _token = $('input[name="_token"]').val();
+
+                $.ajax({
+                    url : "{{route('admin.thongke-dashboard-days')}}",
+                    method: 'POST',
+                    dataType: "JSON",
+                    data:{_token:_token},
+                    success:function(data)
+                    {
+                        chart.setData(data);
+                    }
+                });
+            }
+
+            $('.dashboard-filter').on('change', function(e){
+            var _token = $('input[name="_token"]').val();
+
+                var dashboard_value = $(this).val();
+                $.ajax({
+                url : "{{route('admin.thongke-dashboard-filter')}}",
+                method: 'POST',
+                dataType: "JSON",
+                data:{dashboard_value:dashboard_value,_token:_token},
+                success:function(data)
+                {
+                    chart.setData(data);
+                }
+            });
+
+            });
+
+
+            $('.btn-dashboard-filter').on('click', function(e){
+            var _token = $('input[name="_token"]').val();
+            var from_date = $('input[name="from_date"]').val();
+            var to_date = $('input[name="to_date"]').val();
+            $.ajax({
+                url : "{{route('admin.thongke-filter-by-date')}}",
+                method: 'POST',
+                dataType: "JSON",
+                data:{from_date:from_date,to_date:to_date,_token:_token},
+                success:function(data)
+                {
+                    console.log(data);
+                    chart.setData(data);
+                }
+            });
+        })
+
+        })
     </script>
 
     </body>

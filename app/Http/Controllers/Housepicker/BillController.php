@@ -68,7 +68,7 @@ class BillController extends Controller
         $id= Auth::id();
         $user = User::findOrFail($id);
 
-        $history = History::where('book_id',$book_id)->where('housekeeper_id',$user->user_id)->first();
+        $history = History::latest()->where('book_id',$book_id)->where('housekeeper_id',$user->user_id)->first();
         $book = Book::where('book_id',$book_id)->first();
         $bookdetail = Booking_details::where('book_id',$book_id)->first();
         $now = Carbon::now()->format('d/m/Y');
@@ -161,21 +161,40 @@ class BillController extends Controller
         $id= Auth::id();
         $user = User::findOrFail($id);
 
-        $history = History::where('book_id',$book_id)->where('housekeeper_id',$user->user_id)->first();
+        // $history = History::latest()->where('book_id',$book_id)->where('housekeeper_id',$user->user_id)->first();
+        // $checkhis = History::latest()->where('book_id',$book_id)->first();
+        $history = History::latest('tbl_history.created_at')
+        ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
+        ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
+        ->where('tbl_history.book_id',$book_id)->where('tbl_history.housekeeper_id',$user->user_id)->first();
+        // dd($history);
+
         if($history){
-            $book = Book::where('book_id',$book_id)->first();
-            $book->update(['book_status'=>1]);
-            $new = [
-                'book_id' => $history->book_id,
-                'history_status' => 1,
-                'housekeeper_id' => "",
-                'history_pevious_date' => $history->date_finish,
-            ];
-            $history->update(['history_status'=>3]);
-            // History::create($new);
-            $msg ='Đơn lịch đã hủy thành công';
-            $style ='success';
-            return redirect()->route('admin.Appoin-index')->with(compact('msg','style'));
+            if($history->payment_id == 1 && $history->service_id == 2){
+                $book = Book::where('book_id',$book_id)->first();
+                $book->update(['book_status'=>3]);
+                $history->update(['history_status'=>3,
+                    'history_notes'=>'Khách hàng chưa thanh toán']);
+
+                    $msg ='Đơn lịch đã hủy thành công';
+                    $style ='success';
+                    return redirect()->route('admin.Appoin-index')->with(compact('msg','style'));
+
+            }else{
+                $book = Book::where('book_id',$book_id)->first();
+                $book->update(['book_status'=>1]);
+                $new = [
+                    'book_id' => $history->book_id,
+                    'history_status' => 1,
+                    'housekeeper_id' => "",
+                    'history_pevious_date' => $history->date_finish,
+                ];
+                $history->update(['history_status'=>3]);
+                // History::create($new);
+                $msg ='Đơn lịch đã hủy thành công';
+                $style ='success';
+                return redirect()->route('admin.Appoin-index')->with(compact('msg','style'));
+            }
         }
     }
 }

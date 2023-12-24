@@ -17,6 +17,8 @@ class Comment extends Model
         'history_id',
         'name',
         'comment',
+        'reply',
+        'rate',
         'image',
     ];
 

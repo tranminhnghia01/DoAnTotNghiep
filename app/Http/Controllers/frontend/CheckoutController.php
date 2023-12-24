@@ -39,16 +39,11 @@ class CheckoutController extends Controller
 
     public function update(Request $request){
         $data= $request->all();
-        // dd($data);
-
         $id = Auth::id();
         $user = User::findOrFail($id);
 
-
-        // $shipping = Shipping::where('user_id', $user_id)->first();
         $shipping = Shipping::where('user_id', $user->user_id)->first();
 
-        // dd($shipping);
 
         if ($shipping->update($data)) {
             $msg = "Xác nhận địa chỉ thanh toán thành công";

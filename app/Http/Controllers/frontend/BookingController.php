@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CommentRequest;
 use App\Models\Book;
 use App\Models\City;
+use App\Models\Comment;
 use App\Models\Coupon;
+use App\Models\History;
 use App\Models\Payment;
 use App\Models\Service;
 use App\Models\Shipping;
@@ -26,11 +29,97 @@ class BookingController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function danhgia(Request $request){
+        $id= Auth::id();
+        $user = User::findOrFail($id);
+        $data = $request->all();
+        $book_id = $request->book_id;
+       $output ='';
+        $history = History::where('tbl_history.book_id',$book_id)
+        ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
+        ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
+        ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking.payment_id')
+        ->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')->first();
+        $path = asset('uploads/users/'. $history->image);
+        // dd($history);
+
+       $output.='<div class="modal fade" id="Modaldanhgia" tabindex="-1" aria-labelledby="ModaldanhgiaLabel" aria-modal="true" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="bg-white modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModaldanhgiaLabel">Đánh giá và bình luận công việc</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="color: #000;">
+
+                            <div class="row g-3">
+                                <h5 class="modal-title">Người giúp việc</h5>
+                                <div class="col-sm-3" style="    border: 1px solid #ccc;border-radius: 5px;padding: 20px;">
+                                    <img src="'.$path.'" alt="Girl in a jacket" width="150px" height="150px">
+                                </div>
+                                <div class="col-sm-9" style="    border: 1px solid #ccc;border-radius: 5px;padding: 20px;">
+                                <p style="font-weight: 600">'.$history->name.'</p>
+                                <p> Số điện thoại: (+84)  '.$history->phone.'</p>
+                            </div>
+                                <h5 class="modal-title">Đánh giá: </h5>
+                                <div class="rate">
+                                <div class="vote">
+                                    <div class="star_1 ratings_stars"><input value="1" type="radio" name="rate" hidden></div>
+                                    <div class="star_2 ratings_stars"><input value="2" type="radio" name="rate" hidden></div>
+                                    <div class="star_3 ratings_stars"><input value="3" type="radio" name="rate" hidden></div>
+                                    <div class="star_4 ratings_stars"><input value="4" type="radio" name="rate" hidden></div>
+                                    <div class="star_5 ratings_stars"><input value="5" type="radio" name="rate" hidden></div>
+                                    <span class="rate-np"></span>
+                                </div>
+                            </div>
+                                <div class="col-sm-12" style=" border: 1px solid #ccc; border-radius: 5px; padding: 20px;">
+                                    <p style="font-weight: 600">Bình luận</p>
+                                    <div style="display: flex; justify-content: space-between">
+                                        <textarea id="danhgia" name="comment" rows="4" class="form-control"  placehoder="Bình luận">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        <form>
+                            <input type="hidden" name="_token" value="'.csrf_token().'" />
+                            <button type="button" class="btn btn-primary  py-3 btn-danhgia-post" data-history-id="'.$history->history_id.'"  style="width:150px"><i class="tf-ion-close" aria-hidden="true">Đánh giá</i></button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+        echo $output;
+
+    }
+
+    public function post_danhgia(CommentRequest $request){
+        $id= Auth::id();
+        $user = User::findOrFail($id);
+        $shipping = Shipping::where('user_id', $user->user_id)->first();
+        $data = $request->all();
+        // dd($data);
+        $history_id = $data['history_id'];
+        $history = History::find($history_id);
+
+        if($history){
+            $info_comment = [
+                'history_id'=> $history_id,
+                'name'=> $user->name,
+                'image'=> $shipping->shipping_image,
+                'comment'=> $data['comment'],
+                'rate'=> $data['rate'],
+            ];
+
+            $comment = Comment::create($info_comment);
+
+        };
+
+    }
+
+
     public function create()
     {
         $today = Carbon::now()->format('l,d-m-Y');

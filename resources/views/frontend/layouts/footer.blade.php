@@ -20,9 +20,98 @@
     <!-- Template Javascript -->
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script src="{{ asset('rate/js/jquery-1.9.1.min.js') }}"></script>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script>
+
+    	$(document).ready(function(){
+			//vote
+            var Value = 0;
+            $(document).on('click','.ratings_stars',function(){
+                var Values =  $(this).find("input").val();
+		        Value = Values;
+                $(this).closest('div').find('span.rate-np').text(Values);
+		    	if ($(this).hasClass('ratings_over')) {
+		            $('.ratings_stars').removeClass('ratings_over');
+		            $(this).prevAll().andSelf().addClass('ratings_over');
+		        } else {
+		        	$(this).prevAll().andSelf().addClass('ratings_over');
+		        }
+            });
+
+            $(document).on({
+                mouseenter: function () {
+                    $(this).prevAll().andSelf().addClass('ratings_hover');
+
+                },
+                mouseleave: function () {
+	                $(this).prevAll().andSelf().removeClass('ratings_hover');
+                    //stuff to do on mouse leave
+                }
+            }, ".ratings_stars");
+
+
+             // Đánh giá post
+    $(document).on('click', '.btn-danhgia-post', function(e){
+
+        var comment = $('#danhgia').val();
+        if (Value == 0) {
+            alert('Vui lòng đánh giá sao');
+        }else{
+            swal({
+            title: "Đánh giá ??",
+            text: 'Bạn có chắc muốn đánh giá!',
+            icon: "success",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                var history_id = $(this).data('history-id');
+                var _token = $('input[name="_token"]').val();
+                console.log(history_id);
+                console.log(comment);
+                console.log(Value);
+                console.log(_token);
+                $.ajax({
+                    url : "{{route('home.appointment.danhgia')}}",
+                    method: 'POST',
+                    data:{history_id:history_id,comment:comment,rate:Value,_token:_token},
+                    success:function(data){
+                        swal("Thành công! Bạn đã đánh giá đon thành công!", {
+                            icon: "success",
+                            });
+                            // window.setTimeout(function() {
+                            //     location.reload();
+                            // },3000);
+                        },
+                        error: function (request, status, error) {
+                            swal("Có lỗi xảy ra! Vui lòng kiểm tra lại thông tin.", {
+                            icon: "danger",
+                            });
+                            // window.setTimeout(function() {
+                            //     location.reload();
+                            // },3000);
+                        }
+                    });
+            } else {
+                swal("Thoát thao tác thành công!");
+            }
+        });
+
+        }
+
+
+
+
+
+    });
+		});
+    </script>
     <script type="text/javascript">
         $(document).ready(function(){
-
+			//vote
             var address = '';
             $('.choose').on('change',function(){
             $("#address").val();

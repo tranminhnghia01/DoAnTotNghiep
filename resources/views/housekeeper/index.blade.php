@@ -8,7 +8,7 @@
           <div class="card-body">
             <h5 class="card-title">Danh sách đơn lịch</h5>
             <!-- Table with stripped rows -->
-            <div class="table-responsive">
+            <div class="table-responsive"  style="min-height: 500px;">
                 <table class="table datatable" style="text-align: center">
                     <thead>
                         <tr>
@@ -18,11 +18,7 @@
                             <th>Thanh toán</th>
                             <th>Ý kiến khách hàng</th>
                             <th>
-                                <div style="display: flex;justify-content: space-around">
-                                    <p>Ghi chú</p>
                                     <p>Thao tác</p>
-                                </div>
-
                             </th>
                             <th></th>
                         </tr>
@@ -45,7 +41,7 @@
 
 
                             @endphp
-                            @if ($value->book_status == 2)
+                            @if ($value->history_status == 2)
                                 @php
                                     $today = $value->date_finish;
                                     $date= explode(",",$value->book_date);
@@ -82,18 +78,42 @@
                                 @endif
                             </td>
                                 <td>{{ $value->book_notes }}</td>
-                                <td>
+                                <td><div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" style="widows: 100px">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                    <form action="{{ route('admin.Appoin-ChamCong',$value->book_id) }}" method="GET" style="    text-align: center;
+                                        padding: 10px;
+                                        width: 300px;
+                                        border: 1px solid;
+                                    ">
+                                        <div>
+                                            <p>Đánh giá công việc</p>
+                                            <textarea type="text" name="history_notes" style="    outline: rgb(204, 204, 204);
+                                            font-size: 14px;
+                                            width: 100%;">{{ $value->history_notes }}</textarea>
+                                            @if ($value->service_id == 2 && $value->payment_id == 1)
+                                            <button style="width:100%" class="btn btn-secondery" disabled>Hoàn thành công việc</button>
+                                            @else
+                                                <button style="width:100%" type="submit"  class="btn btn-success">Hoàn thành công việc</button>
+                                            @endif
+                                        </div>
+                                    </form>
+                                    </div>
+                                </div></td>
+                                {{-- <td>
                                     <form action="{{ route('admin.Appoin-ChamCong',$value->book_id) }}" method="GET">
                                         <div  style="display: flex;width: 400px;justify-content:space-between">
                                             <textarea type="text" name="history_notes" style="margin-right: 20px;border:1 px soid #ccc;outline: #ccc;font-size: 12px">{{ $value->history_notes }}</textarea>
                                             @if ($value->service_id == 2 && $value->payment_id == 1)
-                                            <button class="btn btn-secondery">Hoàn thành công việc</button>
+                                            <button class="btn btn-secondery" disabled>Hoàn thành công việc</button>
                                             @else
                                                 <button type="submit"  class="btn btn-success">Hoàn thành công việc</button>
                                             @endif
                                         </div>
                                     </form>
-                            </td>
+                            </td> --}}
 
                                 <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}" data-action="book_cance">Xem chi tiết</button></td>
 
