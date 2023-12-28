@@ -19,6 +19,28 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+
+<script src="{{ asset('admin/ckfinder/ckfinder.js') }}"></script>
+
+<script>
+    CKEDITOR.replace('content', {
+        filebrowserBrowseUrl: "{{ asset('admin/ckfinder/ckfinder.html') }}",
+        filebrowserUploadUrl: "{{ asset('admin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}",
+      } );
+      CKEDITOR.replace('coupon_content', {
+        filebrowserBrowseUrl: "{{ asset('admin/ckfinder/ckfinder.html') }}",
+        filebrowserUploadUrl: "{{ asset('admin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}",
+      });
+      CKEDITOR.replace('blog_content', {
+        filebrowserBrowseUrl: "{{ asset('admin/ckfinder/ckfinder.html') }}",
+        filebrowserUploadUrl: "{{ asset('admin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}",
+      });
+
+</script>
+
     <script type="text/javascript">
         $(document).ready(function(){
 
@@ -221,7 +243,6 @@
     <script>
         $(document).ready(function(){
 
-            $('#collapse0').show();
 
 
             Morris.Donut({
@@ -234,8 +255,6 @@
                     '#f5b942',
                     '#4842f5',
                 ],
-                //labelColor:"#cccccc", // text color
-                //backgroundColor: '#333333', // border color
                 data: [
                     {label:"Đơn lịch", value:{{ $Count_book }}},
                     {label:"Dịch vụ", value:{{ $Count_service }}},
@@ -260,7 +279,7 @@
             xkey: 'date',
             ykeys: ['appointment','sales','profit'],
             behaveLikeLine: true,
-            labels: ['Đơn lịch','Doanh số','Lợi nhuận']
+            labels: ['Đơn lịch','Doanh thu','Lợi nhuận']
             });
 
             function chart60day() {

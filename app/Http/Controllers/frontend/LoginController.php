@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\HousekeeperRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\City;
+use App\Models\Housekeeper;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,7 @@ use App\Models\Shipping;
 use App\Models\Ward;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -106,9 +108,38 @@ class LoginController extends Controller
         return view('frontend.user.loghouse');
     }
 
-    public function housekeeper_store(Request $request) {
+    public function housekeeper_store(HousekeeperRequest $request) {
         $data = $request->all();
-        dd($data);
+        // dd($data);
+        $user_id = substr(md5(microtime()),rand(0,26),5);
+
+        $file = $request->image;
+
+        if (!empty($file)) {
+            $data['image'] = "housekeeper".$file->getClientOriginalName();
+        }
+
+        $info = [
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make(12345678),
+            'role_id' => 2,
+            'user_id' => $user_id,
+
+        ];
+        $user = User::create($info);
+        if($user){
+            $data['housekeeper_id'] = $user->user_id;
+
+            Housekeeper::create($data);
+            $file->move('uploads/users', $data['image']);
+            $msg = "Đăng ký gửi thông tin tài khoản thành công! Bạn vui lòng chờ trong khi chúng tôi duyệt tài khoản";
+            $style = "success";
+
+            return Redirect()->back()->with(compact('msg','style'));
+        }
+
+
     }
 
 

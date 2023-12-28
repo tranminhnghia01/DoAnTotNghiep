@@ -13,11 +13,7 @@
                         </div>
                         <h4 class="mb-3">{{ $val->service_name }}</h4>
                         <p class="mb-4 role-4">{{ $val->service_des }}</p>
-                        @if ($val->service_status == "on")
-                            <a class="btn" href="{{ route('home.'.$val->service_slug) }}"><i class="fa fa-plus text-orange me-3"></i>Đọc thêm</a>
-                        @else
-                            <a class="btn" title="Dịch vụ đang phát triển"><i class="fa fa-plus text-orange me-3"></i>Đọc thêm</a>
-                        @endif
+                        <a class="btn" href="{{ route('home.service.show',$val->service_id) }}"><i class="fa fa-plus text-orange me-3"></i>Đọc thêm</a>
                     </div>
                 </div>
             @endforeach

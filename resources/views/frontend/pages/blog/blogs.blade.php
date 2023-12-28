@@ -1,5 +1,5 @@
 
-@extends('frontend.layouts.blocks.app')
+@extends('frontend.layouts.app')
 @section('content')
 <div class="page-wrapper">
 	<div class="container">
@@ -31,13 +31,10 @@
                     </div>
                     <div class="post-content">
                         <p>{{ $value->blog_des }}</p>
-                        <a href="{{ route('home.Blog.show',$value->id) }}" class="btn btn-main">Chi tiết</a>
+                        <a href="{{ route('home.blog.show',$value->blog_id) }}" class="btn btn-main">Chi tiết</a>
                     </div>
                 </div>
                 @endforeach
-                <div class="text-center">
-                    {{ $blog->links('pagination::bootstrap-4') }}
-                </div>
             </div>
       		<div class="col-md-4">
 				<aside class="sidebar">
@@ -91,38 +88,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- End Latest Posts -->
-
-	<!-- Widget Category -->
-	<div class="widget widget-category">
-		<h4 class="widget-title">Danh mục dịch vụ</h4>
-		<ul class="widget-category-list">
-            @foreach ($category as $val)
-	            <li><a href="#!"> {{ $val->category_name }} </a></li>
-            @endforeach
-	    </ul>
-	</div> <!-- End category  -->
-
-	<!-- Widget tag -->
-	<div class="widget widget-tag">
-		<h4 class="widget-title">Tag Cloud</h4>
-		<ul class="widget-tag-list">
-	        <li><a href="#!">Animals</a>
-	        </li>
-	        <li><a href="#!">Landscape</a>
-	        </li>
-	        <li><a href="#!">Portrait</a>
-	        </li>
-	        <li><a href="#!">Wild Life</a>
-	        </li>
-	        <li><a href="#!">Video</a>
-	        </li>
-	    </ul>
-	</div> <!-- End tag  -->
-
-
-
-
 
 
 

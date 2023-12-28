@@ -150,10 +150,12 @@
                         {{-- @if (!empty($book)) --}}
                         @php
                                 $status = [];
+
                             @endphp
                             @foreach ($housekeeper as $key=>$value )
                             @php
                                 $status[$key] = 0;
+                                  $total = 0;
                             @endphp
                             <tr>
                                 <td>{{ $key+1}}</td>
@@ -167,11 +169,14 @@
                                 <td>{{ $value->age }}</td>
                                 @foreach ($history as $keyt =>$valt )
                                     @if ($valt->housekeeper_id == $value->housekeeper_id)
-                                        <td><span style="color: green">{{ $valt->total }}</span></td>
-                                    @else
-                                        <td><span style="color: red">0</span></td>
+                                        @php
+                                            $total = $valt->total;
+                                        @endphp
                                     @endif
+
                                 @endforeach
+                                <td><span style="color: green">{{ $total }}</span></td>
+
 
                                 @foreach ($check_day as $check => $valcheck)
                                     @php

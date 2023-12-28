@@ -3,73 +3,56 @@
 <section class="section">
     <div class="row">
       <div class="col-lg-12">
-
         <div class="card">
             <div class="card-body">
+                @error('reply')
+                <div class="alert alert-warning"  role="alert">
+                    {{ $message }}
+                </div>
+              @enderror
               <h5 class="card-title">Danh sách đánh giá sao bình luận</h5>
-
               <!-- Default Accordion -->
-              <div class="accordion" id="accordionExample">
+                <div class="accordion-body">
+                    <table class="table datatable">
+                        <thead>
+                          <tr>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Hình ảnh</th>
+                              <th scope="col">tên</th>
+                              <th scope="col">Số sao</th>
+                              <th scope="col">Bình luận</th>
+                              <th scope="col">Trả lời</th>
+                          </tr>
+                          </tr>
+                        </thead>
+                        <tbody>
                 @foreach ($housekeeper as $key => $val)
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading{{$key}}">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$key}}" aria-expanded="false" aria-controls="collapse{{$key}}">
-                        {{ $val->name }}
-                      </button>
-                    </h2>
-                    <div id="collapse{{$key}}" class="accordion-collapse collapse" aria-labelledby="heading{{$key}}" data-bs-parent="#accordionExample" style="">
-                      <div class="accordion-body">
-                        <table class="table datatable">
-                            <thead>
+                          @foreach ($comment as $keyCM => $valueCM)
+                          @if ($valueCM->housekeeper_id == $val->housekeeper_id)
                               <tr>
-                                <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">Hình ảnh</th>
-                                  <th scope="col">tên</th>
-                                  <th scope="col">Số sao</th>
-                                  <th scope="col">Bình luận</th>
-                                  <th></th>
-                              </tr>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              @foreach ($comment as $keyCM => $valueCM)
-                              @if ($valueCM->housekeeper_id == $val->housekeeper_id)
-                                  <tr>
-                                      <td>{{ $key+1 }}</td>
-                                      <td><img src="{{ asset('uploads/users/'.$valueCM->image) }}" alt="" style="width: 100px;height:100px"></td>
-                                      <td> {{ $valueCM->name }} </td>
-                                      <td> {{ $valueCM->rate }} </td>
-                                      <td>{{ $valueCM->comment }}</td>
-                                      <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                            <a class="dropdown-item" href=""
-                                                ><i class="bx bx-edit-alt me-1"></i> Phản hồi</a
-                                            >
+                                  <td>{{ $key+1 }}</td>
+                                  <td><img src="{{ asset('uploads/users/'.$valueCM->image) }}" alt="" style="width: 100px;height:100px"></td>
+                                  <td> {{ $valueCM->name }} </td>
+                                  <td> {{ $valueCM->rate }} </td>
+                                  <td> <div  style="width: 300px">{{ $valueCM->comment }}</div></td>
 
-                                            <form action="" method="post">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i>Xóa</button>
-                                            </form>
-                                            </div>
-                                        </div>
-                                    </td>
-                                  </tr>
-                              @endif
-
-                                  @endforeach
-                            </tbody>
-                          </table>
-                    </div>
-                  </div>
+                                        <td>
+                                  <form action="{{route('admin.comment.reply',$valueCM->comment_id)}}" method="post" >
+                                    @csrf
+                                    <textarea type="text" name="reply" style="width: 100%" placeholder="">{{ $valueCM->reply }}</textarea>
+                                    <button type="submit" class="btn btn-primary"><i class="bx bx-edit-alt me-1"></i>Phản hồi bình luận</button>
+                                </form>
+                            </td>
+                              </tr>
+                          @endif
+                              @endforeach
                 @endforeach
 
-              </div><!-- End Default Accordion Example -->
+                        </tbody>
+                      </table>
+                </div>
+
 
             </div>
           </div>

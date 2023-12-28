@@ -36,44 +36,53 @@
               </div>
             </div>
         </div> --}}
+        @include('admin.thongke.Quickview')
 
       <!-- Left side columns -->
-      <div class="col-lg-8">
+      <div class="col-lg-12">
         <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                  <div class="card-body">
+                <h5 class="card-title">Thời gian</h5>
 
-            @include('admin.thongke.Quickview')
+                    <form class="row g-3" autocomplete="off">
+                        @csrf
+                        <div class="col-md-4">
+                          <label for="validationDefault01" class="form-label">Từ ngày:</label>
+                          <input type="date" name="from_date" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                          <label for="validationDefault02" class="form-label">Đến ngày:</label>
+                          <input type="date" name="to_date" class="form-control">
+
+                        </div>
+                        <div class="col-md-3">
+                          <label for="validationDefault04" class="form-label">Lọc theo:</label>
+                          <select class="form-select dashboard-filter" id="validationDefault04">
+                              <option selected="" disabled="" value="">Chọn...</option>
+                              <option value="7ngay">7 ngày qua</option>
+                              <option value="thangtruoc">Tháng trước</option>
+                              <option value="thangnay">Tháng này</option>
+                              <option value="365ngay">1 năm qua</option>
+                          </select>
+                        </div>
+
+                        <div class="col-12">
+                          <button type="button" class="btn btn-primary btn-dashboard-filter">Lọc kết quả</button>
+                        </div>
+                      </form>
+
+
+
+                  </div>
+                </div>
+            </div>
           <!-- Reports -->
           <div class="col-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Thống kê</h5>
-                <form class="row g-3" autocomplete="off">
-                    @csrf
-                    <div class="col-md-4">
-                      <label for="validationDefault01" class="form-label">Từ ngày:</label>
-                      <input type="date" name="from_date" class="form-control">
-                    </div>
-                    <div class="col-md-4">
-                      <label for="validationDefault02" class="form-label">Đến ngày:</label>
-                      <input type="date" name="to_date" class="form-control">
-
-                    </div>
-                    <div class="col-md-3">
-                      <label for="validationDefault04" class="form-label">Lọc theo:</label>
-                      <select class="form-select dashboard-filter" id="validationDefault04">
-                          <option selected="" disabled="" value="">Chọn...</option>
-                          <option value="7ngay">7 ngày qua</option>
-                          <option value="thangtruoc">Tháng trước</option>
-                          <option value="thangnay">Tháng này</option>
-                          <option value="365ngay">1 năm qua</option>
-                      </select>
-                    </div>
-
-                    <div class="col-12">
-                      <button type="button" class="btn btn-primary btn-dashboard-filter">Lọc kết quả</button>
-                    </div>
-                  </form>
-
+                <h5 class="card-title">Biểu đồ tăng trưởng</h5>
                 <!-- Line Chart -->
                 <div id="myfirstchart" style="width: 100%;height: 300px;">
 
@@ -93,44 +102,49 @@
       </div><!-- End Left side columns -->
 
       <!-- Right side columns -->
-      <div class="col-lg-4">
+      <div class="col-lg-6">
+         <!-- Website Traffic -->
+         <div class="card">
+            <div class="card-body pb-0">
+              <h5 class="card-title">Tổng đơn lịch, dịch vụ bài viết trên Hệ thống</h5>
 
+              <div id="donut" style="min-height: 400px;" class="echart">
+
+
+              </div>
+              <script>
+                      Morris.Donut({
+                          element: 'donut',
+                          resize: true,
+                          colors: [
+                              '#a8328e',
+                              '#61a1ce',
+                              '#ce8f61',
+                              '#f5b942',
+                              '#4842f5',
+                          ],
+                          //labelColor:"#cccccc", // text color
+                          //backgroundColor: '#333333', // border color
+                          data: [
+                              {label:"Đơn lịch", value:{{ $Count_book }}},
+                              {label:"Dịch vụ", value:{{ $Count_service }}},
+                              {label:"Người giúp việc", value:{{ $Count_house }}},
+                              {label:"Khách hàng", value:{{ $Count_user }}}
+                          ]
+                      });
+                      </script>
+
+            </div>
+          </div><!-- End Website Traffic -->
+      </div><!-- End Right side columns -->
+
+      <div class="col-lg-6">
         @include('admin.thongke.customer')
 
         @include('admin.thongke.service')
-        <!-- Website Traffic -->
-        <div class="card">
-          <div class="card-body pb-0">
-            <h5 class="card-title">Tổng đơn lịch, dịch vụ bài viết trên Hệ thống</h5>
+      </div><!-- End Right side columns -->
 
-            <div id="donut" style="min-height: 400px;" class="echart">
-
-
-            </div>
-            <script>
-                    Morris.Donut({
-                        element: 'donut',
-                        resize: true,
-                        colors: [
-                            '#a8328e',
-                            '#61a1ce',
-                            '#ce8f61',
-                            '#f5b942',
-                            '#4842f5',
-                        ],
-                        //labelColor:"#cccccc", // text color
-                        //backgroundColor: '#333333', // border color
-                        data: [
-                            {label:"Đơn lịch", value:{{ $Count_book }}},
-                            {label:"Dịch vụ", value:{{ $Count_service }}},
-                            {label:"Người giúp việc", value:{{ $Count_house }}},
-                            {label:"Khách hàng", value:{{ $Count_user }}}
-                        ]
-                    });
-                    </script>
-
-          </div>
-        </div><!-- End Website Traffic -->
+      <div class="col-lg-6">
 
         <!-- News & Updates Traffic -->
         <div class="card">
@@ -185,7 +199,6 @@
 
           </div>
         </div><!-- End News & Updates -->
-
       </div><!-- End Right side columns -->
 
     </div>

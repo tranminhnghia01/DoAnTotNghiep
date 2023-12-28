@@ -13,7 +13,6 @@ class Comment extends Model
     protected $table ='tbl_comment';
 
     protected $fillable =[
-        'comment_id',
         'history_id',
         'name',
         'comment',
@@ -22,7 +21,7 @@ class Comment extends Model
         'image',
     ];
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'comment_id';
 
     protected $hidden = [
         '_token',

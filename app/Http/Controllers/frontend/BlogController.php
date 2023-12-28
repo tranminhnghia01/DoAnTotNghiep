@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -14,7 +15,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
+        $blog = Blog::all();
+        return view('frontend.pages.list-blog')->with(compact('blog'));
     }
 
     /**
@@ -46,7 +48,8 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        //
+        $blog= Blog::find($id);
+        return view('frontend.pages.blog.blog-single')->with(compact('blog'));
     }
 
     /**

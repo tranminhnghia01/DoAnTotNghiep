@@ -20,7 +20,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blog = Blog::paginate(3);
+        $blog = Blog::all();
         return view('admin.blog.list')->with(compact('blog'));
     }
 
@@ -56,11 +56,13 @@ class BlogController extends Controller
             if(!empty($file)){
                 $file->move('uploads/blogs',$new_image);
                 $style = 'success';
-                $msg = 'Create blog success! ';
+                $msg = 'Thành công! Thêm mới bài bài viết ';
             }
         }else{
             $style = 'danger';
-            $msg = 'Create blog errors. ';
+            $msg = 'Lỗi hệ thống! Vui lòng kiểm tra lại';
+
+
         };
         return redirect()->back()->with(compact('msg','style'));
     }
@@ -110,7 +112,7 @@ class BlogController extends Controller
 
 
         if ($dataBlog->update($data)) {
-            $msg = "Update blog success!";
+            $msg = "Cập nhật bài viết thành công!";
             $style = "success";
             if(!empty($file)){
                 $file->move('uploads/blogs',$new_image);
@@ -118,8 +120,8 @@ class BlogController extends Controller
             return  redirect()->route('admin.blog.index')->with(compact('msg','style'));
         }
         else{
-            $msg = "Update blog errors. ";
-            $style = "warning";
+            $msg = "Lỗi hệ thống! Vui lòng kiểm tra lại.";
+            $style = "danger";
             return redirect()->back()->with(compact('msg','style'));
         }
     }
@@ -133,12 +135,12 @@ class BlogController extends Controller
     public function destroy($id)
     {
         if (Blog::find($id)->delete()) {
-            $msg = "Delete blog success!";
+            $msg = "Xóa bài viết thành công!";
             $style ="success";
         }
         else{
-            $msg = "Delete blog errors. ";
-            $style ="warning";
+            $msg = "Lỗi hệ thống! Vui lòng kiểm tra lại.";
+            $style ="danger";
         }
         return redirect()->back()->with(compact('msg','style'));
     }

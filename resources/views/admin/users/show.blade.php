@@ -39,6 +39,10 @@
               <li class="nav-item">
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Chỉnh sửa hồ sơ</button>
               </li>
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#content-edit">Giao diện chi tiết</button>
+              </li>
             </ul>
             <div class="tab-content pt-2">
 
@@ -55,7 +59,7 @@
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Vai trò</div>
-                  <div class="col-lg-9 col-md-8">{{ $role->role_name }}</div>
+                  <div class="col-lg-9 col-md-8">{{ $housekeeper->role_name }}</div>
                 </div>
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Địa chỉ</div>
@@ -69,7 +73,7 @@
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Email</div>
-                  <div class="col-lg-9 col-md-8">{{ $user->email }}</div>
+                  <div class="col-lg-9 col-md-8">{{ $housekeeper->email }}</div>
                 </div>
 
               </div>
@@ -77,6 +81,25 @@
               <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                 @include('admin.users.setting')
+              </div>
+
+              <div class="tab-pane fade profile-edit pt-3" id="content-edit">
+                <div class="col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Chi tiết</h5>
+                        <!-- TinyMCE Editor -->
+                        <form action="{{ route('admin.housekeeper.showfe',$housekeeper->housekeeper_id) }}" method="POST">
+                            @csrf
+                            <textarea class="form-control" name="content" id="content">
+                                 {!! $housekeeper->content !!}
+                            </textarea><!-- End TinyMCE Editor -->
+                            <button type="submit"> Xác nhận</button>
+                        </form>
+                      </div>
+                    </div>
+
+                  </div>
               </div>
             </div><!-- End Bordered Tabs -->
 

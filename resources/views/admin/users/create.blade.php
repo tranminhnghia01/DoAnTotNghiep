@@ -160,21 +160,31 @@
                     </div>
                 </div>
 
+                <div class="row mb-3">
+                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Địa chỉ</label>
+                    <div class="col-md-8">
+                        <select    class="form-select  "  name="status">
+                        <option selected value="0">Kích hoạt</option>
+                        <option value="1">Vô hiệu hóa</option>
+                        </select>
+                    </div>
+                  </div>
+
 
                 <div class="row mb-3">
                     <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Ảnh CCCD</label>
                     <div class="col-md-8 col-lg-9">
-                    <input name="files[]" type="file" class="form-control" id="Linkedin"  multiple="multiple">
+                    <input name="files" type="text" class="form-control" id="Linkedin"  multiple="multiple" value="0">
                     </div>
                 </div>
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Xác nhận thêm</button>
                 </div>
-                </form><!-- End Profile Edit Form -->
+                </form>
 
               </div>
-            </div><!-- End Bordered Tabs -->
+            </div>
 
           </div>
         </div>

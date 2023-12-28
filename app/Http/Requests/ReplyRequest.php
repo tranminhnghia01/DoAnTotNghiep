@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RateRequest extends FormRequest
+class ReplyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,20 @@ class RateRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment_id'=>'required',
-            'user_id'=>'required',
-            'rate'=>'required',
+            'reply'=>'required',
+        ];
+    }
+    public function messages()
+    {
+        return[
+            'required' =>':attribute không được để trống.',
+        ];
+    }
+    public function attributes()
+    {
+        return [
+
+            'reply'=>'Phản hồi bình luận',
         ];
     }
 }

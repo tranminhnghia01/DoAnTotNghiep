@@ -23,7 +23,7 @@ class DashboardController extends Controller
     public function index()
     {
         $Count_house = Housekeeper::all()->count();
-        $Count_user = User::all()->count();
+        $Count_user = User::where('role_id',3)->get()->count();
         $Count_service = Service::all()->count();
         $Count_book = Book::all()->count();
         $book = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')

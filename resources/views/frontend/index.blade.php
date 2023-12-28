@@ -27,19 +27,19 @@
                 <div class="row g-4">
                     <div class="col-sm-4">
                         <div class="border-start border-light ps-4">
-                            <h2 class="text-white mb-1" data-toggle="counter-up">123</h2>
+                            <h2 class="text-white mb-1" data-toggle="counter-up">{{ $Count_house }}</h2>
                             <p class="text-light mb-0">GIúp việc chuyên môn</p>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="border-start border-light ps-4">
-                            <h2 class="text-white mb-1" data-toggle="counter-up">1234</h2>
+                            <h2 class="text-white mb-1" data-toggle="counter-up">{{ $Count_user }}</h2>
                             <p class="text-light mb-0">Tổng số khách hàng</p>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="border-start border-light ps-4">
-                            <h2 class="text-white mb-1" data-toggle="counter-up">12345</h2>
+                            <h2 class="text-white mb-1" data-toggle="counter-up">{{ $Count_service }}</h2>
                             <p class="text-light mb-0">Dụng cụ gia đình</p>
                         </div>
                     </div>

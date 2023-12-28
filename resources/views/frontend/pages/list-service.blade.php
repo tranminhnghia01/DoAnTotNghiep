@@ -1,32 +1,38 @@
 @extends('frontend.layouts.app')
 @section('content')
-<div class="container-xxl py-5">
+
+@include('frontend.layouts.service')
+{{-- <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px; visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
             <p class="d-inline-block border rounded-pill py-1 px-4">Dịch vụ</p>
             <h1>Giải pháp của chúng tôi</h1>
         </div>
+        <div class="row g-4">
         @foreach ($service as $key=>$value)
-        <div class="row" style="padding: 20px; border-bottom: 1px solid #ccc">
-            <div class="col-lg-3 wow fadeIn" data-wow-delay="0.1s">
-                <div class="d-flex flex-column">
-                    <img class="img-fluid rounded w-100" style="min-height: 150xp" src="{{ asset('uploads/services/'.$value->service_image) }}" alt="">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                <div class="team-item position-relative rounded overflow-hidden">
+                    <div class="overflow-hidden">
+                        <img class="img-fluid" src="{{ asset('uploads/services/'.$value->service_image) }}" alt="" style="width: 100%; height: 300px">
+                    </div>
+                    <div class="team-text bg-light text-center p-4">
+                        <h5>{{ $value->service_name }}</h5>
+                        @if ($value->service_status == "on")
+                            <a href="{{ route('home.'.$value->service_slug) }}" class="text-orange">Chi tiết</a>
+
+                        @else
+                        <a title="Dịch vụ đang phát triển" class="text-orange">Chi tiết</a>
+                        @endif
+                        <div class="team-social text-center">
+                            <a class="btn btn-square"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-9 wow fadeIn" data-wow-delay="0.5s">
-                <h2 class="mb-4">{{ $value->service_name }}</h2>
-                <p class="role-4">{{ $value->service_content }}
-                </p>
-                @if ($value->service_status == "on")
-                    <a class="btn btn-orange rounded-pill py-3 px-5 mt-3" href="{{ route('home.'.$value->service_slug) }}">Chi tiết</a>
-                @else
-                    <a class="btn btn-orange rounded-pill py-3 px-5 mt-3" title="Dịch vụ đang phát triển">Chi tiết</a>
-                @endif
-            </div>
-        </div>
-        @endforeach
-
+            @endforeach
     </div>
-</div>
+</div> --}}
 @endsection
 

@@ -136,18 +136,13 @@
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="components-progress.html">
-              <i class="bi bi-circle"></i><span>Progress</span>
+            <a href="{{ route('admin.blog.index') }}">
+              <i class="bi bi-circle"></i><span>Danh sách</span>
             </a>
           </li>
           <li>
-            <a href="components-spinners.html">
-              <i class="bi bi-circle"></i><span>Spinners</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-tooltips.html">
-              <i class="bi bi-circle"></i><span>Tooltips</span>
+            <a href="{{ route('admin.blog.create') }}">
+              <i class="bi bi-circle"></i><span>mới</span>
             </a>
           </li>
         </ul>

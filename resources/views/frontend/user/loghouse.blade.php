@@ -13,11 +13,21 @@
             </div>
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" >
                 <div class="rounded p-5" style="background-color: #fff; margin-top: -80px;">
-                    <p class="d-inline-block border rounded-pill py-1 px-4">Trở thành đối tác</p>
-                    <h1 class="mb-4">Dọn dẹp nhà</h1>
+                    <p class="d-inline-block border rounded-pill py-1 px-4">Đăng ký trở thành đối tác</p>
+                    <h1 class="mb-4">Người giúp việc</h1>
                     <form  action="{{ route('home.housekeeper') }}" enctype="multipart/form-data" method="POST" >
                         @csrf
                         <div class="row g-3">
+                            <div class="col-md-12" style="">
+                                <div class="form-floating" >
+                                    <input type="file" class="form-control" id="image" name="image" style="padding-top: 16px;
+                                    background: #fff;">
+                                </div>
+                            @error('shipping_image')
+                                    <span style="color: red">{{ $message }}</span>
+                                @enderror
+                         </div>
+
                             <div class="col-md-12">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên">
@@ -81,7 +91,8 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-check">
-                                  <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+                                    <input type="hidden" name="status" value="1">
+                                  <input class="form-check-input" type="checkbox" value="" id="acceptTerms" required>
                                   <label class="form-check-label" for="acceptTerms">Tôi đồng ý việc đại diện từ Moon liên lạc với tôi thông qua số điện thoại hoặc Email mà tôi đăng ký.</label>
                                   <div class="invalid-feedback">Bạn phải đồng ý trước khi gửi tạo tài khoản.</div>
                                 </div>

@@ -13,15 +13,13 @@ class Blog extends Model
     protected $table ='tbl_blog';
 
     protected $fillable =[
-        'blog_id',
         'blog_title',
         'blog_image',
         'blog_des',
         'blog_content',
-        'blog_status'
     ];
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'blog_id';
 
     protected $hidden = [
         '_token',

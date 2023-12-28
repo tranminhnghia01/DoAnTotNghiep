@@ -1,7 +1,6 @@
      <!-- Top Selling -->
      <div class="col-12">
         <div class="card top-selling overflow-auto">
-
           <div class="filter">
             <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -31,7 +30,7 @@
                     @foreach ($service as $key=>$val )
                         @if ($valc->service_id == $val->service_id)
                         <tr>
-                            <th scope="row"><a href="#"><img src="{{ asset('uploads/services/'.$val->service_image) }}" alt=""></a></th>
+                            <th scope="row"><a href="#"><img src="{{ asset('uploads/services/'.$val->service_image) }}" alt="" style="height: 30px"></a></th>
                             <td><a href="#" class="text-primary fw-bold">{{ $val->service_name }}</a></td>
                             <td> {{ $valc->count_service }} </td>
                           </tr>

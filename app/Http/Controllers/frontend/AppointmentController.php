@@ -24,17 +24,11 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index_Cale()
-    {
-        $service = Service::find(1);
-        return view('frontend.service.ca-le.index')->with(compact('service'));
 
-    }
-
-    public function index_Codinh()
+    public function index($service_id)
     {
-        $service = Service::find(2);
-        return view('frontend.service.co-dinh.index')->with(compact('service'));
+        $service = Service::find($service_id);
+        return view('frontend.service.index')->with(compact('service'));
 
     }
 
@@ -330,10 +324,10 @@ class AppointmentController extends Controller
                                     <select class="form-select border-0" id="coupon" style="height: 55px;" name="coupon_id">
                                         <option selected  value="0,0,0">Khuyễn mãi</option>';
                                         foreach ($coupon as $key => $valC) {
-                                            $time_end = date('d/m/Y',strtotime($valC->coupon_time_end));
-                                            $today = date('d/m/Y',strtotime(now()));
+                                            $time_end = $valC->coupon_time_end;
+                                            $today = Carbon::now()->format('Y-m-d');
                                             $output .=' <option value="'. $valC->coupon_id .','. $valC->coupon_method .','. $valC->coupon_number .'" ';
-                                            if ( ($time_end <= $today)) {
+                                            if ( ($today > $time_end)) {
                                                 $output.='disabled style="color: red"';
                                             }
                                             $output.='>'. $valC->coupon_name.'</option>';

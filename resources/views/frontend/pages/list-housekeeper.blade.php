@@ -1,6 +1,8 @@
 @extends('frontend.layouts.app')
 @section('content')
-<div class="container-xxl py-5">
+
+@include('frontend.layouts.team')
+{{-- <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px; visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
             <p class="d-inline-block border rounded-pill py-1 px-4">Người Giúp việc</p>
@@ -26,6 +28,6 @@
             </div>
             @endforeach
     </div>
-</div>
+</div> --}}
 @endsection
 

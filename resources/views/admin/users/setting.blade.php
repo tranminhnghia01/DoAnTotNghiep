@@ -21,7 +21,7 @@
   <div class="row mb-3">
     <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Họ tên</label>
     <div class="col-md-8 col-lg-9">
-      <input name="name" type="text" class="form-control" id="name" value="{{ $user->name }}">
+      <input name="name" type="text" class="form-control" id="name" value="{{ $housekeeper->name }}">
     </div>
   </div>
 
@@ -37,7 +37,7 @@
   <div class="row mb-3">
     <label for="Job" class="col-md-4 col-lg-3 col-form-label">Vị trí</label>
     <div class="col-md-8 col-lg-9">
-      <input name="role_name" type="text" class="form-control" id="Job" readonly value="{{ $role->role_name }}">
+      <input name="role_name" type="text" class="form-control" id="Job" readonly value="{{ $housekeeper->role_name }}">
     </div>
   </div>
 
@@ -112,9 +112,19 @@
   </div>
 
   <div class="row mb-3">
+    <label for="status" class="col-md-4 col-lg-3 col-form-label">Trạng thái</label>
+    <div class="col-md-8">
+        <select    class="form-select "  name="status">
+        <option selected value="0">Kích hoạt</option>
+        <option value="1">Vô hiệu hóa</option>
+        </select>
+    </div>
+  </div>
+
+  <div class="row mb-3">
     <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Ảnh CCCD</label>
     <div class="col-md-8 col-lg-9">
-      <input name="linkedin" type="text" class="form-control" id="Linkedin" value="https://linkedin.com/#">
+      <input name="files" type="text" class="form-control" multiple>
     </div>
   </div>
 

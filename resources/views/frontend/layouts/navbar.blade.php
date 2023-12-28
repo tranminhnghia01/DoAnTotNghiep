@@ -39,12 +39,23 @@
         <div class="navbar-nav ms-auto p-4 p-lg-0">
             <a href="{{ route('home.index') }}" class="nav-item nav-link active">Trang chủ</a>
             <a href="{{ route('home.home-housekeeper') }}" class="nav-item nav-link"> Giúp việc</a>
-            <a href="{{ route('home.home-service') }}" class="nav-item nav-link">Dịch vụ</a>
+            <div class="nav-item dropdown">
+                <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Dịch vụ</a>
+                <div class="dropdown-menu rounded-0 rounded-bottom m-0">
+                    <a href="{{ route('home.service.index') }}" class="dropdown-item">Tất cả</a>
 
-            <a href="{{ route('home.giup-viec-ca-le') }}" class="nav-item nav-link">Kinh nghiệm hay</a>
+                    @foreach ($service_nav as $key => $val)
+                        <a href="{{ route('home.service.show',$val->service_id) }}" class="dropdown-item">{{ $val->service_name }}</a>
+
+                    @endforeach
+                </div>
+            </div>
+
+            <a href="{{ route('home.blog.index') }}" class="nav-item nav-link">Kinh nghiệm hay</a>
             <a href="contact.html" class="nav-item nav-link">Liên Hệ</a>
         <a href="{{ route('home.housekeeper') }}" class="nav-item nav-link">Trở thành đối tác</a>
         </div>
+
         @if (Auth::check())
         <div class="nav-item dropdown">
             <a href="#" class="btn btn-orange rounded-0 py-4 px-lg-5 d-none d-lg-block nav-link dropdown-toggle"  data-bs-toggle="dropdown">{{ Auth::user()->name }}<i class="fas fa-user" style="padding-left: 10px;"></i></a>

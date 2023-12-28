@@ -68,7 +68,7 @@ class BillController extends Controller
         $id= Auth::id();
         $user = User::findOrFail($id);
 
-        $history = History::latest()->where('book_id',$book_id)->where('housekeeper_id',$user->user_id)->first();
+        $history = History::where('book_id',$book_id)->where('housekeeper_id',$user->user_id)->first();
         $book = Book::where('book_id',$book_id)->first();
         $bookdetail = Booking_details::where('book_id',$book_id)->first();
         $now = Carbon::now()->format('d/m/Y');
@@ -125,35 +125,7 @@ class BillController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request)
     {
         $data = $request->all();
@@ -179,7 +151,12 @@ class BillController extends Controller
 
             }else{
                 $book->update(['book_status'=>1]);
-                $history->update(['history_status'=>4]);
+                if($history->date_finish == 0){
+                        $history->delete();
+                }else{
+                     $history->update(['history_status'=>4]);
+                }
+
                 // History::create($new);
                 $msg ='Hủy thành công, Đơn lịch này sẽ được quản trị viên xử lý lại';
                 $style ='success';

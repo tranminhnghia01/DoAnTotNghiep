@@ -7,8 +7,6 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Danh sách</h5>
-            <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
-
             <!-- Table with stripped rows -->
             <table class="table datatable">
               <thead>
@@ -20,11 +18,12 @@
                         <th scope="col">Email</th>
                         <th scope="col">Tình trạng</th>
                         <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($housekeepers as $key => $val)
+                @foreach ($housekeeper as $key => $val)
                 <tr>
                     <th scope="row">{{ $key+1 }}</th>
                     <td><img src="
@@ -63,8 +62,6 @@
                 @endforeach
               </tbody>
             </table>
-            <!-- End Table with stripped rows -->
-
           </div>
         </div>
         <a href="{{ route('admin.housekeeper.create') }}" class="btn btn-primary">Thêm tài khoản người giúp việc</a>

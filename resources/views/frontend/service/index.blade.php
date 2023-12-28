@@ -22,8 +22,7 @@
                 <div class="row g-5">
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                         <div class="d-flex flex-column">
-                            <img class="img-fluid rounded w-75 align-self-end" src="{{ asset('frontend/img/about-1.jpg') }}" alt="">
-                            <img class="img-fluid rounded w-50 bg-white pt-3 pe-3" src="{{ asset('frontend/img/about-2.jpg') }}" alt="" style="margin-top: -25%;">
+                            <img class="img-fluid rounded  align-self-end" src="{{ asset('uploads/services/'.$service->service_image) }}" alt="" style="height: 300px">
                         </div>
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
@@ -35,11 +34,23 @@
                         <p><i class="far fa-check-circle text-orange me-3"></i>Tiết kiệm thời gian</p>
                         <p><i class="far fa-check-circle text-orange me-3"></i>Hỗ trợ</p>
                         @if (Auth::check())
-                            <a class="btn btn-orange rounded-pill py-3 px-5 mt-3" href="{{ route('home.giup-viec-ca-le.create') }}">Đặt lịch</a>
+                            @switch($service->service_status)
+                                @case("on")
+                                        <a class="btn btn-orange rounded-pill py-3 px-5 mt-3" href="{{ route('home.create.'.$service->service_slug) }}">Đặt lịch</a>
+                                    @break
+                                @default
+                                    <a class="btn btn-orange rounded-pill py-3 px-5 mt-3" href="">Đặt lịch</a>
+                                @break
+                            @endswitch
                         @else
                             <a class="btn btn-orange rounded-pill py-3 px-5 mt-3" href="{{ route('home.login') }}">Đặt lịch</a>
 
                         @endif
+                    </div>
+                    <div class="row g-5">
+                        <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;text-align: center;margin: 0 auto;width:100%">
+                            {!! $service->service_content !!}
+                        </div>
                     </div>
                 </div>
             </div>

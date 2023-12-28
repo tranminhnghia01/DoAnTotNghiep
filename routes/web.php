@@ -29,10 +29,14 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
 
     // begin Nav
-        Route::get('/services', [App\Http\Controllers\frontend\HomeController::class, 'service'])->name('home-service');
+        // Route::get('/services', [App\Http\Controllers\frontend\ServiceController::class, 'index'])->name('home-service');
+        // Route::get('/services/show/{service_id}', [App\Http\Controllers\frontend\ServiceController::class, 'show'])->name('home-service.show');
+
         Route::get('/houses', [App\Http\Controllers\frontend\HomeController::class, 'housekeeper'])->name('home-housekeeper');
         Route::get('/houses/show/{housekeepet_id}', [App\Http\Controllers\frontend\HomeController::class, 'housekeeper_show'])->name('home-housekeeper.show');
         Route::resource('blog', App\Http\Controllers\frontend\BlogController::class);
+        Route::resource('service', App\Http\Controllers\frontend\ServiceController::class);
+
 
     // End Nav
 
@@ -46,11 +50,8 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
 
     //Appointmet Fix
-    Route::get('/giup-viec-ca-le', [App\Http\Controllers\frontend\AppointmentController::class, 'index_Cale'])->name('giup-viec-ca-le');
-    Route::get('/giup-viec-ca-le/create', [App\Http\Controllers\frontend\AppointmentController::class, 'create_Cale'])->name('giup-viec-ca-le.create');
-
-    Route::get('/giup-viec-ca-co-dinh', [App\Http\Controllers\frontend\AppointmentController::class, 'index_Codinh'])->name('giup-viec-ca-co-dinh');
-    Route::get('/giup-viec-ca-co-dinh/create', [App\Http\Controllers\frontend\AppointmentController::class, 'create_Codinh'])->name('giup-viec-ca-co-dinh.create');
+    Route::get('/giup-viec-ca-le/create', [App\Http\Controllers\frontend\AppointmentController::class, 'create_Cale'])->name('create.giup-viec-ca-le');
+    Route::get('/giup-viec-ca-co-dinh/create', [App\Http\Controllers\frontend\AppointmentController::class, 'create_Codinh'])->name('create.giup-viec-ca-co-dinh');
 
 
     Route::get('/giup-viec/check_Booking', [App\Http\Controllers\frontend\AppointmentController::class, 'check_Booking'])->name('giup-viec.check-Booking');
@@ -59,21 +60,25 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
 
     //end service
-    // Route::get('/checkout', [App\Http\Controllers\frontend\CheckoutController::class,'index'])->name('checkout');
-    // Route::post('/checkout', [App\Http\Controllers\frontend\CheckoutController::class,'update']);
+
     Route::get('/checkout', [App\Http\Controllers\frontend\UserController::class,'index'])->name('checkout');
     Route::post('/checkout', [App\Http\Controllers\frontend\UserController::class,'update']);
 
     Route::get('/Account', [App\Http\Controllers\frontend\UserController::class,'index'])->name('appointment.index');
     Route::post('/Account/update', [App\Http\Controllers\frontend\UserController::class,'update'])->name('Account.update');
+    Route::get('/Account/quan-ly-don', [App\Http\Controllers\frontend\UserController::class,'quan_ly_don'])->name('Account.show');
 
-    Route::get('/Account/show', [App\Http\Controllers\frontend\UserController::class,'show'])->name('appointment.show');
-    Route::get('/Account/fixed-show', [App\Http\Controllers\frontend\UserController::class,'showfixed'])->name('appointment.showfixed');
-
-    Route::post('/Account/destroy', [App\Http\Controllers\frontend\UserController::class,'destroy'])->name('appointment.destroy');
-    Route::post('/Account/destroydefault', [App\Http\Controllers\frontend\UserController::class,'destroydefault'])->name('appointment.destroydefault');
 
     //ca cố định
+    Route::get('/Account/cale', [App\Http\Controllers\frontend\UserController::class,'show'])->name('appointment.show');
+    Route::post('/Account/huy-cale', [App\Http\Controllers\frontend\UserController::class,'destroy'])->name('appointment.destroy');
+
+    //ca cố định
+    // Route::get('/Account/co-dinh', [App\Http\Controllers\frontend\UserController::class,'showfixed'])->name('appointment.showfixed');
+    // Route::post('/Account/huy-co-dinh', [App\Http\Controllers\frontend\UserController::class,'destroydefault'])->name('appointment.destroydefault');
+
+
+    //Danh gia
     Route::get('/Account/Danh-gia', [App\Http\Controllers\frontend\BookingController::class,'danhgia'])->name('appointment.danhgia');
     Route::post('/Account/Danh-gia', [App\Http\Controllers\frontend\BookingController::class,'post_danhgia']);
 
@@ -97,35 +102,39 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
     Route::get('/account/profile', [App\Http\Controllers\admin\AccountController::class,'index'])->name('account');
     Route::post('/account/profile', [App\Http\Controllers\admin\AccountController::class,'update'])->name('account.update');
     Route::post('/change-password', [App\Http\Controllers\admin\AccountController::class, 'updatePassword'])->name('update-password');
+    //Xem nhanh
+    Route::get('/Account/show', [App\Http\Controllers\admin\BookingController::class,'fast_Show'])->name('details.show');
+
 
 
     Route::resource('housekeeper', App\Http\Controllers\admin\HousekeeperController::class);
     Route::resource('Nguoi-dung', App\Http\Controllers\admin\MemberController::class);
+
      //show appointment housekeeper
     Route::get('/details-housekeeper/{housekeeper_id}', [App\Http\Controllers\admin\HousekeeperController::class,'show_Details'])->name('housekeeper.appointment-details');
+    Route::post('/details-housekeeper/showfe/{housekeeper_id}', [App\Http\Controllers\admin\HousekeeperController::class,'showfe'])->name('housekeeper.showfe');
 
 
 
     Route::resource('service', App\Http\Controllers\admin\ServiceController::class);
     Route::resource('coupon', App\Http\Controllers\admin\CouponController::class);
+    Route::resource('blog', App\Http\Controllers\admin\BlogController::class);
+
 
     ///Apppointment
     Route::resource('appointment', App\Http\Controllers\admin\BookingController::class);
     Route::get('/appointment/confirm/{book_id}', [App\Http\Controllers\admin\BookingController::class,'confirm'])->name('appointment.confirm');
     Route::post('/appointment-confirm/{book_id}', [App\Http\Controllers\admin\BookingController::class,'post_Confirm'])->name('appointment.post-confirm');
-
+    //Tìm kiếm
     Route::get('/search-confirm', [App\Http\Controllers\admin\BookingController::class,'search_confirm'])->name('appointment.search-confirm');
 
 
-
-
-
-    // Route::resource('bill', App\Http\Controllers\admin\BillController::class);
+    //Hóa đơn
     Route::get('/hoa-don/chua-duyet', [App\Http\Controllers\admin\BillController::class, 'index'])->name('hoadon');
     Route::get('/hoa-don/chua-duyet/update/{history_id}', [App\Http\Controllers\admin\BillController::class,'index_handle'])->name('hoadon-update');
     Route::get('/hoa-don/da-duyet', [App\Http\Controllers\admin\BillController::class, 'hoadon_processing'])->name('hoadon-processing');
 
-
+    //Thống kê
     Route::get('/Thong-ke', [App\Http\Controllers\admin\DashboardController::class, 'index'])->name('thongke-index');
     Route::get('/Thong-ke/don-lich', [App\Http\Controllers\admin\DashboardController::class, 'thongke_donlich'])->name('thongke-donlich');
     Route::post('/Thong-ke/filter-by-date', [App\Http\Controllers\admin\DashboardController::class, 'filter_by_date'])->name('thongke-filter-by-date');
@@ -135,6 +144,7 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 
     ///Đánh giá bình luận
     Route::get('/Đanh-gia', [App\Http\Controllers\admin\CommentController::class, 'index'])->name('comment.index');
+    Route::post('/reply/{comment_id}', [App\Http\Controllers\admin\CommentController::class, 'reply'])->name('comment.reply');
 
     //Bảng giá
     Route::get('/Bang-gia', [App\Http\Controllers\admin\CommentController::class, 'banggia'])->name('banggia.index');
@@ -143,20 +153,10 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 
 
     // Chức năng người giúp việc
-
     Route::get('/Appoin/list', [App\Http\Controllers\Housepicker\BookingController::class,'index'])->name('Appoin-index');
     Route::get('/Appoin/profile', [App\Http\Controllers\Housepicker\BookingController::class,'profile'])->name('Appoin-profile');
-
     Route::get('/Appoin/Bill', [App\Http\Controllers\Housepicker\BillController::class,'index'])->name('Appoin-bill');
     Route::get('/Appoin/ChamCong/{book_id}', [App\Http\Controllers\Housepicker\BillController::class,'ChamCong'])->name('Appoin-ChamCong');
     Route::post('/Appoin/list/destroy', [App\Http\Controllers\Housepicker\BillController::class,'destroy'])->name('Appoin-detail-destroy');
-
-
-
-    Route::get('/Account/show', [App\Http\Controllers\admin\BookingController::class,'fast_Show'])->name('details.show');
-
-
-
-
 
 });

@@ -24,7 +24,7 @@
               <th scope="col">STT</th>
               <th scope="col">Tên</th>
               <th scope="col">Tổng tiền</th>
-              <th scope="col">Số lần dùng dịch vụ</th>
+              <th scope="col">Số lần</th>
             </tr>
           </thead>
           <tbody>
@@ -35,7 +35,7 @@
 
                     <th scope="row"><a href="#"><img src="assets/img/product-1.jpg" alt="">{{ $key+1 }}</a></th>
                     <td><a href="#"class="text-primary fw-bold">{{$val_name->name}}</a></td>
-                    <td class="fw-bold">{{ $val->total }}</td>
+                    <td class="fw-bold">{{ number_format($val->total) }} <sup>đ</sup></td>
                     <td>{{ $val->count_booking }}</td>
                 </tr>
 

@@ -19,18 +19,17 @@ class HomeController extends Controller
     public function index()
     {
         $service = Service::paginate(6);
-        $house = Housekeeper::paginate(4);
+        $housekeeper = Housekeeper::paginate(4);
         $list_service = Service::all();
-        return view('frontend.index')->with(compact('list_service','service','house'));
+
+        $comment_home = Comment::where('rate',5)->get();
+        return view('frontend.index')->with(compact('list_service','service','housekeeper','comment_home'));
     }
 
-   public function service(){
-    $service = Service::all();
-    return view('frontend.pages.list-service')->with(compact('service'));
-   }
+
 
    public function housekeeper(){
-    $housekeeper = Housekeeper::where('status',0)->get();
+    $housekeeper = Housekeeper::where('status',0)->paginate(8);
     return view('frontend.pages.list-housekeeper')->with(compact('housekeeper'));
    }
 

@@ -65,6 +65,8 @@ class BookingController extends Controller
         $housekeeper = Housekeeper::where('status',0)->get();
 
         $history = History::selectRaw('count(housekeeper_id) as total, housekeeper_id')->groupBy('housekeeper_id')->whereMonth('created_at', $now)->get();
+        // dd($history);
+
 
         $check_day = History::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_history.book_id')
         ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_booking_details.book_id')->where('tbl_history.history_status',2)->get();
@@ -109,7 +111,7 @@ class BookingController extends Controller
             if ($history) {
                 $bookupdate = Book::where('book_id',$book_id)->first();
                 $bookupdate->update(['book_status'=>2]);
-                Mail::to('minhnghia11a1@gmail.com')->send(new MailNotify($book));
+                // Mail::to('minhnghia11a1@gmail.com')->send(new MailNotify($book));
                 $msg = "Đã giao công việc thành công";
                 $style = "success";
 

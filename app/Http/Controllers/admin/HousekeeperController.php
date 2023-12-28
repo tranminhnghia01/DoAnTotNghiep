@@ -22,10 +22,10 @@ class HousekeeperController extends Controller
     public function index()
     {
         $role = Role::all();
-        $user_house = User::where('role_id',2)->get();
-        $housekeepers = Housekeeper::join('users', 'users.user_id', '=', 'tbl_housekeeper.housekeeper_id')->orderBy('status', 'desc')->get();
+        $housekeeper = Housekeeper::join('users', 'users.user_id', '=', 'tbl_housekeeper.housekeeper_id')
+        ->join('tbl_role','tbl_role.role_id','=','users.role_id')->orderBy('status', 'desc')->get();
         // dd($housekeepers);
-        return view('admin.users.list')->with(compact('housekeepers','role','user_house'));
+        return view('admin.users.list')->with(compact('housekeeper','role'));
     }
 
     /**
@@ -66,7 +66,7 @@ class HousekeeperController extends Controller
         if($user){
             $file = $request->image;
             if (!empty($file)) {
-                $data['image'] = $file->getClientOriginalName();
+                $data['image'] = "GV".$file->getClientOriginalName();
             }else{
                 $data['image'] = "";
             }
@@ -80,11 +80,11 @@ class HousekeeperController extends Controller
                 'address'=> $data['address'],
                 'des'=> $data['des'],
                 'files'=> $data['files'],
-                'status'=> 0,
+                'status'=> $data['status'],
             ];
             if (Housekeeper::create($housekeeper)) {
                 if (!empty($file)) {
-                    $file->move('uploads/users',$file->getClientOriginalName());
+                    $file->move('uploads/users',$data['image']);
                 }
                 $style = 'success';
                 $msg = 'Thêm tài khoản người giúp việc dùng thành công! ';
@@ -100,12 +100,7 @@ class HousekeeperController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $city = City::all();
@@ -113,7 +108,8 @@ class HousekeeperController extends Controller
         $user = User::where('user_id',$id)->first();
         $role = Role::find($user->role_id);
 
-        $housekeeper = Housekeeper::where('housekeeper_id',$id)->first();
+        $housekeeper = Housekeeper::join('users', 'users.user_id', '=', 'tbl_housekeeper.housekeeper_id')
+        ->join('tbl_role','tbl_role.role_id','=','users.role_id')->where('housekeeper_id',$id)->first();
         return view('admin.users.show')->with(compact('housekeeper','role','user','city'));
     }
 
@@ -146,14 +142,14 @@ class HousekeeperController extends Controller
         // dd($data);
 
         if (!empty($file)) {
-            $data['image'] = $file->getClientOriginalName();
+            $data['image'] = "GV".$file->getClientOriginalName();
             $old_image =  $housekeeper->image;
         }
 
 
         if ($housekeeper->update($data)) {
             if (!empty($file)) {
-                $file->move('uploads/users',$file->getClientOriginalName());
+                $file->move('uploads/users',$data['image']);
                 if (!empty($old_image)) {
                     unlink(public_path('uploads/users/'. $old_image));
                 }
@@ -183,5 +179,13 @@ class HousekeeperController extends Controller
         ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_booking_details.book_id')->where('tbl_history.housekeeper_id',$housekeeper_id)->get();
 
         return view('admin.users.appointmet-housekeeper')->with(compact('book','housekeeper'));
+    }
+
+    public function showfe(Request $request,$housekeeper_id){
+            $housekeeper = Housekeeper::where('housekeeper_id',$housekeeper_id)->first();
+            $housekeeper->update(['content'=>$request->content]);
+            $msg = 'Cập nhật chi tiết thành công';
+            $style = 'success';
+            return redirect()->back()->with(compact('msg','style'));
     }
 }

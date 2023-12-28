@@ -38,6 +38,8 @@ class HomeController extends Controller
      */
     public function thanks(Request $request){
         $data = $request->all();
+
+
        if(isset($_GET['vnp_Amount'])){
 
         $data = [
@@ -54,6 +56,7 @@ class HomeController extends Controller
             'TxnRef'=> $_GET['vnp_TxnRef'],
             'SecureHash'=> $_GET['vnp_SecureHash'],
         ];
+        $book= Book::where('book_id',$_GET['vnp_TxnRef'])->first();
 
             $paymentOnline = PaymentOnline::create($data);
             if($paymentOnline){
@@ -62,10 +65,11 @@ class HomeController extends Controller
 
                 $now = Carbon::now()->format('Y-m-d');
                 $update_statistical = Statistic::where('date' ,$now)->first();
+                // dd($update_statistical);
                 if($update_statistical){
                     $info_static = [
-                        'sales' => $update_statistical->sales + ($paymentOnline->Amount)/10,
-                        'profit' => $update_statistical->profit + ($paymentOnline->Amount)*0.1,
+                        'sales' => $update_statistical->sales + ($paymentOnline->Amount)/100,
+                        'profit' => $update_statistical->profit + ($paymentOnline->Amount)/1000,
                         'total_appointment'=> $update_statistical->total_appointment + 1,
                     ];
                     $update_statistical->update($info_static);
