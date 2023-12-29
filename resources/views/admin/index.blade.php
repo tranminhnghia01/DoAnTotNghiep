@@ -112,28 +112,6 @@
 
 
               </div>
-              <script>
-                      Morris.Donut({
-                          element: 'donut',
-                          resize: true,
-                          colors: [
-                              '#a8328e',
-                              '#61a1ce',
-                              '#ce8f61',
-                              '#f5b942',
-                              '#4842f5',
-                          ],
-                          //labelColor:"#cccccc", // text color
-                          //backgroundColor: '#333333', // border color
-                          data: [
-                              {label:"Đơn lịch", value:{{ $Count_book }}},
-                              {label:"Dịch vụ", value:{{ $Count_service }}},
-                              {label:"Người giúp việc", value:{{ $Count_house }}},
-                              {label:"Khách hàng", value:{{ $Count_user }}}
-                          ]
-                      });
-                      </script>
-
             </div>
           </div><!-- End Website Traffic -->
       </div><!-- End Right side columns -->
@@ -147,7 +125,7 @@
       <div class="col-lg-6">
 
         <!-- News & Updates Traffic -->
-        <div class="card">
+        {{-- <div class="card">
           <div class="filter">
             <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -198,7 +176,7 @@
             </div><!-- End sidebar recent posts-->
 
           </div>
-        </div><!-- End News & Updates -->
+        </div><!-- End News & Updates --> --}}
       </div><!-- End Right side columns -->
 
     </div>

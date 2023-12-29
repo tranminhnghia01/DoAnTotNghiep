@@ -143,13 +143,13 @@ class BookingController extends Controller
         $id= Auth::id();
         $user = User::findOrFail($id);
         $book = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
-        ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
-        ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
-        ->orderBy('tbl_booking.created_at', 'desc')
-        ->where('tbl_booking.book_id',$book_id)->first();
+            ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
+            ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
+            ->orderBy('tbl_booking.created_at', 'desc')
+            ->where('tbl_booking.book_id',$book_id)->first();
         $history = History::join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
-        ->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')
-        ->where('tbl_history.book_id',$book_id)->first();
+            ->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')
+            ->where('tbl_history.book_id',$book_id)->first();
         // dd($book);
         $payment = Payment::find($book->payment_id);
         $coupon = Coupon::find($book->coupon_id);
@@ -166,38 +166,36 @@ class BookingController extends Controller
         }
 
         $listdate= explode(",",$book['book_date']);
-         $count_date= count($listdate);
-        // dd($count_date);
-            for ($i=0; $i < $count_date; $i++) {
-                $changedate = explode("/", $listdate[$i]);
-                 $listdate[$i] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
-            }
-
-
+        $count_date= count($listdate);
+        for ($i=0; $i < $count_date; $i++) {
+            $changedate = explode("/", $listdate[$i]);
+                $listdate[$i] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
+        }
 
         $split_time = explode(":",$book->book_time_start);
         $time_end = $split_time[0]+$book->book_time_number .':'.$split_time[1];
 
-            //check thanh toán
-            $now = Carbon::now()->format('m/d/Y');
-            $hours_now =  Carbon::now()->format('H');
-            // dd($hours_now);15
-            $checkhours = $split_time[0] - 2;
-            // dd($checkhours);
-            // dd($now);
-            // dd($listdate[0]);
-            $check_payment = true;
-            if($book->service_id == 2 && $book->payment_id == 1){
-                if($listdate[0] == $now && $hours_now > $checkhours ){
-                    $check_payment = false;
-                }else{
-                    $check_payment = true;
+        //check thanh toán
+        $now = Carbon::now()->format('m/d/Y');
+        $hours_now =  Carbon::now()->format('H');
+        // dd($hours_now);15
+        $checkhours = $split_time[0] - 2;
+        // dd($checkhours);
+        // dd($now);
+        // dd($listdate[0]);
+        $check_payment = true;
+        if($book->service_id == 2 && $book->payment_id == 1){
+            if($listdate[0] == $now && $hours_now > $checkhours ){
+                $check_payment = false;
+            }else{
+                $check_payment = true;
 
-                }
             }
+        }
 
 
-        $output.='<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" aria-hidden="true">
+        $output.='
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="bg-white modal-content">
                         <div class="modal-header">
@@ -205,17 +203,13 @@ class BookingController extends Controller
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body" style="color: #000;">
-
                             <div class="row g-3">';
-                            if ($history) {
-                                $path = asset('uploads/users/'. $history->image);
+                                if ($history) {
+                                    $path = asset('uploads/users/'. $history->image);
 
-                                $output.='
-                                <h5 class="modal-title">Người giúp việc</h5>
-                            <div class="row" style="border: 1px solid #ccc;
-                            border-radius: 5px;
-                            margin: 1px;
-                            padding: 5px;">
+                                    $output.='
+                                    <h5 class="modal-title">Người giúp việc</h5>
+                                <div class="row" style="border: 1px solid #ccc; border-radius: 5px; margin: 1px; padding: 5px;">
                             <div class="col-sm-3">
                             <img src="'.$path.'" alt="Girl in a jacket" width="150px" height="150px">
                         </div>
@@ -367,6 +361,8 @@ class BookingController extends Controller
             $status = [];
             foreach ($house as $key => $value) {
                 $status[$key] = 0;
+                $checkday =0 ;
+                $total = 0;
                 foreach ($check_day as $check => $valcheck){
                     $datecheck =  explode(",",$valcheck->book_date);
                     $date =  explode(",",$book->book_date);
@@ -396,30 +392,40 @@ class BookingController extends Controller
                 foreach ($history as $keyt => $valt) {
                     if ($valt->housekeeper_id == $value->housekeeper_id)
                     {
-                        $output.='<td style="color: green">'.$valt->total.'</td>';
+                        $checkday = 1 ;
+                        $total = $valt->total;
                     }else{
-                        $output.='<td style="color: red">0</td>';
+                        $checkday = 0 ;
+
                     }
+                }
+
+                if ($total != 0)
+                {
+                    $output.='<td style="color: green">'.$total.'</td>';
+                }else{
+                    $output.='<td style="color: red">'.$total.'</td>';
                 }
                 // dd($status);
                 if ($status[$key] == 1){
                     $output.='<td><span style="color: red">Trùng lịch</span></td>
                     <td><button class="btn btn-default">Giao công việc</button></td>';
                 }else{
-                        $output.='<td><span style="color: green">Không trùng lịch</span></td>
-                                <td><button type="button" class="btn btn-primary" data-id="'.$value->housekeeper_id.'" >Giao công việc</button></td>';
-                    }
-
                     $output.='
-                    <td><a class="btn btn-default">Xem chi tiết</a></td>
-                ';
-                };
-
-
+                    <td><span style="color: green">Không trùng lịch</span></td>
+                    <td>
+                        <form action="'.route('admin.appointment.post-confirm',$book->book_id ).'" method="post">
+                            <input type="hidden" name="_token" value="'.csrf_token().'" />
+                            <input type="hidden" name="housekeeper_id" value="'.$value->housekeeper_id.'">
+                            <button type="submit" class="btn btn-primary" data-id="'.$value->housekeeper_id.'" >Giao công việc</button>
+                        </form>
+                    </td>';
+                }
+                $output.='
+                <td><a class="btn btn-default">Xem chi tiết</a></td>';
             };
 
-// dd($status);
+        };
         echo ($output);
     }
-
 }

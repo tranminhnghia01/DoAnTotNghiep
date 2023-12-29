@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Blog;
 use App\Models\Book;
 use App\Models\Housekeeper;
 use App\Models\Service;
@@ -34,8 +35,9 @@ class AppServiceProvider extends ServiceProvider
             $Count_account = User::all()->count();
             $Count_service = Service::all()->count();
             $Count_book = Book::all()->count();
+            $Count_blog = Blog::all()->count();
             $service_nav = Service::all();
-            $view->with(compact('Count_house','Count_user','Count_service','Count_book','Count_account','service_nav'));
+            $view->with(compact('Count_house','Count_user','Count_service','Count_book','Count_account','service_nav','Count_blog'));
         });
     }
 }

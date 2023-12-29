@@ -21,6 +21,15 @@
                 <p><i class="far fa-check-circle text-orange me-3"></i>Đa dạng dịch vụ</p>
                 <p><i class="far fa-check-circle text-orange me-3"></i>An toàn tối đa</p>
                 <a class="btn btn-orange rounded-pill py-3 px-5 mt-3" href="">Tìm hiểu thêm</a>
+                <form action="{{ route('home.momo') }}" method="post">
+                    @csrf
+                    <button type="submit" name="redirect">thanh toán</button>
+                </form>
+
+                <form action="{{ route('home.onepay') }}" method="post">
+                    @csrf
+                    <button type="submit" >thanh toán</button>
+                </form>
             </div>
         </div>
     </div>

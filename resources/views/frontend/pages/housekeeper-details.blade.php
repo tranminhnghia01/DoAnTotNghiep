@@ -18,7 +18,7 @@
                                     <input value="{{$i}}" type="radio" name="rate" hidden>
                                 </div>
                                 @endfor
-                                <span class="rate-np" style="font-size: 26px;margin-top: -5px;margin-left: 10px">{{ $avg }}</span>
+                                <span class="rate-np" style="font-size: 26px;margin-top: -5px;margin-left: 10px">{{ round($avg,1) }}</span>
                             </div>
                         </div>
                     </div>
@@ -37,51 +37,55 @@
 
                 <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
                     {!! $housekeeper->content !!}
+
+                    <div class="comments">
+                        <h4 class="comment-title font-alt">Bình luận</h4>
+                        @foreach ($comment as $key =>$val )
+
+                            <div class="comment clearfix">
+                            <div class="comment-avatar"><img src="{{ asset('uploads/users/'.$val->image) }}" alt="avatar" style="width: 50px;height: 50px;"></div>
+                            <div class="comment-content clearfix">
+                            <div class="comment-author font-alt"><a href="#">{{ $val->name }}</a></div>
+                            <div class="comment-author font-alt"><a href="#">  @for ($i = 1 ; $i<=5 ;$i++)
+                                @if ($i <= $val->rate)
+                                <img src="{{ asset('rate/images/200/start-active.png') }}"  style="width: 10px">
+                                @else
+                                <img src="{{ asset('rate/images/200/start.png') }}" style="width: 10px">
+
+                                @endif
+                            @endfor</a></div>
+
+
+                            <div class="comment-body">
+                                <p> {{ $val->comment }} </p>
+                            </div>
+                            <div class="comment-meta font-alt">{{ date('d/m/Y',strtotime($val->created_at))}} - <a href="#">Phản hồi</a>
+                            </div>
+                            </div>
+                            @if ($val->reply)
+                            <div class="comment clearfix">
+                                <div class="comment-avatar"><img src="{{ asset('admin/assets/img/apple-touch-icon.png') }}" alt="avatar" style="width: 50px;height: 50px;"></div>
+                                <div class="comment-content clearfix">
+                                    <div class="comment-author font-alt">
+                                        <a href="#">Quản trị viên</a>
+                                    </div>
+                                    <div class="comment-body">
+                                        <p>{{ $val->reply }}</p>
+                                    </div>
+                                    <div class="comment-meta font-alt">{{ date('d/m/Y',strtotime($val->updated_at))}} - <a href="#">Phản hồi</a>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+
+                            </div>
+                        @endforeach
+
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
-    @foreach ($comment as $key =>$val )
-    <div class="comments">
-        <h4 class="comment-title font-alt">Bình luận</h4>
-        <div class="comment clearfix">
-            <div class="comment-avatar"><img src="{{ asset('uploads/users/'.$val->image) }}" alt="avatar" style="width: 50px;height: 50px;"></div>
-            <div class="comment-content clearfix">
-            <div class="comment-author font-alt"><a href="#">{{ $val->name }}</a></div>
-            <div class="comment-author font-alt"><a href="#">  @for ($i = 1 ; $i<=5 ;$i++)
-                @if ($i <= $val->rate)
-                <img src="{{ asset('rate/images/200/start-active.png') }}"  style="width: 10px">
-                @else
-                <img src="{{ asset('rate/images/200/start.png') }}" >
-
-                @endif
-            @endfor</a></div>
-
-
-            <div class="comment-body">
-                <p> {{ $val->comment }} </p>
-            </div>
-            <div class="comment-meta font-alt">{{ date('d/m/Y',strtotime($val->created_at))}} - <a href="#">Phản hồi</a>
-            </div>
-            </div>
-            @if ($val->reply)
-            <div class="comment clearfix">
-                <div class="comment-avatar"><img src="{{ asset('admin/assets/img/apple-touch-icon.png') }}" alt="avatar" style="width: 50px;height: 50px;"></div>
-                <div class="comment-content clearfix">
-                    <div class="comment-author font-alt">
-                        <a href="#">Quản trị viên</a>
-                    </div>
-                    <div class="comment-body">
-                        <p>{{ $val->reply }}</p>
-                    </div>
-                    <div class="comment-meta font-alt">{{ date('d/m/Y',strtotime($val->updated_at))}} - <a href="#">Phản hồi</a>
-                    </div>
-                </div>
-            </div>
-            @endif
-
-        </div>
-        </div>
-    @endforeach
 
 @endsection

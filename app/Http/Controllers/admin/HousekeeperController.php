@@ -110,7 +110,11 @@ class HousekeeperController extends Controller
 
         $housekeeper = Housekeeper::join('users', 'users.user_id', '=', 'tbl_housekeeper.housekeeper_id')
         ->join('tbl_role','tbl_role.role_id','=','users.role_id')->where('housekeeper_id',$id)->first();
-        return view('admin.users.show')->with(compact('housekeeper','role','user','city'));
+
+        $book = History::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_history.book_id')
+        ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_booking_details.book_id')->where('tbl_history.housekeeper_id',$id)->get();
+
+        return view('admin.users.show')->with(compact('housekeeper','role','user','city','book'));
     }
 
     /**
@@ -170,16 +174,16 @@ class HousekeeperController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show_Details($housekeeper_id)
-    {
-        $housekeeper = User::where('user_id',$housekeeper_id)
-        ->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'users.user_id')->first();
-        // dd($housekeeper);
-        $book = History::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_history.book_id')
-        ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_booking_details.book_id')->where('tbl_history.housekeeper_id',$housekeeper_id)->get();
+    // public function show_Details($housekeeper_id)
+    // {
+    //     $housekeeper = User::where('user_id',$housekeeper_id)
+    //     ->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'users.user_id')->first();
+    //     // dd($housekeeper);
+    //     $book = History::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_history.book_id')
+    //     ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_booking_details.book_id')->where('tbl_history.housekeeper_id',$housekeeper_id)->get();
 
-        return view('admin.users.appointmet-housekeeper')->with(compact('book','housekeeper'));
-    }
+    //     return view('admin.users.appointmet-housekeeper')->with(compact('book','housekeeper'));
+    // }
 
     public function showfe(Request $request,$housekeeper_id){
             $housekeeper = Housekeeper::where('housekeeper_id',$housekeeper_id)->first();

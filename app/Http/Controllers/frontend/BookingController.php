@@ -19,6 +19,25 @@ use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
+
+    public function execPostRequest($url, $data)
+    {
+        $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($data))
+    );
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+    //execute post
+    $result = curl_exec($ch);
+    //close connection
+    curl_close($ch);
+    return $result;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -150,13 +169,70 @@ class BookingController extends Controller
         // dd($history);
 
         //Thanh toán vnpay
-        if($data['payment_id'] == 3){
+        switch ($data['payment_id']) {
+            case 3:
             $this->vnpay_Payment($book_id,$history->book_total);
-        }else{
+
+                break;
+                case 2:
+                    return $this->momo_Online($book_id,$history->book_total);
+                        break;
+
+            default:
             $msg = "Thao tác không thành công.Vui lòng thử lại sau!";
             $style ="danger";
-        }
         return redirect()->back()->with(compact('msg','style'));
+
+                break;
+        }
+
+    }
+
+    public function momo_Online($book_id,$book_total){
+        $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+        $partnerCode = 'MOMOBKUN20180529';
+        $accessKey = 'klm05TvNBzhg7h7j';
+        $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+        $orderInfo = "Thanh toán qua MoMo";
+        $amount = $book_total;
+        $orderId = $book_id ."-". time() . "";
+        $redirectUrl = "http://127.0.0.1:8000/Moon.com/dat-lich/thanks";
+        $ipnUrl = "http://127.0.0.1:8000/Moon.com/Account/quan-ly-don/$book_id";
+        $extraData = "";
+
+
+            $requestId = time() . "";
+            $requestType = "payWithATM";
+            // $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
+            //before sign HMAC SHA256 signature
+            $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+            $signature = hash_hmac("sha256", $rawHash, $secretKey);
+            // dd($signature);
+            $data = array('partnerCode' => $partnerCode,
+                'partnerName' => "Test",
+                "storeId" => "MomoTestStore",
+                'requestId' => $requestId,
+                'amount' => $amount,
+                'orderId' => $orderId,
+                'orderInfo' => $orderInfo,
+                'redirectUrl' => $redirectUrl,
+                'ipnUrl' => $ipnUrl,
+                'lang' => 'vi',
+                'extraData' => $extraData,
+                'requestType' => $requestType,
+                'signature' => $signature);
+        // dd($data);
+            $result = $this->execPostRequest($endpoint, json_encode($data));
+            // dd($result);
+            $jsonResult = json_decode($result, true);  // decode json
+        // dd($jsonResult);
+        $jsonResult['redirect'] = $jsonResult['payUrl'];
+            //Just a example, please check more in there
+        // dd($jsonResult['payUrl']);
+            return redirect()->to($jsonResult['redirect']);
+
+            // return header('Location: ' . $jsonResult['payUrl']);
+
     }
 
 
@@ -228,5 +304,90 @@ class BookingController extends Controller
             } else {
                 echo json_encode($returnData);
             }
+     }
+
+
+     public function onepay_Online(){
+        $SECURE_SECRET = "A3EFDFABA8653DF2342E8DAC29B51AF0";
+
+        $vpcURL = 'https://mtf.onepay.vn/onecomm-pay/vpc.op' . "?";
+
+        // unset($_POST["virtualPaymentClientURL"]);
+        // unset($_POST["SubButL"]);
+        $vpc_Merchant = 'ONEPAY';
+        $vpc_AccessCode = 'D67342C2';
+        $vpc_MerchTxnRef = time();
+        $vpc_OrderInfo = 'JSECURETEST01';
+        $vpc_Amount = 100000;
+        $vpc_ReturnURL = 'http://websitemoon.vn/Moon.com';
+        $vpc_Version = '2';
+        $vpc_Command = 'pay';
+        $vpc_Locale = 'vn';
+        $vpc_Currency = 'VND';
+        $data = array(
+            'vpc_Merchant' => $vpc_Merchant,
+            'vpc_AccessCode' => $vpc_AccessCode,
+            'vpc_MerchTxnRef' => $vpc_MerchTxnRef,
+            'vpc_OrderInfo' => $vpc_OrderInfo,
+            'vpc_Amount' => $vpc_Amount,
+            'vpc_ReturnURL' => $vpc_ReturnURL,
+            'vpc_Version' => $vpc_Version,
+            'vpc_Command' => $vpc_Command,
+            'vpc_Locale' => $vpc_Locale,
+            'vpc_Currency' => $vpc_Currency,
+        );
+
+
+        $stringHashData = "";
+        // sắp xếp dữ liệu theo thứ tự a-z trước khi nối lại
+        // arrange array data a-z before make a hash
+        ksort ($data);
+
+        // set a parameter to show the first pair in the URL
+        // đặt tham số đếm = 0
+        $appendAmp = 0;
+
+        foreach($data as $key => $value) {
+
+            // create the md5 input and URL leaving out any fields that have no value
+            // tạo chuỗi đầu dữ liệu những tham số có dữ liệu
+            if (strlen($value) > 0) {
+                // this ensures the first paramter of the URL is preceded by the '?' char
+                if ($appendAmp == 0) {
+                    $vpcURL .= urlencode($key) . '=' . urlencode($value);
+                    $appendAmp = 1;
+                } else {
+                    $vpcURL .= '&' . urlencode($key) . "=" . urlencode($value);
+                }
+                //$stringHashData .= $value; *****************************sử dụng cả tên và giá trị tham số để mã hóa*****************************
+                if ((strlen($value) > 0) && ((substr($key, 0,4)=="vpc_") || (substr($key,0,5) =="user_"))) {
+                    $stringHashData .= $key . "=" . $value . "&";
+                }
+            }
+        }
+        //*****************************xóa ký tự & ở thừa ở cuối chuỗi dữ liệu mã hóa*****************************
+        $stringHashData = rtrim($stringHashData, "&");
+        // Create the secure hash and append it to the Virtual Payment Client Data if
+        // the merchant secret has been provided.
+        // thêm giá trị chuỗi mã hóa dữ liệu được tạo ra ở trên vào cuối url
+        if (strlen($SECURE_SECRET) > 0) {
+            //$vpcURL .= "&vpc_SecureHash=" . strtoupper(md5($stringHashData));
+            // *****************************Thay hàm mã hóa dữ liệu*****************************
+            $vpcURL .= "&vpc_SecureHash=" . strtoupper(hash_hmac('SHA256', $stringHashData, pack('H*',$SECURE_SECRET)));
+        }
+
+        // FINISH TRANSACTION - Redirect the customers using the Digital Order
+        // ===================================================================
+        // chuyển trình duyệt sang cổng thanh toán theo URL được tạo ra
+        // header("Location: ".$vpcURL);
+        dd($vpcURL);
+
+        return redirect()->to($vpcURL);
+
+        // *******************
+        // END OF MAIN PROGRAM
+        // *******************
+
+
      }
 }

@@ -259,12 +259,14 @@
                     {label:"Đơn lịch", value:{{ $Count_book }}},
                     {label:"Dịch vụ", value:{{ $Count_service }}},
                     {label:"Người giúp việc", value:{{ $Count_house }}},
-                    {label:"Khách hàng", value:{{ $Count_user }}}
+                    {label:"Khách hàng", value:{{ $Count_user }}},
+                    {label:"Bài viết", value:{{ $Count_blog }}}
                 ]
             });
 
 
             chart60day();
+            quickView();
 
             var chart = new Morris.Line({
             element: 'myfirstchart',
@@ -295,6 +297,25 @@
                         chart.setData(data);
                     }
                 });
+            }
+
+            function quickView() {
+                $.ajax({
+                    url : "{{route('admin.thongke-dashboard-quickview')}}",
+                    method: 'GET',
+                    dataType: "JSON",
+                    success:function(data)
+                    {
+                        console.log(data);
+                        $('.show-date-type').text(data['type']);
+                        $('.show-date-total').text(data['book']);
+                        $('.show-sales-type').text(data['type']);
+                        $('.show-sales-total').text(new Intl.NumberFormat('en-US').format(data['sales']));
+                        $('.show-profit-type').text(data['type']);
+                        $('.show-profit-total').text(new Intl.NumberFormat('en-US').format(data['profit']));
+                    }
+                });
+
             }
 
             $('.dashboard-filter').on('change', function(e){
@@ -332,6 +353,78 @@
             });
         })
 
+
+
+        $('a.total-book').on('click', function() {
+            var type = $(this).data('type');
+            $.ajax({
+                    url : "{{route('admin.thongke-dashboard-book')}}",
+                    method: 'GET',
+                    dataType: "JSON",
+                    data:{type:type},
+                    success:function(data)
+                    {
+                        $('.show-date-type').text(data[0]);
+                        $('.show-date-total').text(data[1]);
+                    }
+                });
+
+                $.ajax({
+                    url : "{{route('admin.thongke-dashboard-sales')}}",
+                    method: 'GET',
+                    dataType: "JSON",
+                    data:{type:type},
+                    success:function(data)
+                    {
+                        $('.show-sales-type').text(data[0]);
+                        $('.show-sales-total').text(new Intl.NumberFormat('en-US').format(data[1]));
+                    }
+                });
+
+                $.ajax({
+                    url : "{{route('admin.thongke-dashboard-profit')}}",
+                    method: 'GET',
+                    dataType: "JSON",
+                    data:{type:type},
+                    success:function(data)
+                    {
+
+                        $('.show-profit-type').text(data[0]);
+                        $('.show-profit-total').text(new Intl.NumberFormat('en-US').format(data[1]));
+                    }
+                });
+            });
+
+            $('a.total-sales').on('click', function() {
+            var type = $(this).data('type');
+            $.ajax({
+                    url : "{{route('admin.thongke-dashboard-sales')}}",
+                    method: 'GET',
+                    dataType: "JSON",
+                    data:{type:type},
+                    success:function(data)
+                    {
+                        $('.show-sales-type').text(data[0]);
+                        $('.show-sales-total').text(new Intl.NumberFormat('en-US').format(data[1]));
+                    }
+                });
+            });
+
+            $('a.total-profit').on('click', function() {
+            var type = $(this).data('type');
+            $.ajax({
+                    url : "{{route('admin.thongke-dashboard-profit')}}",
+                    method: 'GET',
+                    dataType: "JSON",
+                    data:{type:type},
+                    success:function(data)
+                    {
+
+                        $('.show-profit-type').text(data[0]);
+                        $('.show-profit-total').text(new Intl.NumberFormat('en-US').format(data[1]));
+                    }
+                });
+            });
         })
     </script>
 

@@ -33,16 +33,9 @@ class UserController extends Controller
         $id= Auth::id();
         $user = User::findOrFail($id);
         $shipping = Shipping::where('user_id', $user->user_id)->first();
-        $bookFixed = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
-            ->where('shipping_id',$shipping->shipping_id)->where('service_id','2')->orderBy('book_status', 'desc')->get();
-
         $city = City::all();
 
-        $check_comment = Comment::join('tbl_history', 'tbl_history.history_id', '=', 'tbl_comment.history_id')->get();
-
-        // $book = Book::where('shipping_id',$shipping->id)->get();
-        // dd($check_comment);
-        return view('frontend.setting.profile')->with(compact('book','shipping','user','city','bookFixed','check_comment'));
+        return view('frontend.setting.profile')->with(compact('book','shipping','user','city'));
     }
 
 
@@ -705,4 +698,60 @@ class UserController extends Controller
     //     }
     //     echo $msg;
     // }
+
+    public function quan_ly_don_details($book_id){
+        // dd($book_id);
+        $weekday = [
+            'Monday' => 'Thứ 2',
+            'Tuesday' => 'Thứ 3',
+            'Wednesday' => 'Thứ 4',
+            'Thursday' => 'Thứ 5',
+            'Friday' => 'Thứ 6',
+            'Saturday' => 'Thứ 7',
+            'Sunday' => 'CN',
+        ];
+        $id= Auth::id();
+        $user = User::findOrFail($id);
+        $shipping = Shipping::where('user_id', $user->user_id)->first();
+        $book = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
+        ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking.payment_id')->where('tbl_booking.book_id',$book_id)->first();
+
+        $paymentonline = PaymentOnline::where('TxnRef',$book_id)->first();
+
+
+        $payment = Payment::where('payment_id','!=',1)->get();
+        $coupon = Coupon::find($book->coupon_id);
+        if($coupon == true){
+            $coupon_number = $coupon->coupon_number;
+            if($coupon->coupon_method == 0){
+                $method = '%';
+            }else{
+                $method = 'đ';
+            }
+        }else{
+            $coupon_number = '';
+            $method = '';
+        }
+
+        $listdate= explode(",",$book['book_date']);
+         $count_date= count($listdate);
+        // dd($count_date);
+        for ($i=0; $i < $count_date; $i++) {
+            $changedate = explode("/", $listdate[$i]);
+             $listdate[$i] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
+            $timestamp = strtotime( $listdate[$i]);
+
+        }
+
+        $history = History::latest('tbl_history.created_at')->where('book_id',$book_id)->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')->first();
+        // dd($history);
+        $split_time = explode(":",$book->book_time_start);
+        $time_end = $split_time[0]+$book->book_time_number .':'.$split_time[1];
+
+        $listbook = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
+            ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
+            ->where('shipping_id',$shipping->shipping_id)->orderBy('book_status', 'desc')
+            ->get();
+        return view('frontend.setting.details')->with(compact('time_end','listdate','method','coupon_number','book','history','shipping','paymentonline','payment','listbook'));
+    }
 }

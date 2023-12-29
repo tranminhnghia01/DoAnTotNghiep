@@ -59,6 +59,8 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
 
 
+
+
     //end service
 
     Route::get('/checkout', [App\Http\Controllers\frontend\UserController::class,'index'])->name('checkout');
@@ -67,15 +69,12 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
     Route::get('/Account', [App\Http\Controllers\frontend\UserController::class,'index'])->name('appointment.index');
     Route::post('/Account/update', [App\Http\Controllers\frontend\UserController::class,'update'])->name('Account.update');
     Route::get('/Account/quan-ly-don', [App\Http\Controllers\frontend\UserController::class,'quan_ly_don'])->name('Account.show');
+    Route::get('/Account/quan-ly-don/{book_id}', [App\Http\Controllers\frontend\UserController::class,'quan_ly_don_details'])->name('Account.show.details');
 
 
     //ca cố định
     Route::get('/Account/cale', [App\Http\Controllers\frontend\UserController::class,'show'])->name('appointment.show');
     Route::post('/Account/huy-cale', [App\Http\Controllers\frontend\UserController::class,'destroy'])->name('appointment.destroy');
-
-    //ca cố định
-    // Route::get('/Account/co-dinh', [App\Http\Controllers\frontend\UserController::class,'showfixed'])->name('appointment.showfixed');
-    // Route::post('/Account/huy-co-dinh', [App\Http\Controllers\frontend\UserController::class,'destroydefault'])->name('appointment.destroydefault');
 
 
     //Danh gia
@@ -85,6 +84,9 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
     //Phương thức thanh toán
     Route::post('/Account/payment/online/{book_id}', [App\Http\Controllers\frontend\BookingController::class,'payment_Online'])->name('appointment.payment.online');
+    Route::post('/momo', [App\Http\Controllers\frontend\BookingController::class,'momo_Online'])->name('momo');
+    Route::post('/onepay', [App\Http\Controllers\frontend\BookingController::class,'onepay_Online'])->name('onepay');
+
     Route::GET('dat-lich/thanks',[App\Http\Controllers\HomeController::class, 'thanks'])->name('thanks');
 
 });
@@ -111,7 +113,7 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
     Route::resource('Nguoi-dung', App\Http\Controllers\admin\MemberController::class);
 
      //show appointment housekeeper
-    Route::get('/details-housekeeper/{housekeeper_id}', [App\Http\Controllers\admin\HousekeeperController::class,'show_Details'])->name('housekeeper.appointment-details');
+    // Route::get('/details-housekeeper/{housekeeper_id}', [App\Http\Controllers\admin\HousekeeperController::class,'show_Details'])->name('housekeeper.appointment-details');
     Route::post('/details-housekeeper/showfe/{housekeeper_id}', [App\Http\Controllers\admin\HousekeeperController::class,'showfe'])->name('housekeeper.showfe');
 
 
@@ -140,6 +142,14 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
     Route::post('/Thong-ke/filter-by-date', [App\Http\Controllers\admin\DashboardController::class, 'filter_by_date'])->name('thongke-filter-by-date');
     Route::post('/Thong-ke/dashboard-filter', [App\Http\Controllers\admin\DashboardController::class, 'dashboard_filter'])->name('thongke-dashboard-filter');
     Route::post('/Thong-ke/dashboard-days', [App\Http\Controllers\admin\DashboardController::class, 'dashboard_days'])->name('thongke-dashboard-days');
+
+    Route::get('/Thong-ke/dashboard-book', [App\Http\Controllers\admin\DashboardController::class, 'total_book'])->name('thongke-dashboard-book');
+    Route::get('/Thong-ke/dashboard-sales', [App\Http\Controllers\admin\DashboardController::class, 'total_sales'])->name('thongke-dashboard-sales');
+    Route::get('/Thong-ke/dashboard-profit', [App\Http\Controllers\admin\DashboardController::class, 'total_profit'])->name('thongke-dashboard-profit');
+
+    Route::get('/Thong-ke/dashboard-quickview', [App\Http\Controllers\admin\DashboardController::class, 'total_quickview'])->name('thongke-dashboard-quickview');
+
+
 
 
     ///Đánh giá bình luận

@@ -6,7 +6,9 @@
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                 <p class="d-inline-block border rounded-pill py-1 px-4">Đặt lịch</p>
                 <h1 class="mb-4">{{ $service->service_name }}</h1>
-                <p class="mb-4">{{ $service->service_content }}</p>
+                <h1 class="mb-4"><img src="{{ asset('uploads/services/'.$service->service_image) }}" alt="" style="width:100%;min-height:250px"></h1>
+
+                <p class="mb-4">{{ $service->service_des }}</p>
                 <div class="bg-light rounded d-flex align-items-center p-5 mb-4">
                     <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
                         <i class="fa fa-phone-alt text-orange"></i>

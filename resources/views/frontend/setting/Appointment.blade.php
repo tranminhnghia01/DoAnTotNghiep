@@ -23,12 +23,11 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Địa chỉ</th>
                                     <th>Ngày bắt đầu làm việc</th>
-                                    <th>Số buổi</th>
                                     <th>Dịch vụ</th>
                                     <th>Tổng hóa đơn</th>
                                     <th>Tình trạng</th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -54,9 +53,7 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $key+1}}</td>
-                                        <td>{{ $value->book_address }}</td>
                                         <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start }}</td>
-                                        <td>{{ Count($date) }}</td>
                                         <td>{{ $value->service_name }}</td>
                                         <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
                                         @switch($value->book_status)
@@ -84,7 +81,8 @@
                                                 @endif
                                             @break
                                         @endswitch
-                                        <td><button type="submit" class="btn btn-default btn-details" id="{{ $value->book_id }}">Xem chi tiết</button></td>
+                                       <td><a href="{{ route('home.Account.show.details',$value->book_id) }}" >Xem chi tiết</a></td>
+                                        <td><button type="submit" class="btn btn-default btn-details" id="{{ $value->book_id }}"><i class="fa fa-eye"></i></button></td>
                                     </tr>
                                 @endforeach
                                 <div id="modal-details"></div>
