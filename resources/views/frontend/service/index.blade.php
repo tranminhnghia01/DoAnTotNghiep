@@ -51,7 +51,15 @@
                         <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;text-align: center;margin: 0 auto;width:100%">
                             {!! $service->service_content !!}
                         </div>
-                    </div>
+                        <div class="col-sm-4">
+                            <div class="fb-page" data-href="https://www.facebook.com/profile.php?id=61554815891622" data-tabs="message" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/profile.php?id=61554815891622" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/profile.php?id=61554815891622">Website Dọn dẹp</a></blockquote></div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="fb-comments" data-href="{{ route('home.service.show',$service->service_id) }}" data-width="100%" data-numposts="20"></div>
+
+                        </div>
+
+                </div>
                 </div>
             </div>
         </div>
