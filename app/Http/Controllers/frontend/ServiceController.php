@@ -58,6 +58,8 @@ class ServiceController extends Controller
     public function show($service_id)
     {
         $service = Service::find($service_id);
+        $views = $service->service_views + 1;
+        $service->update(['service_views'=> $views]);
         return view('frontend.service.index')->with(compact('service'));
     }
 

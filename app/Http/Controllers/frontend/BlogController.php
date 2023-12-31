@@ -49,6 +49,9 @@ class BlogController extends Controller
     public function show($id)
     {
         $blog= Blog::find($id);
+        $views = $blog->blog_views + 1;
+        $blog->update(['blog_views'=> $views]);
+
         return view('frontend.pages.blog.blog-single')->with(compact('blog'));
     }
 

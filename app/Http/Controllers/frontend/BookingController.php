@@ -196,7 +196,7 @@ class BookingController extends Controller
         $orderInfo = "Thanh toán qua MoMo";
         $amount = $book_total;
         $orderId = $book_id ."-". time() . "";
-        $redirectUrl = "http://127.0.0.1:8000/Moon.com/dat-lich/thanks";
+        $redirectUrl = route('home.thanks');
         $ipnUrl = "http://127.0.0.1:8000/Moon.com/Account/quan-ly-don/$book_id";
         $extraData = "";
 

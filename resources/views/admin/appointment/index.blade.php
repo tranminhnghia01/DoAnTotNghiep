@@ -68,7 +68,7 @@
                                             @endif
                                         @endforeach
                                         </a></td>
-                                        <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}">Xem nhanh</button></td>
+                                        <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}"><i class="bi bi-eye"></i></button></td>
 
                                     </tr>
                                     @endif

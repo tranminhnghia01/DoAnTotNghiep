@@ -1,5 +1,5 @@
      <!-- Recent Sales -->
-     <div class="col-12">
+     {{-- <div class="col-12">
         <div class="card recent-sales overflow-auto">
           <div class="card-body">
             <h5 class="card-title">Thống kê truy cập</h5>
@@ -29,7 +29,7 @@
 
         </div>
       </div><!-- End Recent Sales -->
-
+ --}}
 
 
 <!-- Recent Sales -->

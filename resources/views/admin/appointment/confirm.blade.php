@@ -209,7 +209,7 @@
                                     </td>
 
                                 @endif
-                                <td><a href="{{ route('admin.housekeeper.show',$value->housekeeper_id) }}" class="btn btn-default">Xem chi tiết</a></td>
+                                <td><a href="{{ route('admin.housekeeper.show',$value->housekeeper_id) }}" class="btn btn-default"><i class="bi bi-eye"></i></a></td>
                             </tr>
                             @endforeach
                     </tbody>

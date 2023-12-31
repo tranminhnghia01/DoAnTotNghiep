@@ -13,6 +13,7 @@
                     <thead>
                         <tr>
                             <th>STT</th>
+                            <th>Mã hóa đơn</th>
                             <th>Ngày làm việc</th>
                             <th>Đã hoàn thành(Buổi)</th>
                             <th>Thanh toán</th>
@@ -59,6 +60,7 @@
                                 @endphp
                             <tr>
                                 <td>{{ $key+1}}</td>
+                                <td>{{ $value->book_id}}</td>
 
                                 <td>{{ (($day[$today])).' - '. $value->book_time_start }}</td>
                                 <td>{{ $value->date_finish }}/{{ Count($date) }}</td>
@@ -102,22 +104,8 @@
                                     </form>
                                     </div>
                                 </div></td>
-                                {{-- <td>
-                                    <form action="{{ route('admin.Appoin-ChamCong',$value->book_id) }}" method="GET">
-                                        <div  style="display: flex;width: 400px;justify-content:space-between">
-                                            <textarea type="text" name="history_notes" style="margin-right: 20px;border:1 px soid #ccc;outline: #ccc;font-size: 12px">{{ $value->history_notes }}</textarea>
-                                            @if ($value->service_id == 2 && $value->payment_id == 1)
-                                            <button class="btn btn-secondery" disabled>Hoàn thành công việc</button>
-                                            @else
-                                                <button type="submit"  class="btn btn-success">Hoàn thành công việc</button>
-                                            @endif
-                                        </div>
-                                    </form>
-                            </td> --}}
-
-                                <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}" data-action="book_cance">Xem chi tiết</button></td>
-
-
+                                <td><a href="{{ route('admin.details-book.show',$value->history_id) }}" class="btn btn-default btn-booking-details" id="{{ $value->history_id }}">Xem chi tiết</a></td>
+                                <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}"><i class="bi bi-eye"></i></button></td>
                             </tr>
                             @endif
                             @endforeach

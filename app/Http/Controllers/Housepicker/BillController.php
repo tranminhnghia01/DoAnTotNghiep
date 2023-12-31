@@ -29,7 +29,9 @@ class BillController extends Controller
             ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
             ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
             ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking.payment_id')
-            ->where('housekeeper_id',$user->user_id)->get();
+            ->where('housekeeper_id',$user->user_id)
+            ->whereBetween('tbl_history.history_status', [3, 4])
+            ->get();
         return view('housekeeper.bill')->with(compact('book','user'));
 
         // dd($book);
@@ -129,19 +131,16 @@ class BillController extends Controller
     public function destroy(Request $request)
     {
         $data = $request->all();
-        $book_id = $data['book_id'];
+        // dd($data);
+        $history_id = $data['history_id'];
         $id= Auth::id();
         $user = User::findOrFail($id);
 
-        // $history = History::latest()->where('book_id',$book_id)->where('housekeeper_id',$user->user_id)->first();
-        // $checkhis = History::latest()->where('book_id',$book_id)->first();
-        $history = History::join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
-        ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
-        ->where('tbl_history.book_id',$book_id)->where('tbl_history.housekeeper_id',$user->user_id)->first();
-        // dd($history);
+        $history = History::where('history_id',$history_id)->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
+        ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')->first();
 
         if($history){
-            $book = Book::where('book_id',$book_id)->first();
+            $book = Book::where('book_id',$history->book_id)->first();
             if($history->payment_id == 1 && $history->service_id == 2){
                 $book->update(['book_status'=>3,'book_notes'=>"Hủy do khách hàng chưa thanh toán"]);
                 $history->delete();
@@ -154,7 +153,7 @@ class BillController extends Controller
                 if($history->date_finish == 0){
                         $history->delete();
                 }else{
-                     $history->update(['history_status'=>4]);
+                     $history->update(['history_status'=>4,'history_notes'=>$data['history_notes']]);
                 }
 
                 // History::create($new);

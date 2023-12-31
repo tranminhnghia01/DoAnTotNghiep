@@ -10,6 +10,7 @@ use App\Models\Coupon;
 use App\Models\History;
 use App\Models\Housekeeper;
 use App\Models\Payment;
+use App\Models\PaymentOnline;
 use App\Models\Shipping;
 use App\Models\User;
 use Carbon\Carbon;
@@ -301,21 +302,6 @@ class BookingController extends Controller
                         <button type="button" class="btn btn-secondary py-3" data-bs-dismiss="modal"  style="width:150px">Close</button>
 
                         ';
-                        if ($request->action == "book_cance") {
-                            if($check_payment == true){
-
-                                $output .='
-                                <button type="button" class="btn btn-danger  py-3 btn-change-bookdefault" data-book-id="'.$book->book_id.'"  style="width:150px">Hủy lịch</button>
-                           ';
-
-                            }else{
-                                $output .='
-                                <button type="button" class="btn btn-danger  py-3 btn-bookdestroy" data-book-id="'.$book->book_id.'"  style="width:150px">Hủy lịch</button>
-
-                           ';
-
-                            }
-                        }
                             $output .='
                         </form>
                         </div>
@@ -323,6 +309,53 @@ class BookingController extends Controller
                 </div>
             </div>';
         echo $output;
+    }
+
+    public function show(Request $request, $history_id){
+         // dd($book_id);
+         $id= Auth::id();
+        $user = User::findOrFail($id);
+
+        $history = History::where('history_id',$history_id)->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')
+                ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
+                ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
+        ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking.payment_id')->first();
+
+        $paymentonline = PaymentOnline::where('TxnRef',$history->book_id)->first();
+
+
+        $coupon = Coupon::find($history->coupon_id);
+        if($coupon == true){
+            $coupon_number = $coupon->coupon_number;
+            if($coupon->coupon_method == 0){
+                $method = '%';
+            }else{
+                $method = 'đ';
+            }
+        }else{
+            $coupon_number = '';
+            $method = '';
+        }
+
+        $listdate= explode(",",$history['book_date']);
+         $count_date= count($listdate);
+        // dd($count_date);
+        for ($i=0; $i < $count_date; $i++) {
+            $changedate = explode("/", $listdate[$i]);
+             $listdate[$i] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
+            $timestamp = strtotime( $listdate[$i]);
+
+        }
+
+        $shipping = Shipping::where('shipping_id', $history->shipping_id)->first();
+
+        // dd($history);
+        $split_time = explode(":",$history->book_time_start);
+        $time_end = $split_time[0]+$history->book_time_number .':'.$split_time[1];
+
+        return view('admin.appointment.details-single')->with(compact('time_end','listdate','method','coupon_number','history','shipping','paymentonline','user'));
+
+
     }
 
     public function search_confirm(Request $request){

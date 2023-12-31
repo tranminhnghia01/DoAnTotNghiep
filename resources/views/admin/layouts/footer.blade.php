@@ -206,40 +206,92 @@
         });
     });
 
-    $(document).on('click', '.btn-bookdestroy', function(e){
-        alert('destroy');
+    // $(document).on('click', '.btn-bookdestroy', function(e){
+    //     // alert('destroy');
+    //     e.preventDefault(); //cancel default action
+    //     swal({
+    //         title: "Hủy ??",
+    //         text: 'Bạn có chắc muốn hủy đơn đặt lịch này!',
+    //         icon: "warning",
+    //         buttons: true,
+    //         dangerMode: true,
+    //     })
+    //     .then((willDelete) => {
+    //         if (willDelete) {
+    //             var book_id = $(this).data('book-id');
+    //             var _token = $('input[name="_token"]').val();
+    //             $.ajax({
+    //                 url : "{{route('admin.Appoin-detail-destroy')}}",
+    //                 method: 'POST',
+    //                 data:{book_id:book_id,_token:_token},
+    //                 success:function(data){
+    //                     swal("Thành công! Đơn đặt lịch của bạn đã được hủy!", {
+    //                         icon: "success",
+    //                         });
+    //                         window.setTimeout(function() {
+    //                             location.reload();
+    //                         },3000);
+    //                     }
+    //                 });
+    //         } else {
+    //             swal("Thoát thao tác thành công!");
+    //         }
+    //     });
+
+    // });
+    </script>
+
+<script>
+    $(document).ready(function(){
+        $(document).on('click', '.btn-bookdestroy', function(e){
         e.preventDefault(); //cancel default action
-        swal({
+        var history_notes = $('textarea[name="history_notes"]').val();
+        if (history_notes == "") {
+            swal({
+                    title: "Lỗi!",
+                    text: "Vui lòng nếu lý do trước để tiếp tục hủy!",
+                    icon: "warning",
+                    dangerMode: true,
+                    });
+        }else{
+            swal({
             title: "Hủy ??",
             text: 'Bạn có chắc muốn hủy đơn đặt lịch này!',
             icon: "warning",
             buttons: true,
             dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                var book_id = $(this).data('book-id');
-                var _token = $('input[name="_token"]').val();
-                $.ajax({
-                    url : "{{route('admin.Appoin-detail-destroy')}}",
-                    method: 'POST',
-                    data:{book_id:book_id,_token:_token},
-                    success:function(data){
-                        swal("Thành công! Đơn đặt lịch của bạn đã được hủy!", {
-                            icon: "success",
-                            });
-                            window.setTimeout(function() {
-                                location.reload();
-                            },3000);
-                        }
-                    });
-            } else {
-                swal("Thoát thao tác thành công!");
-            }
-        });
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var history_id = $(this).data('book-id');
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url : "{{route('admin.Appoin-detail-destroy')}}",
+                        method: 'POST',
+                        data:{history_notes:history_notes,history_id:history_id,_token:_token},
+                        success:function(data){
+                            swal("Thành công! Đơn đặt lịch của bạn đã được hủy!", {
+                                icon: "success",
+                                });
+                                window.setTimeout(function() {
+                                    location.reload();
+                                },3000);
+                            }
+                        });
+                } else {
+                    swal("Thoát thao tác thành công!");
+                }
+            });
+        };
+
+
 
     });
-    </script>
+    })
+</script>
+
+
+
     <script>
         $(document).ready(function(){
 

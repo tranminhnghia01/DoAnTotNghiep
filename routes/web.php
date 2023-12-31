@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */Route::get('/', [App\Http\Controllers\frontend\HomeController::class, 'index'])->name('index');
 // test email
-Route::get('/test', [MailController::class,'index']);
-Route::get('/modal', [MailController::class,'modal']);
+// Route::get('/test', [MailController::class,'index']);
+// Route::get('/modal', [MailController::class,'modal']);
 
 Route::prefix('/Moon.com')->name('home.')->group(function (){
     Route::get('/', [App\Http\Controllers\frontend\HomeController::class, 'index'])->name('index');
@@ -87,7 +87,7 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
     Route::post('/momo', [App\Http\Controllers\frontend\BookingController::class,'momo_Online'])->name('momo');
     Route::post('/onepay', [App\Http\Controllers\frontend\BookingController::class,'onepay_Online'])->name('onepay');
 
-    Route::GET('dat-lich/thanks',[App\Http\Controllers\HomeController::class, 'thanks'])->name('thanks');
+    Route::get('dat-lich/thanks',[App\Http\Controllers\HomeController::class, 'thanks'])->name('thanks');
 
 });
 
@@ -106,6 +106,7 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
     Route::post('/change-password', [App\Http\Controllers\admin\AccountController::class, 'updatePassword'])->name('update-password');
     //Xem nhanh
     Route::get('/Account/show', [App\Http\Controllers\admin\BookingController::class,'fast_Show'])->name('details.show');
+    Route::get('/Account/bill/details/{book_id}', [App\Http\Controllers\admin\BookingController::class,'show'])->name('details-book.show');
 
 
 

@@ -39,12 +39,14 @@ class DashboardController extends Controller
 
         $count_service = Book::selectRaw('count(tbl_booking.service_id) as count_service, service_id')
         ->groupBy('service_id')->orderBy('count_service','DESC')->get();
-        $service = Service::all();
+        $service = Service::orderBy('service_views','DESC')->take(10)->get();
+        $blog = Blog::orderBy('blog_views','DESC')->take(10)->get();
+
 
 
 
         $sum_book = Book::selectRaw('count(id) as total_booking,sum(book_total) as total')->where('book_status','!=',1)->first();
-        return view("admin.index")->with(compact('Count_house','Count_user','Count_service','Count_book','book','All_user','count_appointmemt','getName','Count_blog','count_service','service','sum_book'));
+        return view("admin.index")->with(compact('Count_house','Count_user','Count_service','Count_book','book','All_user','count_appointmemt','getName','Count_blog','count_service','service','sum_book','blog'));
     }
 
     /**

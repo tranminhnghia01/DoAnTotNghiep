@@ -2,40 +2,6 @@
 @section('container')
 <section class="section dashboard">
     <div class="row">
-        {{-- <div class="col-lg-12">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Thống kê</h5>
-
-                <!-- Browser Default Validation -->
-                <form class="row g-3">
-                  <div class="col-md-4">
-                    <label for="validationDefault01" class="form-label">Từ ngày:</label>
-                    <input type="date" class="form-control">
-                  </div>
-                  <div class="col-md-4">
-                    <label for="validationDefault02" class="form-label">Đến ngày:</label>
-                    <input type="date" class="form-control">
-
-                  </div>
-                  <div class="col-md-3">
-                    <label for="validationDefault04" class="form-label">Lọc theo:</label>
-                    <select class="form-select" id="validationDefault04">
-                        <option selected="" disabled="" value="">Choose...</option>
-                        <option value="1">Hôm nay</option>
-                        <option value="2">Tháng này</option>
-                        <option value="3">Năm này</option>
-                    </select>
-                  </div>
-
-                  <div class="col-12">
-                    <button class="btn btn-primary" type="submit">Lọc kết quả</button>
-                  </div>
-                </form>
-                <!-- End Browser Default Validation -->
-              </div>
-            </div>
-        </div> --}}
         @include('admin.thongke.Quickview')
 
       <!-- Left side columns -->
@@ -101,83 +67,98 @@
         </div>
       </div><!-- End Left side columns -->
 
+      <div class="row g-3 bg-white">
+        <div class="col-lg-6">
+            <!-- Website Traffic -->
+            <div class="card">
+               <div class="card-body pb-0">
+                 <h5 class="card-title">Tổng đơn lịch, dịch vụ bài viết trên Hệ thống</h5>
+
+                 <div id="donut" style="min-height: 400px;" class="echart">
+
+
+                 </div>
+               </div>
+             </div><!-- End Website Traffic -->
+         </div><!-- End Right side columns -->
+
+         {{-- Bài viết xem nhiều --}}
+         <div class="col-lg-3">
+            <div class="card top-selling overflow-auto">
+                <div class="card-body pb-0">
+                  <h5 class="card-title">Bài viết xem nhiều</h5>
+
+                  <table class="table table-borderless">
+                    <thead>
+                      <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên</th>
+                        <th scope="col">Số lần</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($blog as $key => $val)
+                          <tr>
+                              <th scope="row">{{ $key+1 }}</th>
+                              <td><a href="#"class="text-primary fw-bold">{{$val->blog_title}}</a></td>
+                              <td>{{ $val->blog_views }}</td>
+                          </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+
+                </div>
+
+              </div>
+          </div><!-- End bài viết xem nhiều -->
+
+
+         {{-- DỊch vụ xem nhiều --}}
+          <div class="col-lg-3">
+           <div class="card top-selling overflow-auto">
+               <div class="card-body pb-0">
+                 <h5 class="card-title">Dịch vụ xem nhiều </h5>
+
+                 <table class="table table-borderless">
+                   <thead>
+                     <tr>
+                       <th scope="col">STT</th>
+                       <th scope="col">Tên</th>
+                       <th scope="col">Số lần</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     @foreach ($service as $key => $val)
+                         <tr>
+                             <th scope="row">{{ $key+1 }}</th>
+                             <td><a href="#"class="text-primary fw-bold">{{$val->service_name}}</a></td>
+                             <td>{{ $val->service_views }}</td>
+                         </tr>
+                     @endforeach
+                   </tbody>
+                 </table>
+
+               </div>
+
+             </div>
+         </div><!-- Bài viết xem nhiều -->
+
+
+      </div>
       <!-- Right side columns -->
-      <div class="col-lg-6">
-         <!-- Website Traffic -->
-         <div class="card">
-            <div class="card-body pb-0">
-              <h5 class="card-title">Tổng đơn lịch, dịch vụ bài viết trên Hệ thống</h5>
 
-              <div id="donut" style="min-height: 400px;" class="echart">
+      <div class="row g-3 bg-white">
+        <div class="col-lg-6">
+            @include('admin.thongke.customer')
 
+        </div>
+        <div class="col-lg-6">
 
-              </div>
-            </div>
-          </div><!-- End Website Traffic -->
-      </div><!-- End Right side columns -->
+            @include('admin.thongke.service')
+          </div><!-- End Right side columns -->
 
-      <div class="col-lg-6">
-        @include('admin.thongke.customer')
+        </div>
 
-        @include('admin.thongke.service')
-      </div><!-- End Right side columns -->
-
-      <div class="col-lg-6">
-
-        <!-- News & Updates Traffic -->
-        {{-- <div class="card">
-          <div class="filter">
-            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-              <li class="dropdown-header text-start">
-                <h6>Filter</h6>
-              </li>
-
-              <li><a class="dropdown-item" href="#">Hôm nay</a></li>
-              <li><a class="dropdown-item" href="#">Tháng này</a></li>
-              <li><a class="dropdown-item" href="#">Năm nay</a></li>
-            </ul>
-          </div>
-
-          <div class="card-body pb-0">
-            <h5 class="card-title">News &amp; Updates <span>| Hôm nay</span></h5>
-
-            <div class="news">
-              <div class="post-item clearfix">
-                <img src="assets/img/news-1.jpg" alt="">
-                <h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>
-                <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>
-              </div>
-
-              <div class="post-item clearfix">
-                <img src="assets/img/news-2.jpg" alt="">
-                <h4><a href="#">Quidem autem et impedit</a></h4>
-                <p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>
-              </div>
-
-              <div class="post-item clearfix">
-                <img src="assets/img/news-3.jpg" alt="">
-                <h4><a href="#">Id quia et et ut maxime similique occaecati ut</a></h4>
-                <p>Fugiat voluptas vero eaque accusantium eos. Consequuntur sed ipsam et totam...</p>
-              </div>
-
-              <div class="post-item clearfix">
-                <img src="assets/img/news-4.jpg" alt="">
-                <h4><a href="#">Laborum corporis quo dara net para</a></h4>
-                <p>Qui enim quia optio. Eligendi aut asperiores enim repellendusvel rerum cuder...</p>
-              </div>
-
-              <div class="post-item clearfix">
-                <img src="assets/img/news-5.jpg" alt="">
-                <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
-                <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
-              </div>
-
-            </div><!-- End sidebar recent posts-->
-
-          </div>
-        </div><!-- End News & Updates --> --}}
-      </div><!-- End Right side columns -->
 
     </div>
   </section>

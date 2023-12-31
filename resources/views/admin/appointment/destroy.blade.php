@@ -23,7 +23,7 @@
                         <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
                         <td>{{ $value->book_notes }}</td>
                         <td><span class="btn btn-danger" style="color: white;width: 170px;">Đã hủy</span></td>
-                        <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}">Xem nhanh</button></td>
+                        <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}"><i class="bi bi-eye"></i></button></td>
                     </tr>
                 @endif
                     @endforeach
