@@ -84,8 +84,8 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
     //Phương thức thanh toán
     Route::post('/Account/payment/online/{book_id}', [App\Http\Controllers\frontend\BookingController::class,'payment_Online'])->name('appointment.payment.online');
-    Route::post('/momo', [App\Http\Controllers\frontend\BookingController::class,'momo_Online'])->name('momo');
-    Route::post('/onepay', [App\Http\Controllers\frontend\BookingController::class,'onepay_Online'])->name('onepay');
+    // Route::post('/momo', [App\Http\Controllers\frontend\BookingController::class,'momo_Online'])->name('momo');
+    // Route::post('/onepay', [App\Http\Controllers\frontend\BookingController::class,'onepay_Online'])->name('onepay');
 
     Route::get('dat-lich/thanks',[App\Http\Controllers\HomeController::class, 'thanks'])->name('thanks');
 

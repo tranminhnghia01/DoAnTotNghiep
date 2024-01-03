@@ -17,47 +17,19 @@
                             <th>Người hẹn</th>
                             <th>Dịch vụ</th>
                             <th>Ngày bắt đầu làm việc</th>
-                            <th>Tổng hóa đơn</th>
-                            <th>Xem nhanh</th>
+                            <th>Xem chi tiết</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {{-- @if (!empty($book)) --}}
                             @foreach ($book as $key=>$value )
-                            @php
-                                 $time= explode(':',$value->book_time_start);
-                                 $time_end = $time[0]+ $value->book_time_number.':'.$time[1];
-                                 $weekday = [
-                                    'Monday' => 'Thứ 2',
-                                    'Tuesday' => 'Thứ 3',
-                                    'Wednesday' => 'Thứ 4',
-                                    'Thursday' => 'Thứ 5',
-                                    'Friday' => 'Thứ 6',
-                                    'Saturday' => 'Thứ 7',
-                                    'Sunday' => 'Chủ nhật',
-                                ];
-                            @endphp
                             <tr>
                                 <td>{{ $key+1}}</td>
                                 <td>{{ $value->name }}</td>
                                 <td>{{ $value->shipping_name }}</td>
                                 <td>{{ $value->service_name }}</td>
-
-                                @if ($value->service_id == 1)
-                                    <td>{{ $weekday[date('l',strtotime($value->book_date))].', '. date('d/m/Y',strtotime($value->book_date)).' - '. $value->book_time_start }}</td>
-
-                                @else
-                                    @php
-                                        $date =  explode(",",$value->book_date);
-                                        $changedate = explode("/",$date[0]);
-                                         $date[0] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
-                                    @endphp
-                                    <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start }}</td>
-
-                                @endif
-
-                                <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
                                 @switch($value->history_status)
                                     @case(3)
                                         <td><span class="btn btn-danger" style="color: white;width: 170px;">Đã hủy</span></td>

@@ -2,7 +2,7 @@
 @section('container')
 <section class="section">
     <div class="row">
-        <div class="col-lg-12 wow fadeIn" data-wow-delay="0.5s" >
+        <div class="col-lg-8 wow fadeIn" data-wow-delay="0.5s" >
             <div class="rounded " style="background-color: #fff; ">
                 <div class="table-responsive">
                     <div class="modal-dialog">
@@ -38,7 +38,9 @@
                                                 border-radius: 5px;
                                                 padding: 0px 20px;">
                                                 @foreach ($listdate as $key => $value)
-                                                    <option>{{ $listdate[$key] }}</option>
+                                                    @if ($key+1 > $history->history_previous_date)
+                                                        <option>{{ $listdate[$key] }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>
@@ -48,12 +50,12 @@
                                         </div>
                                         <div style="display: flex; justify-content: space-between">
                                         <label for="">Tổng số buổi</label>
-                                        <p class="check-date">{{ count($listdate) }}</p>
+                                        <p class="check-date">{{ count($listdate)- $history->history_previous_date }}</p>
                                     </div>
                                     @if($history->service_id == 2)
                                         <div style="display: flex; justify-content: space-between">
                                             <label for="">Số buổi đã hoàn thành</label>
-                                            <p class="check-date">{{ $history->date_finish + $history->history_previous_date }}</p>
+                                            <p class="check-date">{{ $history->date_finish}}</p>
                                         </div>
                                     @endif
                                         <div style="display: flex; justify-content: space-between">
@@ -65,46 +67,63 @@
                                             <label for="">Ghi chú cho người làm</label>
                                             <p class="check-notes"> {{ $history->book_notes }} </p>
                                         </div>
-                                    </div>
-                                    <div style="display: flex; justify-content: space-between">
-                                    <div class="col-sm-6">
-                                        <h5 class="modal-title">Khuyễn mãi</h5>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <select class="form-select border-0" id="coupon" style="height: 55px;" name="coupon_id">
-                                            <option selected>{{ $coupon_number}} {{ $method }} </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                    <div style="display: flex; justify-content: space-between">
-                                        <div class="col-sm-4">
-                                            <h5 class="modal-title">Phương thức thanh toán</h5>
-                                        </div>
-                                            <div class="row">
+                                        <div style="display: flex; justify-content: space-between">
                                             <div class="col-sm-6">
-                                                <select class="form-select border-0" style="height: 55px;" name="payment_id">
-                                                    <option value=" {{ $history->payment_id }} ">{{ $history->payment_method }}</option>
+                                                <h5 class="modal-title">Khuyễn mãi</h5>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select class="form-select border-0" id="coupon" style="height: 55px;" name="coupon_id">
+                                                    <option selected>{{ $coupon_number}} {{ $method }} </option>
                                                 </select>
                                             </div>
-                                                @if($paymentonline)
-                                                    <div class="col-sm-6">
-                                                        <a class="btn btn-primary py-3" disable style="width:100%;color: #fff" >Đã thanh toán</a>
-                                                    </div>
+                                        </div>
 
-                                                @else
-                                                    <div class="col-sm-6">
-                                                        <a class="btn btn-primary py-3" disable style="width:100%;color: #fff" >Chưa thanh toán</a>
-                                                    </div>
-                                                @endif
+                                        <div style="display: flex; justify-content: space-between">
+                                            <div class="col-sm-4">
+                                                <h5 class="modal-title">Phương thức thanh toán</h5>
+                                            </div>
+                                                <div class="row">
+                                                <div class="col-sm-6">
+                                                    <select class="form-select border-0" style="height: 55px;" name="payment_id">
+                                                        <option value=" {{ $history->payment_id }} ">{{ $history->payment_method }}</option>
+                                                    </select>
+                                                </div>
+                                                    @if($paymentonline)
+                                                        <div class="col-sm-6">
+                                                            <a class="btn btn-primary py-3" disable style="width:100%;color: #fff" >Đã thanh toán</a>
+                                                        </div>
+
+                                                    @else
+                                                        <div class="col-sm-6">
+                                                            <a class="btn btn-primary py-3" disable style="width:100%;color: #fff" >Chưa thanh toán</a>
+                                                        </div>
+                                                    @endif
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
-                            <div style="display: flex; justify-content: space-between">
-                                <h4 class="modal-title">Tổng Cộng</h4>
-                            <h4 class="modal-title book-total"> {{ number_format($history->book_total) }} <sup>đ</sup>  </h4>
-                            </div>
+                            @if ($history->service_id ==2)
+                                <div style="display: flex; justify-content: space-between;padding: 20px;">
+                                    <h4 class="modal-title" style="font-weight: 900">Tổng hóa đơn/ Giá trị gốc</h4>
+                                    @php
+                                        $sub_total = $history->book_total/count($listdate);
+                                        $total_price = $sub_total* (count($listdate)- $history->history_previous_date);
+                                    @endphp
+                                    @if ($history->history_previous_date == 0)
+                                    <h4 class="modal-title book-total" style="font-weight: 900"> {{ number_format($sub_total*$history->date_finish) }}/{{ number_format($history->book_total) }}<sup>đ</sup>  </h4>
+
+                                    @else
+                                    <h4 class="modal-title book-total" style="font-weight: 900"> {{ number_format($total_price) }}/{{ number_format($history->book_total) }}<sup>đ</sup>  </h4>
+                                    @endif
+                                </div>
+                            @else
+                                <div style="display: flex; justify-content: space-between;padding: 20px;">
+                                    <h4 class="modal-title" style="font-weight: 900">Tổng cộng</h4>
+                                    <h4 class="modal-title book-total" style="font-weight: 900"> {{ number_format($history->book_total-$history->history_refund) }}<sup>đ</sup>  </h4>
+                                </div>
+                            @endif
 
                             <div class="modal-footer">
                                 @if ($user->user_id == '00000')

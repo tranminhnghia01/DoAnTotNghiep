@@ -44,26 +44,21 @@
                             @endphp
                             @if ($value->history_status == 2)
                                 @php
-                                    $today = $value->date_finish;
+                                    $today = $value->date_finish+$value->history_previous_date;
                                     $date= explode(",",$value->book_date);
 
                                     for ($i=0; $i <count($date) ; $i++) {
                                         $changedate = explode("/", $date[$i]);
                                         $date[$i] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
-                                        $date[$i] =  (int ) strtotime($date[$i]);
+                                    };
 
-                                    };
-                                    sort($date);
-                                    for ($i=0; $i <count($date) ; $i++) {
-                                        $day[$i] = date('d/m/Y', $date[$i]);
-                                    };
                                 @endphp
                             <tr>
                                 <td>{{ $key+1}}</td>
                                 <td>{{ $value->book_id}}</td>
 
-                                <td>{{ (($day[$today])).' - '. $value->book_time_start }}</td>
-                                <td>{{ $value->date_finish }}/{{ Count($date) }}</td>
+                                {{-- <td>{{ (($date[$today])).' - '. $value->book_time_start }}</td> --}}
+                                <td>{{ $value->date_finish }}/{{ Count($date)-$value->history_previous_date }}</td>
                                 <td>
                                 @if ($value->service_id == 2)
                                     @if ($value->payment_id == 1)

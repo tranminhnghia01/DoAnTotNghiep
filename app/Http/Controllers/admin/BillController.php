@@ -87,13 +87,13 @@ class BillController extends Controller
                     // dd('hoàn tiền ca lẻ');
                     $total_price = $history->book_total;
                     //Tiền hoàn trả
-                    $total_refund = $history->book_total*0.2;
+                    $total_refund = $history->book_total*0.8;
                     //Lợi nhuận mình đc
                     $profit =$total_price- $total_refund;
                 }else{
                     // dd('hoàn tiền ca cố định');
                     //Tiền chưa làm
-                    $total_price =$history->book_total / $count_date * ($count_date-$history->date_finish -$history->history_previous_date);
+                    $total_price =$history->book_total / $count_date * ($count_date-$history->date_finish - $history->history_previous_date);
                     //Tiền hoàn trả
                     // $total_refund = $history->book_total* (1 - 1/$count_date * ($history->date_finish + $history->history_previous_date) - 0.2);
                     $total_refund = $total_price* 0.8;
@@ -104,7 +104,7 @@ class BillController extends Controller
 
                 if($update_statistical){
                     $info_static = [
-                        'sales' => $update_statistical->sales - $total_price,
+                        'sales' => $update_statistical->sales - $total_refund,
                         'profit' => $update_statistical->profit + $profit,
                     ];
                     // dd($info_static);
@@ -113,7 +113,7 @@ class BillController extends Controller
                 }else{
                     $info_static = [
                         'date' => $now,
-                        'sales' => -$total_price,
+                        'sales' => -$total_refund,
                         'profit' => $profit,
                         'total_appointment'=> 0,
                     ];
@@ -121,7 +121,6 @@ class BillController extends Controller
                     Statistic::create($info_static);
                 };
             $history->update(['processing'=>0,'history_refund'=>$total_refund]);
-
             }
         }
 

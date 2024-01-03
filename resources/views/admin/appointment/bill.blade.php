@@ -13,7 +13,8 @@
                     <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Người giúp việc</th>
+                            <th>Mã hóa đơn</th>
+                            <th>Mã đơn lịch</th>
                             <th>Số buổi đã hoàn thành</th>
                             <th>HTTT</th>
                             <th>Hóa đơn gốc</th>
@@ -28,6 +29,7 @@
                             @foreach ($book as $key=>$value )
                             <tr>
                                 <td>{{ $key+1}}</td>
+                                <td>{{ $value->history_id}}</td>
                                 <td>{{ $value->name }}</td>
                                     @php
                                         $date =  explode(",",$value->book_date);
@@ -57,11 +59,15 @@
                                 @endif
                                 @switch($value->history_status)
                                     @case(3)
-                                        <td><span class="btn btn-danger" style="color: white;width: 170px;">Đã hủy</span></td>
+                                        <td><span class="badge border-danger border-1 text-danger" style="color: white;width: 170px;">Đã hủy</span></td>
+                                        <td><textarea name="" id="" cols="30" rows="3">{{ $value->book_notes }}</textarea></td>
                                         @break
                                     @default
-                                        <td><span class="btn btn-primary" style="color: white;width: 170px;">Hoàn thành</span></td>
+                                        <td><span class="badge border-success border-1 text-success" style="color: white;width: 170px;">Hoàn thành</span></td>
+                                        <td><textarea name="" id="" cols="30" rows="3">{{ $value->history_notes }}</textarea></td>
                                 @endswitch
+
+
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

@@ -48,8 +48,17 @@
                         @endif
                     </div>
                     <div class="row g-5">
-                        <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;text-align: center;margin: 0 auto;width:100%">
+
+                        <div class="col-lg-12 wow fadeInUp service-content" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;margin: 0 auto;width:100%">
                             {!! $service->service_content !!}
+
+                            <style>
+                                .service-content p img{
+                                    text-align: center !important;
+                                    margin: 0 auto;
+                                    width: 100% !important;
+                                }
+                            </style>
                         </div>
                         <div class="col-sm-4">
                             <div class="fb-page" data-href="https://www.facebook.com/profile.php?id=61554815891622" data-tabs="message" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/profile.php?id=61554815891622" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/profile.php?id=61554815891622">Website Dọn dẹp</a></blockquote></div>

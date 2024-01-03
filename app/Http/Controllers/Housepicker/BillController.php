@@ -81,16 +81,11 @@ class BillController extends Controller
                 'history_status'=> 4,
                 'history_notes'=> $request->history_notes,
             ];
-            if($now >= $bookdetail->book_date)
-            {
+
                 $history->update($change);
                 $book->update(['book_status'=> 4]);
                 $msg = 'Công việc đã hoàn thành';
                 $style = 'success';
-            }else{
-                $msg = 'Chấm công không thành công, có lỗi xảy ra! Vui lòng thử lại sau';
-                $style = 'danger';
-            }
 
         }else{
             $days= explode(",",$bookdetail->book_date);
@@ -98,18 +93,20 @@ class BillController extends Controller
             if($now == $days[$checkday])
             {
                 $date_finish = $history->date_finish +1 ;
-                if($date_finish < count($days) )
+                // dd(count($days));
+
+                if($date_finish + $history->history_previous_date < count($days) )
                 {
                     $change = [
                         'date_finish'=>$date_finish,
-                        'history_notes'=> $request->history_notes,
+                        'history_notes'=> ($history->history_notes."-".$request->history_notes),
                 ];
 
                 }else{
                     $change = [
                         'date_finish'=>$date_finish,
                         'history_status'=> 4,
-                        'history_notes'=> $request->history_notes,
+                        'history_notes'=> ($history->history_notes."-".$request->history_notes),
                     ];
                     $book->update(['book_status'=> 4]);
                 }
