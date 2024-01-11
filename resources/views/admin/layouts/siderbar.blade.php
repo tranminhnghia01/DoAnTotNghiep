@@ -42,7 +42,7 @@
         <ul id="appointment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{ route('admin.appointment.index') }}">
-              <i class="bi bi-circle"></i><span>Mới</span>
+              <i class="bi bi-circle"></i><span>Chưa duyệt</span>
             </a>
           </li>
 
@@ -150,9 +150,16 @@
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="{{ route('admin.contact.index') }}">
           <i class="bi bi-envelope"></i>
           <span>Liên hệ</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('admin.contact.about') }}">
+          <i class="bi bi-envelope"></i>
+          <span>Ý kiến phản hồi</span>
         </a>
       </li><!-- End Profile Page Nav -->
 

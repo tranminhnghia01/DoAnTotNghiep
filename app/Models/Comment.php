@@ -17,6 +17,7 @@ class Comment extends Model
         'name',
         'comment',
         'reply',
+        'status',
         'rate',
         'image',
     ];

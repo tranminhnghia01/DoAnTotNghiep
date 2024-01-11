@@ -35,7 +35,7 @@
 
                     <th scope="row"><a href="#"><img src="assets/img/product-1.jpg" alt="">{{ $key+1 }}</a></th>
                     <td><a href="#"class="text-primary fw-bold">{{$val_name->name}}</a></td>
-                    <td class="fw-bold">{{ number_format($val->total) }} <sup>đ</sup></td>
+                    <td class="fw-bold" style="text-align: right;padding-right: 10%">{{ number_format($val->total) }} <sup>đ</sup></td>
                     <td>{{ $val->count_booking }}</td>
                 </tr>
 

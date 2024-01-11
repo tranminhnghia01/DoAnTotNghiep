@@ -145,10 +145,22 @@ class HousekeeperController extends Controller
         $file = $request->image;
         // dd($data);
 
+        // dd($cccd_img);
         if (!empty($file)) {
             $data['image'] = "GV".$file->getClientOriginalName();
             $old_image =  $housekeeper->image;
         }
+        $CCCD =$request->file('files');
+        if (!empty($CCCD)) {
+            foreach ($CCCD as $image) {
+                $name = $id."-".$image->getClientOriginalName();
+            // dd($image);
+            $cccd_img[] = $name;
+
+            }
+            $data['files'] = json_encode($cccd_img);
+        }
+
 
 
         if ($housekeeper->update($data)) {
@@ -157,6 +169,12 @@ class HousekeeperController extends Controller
                 if (!empty($old_image)) {
                     unlink(public_path('uploads/users/'. $old_image));
                 }
+            }
+            if (!empty($CCCD)) {
+                foreach ($CCCD as $image) {
+                    $name = $id."-".$image->getClientOriginalName();
+                    $image->move('uploads/users/CCCD',$name);
+                };
             }
             $style = 'success';
             $msg = 'Cập nhật tài khoản người dùng thành công! ';

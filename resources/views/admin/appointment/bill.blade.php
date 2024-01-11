@@ -15,12 +15,13 @@
                             <th>STT</th>
                             <th>Mã hóa đơn</th>
                             <th>Mã đơn lịch</th>
-                            <th>Số buổi đã hoàn thành</th>
                             <th>HTTT</th>
                             <th>Hóa đơn gốc</th>
                             <th>Thanh toán</th>
                             <th>Hoàn trả</th>
-                            <th>Xem nhanh</th>
+                            <th>Trạng thái</th>
+                            <th>Ý kiến</th>
+                            <th>Thao tác</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -30,24 +31,23 @@
                             <tr>
                                 <td>{{ $key+1}}</td>
                                 <td>{{ $value->history_id}}</td>
-                                <td>{{ $value->name }}</td>
+                                <td>{{ $value->book_id}}</td>
                                     @php
                                         $date =  explode(",",$value->book_date);
                                     @endphp
 
-                                <td>{{ $value->date_finish }} / {{  count($date)-$value->history_previous_date }}</td>
                                 <td>
                                     @if ($value->payment_id == 1)
                                         <span class="badge border-primary border-1 text-primary">Tiền mặt</span>
                                     @else
-                                        <span class="badge border-success border-1 text-success">Đã thanh toán</span>
+                                        <span class="badge border-success border-1 text-success">Đã thanh toán Online</span>
                                     @endif
 
                                 </td>
 
                                 @php
                                     $total_price = $value->book_total - $value->book_total/count($date) *($value->date_finish+$value->history_previous_date);
-                                    $total_fund = $total_price*0.2;
+                                    $total_fund = $total_price*0.8;
                                 @endphp
                                 <td>{{ number_format($value->book_total - $value->book_total/count($date) *$value->history_previous_date ) }} <sup>đ</sup> </td>
                                 <td>{{ number_format($total_fund) }} <sup>đ</sup> </td>
@@ -67,18 +67,7 @@
                                         <td><textarea name="" id="" cols="30" rows="3">{{ $value->history_notes }}</textarea></td>
                                 @endswitch
 
-
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('admin.hoadon-update',$value->history_id) }}"
-                                            ><i class="bx bx-edit-alt me-1"></i> Duyệt</a>
-                                        </div>
-                                    </div>
-                                </td>
+                                <td><a href="{{ route('admin.hoadon-update',$value->history_id) }}" class="btn btn-primary">Duyệt</a></td>
                                 <td><a href="{{ route('admin.details-book.show',$value->history_id) }}" class="btn btn-default btn-booking-details" id="{{ $value->history_id }}">Xem chi tiết</a>
                                 <button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}"><i class="bi bi-eye"></i></button></td>
 
@@ -91,7 +80,7 @@
                         @endif --}}
                         <p>Quy định
                             Hủy lịch khi đã thanh toán ca cố định
-                             :Hoàn tiền những buổi chưa làm việc và trừ 20% tổng giá trị ban đầu.
+                             :Hoàn tiền những buổi chưa làm việc và trừ 20% những buổi chưa hoàn thành.
                         </p>
                         <div id="modal-details"></div>
                     </tbody>

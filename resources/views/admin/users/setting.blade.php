@@ -37,7 +37,13 @@
   <div class="row mb-3">
     <label for="Job" class="col-md-4 col-lg-3 col-form-label">Vị trí</label>
     <div class="col-md-8 col-lg-9">
-      <input name="role_name" type="text" class="form-control" id="Job" readonly value="{{ $housekeeper->role_name }}">
+      <input name="role_name" type="text" class="form-control" id="Job" readonly
+        @if ($housekeeper->role_name)
+        value="{{ $housekeeper->role_name }}"
+        @else
+        value="Người giúp việc"
+        @endif
+      >
     </div>
   </div>
 
@@ -124,7 +130,7 @@
   <div class="row mb-3">
     <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Ảnh CCCD</label>
     <div class="col-md-8 col-lg-9">
-      <input name="files" type="text" class="form-control" multiple>
+      <input name="files[]" type="file" class="form-control" multiple>
     </div>
   </div>
 

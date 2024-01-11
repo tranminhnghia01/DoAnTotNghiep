@@ -7,12 +7,16 @@
     "require": {
         "php": "^8.0.2",
         "bumbummen99/shoppingcart": "^4.2",
+        "google/apiclient": "*",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "laravel/ui": "^4.2"
+        "laravel/ui": "^4.2",
+        "league/flysystem": "*",
+        "league/flysystem-aws-s3-v3": "3.0",
+        "masbug/flysystem-google-drive-ext": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

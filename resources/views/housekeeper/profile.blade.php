@@ -39,6 +39,11 @@
               <li class="nav-item">
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Chỉnh sửa hồ sơ</button>
               </li>
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Thay đổ mật khẩu</button>
+              </li>
+
             </ul>
             <div class="tab-content pt-2">
 
@@ -77,6 +82,15 @@
               <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                 @include('admin.users.setting')
+              </div>
+
+              <div class="tab-pane fade pt-3" id="profile-change-password">
+                <!-- Change Password Form -->
+
+                @include('admin.account.change-password')
+
+                <!-- End Change Password Form -->
+
               </div>
             </div><!-- End Bordered Tabs -->
 

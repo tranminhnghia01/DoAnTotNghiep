@@ -37,6 +37,40 @@
 
                 <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
                     {!! $housekeeper->content !!}
+                    <nav>
+                        <ul class="pagination justify-content-end">
+                            @if ($previous)
+                          <li class="page-item">
+
+                            <a class="page-link" href="{{ route('home.home-housekeeper.show',$previous) }}"><i class="fas fa-angle-double-left"></i></a>
+                          </li>
+                            @else
+                          <li class="page-item disabled">
+
+                            <a class="page-link" tabindex="-1" aria-disabled="true"><i class="fas fa-angle-double-left"></i></a>
+                        </li>
+
+
+                            @endif
+
+                            <li class="page-item"><a class="page-link">1</a></li>
+                            <li class="page-item"><a class="page-link">2</a></li>
+                            <li class="page-item"><a class="page-link">3</a></li>
+                            @if ($next)
+                          <li class="page-item">
+
+                            <a  class="page-link" href="{{ route('home.home-housekeeper.show',$next) }}"><i class="fas fa-angle-double-right"></i></a>
+                          </li>
+
+                            @else
+                          <li class="page-item disabled">
+
+                            <a class="page-link"  tabindex="-1" aria-disabled="true"><i class="fas fa-angle-double-right"></i></a>
+                        </li>
+
+                            @endif
+                        </ul>
+                      </nav><!-- End Disabled and active states -->
 
                     <div class="comments">
                         <h4 class="comment-title font-alt">Bình luận</h4>

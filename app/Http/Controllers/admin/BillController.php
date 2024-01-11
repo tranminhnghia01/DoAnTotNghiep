@@ -126,7 +126,7 @@ class BillController extends Controller
 
         $msg = "Duyệt hóa đơn thành công";
         $style = "success";
-        return redirect()->route('admin.hoadon-processing')->with(compact('msg','style'));
+        return redirect()->back()->with(compact('msg','style'));
 
     }
 
@@ -134,13 +134,8 @@ class BillController extends Controller
         $id= Auth::id();
         $user = User::findOrFail($id);
 
-        $book = History::join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
-                ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
-                ->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')
-                ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
-                ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
-                ->where('processing',0)
-                ->orderBy('tbl_booking.created_at', 'desc')
+        $book = History::where('processing',0)
+                ->orderBy('updated_at', 'desc')
                 ->get();
         $bill = PaymentOnline::all();
 

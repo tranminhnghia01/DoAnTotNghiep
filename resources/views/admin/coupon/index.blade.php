@@ -58,13 +58,17 @@
                                 </button>
                                 <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ route('admin.coupon.edit',$value->coupon_id) }}"
-                                    ><i class="bx bx-edit-alt me-1"></i> Sửa</a
+                                    ><i class="bx bx-edit-alt me-1"></i>Chỉnh sửa</a
+                                >
+
+                                <a class="dropdown-item" href="{{ route('admin.mail-list-coupon',$value->coupon_id) }}"
+                                    ><i class="ri-mail-add-line"></i> Gửi cho khách hàng</a
                                 >
 
                                 <form action="{{ route('admin.coupon.destroy',$value->coupon_id) }}" method="post">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i>Xóa</button>
+                                    <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i>Xóa mã</button>
                                 </form>
                                 </div>
                             </div>

@@ -67,22 +67,22 @@
                         <th scope="row"><a href="#">{{ $val->book_id }}</a></th>
                         <td>{{ $val->name }}</td>
                         <td><a href="#" class="text-primary">{{ $val->service_name }}</a></td>
-                        <td>{{ number_format($val->book_total) }} đ</td>
+                        <td> <span style="float: right;padding-right: 20px;">{{ number_format($val->book_total) }} đ</span></td>
                         @switch($val->book_status)
                             @case(1)
-                                 <td><span class="badge bg-warning">Đơn lịch mới</span></td>
+                                 <td><span class="badge bg-warning" style="float: right;padding-right: 20px;">Đơn lịch mới</span></td>
 
                             @break
                             @case(2)
-                                 <td><span class="badge bg-primary">Chưa hoàn thành</span></td>
+                                 <td><span class="badge bg-primary" style="float: right;padding-right: 20px;">Chưa hoàn thành</span></td>
 
                             @break
                             @case(3)
-                                <td><span class="badge bg-danger">Đã hủy</span></td>
+                                <td><span class="badge bg-danger" style="float: right;padding-right: 20px;">Đã hủy</span></td>
                             @break
 
                             @default
-                            <td><span class="badge bg-success">Hoàn thành</span></td>
+                            <td><span class="badge bg-success" style="float: right;padding-right: 20px;">Hoàn thành</span></td>
                             @break
 
                         @endswitch

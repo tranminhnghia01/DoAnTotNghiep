@@ -237,7 +237,8 @@ h6 {
   font-size: 18px;
   font-weight: 500;
   color: #012970;
-  font-family: "Poppins", sans-serif;
+  font-family: "Open Sans", sans-serif;
+
 }
 
 .card-title span {
@@ -1242,3 +1243,7 @@ h6 {
     -webkit-line-clamp: 4;
     line-height: 1.4rem;
 }
+
+tspan {
+    font-family: "Open Sans", sans-serif !important;
+    }

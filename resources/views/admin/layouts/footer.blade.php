@@ -39,10 +39,26 @@
         filebrowserUploadUrl: "{{ asset('admin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}",
       });
 
+
 </script>
 
     <script type="text/javascript">
         $(document).ready(function(){
+
+            $('.change-status-comment').click(function(){
+                var comment_id = $(this).data('comment_id');
+                var status = $(this).val();
+
+                $.ajax({
+                url : "{{route('admin.change-status-comment')}}",
+                method: 'GET',
+                data:{comment_id:comment_id,status:status,},
+                success:function(data){
+                    location.reload();
+                    $('#notify-comment').html('<div class="alert alert-success" role="alert"> Thay đổi duyệt thành công </div>');
+                }
+            });
+            });
 
 
             var address = '';
@@ -206,39 +222,77 @@
         });
     });
 
-    // $(document).on('click', '.btn-bookdestroy', function(e){
-    //     // alert('destroy');
-    //     e.preventDefault(); //cancel default action
-    //     swal({
-    //         title: "Hủy ??",
-    //         text: 'Bạn có chắc muốn hủy đơn đặt lịch này!',
-    //         icon: "warning",
-    //         buttons: true,
-    //         dangerMode: true,
-    //     })
-    //     .then((willDelete) => {
-    //         if (willDelete) {
-    //             var book_id = $(this).data('book-id');
-    //             var _token = $('input[name="_token"]').val();
-    //             $.ajax({
-    //                 url : "{{route('admin.Appoin-detail-destroy')}}",
-    //                 method: 'POST',
-    //                 data:{book_id:book_id,_token:_token},
-    //                 success:function(data){
-    //                     swal("Thành công! Đơn đặt lịch của bạn đã được hủy!", {
-    //                         icon: "success",
-    //                         });
-    //                         window.setTimeout(function() {
-    //                             location.reload();
-    //                         },3000);
-    //                     }
-    //                 });
-    //         } else {
-    //             swal("Thoát thao tác thành công!");
-    //         }
-    //     });
 
-    // });
+        //show trả lời email
+    $('.btn-contact-reply').on('click',function(){
+        $('#aboutReplyModel').show();
+         var id = $(this).data('contact_id');
+        //  console.log(action);
+        // var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url : "{{route('admin.contact.about-reply')}}",
+            method: 'GET',
+            data:{id:id},
+            success:function(data){
+
+
+                $('#modal-about-reply').html(data);
+                $('#aboutReplyModel').modal('show');
+
+            }
+        });
+
+    });
+
+    $(document).on('click', '#btn-store-contact-reply', function(e){
+
+        // alert(12);
+         var id = $(this).data('id');
+        //  console.log(id);
+        var _token = $('input[name="_token"]').val();
+        var contact_reply = $('textarea[name="contact-reply"]').val();
+
+
+        if (contact_reply == "") {
+            swal({
+                    title: "Lỗi!",
+                    text: "Vui lòng nhập nội dung phản hồi!",
+                    icon: "warning",
+                    dangerMode: true,
+                    });
+        }else{
+            swal({
+            title: "Xác nhận ??",
+            text: 'Phản hồi ý kiến khách hàng!',
+            icon: "success",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var history_id = $(this).data('book-id');
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url : "{{route('admin.contact.about-reply-store')}}",
+                        method: 'POST',
+                        data:{id:id,_token:_token,contact_reply:contact_reply},
+                        success:function(data){
+
+                            swal("Thành công! Phản hồi ý kiến!", {
+                                icon: "success",
+                            });
+                            window.setTimeout(function() {
+                                location.reload();
+                            },3000);
+                        }
+                    });
+                } else {
+                    swal("Thoát thao tác thành công!");
+                }
+            });
+        };
+
+    });
     </script>
 
 <script>
@@ -272,19 +326,17 @@
                         success:function(data){
                             swal("Thành công! Đơn đặt lịch của bạn đã được hủy!", {
                                 icon: "success",
-                                });
-                                window.setTimeout(function() {
-                                    location.reload();
-                                },3000);
-                            }
-                        });
+                            });
+                            window.setTimeout(function() {
+                                location.reload();
+                            },3000);
+                        }
+                    });
                 } else {
                     swal("Thoát thao tác thành công!");
                 }
             });
         };
-
-
 
     });
     })
@@ -315,7 +367,7 @@
                     {label:"Bài viết", value:{{ $Count_blog }}}
                 ]
             });
-
+            $("div svg text").attr("style", "font-family: 'Open Sans', sans-serif !important");
 
             chart60day();
             quickView();

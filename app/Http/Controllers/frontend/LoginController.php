@@ -104,44 +104,34 @@ class LoginController extends Controller
     }
 
 
-    public function housekeeper() {
-        return view('frontend.user.loghouse');
-    }
 
-    public function housekeeper_store(HousekeeperRequest $request) {
-        $data = $request->all();
-        // dd($data);
-        $user_id = substr(md5(microtime()),rand(0,26),5);
+    public function updatePassword(Request $request)
+    {
+        # Validation
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+        ]);
 
-        $file = $request->image;
+        // dd($request->all());
+        #Match The Old Password
+        if(!Hash::check($request->old_password, auth()->user()->password)){
+            $msg = "Mật khẩu cũ không khớp!";
+            $style = "danger";
+        return back()->with(compact('msg','style'));
 
-        if (!empty($file)) {
-            $data['image'] = "housekeeper".$file->getClientOriginalName();
         }
 
-        $info = [
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make(12345678),
-            'role_id' => 2,
-            'user_id' => $user_id,
 
-        ];
-        $user = User::create($info);
-        if($user){
-            $data['housekeeper_id'] = $user->user_id;
-
-            Housekeeper::create($data);
-            $file->move('uploads/users', $data['image']);
-            $msg = "Đăng ký gửi thông tin tài khoản thành công! Bạn vui lòng chờ trong khi chúng tôi duyệt tài khoản";
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+            $msg = "Đã đổi mật khẩu thành công!";
             $style = "success";
 
-            return Redirect()->back()->with(compact('msg','style'));
-        }
-
-
+        return back()->with(compact('msg','style'));
     }
-
 
     public function select_address(Request $request) {
         $data = $request->all();

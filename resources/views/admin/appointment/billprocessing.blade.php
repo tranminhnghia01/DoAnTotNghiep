@@ -9,37 +9,34 @@
             <h5 class="card-title">Hóa đơn</h5>
             <!-- Table with stripped rows -->
             <div class="table-responsive">
-                <table class="table datatable" style="text-align: center">
+                <table class="table datatable" >
                     <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Người giúp việc</th>
-                            <th>Người hẹn</th>
-                            <th>Dịch vụ</th>
-                            <th>Ngày bắt đầu làm việc</th>
-                            <th>Xem chi tiết</th>
-                            <th></th>
+                            <th>Ngày duyệt hóa đơn</th>
+                            <th>Mã hóa đơn</th>
+                            <th>Mã đơn lịch</th>
+                            <th>Trạng thái</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {{-- @if (!empty($book)) --}}
-                            @foreach ($book as $key=>$value )
+                            @foreach ($book as $key => $value )
                             <tr>
                                 <td>{{ $key+1}}</td>
-                                <td>{{ $value->name }}</td>
-                                <td>{{ $value->shipping_name }}</td>
-                                <td>{{ $value->service_name }}</td>
+                                <td>{{ date(' H:i, d/m/Y',strtotime($value->updated_at)) }}</td>
+                                <td>{{ $value->history_id }}</td>
+                                <td>{{ $value->book_id }}</td>
                                 @switch($value->history_status)
                                     @case(3)
-                                        <td><span class="btn btn-danger" style="color: white;width: 170px;">Đã hủy</span></td>
+                                        <td><span class="badge border-danger border-1 text-danger" style="color: white;width: 170px;">Đã hủy</span></td>
                                         @break
                                     @default
-                                        <td><span class="btn btn-primary" style="color: white;width: 170px;">Hoàn thành</span></td>
+                                        <td><span class="badge border-success border-1 text-success" style="color: white;width: 170px;">Hoàn thành</span></td>
                                 @endswitch
                                 <td><a href="{{ route('admin.details-book.show',$value->history_id) }}" class="btn btn-default btn-booking-details" id="{{ $value->history_id }}">Xem chi tiết</a>
                                     <button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}"><i class="bi bi-eye"></i></button></td>
-
 
                             </tr>
                             @endforeach

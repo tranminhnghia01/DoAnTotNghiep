@@ -24,7 +24,7 @@
                         </div>
                         <div class="ms-4">
                             <p class="mb-2">Địa chỉ</p>
-                            <h5 class="mb-0">123 Street, New York, USA</h5>
+                            <h5 class="mb-0">{{ $infomation->info_address }}</h5>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="ms-4">
                             <p class="mb-2">Gọi ngay cho chúng tôi</p>
-                            <h5 class="mb-0">+012 345 6789</h5>
+                            <h5 class="mb-0">+{{ $infomation->info_phone }}</h5>
                         </div>
                     </div>
                 </div>
@@ -46,54 +46,63 @@
                         </div>
                         <div class="ms-4">
                             <p class="mb-2">Gửi thư cho chúng tôi</p>
-                            <h5 class="mb-0">info@example.com</h5>
+                            <h5 class="mb-0">{{ $infomation->info_email }}</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
                     <div class="bg-light rounded p-5">
-                        <p class="d-inline-block border rounded-pill py-1 px-4">Contact Us</p>
-                        <h1 class="mb-4">Có bất kỳ câu hỏi nào? Xin vui lòng liên hệ với chúng tôi!</h1>
-                        <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
-                        <form>
+                        <p class="d-inline-block border rounded-pill py-1 px-4">Liên hệ với chúng tôi</p>
+                        <h1 class="mb-4">Bạn có bất kỳ câu hỏi nào? Vui lòng gửi cho chúng tôi!</h1>
+                        <p class="mb-4">Biểu mẫu liên hệ hiện không hoạt động. Nhận biểu mẫu liên hệ hoạt động hiệu quả với Ajax & PHP trong vài phút. Chỉ cần sao chép và dán các tập tin, thêm một chút mã và bạn đã hoàn tất<P>
+                        <form action="" method="POST">
+                            @csrf
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                        <label for="name">Họ tên</label>
+                                        <input type="text" class="form-control" id="name" name="contact_name" placeholder="Tên của bạn">
+                                        <label for="name">Tên của bạn</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" name="contact_email" placeholder="Email của bạn">
+                                        <label for="email">Email của bạn</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                        <label for="subject">Đối tượng</label>
+                                        <input type="text" class="form-control" id="subject" name="contact_subject" placeholder="Vấn đề">
+                                        <label for="subject">Vấn đề về</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
-                                        <label for="message">Tin nhắn</label>
+                                        <textarea class="form-control" placeholder="Leave a message here" id="message" name="contact_content" style="height: 100px"></textarea>
+                                        <label for="message">Nội dung</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-orange w-100 py-3" type="submit">Gửi tin nhắn</button>
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Gửi</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="h-100" style="min-height: 400px;">
-                        <iframe class="rounded w-100 h-100"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
-                        frameborder="0" allowfullscreen="" aria-hidden="false"
-                        tabindex="0"></iframe>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+
+                    <div class="bg-light rounded p-5">
+                        <div class="row">
+                        <p class="mb-4">Fanpage của chúng tôi</p>
+                            {!! $infomation->info_fanpage !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 wow fadeIn" data-wow-delay="0.5s">
+                    <div class="h-100" style="min-height: 800px;">
+                        <p class="mb-4">Bản đồ</p>
+
+                        {!! $infomation->info_map !!}
                     </div>
                 </div>
             </div>

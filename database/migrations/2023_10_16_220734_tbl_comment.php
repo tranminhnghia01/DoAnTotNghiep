@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('comment');
             $table->text('reply');
             $table->integer('rate');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

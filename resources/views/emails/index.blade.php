@@ -10,7 +10,12 @@
     @php
     $listdate= explode(",",$book['book_date']);
         $split_time = explode(":",$book->book_time_start);
-        $time_end = $split_time[0]+$book->book_time_number .':'.$split_time[1];
+        if (count($split_time) == 1) {
+            $time_end = (int) $split_time[0] + (int)$book->book_time_number .':'.'00';
+        }else {
+            $time_end = (int) $split_time[0] + (int)$book->book_time_number .':'.$split_time[1];
+
+        }
 @endphp
 
 <div style="width: 600px;text-align: center;font-size: 16px">

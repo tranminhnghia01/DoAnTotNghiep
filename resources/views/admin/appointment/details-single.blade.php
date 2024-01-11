@@ -21,6 +21,10 @@
                                     <div class="col-sm-9" style="    border: 1px solid #ccc;border-radius: 5px;padding: 20px;">
                                     <p style="font-weight: 600"> {{ $history->name }} </p>
                                     <p> Số điện thoại: (+84)  {{ $history->phone }} </p>
+                                    @if ($history->history_notes)
+                                        <p > Ghi chú:  {{ $history->history_notes }} </p>
+                                    @endif
+
                                 </div>
                                     <h5 class="modal-title">Vị trí làm việc</h5>
                                     <div class="col-sm-12" style="    border: 1px solid #ccc;border-radius: 5px;padding: 20px;">

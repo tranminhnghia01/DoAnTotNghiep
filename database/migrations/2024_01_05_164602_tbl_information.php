@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_category', function (Blueprint $table) {
-            $table->increments('category_id');
-            $table->String('category_name');
-            $table->String('category_image');
-            $table->text('category_des');
-            $table->text('category_content');
-            $table->integer('category_status');
+        Schema::create('tbl_infomation', function (Blueprint $table) {
+            $table->increments('info_id');
+            $table->text('info_map');
+            $table->string('info_address');
+            $table->string('info_email');
+            $table->string('info_phone');
+            $table->string('info_fanpage');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_category');
+        Schema::dropIfExists('tbl_infomation');
     }
 };

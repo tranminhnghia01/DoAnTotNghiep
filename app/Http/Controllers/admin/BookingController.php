@@ -61,7 +61,7 @@ class BookingController extends Controller
         ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
         ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
         ->where('tbl_booking.book_id', $book_id)->first();
-        $checkhisbook = History::where('book_id',$book_id)->get();
+        $checkhisbook = History::where('book_id',$book_id)->join('tbl_housekeeper','tbl_housekeeper.housekeeper_id','tbl_history.housekeeper_id')->get();
 
         $housekeeper = Housekeeper::where('status',0)->get();
 
@@ -78,15 +78,13 @@ class BookingController extends Controller
     public function post_Confirm(Request $request,$book_id){
         $housekeeper_id = $request->housekeeper_id;
         $housekeeper = Housekeeper::where('housekeeper_id',$housekeeper_id)->first();
-        $book = Book::where('tbl_booking.book_id',$book_id)->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
-        ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
-        ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')->first();
+        $book = Book::where('book_id',$book_id)->first();
         // dd($book);
 
-        $checkhis = History::latest()->where('book_id',$book_id)->first();
         if($book){
+            $checkhis = History::where('book_id',$book_id)->first();
             if($checkhis){
-                $checkYoN = History::where('book_id',$book_id) ->where('housekeeper_id',$housekeeper_id)->first();
+                $checkYoN = History::where('book_id',$book_id)->where('housekeeper_id',$housekeeper_id)->first();
                 if($checkYoN){
                     $checkhis->update(['history_status'=>2]);
                     $msg = "Giao lại công việc cho người giúp việc này!";
@@ -98,6 +96,7 @@ class BookingController extends Controller
                         'housekeeper_id' => $housekeeper_id,
                         'history_previous_date' => $checkhis->date_finish,
                     ];
+                $history = History::create($info);
                 }
 
             }else{
@@ -106,13 +105,14 @@ class BookingController extends Controller
                     'housekeeper_id' => $housekeeper_id,
                     'history_status'=> 2,
                 ];
+                $history = History::create($info);
+
             }
 
-            $history = History::create($info);
             if ($history) {
                 $bookupdate = Book::where('book_id',$book_id)->first();
                 $bookupdate->update(['book_status'=>2]);
-                // Mail::to('minhnghia11a1@gmail.com')->send(new MailNotify($book));
+                Mail::to('minhnghia11a1@gmail.com')->send(new MailNotify($book));
                 $msg = "Đã giao công việc thành công";
                 $style = "success";
 
@@ -120,10 +120,6 @@ class BookingController extends Controller
                 $msg = "Có lỗi xảy ra. Vui lòng kiểm tra lại!";
                     $style = "danger";
             };
-        }
-        else{
-            $msg = "Có lỗi xảy ra. Vui lòng kiểm tra lại!";
-                $style = "danger";
         };
         return redirect()->route('admin.appointment.index')->with(compact('msg','style'));
     }
@@ -220,7 +216,11 @@ class BookingController extends Controller
                             </div>
 
                             </div>';
+                            if($history->history_notes){
+                                $output.='<p style="color: "> Ghi chú: '.$history->history_notes.' </p>';
+                            };
                             }
+
 
                                 $output.='
                                 <h5 class="modal-title">Vị trí làm việc</h5>

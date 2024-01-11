@@ -62,9 +62,24 @@
                     </table>
                 </div>
 
-                @foreach ($checkhisbook as $keyC => $valC  )
-                    {{$valC->housekeeper_id }} đã hủy đơn lịch trên
-                @endforeach
+                <div class="row g-3">
+                    @foreach ($checkhisbook as $keyC => $valC  )
+                    <div class="col-sm-3">
+                        <h5 class="modal-title">Thông tin lý do hủy</h5>
+                        <div style="    border: 1px solid #ccc;border-radius: 5px;padding: 20px;">
+                            <img src="{{ asset('uploads/users/'.$valC->image) }}" alt="Girl in a jacket" width="150px" height="150px">
+                        </div>
+                        <div style="    border: 1px solid #ccc;border-radius: 5px;padding: 20px;">
+                        <p style="font-weight: 600"> {{ $valC->name }} </p>
+                        <p> Mã người giúp việc: {{ $valC->housekeeper_id }} </p>
+                        <p style="color: red"> Lý do hủy: {{ $valC->history_notes }} </p>
+                    </div>
+                    </div>
+
+                        {{-- {{$valC->housekeeper_id }} đã hủy đơn lịch trên  --}}
+                    @endforeach
+                </div>
+
                 <!-- End Table with stripped rows -->
 
               </div>

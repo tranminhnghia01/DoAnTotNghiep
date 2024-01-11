@@ -5,19 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rate extends Model
+class Infomation extends Model
 {
     use HasFactory;
     public $timestamps =true;
 
-    protected $table ='tbl_rate';
+    protected $table ='tbl_infomation';
 
     protected $fillable =[
-        'comment_id',
-        'rate',
+        'info_map',
+        'info_address',
+        'info_email',
+        'info_phone',
+        'info_fanpage',
     ];
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'info_id';
 
     protected $hidden = [
         '_token',

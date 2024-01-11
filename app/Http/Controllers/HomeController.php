@@ -57,30 +57,34 @@ class HomeController extends Controller
                 'SecureHash'=> $_GET['vnp_SecureHash'],
             ];
         $book= Book::where('book_id',$_GET['vnp_TxnRef'])->first();
+            $check = PaymentOnline::where('TxnRef',$data['TxnRef'])->first();
+            if($check){
+                return Redirect()->route('home.index');
+            }else{
+                $paymentOnline = PaymentOnline::create($data);
+                if($paymentOnline){
+                    $book= Book::where('book_id',$_GET['vnp_TxnRef'])->first();
+                    $book->update(['payment_id'=>3]);
 
-            $paymentOnline = PaymentOnline::create($data);
-            if($paymentOnline){
-                $book= Book::where('book_id',$_GET['vnp_TxnRef'])->first();
-                $book->update(['payment_id'=>3]);
-
-                $now = Carbon::now()->format('Y-m-d');
-                $update_statistical = Statistic::where('date' ,$now)->first();
-                // dd($update_statistical);
-                if($update_statistical){
-                    $info_static = [
-                        'sales' => $update_statistical->sales + ($paymentOnline->Amount)/100,
-                        'profit' => $update_statistical->profit + ($paymentOnline->Amount)/1000,
-                        'total_appointment'=> $update_statistical->total_appointment + 1,
-                    ];
-                    $update_statistical->update($info_static);
-                }else{
-                    $info_static = [
-                        'date' => $now,
-                        'sales' => ($paymentOnline->Amount)/100,
-                        'profit' => ($paymentOnline->Amount)/1000,
-                        'total_appointment'=> 1,
-                    ];
-                    Statistic::create($info_static);
+                    $now = Carbon::now()->format('Y-m-d');
+                    $update_statistical = Statistic::where('date' ,$now)->first();
+                    // dd($update_statistical);
+                    if($update_statistical){
+                        $info_static = [
+                            'sales' => $update_statistical->sales + ($paymentOnline->Amount)/100,
+                            'profit' => $update_statistical->profit + ($paymentOnline->Amount)/1000,
+                            'total_appointment'=> $update_statistical->total_appointment + 1,
+                        ];
+                        $update_statistical->update($info_static);
+                    }else{
+                        $info_static = [
+                            'date' => $now,
+                            'sales' => ($paymentOnline->Amount)/100,
+                            'profit' => ($paymentOnline->Amount)/1000,
+                            'total_appointment'=> 1,
+                        ];
+                        Statistic::create($info_static);
+                    }
                 }
             }
         }
@@ -89,7 +93,8 @@ class HomeController extends Controller
         if(isset($_GET['paymentOption']) == 'momo'){
             $order_data = explode('-',$_GET['orderId']);
             $order_id =$order_data[0];
-            // dd($order_id);
+            $check = PaymentOnline::where('TxnRef',$order_id)->first();
+
             $data = [
                 'Amount'=> $_GET['amount'],
                 'BankCode'=> $_GET['paymentOption'],
@@ -106,32 +111,37 @@ class HomeController extends Controller
             ];
             // dd($data);
             $book= Book::where('book_id',$order_id)->first();
+            if($check){
+                return Redirect()->route('home.index');
+            }else{
+                $paymentOnline = PaymentOnline::create($data);
+                if($paymentOnline){
+                    $book->update(['payment_id'=>2]);
 
-            $paymentOnline = PaymentOnline::create($data);
-            if($paymentOnline){
-                $book->update(['payment_id'=>2]);
-
-                $now = Carbon::now()->format('Y-m-d');
-                $update_statistical = Statistic::where('date' ,$now)->first();
-                // dd($update_statistical);
-                if($update_statistical){
-                    $info_static = [
-                        'sales' => $update_statistical->sales + ($paymentOnline->Amount),
-                        'profit' => $update_statistical->profit + ($paymentOnline->Amount)/10,
-                        'total_appointment'=> $update_statistical->total_appointment + 1,
-                    ];
-                    $update_statistical->update($info_static);
-                }else{
-                    $info_static = [
-                        'date' => $now,
-                        'sales' => ($paymentOnline->Amount),
-                        'profit' => ($paymentOnline->Amount)/10,
-                        'total_appointment'=> 1,
-                    ];
-                    Statistic::create($info_static);
+                    $now = Carbon::now()->format('Y-m-d');
+                    $update_statistical = Statistic::where('date' ,$now)->first();
+                    // dd($update_statistical);
+                    if($update_statistical){
+                        $info_static = [
+                            'sales' => $update_statistical->sales + ($paymentOnline->Amount),
+                            'profit' => $update_statistical->profit + ($paymentOnline->Amount)/10,
+                            'total_appointment'=> $update_statistical->total_appointment + 1,
+                        ];
+                        $update_statistical->update($info_static);
+                    }else{
+                        $info_static = [
+                            'date' => $now,
+                            'sales' => ($paymentOnline->Amount),
+                            'profit' => ($paymentOnline->Amount)/10,
+                            'total_appointment'=> 1,
+                        ];
+                        Statistic::create($info_static);
+                    }
                 }
-            }
+            };
+
         }
+
         $msg = 'Giao dịch thành công';
         $style ="success";
         return view('frontend.thanks')->with(compact('msg','style'));

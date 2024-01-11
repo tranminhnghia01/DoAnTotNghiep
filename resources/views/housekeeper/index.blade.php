@@ -57,7 +57,7 @@
                                 <td>{{ $key+1}}</td>
                                 <td>{{ $value->book_id}}</td>
 
-                                {{-- <td>{{ (($date[$today])).' - '. $value->book_time_start }}</td> --}}
+                                <td>{{ (($date[$today])).' - '. $value->book_time_start }}</td>
                                 <td>{{ $value->date_finish }}/{{ Count($date)-$value->history_previous_date }}</td>
                                 <td>
                                 @if ($value->service_id == 2)

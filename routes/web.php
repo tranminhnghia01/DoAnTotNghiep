@@ -13,11 +13,14 @@ use Illuminate\Support\Facades\Route;
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
+
+
 |
 */Route::get('/', [App\Http\Controllers\frontend\HomeController::class, 'index'])->name('index');
 // test email
 // Route::get('/test', [MailController::class,'index']);
 // Route::get('/modal', [MailController::class,'modal']);
+
 
 Route::prefix('/Moon.com')->name('home.')->group(function (){
     Route::get('/', [App\Http\Controllers\frontend\HomeController::class, 'index'])->name('index');
@@ -26,14 +29,22 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
     Route::get('/register', [App\Http\Controllers\frontend\LoginController::class,'show_register'])->name('register')->middleware('memberNotLogin');
     Route::post('/register', [App\Http\Controllers\frontend\LoginController::class,'register']);
     Route::get('/logout', [App\Http\Controllers\frontend\LoginController::class,'logout'])->name('logout');
+    Route::post('/change-password', [App\Http\Controllers\frontend\LoginController::class, 'updatePassword'])->name('update-password');
+
+
+    Route::get('/lien-he', [App\Http\Controllers\frontend\HomeController::class,'lienhe'])->name('lienhe');
+    Route::post('/lien-he', [App\Http\Controllers\frontend\HomeController::class,'lienhe_store']);
+
+
+
 
 
     // begin Nav
-        // Route::get('/services', [App\Http\Controllers\frontend\ServiceController::class, 'index'])->name('home-service');
-        // Route::get('/services/show/{service_id}', [App\Http\Controllers\frontend\ServiceController::class, 'show'])->name('home-service.show');
-
         Route::get('/houses', [App\Http\Controllers\frontend\HomeController::class, 'housekeeper'])->name('home-housekeeper');
         Route::get('/houses/show/{housekeepet_id}', [App\Http\Controllers\frontend\HomeController::class, 'housekeeper_show'])->name('home-housekeeper.show');
+        Route::get('/housekeeper', [App\Http\Controllers\frontend\HomeController::class,'create'])->name('housekeeper');
+        Route::post('/housekeeper', [App\Http\Controllers\frontend\HomeController::class,'store']);
+
         Route::resource('blog', App\Http\Controllers\frontend\BlogController::class);
         Route::resource('service', App\Http\Controllers\frontend\ServiceController::class);
 
@@ -41,8 +52,7 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
     // End Nav
 
     //user register housekeeper
-    Route::get('/housekeeper', [App\Http\Controllers\frontend\LoginController::class,'housekeeper'])->name('housekeeper');
-    Route::post('/housekeeper', [App\Http\Controllers\frontend\LoginController::class,'housekeeper_store']);
+
 
 
 
@@ -68,8 +78,7 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
     Route::get('/Account', [App\Http\Controllers\frontend\UserController::class,'index'])->name('appointment.index');
     Route::post('/Account/update', [App\Http\Controllers\frontend\UserController::class,'update'])->name('Account.update');
-    Route::get('/Account/quan-ly-don', [App\Http\Controllers\frontend\UserController::class,'quan_ly_don'])->name('Account.show');
-    Route::get('/Account/quan-ly-don/{book_id}', [App\Http\Controllers\frontend\UserController::class,'quan_ly_don_details'])->name('Account.show.details');
+    Route::get('/Account/book/{book_id}', [App\Http\Controllers\frontend\UserController::class,'show_details'])->name('Account.show.details');
 
 
     //ca cố định
@@ -112,6 +121,18 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 
     Route::resource('housekeeper', App\Http\Controllers\admin\HousekeeperController::class);
     Route::resource('Nguoi-dung', App\Http\Controllers\admin\MemberController::class);
+    Route::get('/contact', [App\Http\Controllers\admin\ContactController::class,'index'])->name('contact.index');
+    Route::post('/contact/save', [App\Http\Controllers\admin\ContactController::class,'update'])->name('contact.update');
+
+    Route::get('/contact/about', [App\Http\Controllers\admin\ContactController::class,'about'])->name('contact.about');
+
+    Route::get('/contact/about/reply', [App\Http\Controllers\admin\ContactController::class,'about_reply'])->name('contact.about-reply');
+    Route::post('/contact/about/reply/save', [App\Http\Controllers\admin\ContactController::class,'store_about_reply'])->name('contact.about-reply-store');
+
+
+
+
+
 
      //show appointment housekeeper
     // Route::get('/details-housekeeper/{housekeeper_id}', [App\Http\Controllers\admin\HousekeeperController::class,'show_Details'])->name('housekeeper.appointment-details');
@@ -121,6 +142,9 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 
     Route::resource('service', App\Http\Controllers\admin\ServiceController::class);
     Route::resource('coupon', App\Http\Controllers\admin\CouponController::class);
+    // Gửi mail hàng loạt
+    Route::get('/coupon/mail/{coupon_id}', [App\Http\Controllers\admin\CouponController::class, 'mail_list_coupon'])->name('mail-list-coupon');
+
     Route::resource('blog', App\Http\Controllers\admin\BlogController::class);
 
 
@@ -155,6 +179,11 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 
     ///Đánh giá bình luận
     Route::get('/Đanh-gia', [App\Http\Controllers\admin\CommentController::class, 'index'])->name('comment.index');
+    Route::get('/Đanh-gia/thanks/{comment_id}', [App\Http\Controllers\admin\CommentController::class, 'thanks'])->name('comment.thanks');
+
+
+    Route::get('/Đanh-gia/change-status-comment', [App\Http\Controllers\admin\CommentController::class, 'change_status_comment'])->name('change-status-comment');
+
     Route::post('/reply/{comment_id}', [App\Http\Controllers\admin\CommentController::class, 'reply'])->name('comment.reply');
 
     //Bảng giá

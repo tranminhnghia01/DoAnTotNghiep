@@ -15,7 +15,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blog = Blog::all();
+        $blog = Blog::paginate(4);
         return view('frontend.pages.list-blog')->with(compact('blog'));
     }
 
@@ -52,7 +52,12 @@ class BlogController extends Controller
         $views = $blog->blog_views + 1;
         $blog->update(['blog_views'=> $views]);
 
-        return view('frontend.pages.blog.blog-single')->with(compact('blog'));
+        $previous = Blog::where('blog_id', '<', $blog->blog_id)->max('blog_id');
+        // get next user id
+        $next = Blog::where('blog_id', '>', $blog->blog_id)->min('blog_id');
+
+
+        return view('frontend.pages.blog.blog-single')->with(compact('blog','previous','next'));
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -31,8 +32,10 @@ class MailNotify extends Mailable
      */
     public function envelope()
     {
+        $now = Carbon::now();
+
         return new Envelope(
-            subject: 'Đặt lịch dọn dẹp thành công',
+            subject: 'Đặt lịch dọn dẹp thành công'.$now,
         );
     }
 

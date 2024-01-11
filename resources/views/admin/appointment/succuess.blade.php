@@ -37,7 +37,7 @@
                           <td>{{ $key+1}}</td>
                           <td>{{ $value->name }}</td>
                           <td>{{ $value->shipping_name }}</td>
-                          <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start.' - '. $value->book_time_start}}</td>
+                          <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start.' - '. $time_end}}</td>
                           <td>{{ $value->service_name }}</td>
                           <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
                           <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}"><i class="bi bi-eye"></i></button></td>

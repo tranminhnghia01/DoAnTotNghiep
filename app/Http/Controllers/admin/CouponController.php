@@ -4,8 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CouponRequest;
+use App\Mail\MailCoupon;
 use App\Models\Coupon;
+use App\Models\Shipping;
 use Illuminate\Http\Request;
+use Mail;
 
 class CouponController extends Controller
 {
@@ -102,5 +105,25 @@ class CouponController extends Controller
     }
 
 
+
+    public function mail_list_coupon($coupon_id){
+        // dd($comment_id);
+        $shipping = Shipping::take(3)->get();
+        // dd($shipping);
+        $coupon = Coupon::where('coupon_id',$coupon_id)->first();
+        // dd($coupon);
+        // Mail::to('minhnghia11a1@gmail.com')->send(new MailCoupon($coupon));
+
+        foreach ($shipping as $key => $value) {
+            $email = $value->shipping_email;
+            Mail::to($email)->send(new MailCoupon($coupon));
+
+        }
+            $msg = 'Gửi thư cảm ơn thành công';
+            $style ='success';
+            return redirect()->back()->with(compact('msg','style'));
+
+
+    }
 
 }
