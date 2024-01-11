@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 24, 2023 at 02:01 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th1 11, 2024 lúc 04:34 AM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `web_laravel`
+-- Cơ sở dữ liệu: `web_laravel`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `failed_jobs`
+-- Cấu trúc bảng cho bảng `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -40,7 +40,7 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Cấu trúc bảng cho bảng `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -50,7 +50,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Đang đổ dữ liệu cho bảng `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -73,12 +73,15 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (107, '2023_10_28_233629_tbl_booking_details', 1),
 (108, '2023_10_28_234840_tbl_history', 1),
 (109, '2023_10_28_244243_tbl_service', 1),
-(110, '2023_9_29_225024_tbl_shipping', 1);
+(110, '2023_9_29_225024_tbl_shipping', 1),
+(111, '2024_01_05_164602_tbl_information', 2),
+(113, '2024_01_07_142048_tbl_contact', 3),
+(114, '2024_01_10_161508_payment_online', 4);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_resets`
+-- Cấu trúc bảng cho bảng `password_resets`
 --
 
 CREATE TABLE `password_resets` (
@@ -90,42 +93,49 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment_online`
+-- Cấu trúc bảng cho bảng `payment_online`
 --
 
 CREATE TABLE `payment_online` (
-  `id` int(11) NOT NULL,
-  `Amount` varchar(50) NOT NULL,
-  `BankCode` varchar(50) NOT NULL,
-  `BankTranNo` varchar(50) NOT NULL,
-  `CardType` varchar(50) NOT NULL,
-  `OrderInfo` varchar(50) NOT NULL,
-  `PayDate` varchar(50) NOT NULL,
-  `ResponseCode` varchar(50) NOT NULL,
-  `TmnCode` varchar(50) NOT NULL,
-  `TransactionNo` varchar(50) NOT NULL,
-  `TransactionStatus` varchar(50) NOT NULL,
-  `TxnRef` varchar(50) NOT NULL,
-  `SecureHash` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` int(10) UNSIGNED NOT NULL,
+  `Amount` varchar(255) NOT NULL,
+  `BankCode` varchar(255) NOT NULL,
+  `BankTranNo` varchar(255) NOT NULL,
+  `CardType` varchar(255) NOT NULL,
+  `OrderInfo` varchar(255) NOT NULL,
+  `PayDate` varchar(255) NOT NULL,
+  `ResponseCode` varchar(255) NOT NULL,
+  `TmnCode` varchar(255) NOT NULL,
+  `TransactionNo` varchar(255) NOT NULL,
+  `TransactionStatus` varchar(255) NOT NULL,
+  `TxnRef` varchar(255) NOT NULL,
+  `SecureHash` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `payment_online`
+-- Đang đổ dữ liệu cho bảng `payment_online`
 --
 
-INSERT INTO `payment_online` (`id`, `Amount`, `BankCode`, `BankTranNo`, `CardType`, `OrderInfo`, `PayDate`, `ResponseCode`, `TmnCode`, `TransactionNo`, `TransactionStatus`, `TxnRef`, `SecureHash`) VALUES
-(1, '381000000', 'NCB', 'VNP14251670', 'ATM', 'Thanh toán đơn đặt lịch', '20231219190810', '00', 'KETREN3N', '14251670', '00', '926cf', '0c6f7aa560d723f530f7a42ba41604f184a0ae2674e4db071326112e89e35813999094e5857a7c2e75dac4e6c18ebca9f76dffd0c1313d50d954877cf2b54754'),
-(2, '27000000', 'NCB', 'VNP14257863', 'ATM', 'Thanh toán đơn đặt lịch', '20231223150944', '00', 'KETREN3N', '14257863', '00', '26494', '5299e83518afdb3e796c1a4f1f06a843f2968fff4e154dd336fa94c9effd343e435cc820d7761a53cedb95a1015a7bd99e7ccd32183a5782c0020c5f402cecb1'),
-(3, '231000000', 'NCB', 'VNP14258811', 'ATM', 'Thanh toán đơn đặt lịch', '20231224153322', '00', 'KETREN3N', '14258811', '00', '9782d', '87174aaf03c36d64e5ff1ac74702cac5a176c6c26552fa0a61e2b8e0d088525b36690eed8db3e6da08925cff966a69ad833ba5c41a87c04dcfab16e3d92d0868'),
-(4, '231000000', 'NCB', 'VNP14258811', 'ATM', 'Thanh toán đơn đặt lịch', '20231224153322', '00', 'KETREN3N', '14258811', '00', '9782d', '87174aaf03c36d64e5ff1ac74702cac5a176c6c26552fa0a61e2b8e0d088525b36690eed8db3e6da08925cff966a69ad833ba5c41a87c04dcfab16e3d92d0868'),
-(5, '231000000', 'NCB', 'VNP14258811', 'ATM', 'Thanh toán đơn đặt lịch', '20231224153322', '00', 'KETREN3N', '14258811', '00', '9782d', '87174aaf03c36d64e5ff1ac74702cac5a176c6c26552fa0a61e2b8e0d088525b36690eed8db3e6da08925cff966a69ad833ba5c41a87c04dcfab16e3d92d0868'),
-(6, '231000000', 'NCB', 'VNP14258811', 'ATM', 'Thanh toán đơn đặt lịch', '20231224153322', '00', 'KETREN3N', '14258811', '00', '9782d', '87174aaf03c36d64e5ff1ac74702cac5a176c6c26552fa0a61e2b8e0d088525b36690eed8db3e6da08925cff966a69ad833ba5c41a87c04dcfab16e3d92d0868'),
-(7, '231000000', 'NCB', 'VNP14258811', 'ATM', 'Thanh toán đơn đặt lịch', '20231224153322', '00', 'KETREN3N', '14258811', '00', '9782d', '87174aaf03c36d64e5ff1ac74702cac5a176c6c26552fa0a61e2b8e0d088525b36690eed8db3e6da08925cff966a69ad833ba5c41a87c04dcfab16e3d92d0868');
+INSERT INTO `payment_online` (`id`, `Amount`, `BankCode`, `BankTranNo`, `CardType`, `OrderInfo`, `PayDate`, `ResponseCode`, `TmnCode`, `TransactionNo`, `TransactionStatus`, `TxnRef`, `SecureHash`, `created_at`, `updated_at`) VALUES
+(1, '48000000', 'NCB', 'VNP14261487', 'ATM', 'Thanh toán đơn đặt lịch', '20231226211515', '00', 'KETREN3N', '14261487', '00', '11111', 'dd9dc2e4f5d38a3b55bb17a353ce6bc692bd212634beaa4b310675d5318cda7bac498442536c0a6c745e42b039e6848382cc851f8bbfa037033f93ec3afcda80', NULL, NULL),
+(2, '513000000', 'NCB', 'VNP14261518', 'ATM', 'Thanh toán đơn đặt lịch', '20231226215607', '00', 'KETREN3N', '14261518', '00', '11114', '808367c7c695e8dca2a854601ed195a106f65a73b52765b8862ff2da0a0ba1aaafdb547026a81012a2f92c544acd5e29f2a6a0cc95d45b60e61f006b8f5837b9', NULL, NULL),
+(3, '180000000', 'NCB', 'VNP14261548', 'ATM', 'Thanh toán đơn đặt lịch', '20231226221902', '00', 'KETREN3N', '14261548', '00', '11113', '33be796c41933f388d04e07ca9587c9d8eff19cbb9004865efc520c83eef9a1f880232b8922a61f96220ebf7c39f3d2220dab86de3a91d6081a34f7d2e9bad94', NULL, NULL),
+(4, '27000000', 'NCB', 'VNP14261553', 'ATM', 'Thanh toán đơn đặt lịch', '20231226222112', '00', 'KETREN3N', '14261553', '00', '21112', '0103a2b5f72fc06b4b477e7b1d92614629a911ac60163081eef56c1071478d597a0e3533f868c48ec0248586a6671942b03ad38a8aa6f961d07917b50fbf71e3', NULL, NULL),
+(5, '320000000', 'NCB', 'VNP14261554', 'ATM', 'Thanh toán đơn đặt lịch', '20231226222215', '00', 'KETREN3N', '14261554', '00', '21113', '5ef4cb89f20a5ea205a99ab0be966f818fce35b98ee65e2b84e0913bd0df02de9b824e47aaa43f6e43a1f82c70c2e6594fe18b68058c8845663ad83645291399', NULL, NULL),
+(6, '120000000', 'NCB', 'VNP14261555', 'ATM', 'Thanh toán đơn đặt lịch', '20231226222316', '00', 'KETREN3N', '14261555', '00', '31113', '4ca8db99bf0ee923641e22ae4d35a5c6dcb41cbec1a2076845cfc36d05667f941bbe6b9495b52885d42f42b3fa42e86a8acc11bc78711e65c059b264022df5eb', NULL, NULL),
+(7, '213000000', 'NCB', 'VNP14261556', 'ATM', 'Thanh toán đơn đặt lịch', '20231226222515', '00', 'KETREN3N', '14261556', '00', '21114', '52a5ae3fc35dd4d418c93d9d2783cc0309b4eb96117d39a9f47f21f83dadd7efa50312783ef5aac1be50d0c8b24df5cd10837fded90e9988deae180cca9b47a5', NULL, NULL),
+(8, '213000000', 'NCB', 'VNP14261556', 'ATM', 'Thanh toán đơn đặt lịch', '20231226222515', '00', 'KETREN3N', '14261556', '00', '21114', '52a5ae3fc35dd4d418c93d9d2783cc0309b4eb96117d39a9f47f21f83dadd7efa50312783ef5aac1be50d0c8b24df5cd10837fded90e9988deae180cca9b47a5', NULL, NULL),
+(9, '213000000', 'NCB', 'VNP14261556', 'ATM', 'Thanh toán đơn đặt lịch', '20231226222515', '00', 'KETREN3N', '14261556', '00', '21114', '52a5ae3fc35dd4d418c93d9d2783cc0309b4eb96117d39a9f47f21f83dadd7efa50312783ef5aac1be50d0c8b24df5cd10837fded90e9988deae180cca9b47a5', NULL, NULL),
+(10, '80000000', 'NCB', 'VNP14263586', 'ATM', 'Thanh toán đơn đặt lịch', '20231228150956', '00', 'KETREN3N', '14263586', '00', '21117', 'acd5be2e267e2089ed65d3471d266b9ccea5c1cf7abf5d2a123e04f39db1403f8879dbb1c66a8a8309b0362220959b684641883238493b3514e6d9189451280c', NULL, NULL),
+(11, '240000', 'momo', '1703826840', 'napas', 'Thanh toán qua MoMo', '1703826997858', '0', 'MOMOBKUN20180529', '3111630650', 'Successful.', 'bfa5d', '606ef20fbbfeae4431768838032ea822e0f8cba0dfff6c734c842e8205f47d9b', NULL, NULL),
+(14, '350000', 'momo', '1704005703', 'napas', 'Thanh toán qua MoMo', '1704005764770', '0', 'MOMOBKUN20180529', '3111815069', 'Successful.', 'ed97a', '800baefc8cfe1f0726054f17e4a37d706f9b557023f1aec713b336347cc65368', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `personal_access_tokens`
+-- Cấu trúc bảng cho bảng `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
@@ -144,11 +154,12 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_blog`
+-- Cấu trúc bảng cho bảng `tbl_blog`
 --
 
 CREATE TABLE `tbl_blog` (
   `blog_id` int(10) UNSIGNED NOT NULL,
+  `blog_views` varchar(50) DEFAULT '0',
   `blog_title` varchar(255) NOT NULL,
   `blog_image` varchar(255) NOT NULL,
   `blog_des` text NOT NULL,
@@ -157,10 +168,33 @@ CREATE TABLE `tbl_blog` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `tbl_blog`
+--
+
+INSERT INTO `tbl_blog` (`blog_id`, `blog_views`, `blog_title`, `blog_image`, `blog_des`, `blog_content`, `created_at`, `updated_at`) VALUES
+(1, '17', 'Các Loại Cây Cảnh Trong Nhà Đẹp Và Tốt Cho Sức Khỏe', 'cay-canh-trong-nha97.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2024-01-07 06:47:11'),
+(2, '34', 'Tổng Hợp 40+ Cách Làm Mứt Tết Thơm Ngon, Đơn Giản Ngay Tại Nhà', 'cach-lam-mut-tet-300x200.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2024-01-07 06:52:12'),
+(3, '3', 'Khai Bút Đầu Năm Là Gì? Nên Viết Ngày Nào Giờ Nào 2024? Viết Gì Để Được May Mắn?', 'giao-thua-300x200.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2024-01-06 16:25:09'),
+(4, '1', 'Tết Nguyên Đán: Nguồn Gốc, Ý Nghĩa, Các Phong Tục Và Những Sự Thật Thú Vị Về Tết', 'hai-loc-dau-nam-300x200.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2024-01-05 08:35:12'),
+(5, '3', 'Phong Tục Hái Lộc Đầu Năm: Ý Nghĩa Và Cách Hái Lộc Để May Mắn Cả Năm', 'tet-nguyen-dan-300x200.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2024-01-05 08:38:53'),
+(6, '3', 'Tổng Hợp Bảng Mã Lỗi Điều Hòa Panasonic Nội Địa Nhật Chi Tiết Nhất', 'xin-chu-dau-nam-300x200.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2024-01-05 08:39:03'),
+(7, '1', 'Cây Măng Cụt: Đặc Điểm, Cách Trồng Và Cách Chăm Sóc', 'cach-lam-mut-tet-300x200.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2024-01-05 08:39:07'),
+(8, '2', 'Board Máy Lạnh Là Gì? Dấu Hiệu Nhận Biết Điều Hòa Hư Board Và Cách Sửa', 'khai-but-dau-nam-300x200.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2024-01-05 08:40:28'),
+(9, '1', 'Lỗi E0 Điều Hòa Daikin: Nguyên Nhân Và Giải Pháp Khắc Phục Đơn Giản Tại Nhà', 'loi-f95-dieu-hoa-panasonic-300x200.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2024-01-05 08:39:17'),
+(10, '1', 'Máy Lạnh Aqua Báo Lỗi E7: Nguyên Nhân Và Giải Pháp Khắc Phục Tại Nhà', 'giam-can-sau-tet-300x200.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2024-01-05 08:39:48'),
+(11, '0', 'Máy Lạnh Toshiba Không Lạnh: Nguyên Nhân Và Giải Pháp Khắc Phục Tại Nhà', 'loi-e4-dieu-hoa-funiki-300x200.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2023-12-26 10:51:42'),
+(12, '0', '[Góc Giải Đáp] Máy Giặt Beko Có Tốt Không? Có Nên Mua Không?', 'cach-chung-trai-cay-ngay-tet-300x200.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2023-12-26 10:51:42'),
+(13, '0', 'Giao Thừa: Ý Nghĩa, Các Phong Tục Và Những Điều Kiêng Kỵ Cần Biết', 'loi-e6-dieu-hoa-gree-nguyen-nhan-cach-khac-phuc-300x200.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2023-12-26 10:51:42'),
+(14, '0', 'Phong Tục Xin Chữ Đầu Năm Là Gì? Tết Giáp Thìn 2024 Nên Xin Chữ Gì?', 'hai-loc-dau-nam-300x200.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2023-12-26 10:51:42');
+INSERT INTO `tbl_blog` (`blog_id`, `blog_views`, `blog_title`, `blog_image`, `blog_des`, `blog_content`, `created_at`, `updated_at`) VALUES
+(15, '0', 'Mách Bạn Top 10+ Cách Giảm Cân Sau Tết Nhanh Chóng, Hiệu Quả', 'cac-loai-dieu-hoa-300x200.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2023-12-26 10:51:42'),
+(16, '0', 'Các Loại Cây Cảnh Trong Nhà Đẹp Và Tốt Cho Sức Khỏe', 'cay-canh-trong-nha97.jpg', 'Rất nhiều gia đình thích và muốn trồng cây cảnh trong nhà, nhưng không biết làm thế nào để chăm sóc cho đúng cách. Còn chần chờ gì nữa mà bạn không xem ngay bài viết dưới đây.', '<h2><strong>1 Đặc điểm của c&acirc;y cảnh trồng trong nh&agrave;</strong></h2>\r\n\r\n<p>Những loại c&acirc;y cảnh c&oacute; thể sinh trưởng dưới m&ocirc;i trường thiếu &aacute;nh nắng v&agrave; c&oacute; thể chịu nhiệt độ lạnh của m&aacute;y lạnh trong một mức độ được cho ph&eacute;p.</p>\r\n\r\n<p>C&aacute;c loại c&acirc;y cảnh d&ugrave;ng để b&agrave;n được nu&ocirc;i sống trong chậu thường c&oacute; thể quang hợp được nhờ v&agrave;o &aacute;nh s&aacute;ng thường của ban ng&agrave;y hoặc &aacute;nh đ&egrave;n điện, ch&uacute;ng kh&ocirc;ng cần &aacute;nh nắng mặt trời trực tiếp chiếu v&agrave;o.&nbsp;</p>\r\n\r\n<p>Tuy nhi&ecirc;n, x&eacute;t theo nguy&ecirc;n l&yacute; về sinh học, nếu để c&acirc;y cảnh ở m&ocirc;i trường &aacute;nh s&aacute;ng yếu qu&aacute; l&acirc;u c&acirc;y vẫn c&oacute; thể sẽ kh&ocirc; h&eacute;o v&agrave; chết. V&igrave; vậy h&atilde;y c&aacute;ch 2-3 ng&agrave;y lại đưa c&acirc;y ra chỗ &aacute;nh s&aacute;ng mặt trời một lần nh&eacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây cảnh trông nhà có thể phát triển trong môi trường thiếu nắng.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/dac-diem-cua-cay-canh.jpg\" /></p>\r\n\r\n<p><em>Đặc điểm của c&acirc;y cảnh trong nh&agrave;</em></p>\r\n\r\n<h2><strong>2 C&aacute;ch chọn c&acirc;y cảnh trong nh&agrave;</strong></h2>\r\n\r\n<ul>\r\n	<li>\r\n	<h3><strong>Chọn c&acirc;y dễ trồng, mọng nước</strong></h3>\r\n	</li>\r\n</ul>\r\n\r\n<p>Khi chọn những loại c&acirc;y để trong nh&agrave;, bạn n&ecirc;n những loại c&acirc;y c&oacute; th&acirc;n h&igrave;nh mọng nước v&agrave; dễ trồng. C&aacute;ch n&agrave;y kh&ocirc;ng chỉ vừa chọn được c&acirc;y đẹp, dễ chăm s&oacute;c m&agrave; ch&uacute;ng thường c&oacute; &yacute; nghĩa về mặt phong thuỷ rất tốt.&nbsp;</p>\r\n\r\n<p>Một số loại c&acirc;y như c&acirc;y Ngọc B&iacute;ch, c&acirc;y Kim Tiền, c&acirc;y Nha Đam, c&acirc;y Sống đời, c&acirc;y Sen đ&aacute;,&hellip;đều l&agrave; những lo&agrave;i c&acirc;y cảnh đại diện cho sự may mắn, sự c&aacute;t tường, vi&ecirc;n m&atilde;n v&agrave; gi&agrave;u c&oacute;.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Cây nha đam, sen đá,.. là những loại cây trồng trong nhà\" src=\"https://www.btaskee.com/wp-content/uploads/2023/01/cay-mong-nuoc.jpg\" /></p>\r\n\r\n<p><em>Chọn c&acirc;y mọng nước</em></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong></p>\r\n\r\n<ul>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-chon-cay-canh-de-ban-lam-viec/\">C&aacute;ch Chọn C&acirc;y Cảnh Để B&agrave;n L&agrave;m Việc</a>&nbsp;Theo Phong Thủy</em></strong></li>\r\n	<li><strong><em>27&nbsp;<a href=\"https://www.btaskee.com/kinh-nghiem-hay/cay-trong-trong-nuoc/\">C&acirc;y Trồng Trong Nước</a>&nbsp;Dễ Chăm Trang Tr&iacute; Trong Nh&agrave;</em></strong></li>\r\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/nen-trong-cay-gi-truoc-nha/\">N&ecirc;n Trồng C&acirc;y G&igrave; Trước Nh&agrave;</a>? 12 Loại C&acirc;y Phong Thủy Tốt</em></strong></li>\r\n</ul>\r\n\r\n<p><em>H&igrave;nh ảnh: Freepik</em></p>', '2023-12-26 10:06:17', '2023-12-26 10:51:42');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_booking`
+-- Cấu trúc bảng cho bảng `tbl_booking`
 --
 
 CREATE TABLE `tbl_booking` (
@@ -179,22 +213,50 @@ CREATE TABLE `tbl_booking` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tbl_booking`
+-- Đang đổ dữ liệu cho bảng `tbl_booking`
 --
 
 INSERT INTO `tbl_booking` (`id`, `book_id`, `coupon_id`, `payment_id`, `service_id`, `shipping_id`, `book_total`, `book_status`, `book_address`, `book_notes`, `created_at`, `updated_at`) VALUES
-(1, '926cf', 0, 2, 2, 1, 3810000, 1, '90,Thành phố Hà Nội, Quận Hoàn Kiếm, Phường Hàng Đào', 'Demo Ca cố định', '2023-12-19 05:34:46', '2023-12-20 08:46:45'),
-(2, '26494', 0, 3, 1, 1, 270000, 3, '90,Thành phố Hà Nội, Quận Hoàn Kiếm, Phường Hàng Đào', 'Demo ca giờ', '2023-12-19 05:40:44', '2023-12-23 08:11:09'),
-(3, 'b773a', 0, 1, 1, 1, 270000, 4, '90,Thành phố Hà Nội, Quận Hoàn Kiếm, Phường Hàng Đào', NULL, '2023-12-20 05:34:30', '2023-12-20 05:41:35'),
-(4, '6c210', 0, 1, 1, 1, 160000, 1, '90,Thành phố Hà Nội, Quận Hoàn Kiếm, Phường Hàng Đào', NULL, '2023-12-21 06:51:16', '2023-12-21 06:51:16'),
-(5, 'cc617', 0, 1, 2, 1, 820000, 3, '90,Thành phố Hà Nội, Quận Hoàn Kiếm, Phường Hàng Đào', 'Ca cố định 2', '2023-12-21 07:34:41', '2023-12-21 08:51:01'),
-(6, 'cc633', 0, 1, 2, 2, 500000, 2, '90,Thành phố Hà Nội, Quận Hoàn Kiếm, Phường Hàng Đào', 'Ca cố định 2', '2023-12-21 07:34:41', '2023-12-24 08:28:13'),
-(7, '9782d', 0, 3, 2, 1, 2310000, 2, '90,Thành phố Hà Nội, Quận Hoàn Kiếm, Phường Hàng Đào', 'Không có', '2023-12-24 08:13:25', '2023-12-24 08:46:09');
+(1, '11111', 0, 3, 1, 1, 480000, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Tôi cần người giúp việc là Nữ và trên 25 tuổi', '2023-12-26 12:42:31', '2023-12-26 15:35:35'),
+(2, '11112', 2, 1, 1, 1, 90000, 3, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Text hủy Ca giờ chưa thanh toán', '2023-12-27 12:43:18', '2023-12-26 14:12:54'),
+(3, '11113', 0, 3, 2, 1, 1800000, 2, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Trên 30 tuổi và Nam', '2023-12-27 12:44:50', '2023-12-26 15:19:57'),
+(4, '11114', 5, 3, 2, 1, 5130000, 3, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Demo huy ca cố định', '2023-12-26 13:04:20', '2023-12-26 14:59:00'),
+(5, '21111', 0, 1, 1, 2, 450000, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Tôi cần người giúp việc là Nữ và trên 25 tuổi', '2023-12-17 12:42:31', '2023-12-26 15:16:47'),
+(6, '21112', 2, 3, 1, 2, 270000, 2, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', NULL, '2023-12-21 12:43:18', '2023-12-26 15:21:16'),
+(7, '21113', 0, 3, 2, 2, 3200000, 2, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Trên 30 tuổi và Nam', '2023-12-19 12:44:50', '2024-01-04 05:59:08'),
+(8, '21114', 5, 3, 2, 3, 2130000, 2, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Ngoại hình gọn gàng có kinh nghiệm dọn dẹp và trên 20 tuổi', '2023-12-20 13:04:20', '2023-12-27 10:54:08'),
+(9, '21115', 0, 1, 1, 3, 430000, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Tôi cần người giúp việc là Nữ và trên 25 tuổi', '2023-12-14 12:42:31', '2023-12-26 15:36:55'),
+(10, '21116', 2, 1, 1, 3, 190000, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', NULL, '2023-12-27 12:43:18', '2023-12-26 14:54:11'),
+(11, '21117', 0, 3, 2, 2, 800000, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Trên 30 tuổi và Nam', '2023-12-29 12:44:50', '2024-01-01 09:11:28'),
+(12, '31111', 0, 1, 1, 3, 430000, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Tôi cần người giúp việc là Nữ và trên 25 tuổi', '2023-12-27 12:42:31', '2023-12-26 15:16:06'),
+(13, '31112', 2, 1, 1, 3, 400000, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', NULL, '2023-12-28 12:43:18', '2023-12-26 14:46:49'),
+(14, '31113', 0, 3, 2, 2, 1200000, 2, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Trên 30 tuổi và Nam', '2023-12-29 12:44:50', '2023-12-26 15:23:20'),
+(16, '1f9dc', 5, 1, 1, 5, 180500, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', NULL, '2023-12-27 08:19:40', '2023-12-28 08:12:10'),
+(17, '5dfa0', 4, 1, 2, 5, 1990000, 2, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Tôi cân nữ và trên 30 tuổi', '2023-12-27 08:21:51', '2023-12-27 10:54:04'),
+(18, '4336b', 2, 1, 2, 5, 4890000, 2, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Tôi cần Nam và trên 30 tuổi', '2023-12-27 08:23:38', '2023-12-27 10:53:35'),
+(19, '923a7', 0, 1, 1, 7, 270000, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Ca giờ', '2023-12-28 08:47:22', '2024-01-01 10:16:22'),
+(20, '7ab36', 0, 1, 1, 7, 480000, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Ca giờ ngày 30', '2023-12-28 08:47:55', '2024-01-01 10:16:54'),
+(21, '17c57', 5, 1, 2, 7, 2280000, 2, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Ca cố định người dùng 7', '2023-12-28 08:48:46', '2023-12-28 08:55:26'),
+(22, '4b0fc', 4, 1, 2, 7, 1630000, 2, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Ca cố định 2 người dùng 7', '2023-12-28 08:50:14', '2023-12-28 08:55:20'),
+(23, 'fee9f', 0, 1, 1, 7, 430000, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Fix search confirm', '2023-12-28 09:00:18', '2024-01-01 10:16:40'),
+(24, 'c2f2e', 0, 1, 1, 7, 450000, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', NULL, '2023-12-28 09:38:26', '2024-01-03 07:27:39'),
+(25, 'bfa5d', 0, 2, 1, 1, 240000, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '29/12 Ca giờ giúp việc 1', '2023-12-29 04:46:25', '2024-01-03 07:11:26'),
+(26, '3c309', 5, 1, 2, 1, 2280000, 2, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Ca Cố định người dùng 1 29/12', '2023-12-29 06:21:07', '2023-12-31 08:14:11'),
+(27, 'ed97a', 0, 2, 1, 1, 350000, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '31/12 người dùng 1  ca lẻ', '2023-12-31 06:27:45', '2024-01-03 07:29:16'),
+(28, '5c6e3', 0, 1, 1, 2, 270000, 2, '086872321490,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'người dùng 2 ca giờ', '2024-01-01 10:09:27', '2024-01-01 10:10:14'),
+(29, 'f99d6', 5, 1, 1, 1, 370500, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'tôi cần Nữ và trên 20 tuổi', '2024-01-04 05:28:28', '2024-01-04 05:59:50'),
+(30, '2dbc0', 0, 1, 2, 1, 960000, 2, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'cần nguowfif giúp việc trên 20 tuổi và nữ', '2024-01-08 01:25:45', '2024-01-08 01:26:20'),
+(31, '6c5a8', 0, 1, 1, 1, 270000, 4, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', NULL, '2024-01-08 02:22:51', '2024-01-08 02:34:19'),
+(32, 'c1dfc', 0, 1, 1, 2, 190000, 2, '086872321490,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', NULL, '2024-01-08 02:25:39', '2024-01-10 04:20:33'),
+(33, '6ceb7', 0, 1, 1, 2, 270000, 2, '086872321490,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', NULL, '2024-01-08 02:26:53', '2024-01-10 04:20:24'),
+(34, '7874c', 0, 1, 1, 2, 430000, 2, '086872321490,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', NULL, '2024-01-08 02:28:59', '2024-01-10 04:20:05'),
+(35, 'e2aeb', 5, 1, 2, 2, 2128000, 2, '086872321490,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'cần nữ trên 20 tuổi', '2024-01-08 02:32:30', '2024-01-08 02:33:01'),
+(36, 'd9ec0', 5, 1, 1, 1, 332500, 2, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Cần Nam và trên 30 tuổi', '2024-01-10 07:42:57', '2024-01-10 07:59:49');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_booking_details`
+-- Cấu trúc bảng cho bảng `tbl_booking_details`
 --
 
 CREATE TABLE `tbl_booking_details` (
@@ -210,38 +272,51 @@ CREATE TABLE `tbl_booking_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tbl_booking_details`
+-- Đang đổ dữ liệu cho bảng `tbl_booking_details`
 --
 
 INSERT INTO `tbl_booking_details` (`id`, `book_id`, `book_date`, `book_time_start`, `book_time_number`, `book_total`, `book_options`, `created_at`, `updated_at`) VALUES
-(1, '926cf', '19/12/2023,20/12/2023,31/12/2023,01/01/2024,07/01/2024,08/01/2024,11/01/2024,14/01/2024,15/01/2024,21/01/2024,22/01/2024,28/01/2024,29/01/2024,02/02/2024,18/02/2024', '08:30', 3, 3810000, '', '2023-12-19 05:34:46', '2023-12-19 05:34:46'),
-(2, '26494', '25/12/2023', '10:30', 3, 270000, 'Nấu ăn,Ủi đồ,Đi chợ,Mang dụng cụ', '2023-12-19 05:40:44', '2023-12-19 05:40:44'),
-(3, 'b773a', '20/12/2023', '08:30', 3, 270000, 'Mang dụng cụ', '2023-12-20 05:34:30', '2023-12-20 05:34:30'),
-(4, '6c210', '21/12/2023', '15:30', 2, 160000, 'Nấu ăn', '2023-12-21 06:51:16', '2023-12-21 06:51:16'),
-(5, 'cc617', '21/12/2023,03/01/2024,04/01/2024,05/01/2024,06/01/2024', '16:30', 2, 820000, '', '2023-12-21 07:34:41', '2023-12-21 07:34:41'),
-(6, '9782d', '26/12/2023,27/12/2023,02/01/2024,03/01/2024,09/01/2024,10/01/2024,16/01/2024,17/01/2024,23/01/2024,24/01/2024,30/01/2024', '12:30', 3, 2310000, '', '2023-12-24 08:13:25', '2023-12-24 08:13:25');
+(1, '11111', '21/12/2023', '14:00', 5, 480000, 'Nấu ăn,Ủi đồ,Mang dụng cụ', '2023-12-26 12:42:31', '2023-12-26 12:42:31'),
+(2, '11112', '01/01/2024', '08:30', 3, 90000, 'Nấu ăn,Ủi đồ,Đi chợ', '2023-12-26 12:43:18', '2023-12-26 12:43:18'),
+(3, '11113', '03/01/2024,11/01/2024,14/01/2024,18/01/2024,21/01/2024,25/01/2024,28/01/2024,01/02/2024', '17:00', 3, 1800000, '', '2023-12-26 12:44:50', '2023-12-26 12:44:50'),
+(4, '11114', '29/12/2023,30/12/2023,05/01/2024,06/01/2024,12/01/2024,13/01/2024,19/01/2024,20/01/2024,26/01/2024,27/01/2024,02/02/2024,03/02/2024,09/02/2024,10/02/2024,16/02/2024,17/02/2024,23/02/2024,24/02/2024', '14:00', 4, 5130000, '', '2023-12-26 13:04:20', '2023-12-26 13:04:20'),
+(5, '21111', '06/01/2024', '14:00', 5, 450000, 'Nấu ăn,Ủi đồ,Mang dụng cụ', '2023-12-26 12:42:31', '2023-12-26 12:42:31'),
+(6, '21112', '01/01/2024', '08:30', 3, 270000, 'Nấu ăn,Ủi đồ,Đi chợ', '2023-12-26 12:43:18', '2023-12-26 12:43:18'),
+(7, '21113', '01/01/2024,02/01/2024,03/01/2024,18/01/2024,21/01/2024,25/01/2024,28/01/2024,01/02/2024', '17:00', 3, 3200000, '', '2023-12-26 12:44:50', '2023-12-26 12:44:50'),
+(8, '21114', '29/12/2023,30/12/2023,05/01/2024,06/01/2024,12/01/2024,13/01/2024,19/01/2024,20/01/2024,26/01/2024,27/01/2024,02/02/2024,03/02/2024,09/02/2024,10/02/2024,16/02/2024,17/02/2024,23/02/2024,24/02/2024', '14:00', 4, 2130000, '', '2023-12-26 13:04:20', '2023-12-26 13:04:20'),
+(9, '21115', '06/01/2024', '14:00', 5, 430000, 'Nấu ăn,Ủi đồ,Mang dụng cụ', '2023-12-26 12:42:31', '2023-12-26 12:42:31'),
+(10, '21116', '01/01/2024', '08:30', 3, 190000, 'Nấu ăn,Ủi đồ,Đi chợ', '2023-12-26 12:43:18', '2023-12-26 12:43:18'),
+(11, '21117', '07/01/2024,11/01/2024,14/01/2024,18/01/2024,21/01/2024,01/01/2024,01/01/2024,01/01/2024', '17:00', 3, 800000, '', '2023-12-26 12:44:50', '2023-12-26 12:44:50'),
+(12, '31111', '18/12/2023', '14:00', 4, 430000, '', '2023-12-26 13:04:20', '2023-12-26 13:04:20'),
+(13, '31112', '20/12/2023', '17:00', 3, 400000, '', '2023-12-26 12:44:50', '2023-12-26 12:44:50'),
+(14, '31113', '29/12/2023,30/12/2023,05/01/2024,06/01/2024,12/01/2024,13/01/2024,19/01/2024,20/01/2024,26/01/2024,27/01/2024,02/02/2024,03/02/2024,09/02/2024,10/02/2024,16/02/2024,17/02/2024,23/02/2024,24/02/2024', '14:00', 4, 1200000, '', '2023-12-26 13:04:20', '2023-12-26 13:04:20'),
+(15, 'bf80b', '05/01/2024', '08:30', 2, 180500, 'Nấu ăn,Mang dụng cụ', '2023-12-26 13:57:35', '2023-12-26 13:57:35'),
+(16, '1f9dc', '27/12/2023', '19:00', 2, 180500, 'Nấu ăn,Mang dụng cụ', '2023-12-27 08:19:40', '2023-12-27 08:19:40'),
+(17, '5dfa0', '31/12/2023,05/01/2024,07/01/2024,12/01/2024,14/01/2024,19/01/2024,21/01/2024,26/01/2024,28/01/2024', '08:30', 3, 1990000, '', '2023-12-27 08:21:51', '2023-12-27 08:21:51'),
+(18, '4336b', '01/01/2024,03/01/2024,05/01/2024,08/01/2024,10/01/2024,12/01/2024,15/01/2024,17/01/2024,19/01/2024,22/01/2024,24/01/2024,26/01/2024,29/01/2024,31/01/2024,02/02/2024,05/02/2024,07/02/2024,09/02/2024,12/02/2024,14/02/2024,16/02/2024,19/02/2024,21/02/2024,23/02/2024', '08:30', 3, 4890000, '', '2023-12-27 08:23:38', '2023-12-27 08:23:38'),
+(19, '923a7', '29/12/2023', '09:30', 3, 270000, 'Mang dụng cụ', '2023-12-28 08:47:22', '2023-12-28 08:47:22'),
+(20, '7ab36', '30/12/2023', '08:30', 5, 480000, 'Nấu ăn,Mang dụng cụ', '2023-12-28 08:47:55', '2023-12-28 08:47:55'),
+(21, '17c57', '31/12/2023,06/01/2024,07/01/2024,13/01/2024,14/01/2024,20/01/2024,21/01/2024,27/01/2024,28/01/2024,03/02/2024', '16:30', 3, 2280000, '', '2023-12-28 08:48:46', '2023-12-28 08:48:46'),
+(22, '4b0fc', '04/01/2024,05/01/2024,11/01/2024,12/01/2024,18/01/2024,19/01/2024,25/01/2024,26/01/2024', '08:30', 3, 1630000, '', '2023-12-28 08:50:14', '2023-12-28 08:50:14'),
+(23, 'fee9f', '03/01/2024', '08:30', 5, 430000, 'Mang dụng cụ', '2023-12-28 09:00:18', '2023-12-28 09:00:18'),
+(24, 'c2f2e', '30/12/2023', '08:30', 5, 450000, 'Nấu ăn,Đi chợ', '2023-12-28 09:38:26', '2023-12-28 09:38:26'),
+(25, 'bfa5d', '01/01/2024', '08:30', 3, 240000, 'Ủi đồ', '2023-12-29 04:46:25', '2023-12-29 04:46:25'),
+(26, '3c309', '31/12/2023,06/01/2024,07/01/2024,13/01/2024,14/01/2024,20/01/2024,21/01/2024,27/01/2024,28/01/2024,03/02/2024', '12:30', 3, 2280000, '', '2023-12-29 06:21:07', '2023-12-29 06:21:07'),
+(27, 'ed97a', '01/01/2024', '08:30', 4, 350000, 'Mang dụng cụ', '2023-12-31 06:27:45', '2023-12-31 06:27:45'),
+(28, '5c6e3', '01/01/2024', '21:30', 3, 270000, 'Mang dụng cụ', '2024-01-01 10:09:27', '2024-01-01 10:09:27'),
+(29, 'f99d6', '07/01/2024', '14:00', 4, 370500, 'Đi chợ,Mang dụng cụ', '2024-01-04 05:28:28', '2024-01-04 05:28:28'),
+(30, '2dbc0', '10/01/2024,11/01/2024,17/01/2024,18/01/2024,24/01/2024,25/01/2024', '08:30', 2, 960000, '', '2024-01-08 01:25:45', '2024-01-08 01:25:45'),
+(31, '6c5a8', '09/01/2024', '08:30', 3, 270000, 'Mang dụng cụ', '2024-01-08 02:22:51', '2024-01-08 02:22:51'),
+(32, 'c1dfc', '09/01/2024', '08:30', 2, 190000, 'Mang dụng cụ', '2024-01-08 02:25:39', '2024-01-08 02:25:39'),
+(33, '6ceb7', '10/01/2024', '08:30', 3, 270000, 'Mang dụng cụ', '2024-01-08 02:26:53', '2024-01-08 02:26:53'),
+(34, '7874c', '10/01/2024', '08:30', 5, 430000, 'Nấu ăn,Đi chợ,Mang dụng cụ', '2024-01-08 02:28:59', '2024-01-08 02:28:59'),
+(35, 'e2aeb', '09/01/2024,09/01/2024,10/01/2024,10/01/2024,16/01/2024,16/01/2024,17/01/2024,17/01/2024,23/01/2024,23/01/2024,24/01/2024,24/01/2024,30/01/2024,30/01/2024', '12:30', 2, 2128000, '', '2024-01-08 02:32:30', '2024-01-08 02:32:30'),
+(36, 'd9ec0', '11/01/2024', '15:00', 4, 332500, 'Ủi đồ,Mang dụng cụ', '2024-01-10 07:42:57', '2024-01-10 07:42:57');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_category`
---
-
-CREATE TABLE `tbl_category` (
-  `category_id` int(10) UNSIGNED NOT NULL,
-  `category_name` varchar(255) NOT NULL,
-  `category_image` varchar(255) NOT NULL,
-  `category_des` text NOT NULL,
-  `category_content` text NOT NULL,
-  `category_status` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_city`
+-- Cấu trúc bảng cho bảng `tbl_city`
 --
 
 CREATE TABLE `tbl_city` (
@@ -251,7 +326,7 @@ CREATE TABLE `tbl_city` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `tbl_city`
+-- Đang đổ dữ liệu cho bảng `tbl_city`
 --
 
 INSERT INTO `tbl_city` (`city_id`, `city_name`, `city_type`) VALUES
@@ -322,7 +397,7 @@ INSERT INTO `tbl_city` (`city_id`, `city_name`, `city_type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_comment`
+-- Cấu trúc bảng cho bảng `tbl_comment`
 --
 
 CREATE TABLE `tbl_comment` (
@@ -331,23 +406,57 @@ CREATE TABLE `tbl_comment` (
   `name` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   `rate` int(11) NOT NULL,
-  `comment` varchar(255) NOT NULL,
+  `comment` text NOT NULL,
   `reply` text DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tbl_comment`
+-- Đang đổ dữ liệu cho bảng `tbl_comment`
 --
 
-INSERT INTO `tbl_comment` (`comment_id`, `history_id`, `name`, `image`, `rate`, `comment`, `reply`, `created_at`, `updated_at`) VALUES
-(1, 3, 'user1', 'nguoidung59grocery-assistant-lua-chon-da-dang.png', 5, 'NGười giúp việc giỏi', '', '2023-12-23 10:42:05', '2023-12-23 10:42:05');
+INSERT INTO `tbl_comment` (`comment_id`, `history_id`, `name`, `image`, `rate`, `comment`, `reply`, `status`, `created_at`, `updated_at`) VALUES
+(1, 3, 'user1', 'nguoidung59grocery-assistant-lua-chon-da-dang.png', 5, 'NGười giúp việc giỏi', '', 1, '2023-12-23 10:42:05', '2023-12-23 10:42:05'),
+(2, 17, 'user1', 'nguoidung59grocery-assistant-lua-chon-da-dang.png', 5, 'Lorem Ipsum is a Latin phrase that has been used as the standard dummy text for the printing and typesetting industry since the 1500s. Learn about its origin, variations, and how to use it in your', 'Cảm ơn bạn đã ủng hộ dịch vụ của chúng tôi', NULL, '2023-12-24 16:40:12', '2023-12-25 14:44:36'),
+(3, 30, 'Trần Minh Nghĩa', 'nguoidung4grocery-assistant-lua-chon-da-dang.png', 5, 'Nguyễn Xuân Nhật Giúp việc nhà đc', 'Cảm ơn bạn đã phản hồi và dùng dịch vụ của chúng tôi', NULL, '2023-12-27 07:28:30', '2023-12-28 08:26:04'),
+(4, 34, 'Người dùng 2', 'ndteam-1.jpg', 4, 'Tôi hoàn toàn ưng ý .', 'Cảm ơn bạn đã phản hồi và dùng dịch vụ của chúng tôi', NULL, '2023-12-28 08:08:55', '2023-12-28 08:26:14'),
+(5, 35, 'Người dùng 3', 'NDmessages-1.jpg', 3, 'Quá tệ', 'Cảm ơn bạn đã phản hồi và dùng dịch vụ của chúng tôi', 1, '2023-12-28 08:17:16', '2023-12-28 08:26:00'),
+(6, 27, 'Người dùng 3', 'NDmessages-1.jpg', 5, '5 sao giỏi', 'Cảm ơn bạn đã phản hồi và dùng dịch vụ của chúng tôi', NULL, '2023-12-28 08:17:34', '2023-12-28 08:26:11'),
+(7, 28, 'Người dùng 3', 'NDmessages-1.jpg', 4, 'Cũng đc', 'Cảm ơn bạn đã phản hồi và dùng dịch vụ của chúng tôi', 1, '2023-12-28 08:17:46', '2023-12-28 08:26:09'),
+(8, 23, 'Người dùng 3', 'NDmessages-1.jpg', 5, 'quá đươc luôn', 'Cảm ơn bạn đã phản hồi và dùng dịch vụ của chúng tôi', NULL, '2023-12-28 08:18:03', '2023-12-28 08:26:17'),
+(9, 21, 'Người dùng 2', 'ndteam-1.jpg', 5, 'Tuyệt vời Tôi sẽ tiếp tục sư dụng dịch vụ của bạn', NULL, 1, '2024-01-01 10:08:13', '2024-01-04 09:04:38');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_coupon`
+-- Cấu trúc bảng cho bảng `tbl_contact`
+--
+
+CREATE TABLE `tbl_contact` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `contact_name` varchar(255) NOT NULL,
+  `contact_email` varchar(255) NOT NULL,
+  `contact_subject` varchar(255) NOT NULL,
+  `contact_content` text NOT NULL,
+  `contact_reply` text DEFAULT NULL,
+  `contact_status` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_contact`
+--
+
+INSERT INTO `tbl_contact` (`id`, `contact_name`, `contact_email`, `contact_subject`, `contact_content`, `contact_reply`, `contact_status`, `created_at`, `updated_at`) VALUES
+(1, 'nghĩa', 'minhnghia11a1@gmail.com', 'Nội dung vấn đề', 'Nội dung vấn đềNội dung vấn đề', 'Cảm ơn bạn đã gửi câu trả lời', 0, '2024-01-07 07:37:17', '2024-01-07 10:31:36');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tbl_coupon`
 --
 
 CREATE TABLE `tbl_coupon` (
@@ -365,17 +474,19 @@ CREATE TABLE `tbl_coupon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tbl_coupon`
+-- Đang đổ dữ liệu cho bảng `tbl_coupon`
 --
 
 INSERT INTO `tbl_coupon` (`coupon_id`, `coupon_name`, `coupon_code`, `coupon_des`, `coupon_time_start`, `coupon_time_end`, `coupon_method`, `coupon_number`, `coupon_status`, `created_at`, `updated_at`) VALUES
-(1, 'Giảm tới 50% Đơn hàng đầu tiên khi đăng ký tài khoản', 'CP001', 'Giảm 150k cho Đơn Tối Thiểu ₫0', '2023-12-22', '2024-02-12', 0, 50, 0, NULL, NULL),
-(2, 'Giảm 150k cho Đơn Tối Thiểu ₫0', 'CPMN001', 'Giảm 150k cho Đơn Tối Thiểu ₫0', '2023-11-15', '2023-12-31', 1, 150000, 0, NULL, NULL);
+(1, 'Giảm tới 50% Đơn hàng đầu tiên khi đăng ký tài khoản', 'CP001', 'Giảm tới 50% Đơn hàng đầu tiên khi đăng ký tài khoản', '2023-09-22', '2023-11-11', 0, 50, 0, NULL, NULL),
+(2, 'Giảm 150k cho Đơn Tối Thiểu ₫0', 'CPMN001', 'Giảm 150k cho Đơn Tối Thiểu ₫0', '2023-11-15', '2023-12-31', 1, 150000, 0, NULL, NULL),
+(4, 'Giảm 50k cho Đơn Tối Thiểu ₫0', 'CPMN002', 'Giảm 50k cho Đơn Tối Thiểu ₫0', '2023-12-26', '2024-01-31', 1, 50000, 0, NULL, NULL),
+(5, 'Giảm 5% Đơn Tối Thiểu ₫300k Giảm tối đa ₫30k', 'CP002', 'Giảm 5% Đơn Tối Thiểu ₫300k Giảm tối đa ₫30k', '2023-12-22', '2024-02-26', 0, 5, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_history`
+-- Cấu trúc bảng cho bảng `tbl_history`
 --
 
 CREATE TABLE `tbl_history` (
@@ -383,8 +494,8 @@ CREATE TABLE `tbl_history` (
   `book_id` varchar(255) NOT NULL,
   `housekeeper_id` varchar(255) NOT NULL,
   `date_finish` int(11) DEFAULT 0,
-  `history_pevious_date` int(11) DEFAULT 0,
-  `history_notes` varchar(255) DEFAULT NULL,
+  `history_previous_date` int(11) DEFAULT 0,
+  `history_notes` text DEFAULT NULL,
   `history_refund` varchar(255) DEFAULT NULL,
   `history_status` varchar(255) NOT NULL,
   `processing` int(11) NOT NULL DEFAULT 1,
@@ -393,19 +504,59 @@ CREATE TABLE `tbl_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tbl_history`
+-- Đang đổ dữ liệu cho bảng `tbl_history`
 --
 
-INSERT INTO `tbl_history` (`history_id`, `book_id`, `housekeeper_id`, `date_finish`, `history_pevious_date`, `history_notes`, `history_refund`, `history_status`, `processing`, `created_at`, `updated_at`) VALUES
+INSERT INTO `tbl_history` (`history_id`, `book_id`, `housekeeper_id`, `date_finish`, `history_previous_date`, `history_notes`, `history_refund`, `history_status`, `processing`, `created_at`, `updated_at`) VALUES
 (1, '26494', '934c0', 0, 0, NULL, NULL, '3', 1, '2023-12-19 07:03:20', '2023-12-23 08:11:09'),
-(2, '926cf', '934c1', 2, 0, 'Khách hàng good', NULL, '2', 1, '2023-12-19 07:04:40', '2023-12-21 10:04:12'),
+(2, '926cf', '934c1', 2, 0, 'Khách hàng good', NULL, '4', 1, '2023-12-19 07:04:40', '2023-12-21 10:04:12'),
 (3, 'b773a', '934c1', 1, 0, NULL, NULL, '4', 0, '2023-12-20 05:36:55', '2023-12-24 10:45:30'),
-(15, '9782d', '934c1', 0, 0, NULL, NULL, '2', 1, '2023-12-24 08:28:13', '2023-12-24 08:28:13');
+(15, '9782d', '934c1', 0, 0, NULL, NULL, '3', 1, '2023-12-24 08:28:13', '2023-12-24 15:41:03'),
+(17, 'c1365', '934c0', 2, 0, NULL, NULL, '4', 0, '2023-12-24 13:16:07', '2023-12-24 13:46:15'),
+(18, 'c1365', '934c1', 8, 2, NULL, NULL, '4', 1, '2023-12-24 13:24:03', '2023-12-24 13:24:03'),
+(19, '443c6', '934c1', 5, 0, NULL, NULL, '3', 0, '2023-12-24 13:48:27', '2023-12-25 10:22:14'),
+(20, '96e99', '934c1', 0, 0, NULL, NULL, '3', 1, '2023-12-26 05:56:04', '2023-12-26 06:13:15'),
+(21, '21117', '3ac0e', 5, 0, 'lý do người giúp việc hủy', NULL, '4', 0, '2023-12-26 13:53:48', '2023-12-31 08:15:13'),
+(22, '31113', '3ac0e', 0, 0, NULL, NULL, '2', 1, '2023-12-26 13:54:38', '2023-12-26 13:54:38'),
+(23, '31112', '3ac0e', 1, 0, 'Khách hàng thân thiện', NULL, '4', 0, '2023-12-26 13:54:55', '2023-12-26 14:48:47'),
+(25, '11113', '373eb', 1, 0, '-Hoàn thành CV ngày 1', NULL, '2', 1, '2023-12-26 13:55:29', '2024-01-03 07:28:49'),
+(27, '21116', '373eb', 1, 0, 'Nhật ca giờ', NULL, '4', 0, '2023-12-26 13:55:41', '2023-12-26 14:55:10'),
+(28, '31111', '373eb', 1, 0, 'Đã hoàng thành', NULL, '4', 0, '2023-12-26 13:55:49', '2023-12-26 15:39:35'),
+(29, '11114', 'c741c', 10, 0, NULL, '1824000', '3', 0, '2023-12-26 13:56:04', '2023-12-26 15:10:06'),
+(30, '11111', 'e59d6', 1, 0, 'Đã hoàn thành', NULL, '4', 0, '2023-12-26 13:56:09', '2023-12-26 15:40:56'),
+(31, '21112', '373e0', 0, 0, NULL, NULL, '2', 1, '2023-12-26 13:56:14', '2023-12-26 13:56:14'),
+(33, '21113', 'c741c', 3, 0, 'Tôi có công việc đột xuất không thể tiếp tục hoàn thành đơn lịch này', NULL, '4', 0, '2023-12-26 13:56:27', '2024-01-04 10:41:15'),
+(34, '21111', '373eb', 1, 0, NULL, NULL, '4', 0, '2023-12-26 13:56:37', '2023-12-27 10:55:13'),
+(35, '21115', '25bd2', 1, 0, NULL, NULL, '4', 0, '2023-12-26 13:56:42', '2023-12-27 10:55:39'),
+(36, '4336b', '373eb', 0, 0, NULL, NULL, '2', 1, '2023-12-27 10:53:35', '2023-12-27 10:53:35'),
+(37, '1f9dc', '3ac0e', 1, 0, NULL, NULL, '4', 0, '2023-12-27 10:53:58', '2023-12-28 08:13:53'),
+(38, '5dfa0', 'e59d6', 0, 0, NULL, NULL, '2', 1, '2023-12-27 10:54:04', '2023-12-27 10:54:04'),
+(39, '21114', 'c741c', 0, 0, NULL, NULL, '2', 1, '2023-12-27 10:54:08', '2023-12-27 10:54:08'),
+(40, '4b0fc', '1e8d6', 0, 0, NULL, NULL, '2', 1, '2023-12-28 08:55:20', '2023-12-28 08:55:20'),
+(41, '17c57', '1e8d6', 0, 0, NULL, NULL, '2', 1, '2023-12-28 08:55:26', '2023-12-28 08:55:26'),
+(42, '923a7', '1e8d6', 1, 0, 'HTVC', NULL, '4', 0, '2023-12-28 08:55:31', '2024-01-01 10:18:33'),
+(43, '7ab36', '1e8d6', 1, 0, 'HTCV', NULL, '4', 0, '2023-12-28 08:55:56', '2024-01-01 10:18:29'),
+(44, 'fee9f', '1e8d6', 1, 0, 'HTVB fee9f', NULL, '4', 0, '2023-12-28 09:20:55', '2024-01-01 10:18:23'),
+(45, 'bfa5d', '3ac0e', 1, 0, NULL, NULL, '4', 0, '2023-12-29 04:47:16', '2024-01-03 07:29:41'),
+(46, 'ed97a', 'c741c', 1, 0, NULL, NULL, '4', 0, '2023-12-31 06:28:47', '2024-01-10 04:21:36'),
+(47, 'c2f2e', '373eb', 1, 0, 'Đã hoàn thành công việc', NULL, '4', 0, '2023-12-31 08:14:05', '2024-01-03 07:29:35'),
+(48, '3c309', '25bd2', 0, 0, NULL, NULL, '2', 1, '2023-12-31 08:14:11', '2023-12-31 08:14:11'),
+(49, '21117', '3ac00', 3, 5, 'Không gì mới_Không gì mới-Đã hoàn thành ngày thứ 2-Đã hoàn thành toàn bộ công việc-Đã hoàn thành toàn bộ công việc', NULL, '4', 0, '2023-12-31 08:14:19', '2024-01-01 10:01:10'),
+(50, '5c6e3', 'c7410', 0, 0, NULL, NULL, '2', 1, '2024-01-01 10:10:14', '2024-01-01 10:10:14'),
+(51, 'f99d6', '3ac0e', 1, 0, 'Đã hoàn thành CV', NULL, '4', 0, '2024-01-04 05:59:01', '2024-01-04 10:40:37'),
+(52, '21113', '3ac0e', 0, 3, NULL, NULL, '2', 1, '2024-01-04 05:59:08', '2024-01-04 05:59:08'),
+(53, '2dbc0', 'c741c', 0, 0, NULL, NULL, '2', 1, '2024-01-08 01:26:20', '2024-01-08 01:26:20'),
+(54, '6c5a8', '3ac0e', 1, 0, 'HOàn thành CV', NULL, '4', 0, '2024-01-08 02:24:51', '2024-01-08 02:35:00'),
+(55, 'e2aeb', 'e59d6', 0, 0, NULL, NULL, '2', 1, '2024-01-08 02:33:01', '2024-01-08 02:33:01'),
+(56, '7874c', '3ac0e', 0, 0, NULL, NULL, '2', 1, '2024-01-10 04:20:05', '2024-01-10 04:20:05'),
+(57, '6ceb7', '25bd2', 0, 0, NULL, NULL, '2', 1, '2024-01-10 04:20:24', '2024-01-10 04:20:24'),
+(58, 'c1dfc', '373eb', 0, 0, NULL, NULL, '2', 1, '2024-01-10 04:20:33', '2024-01-10 04:20:33'),
+(63, 'd9ec0', '3ac0e', 0, 0, NULL, NULL, '2', 1, '2024-01-10 07:59:49', '2024-01-10 07:59:49');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_housekeeper`
+-- Cấu trúc bảng cho bảng `tbl_housekeeper`
 --
 
 CREATE TABLE `tbl_housekeeper` (
@@ -417,26 +568,65 @@ CREATE TABLE `tbl_housekeeper` (
   `age` int(11) NOT NULL,
   `gender` int(11) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `des` text NOT NULL,
+  `des` text DEFAULT NULL,
   `content` text DEFAULT NULL,
-  `files` varchar(255) NOT NULL,
+  `files` varchar(255) DEFAULT '0',
   `status` int(11) NOT NULL COMMENT '1: false,\r\n0: true\r\n',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tbl_housekeeper`
+-- Đang đổ dữ liệu cho bảng `tbl_housekeeper`
 --
 
 INSERT INTO `tbl_housekeeper` (`id`, `housekeeper_id`, `name`, `image`, `phone`, `age`, `gender`, `address`, `des`, `content`, `files`, `status`, `created_at`, `updated_at`) VALUES
-(1, '934c0', 'Nguyễn Văn A', 'team-1.jpg', '+84868723214', 34, 0, '90 Tỉnh Vĩnh Phúc, Huyện Lập Thạch, Xã Tiên Lữ', 'Nguyễn Văn A', NULL, 'https://linkedin.com/#', 0, '2023-11-19 06:32:46', '2023-11-19 06:32:46'),
-(2, '934c1', 'NGuyễn B', 'team-2.jpg', '+84868723214', 20, 0, '90 Tỉnh Vĩnh Phúc, Huyện Lập Thạch, Xã Tiên Lữ', 'NGuyễn B', NULL, 'https://linkedin.com/#', 0, '2023-11-19 06:32:46', '2023-12-08 09:45:17');
+(1, '3ac0e', 'Trương Thị Tuyết', 'team-1.jpg', '+84868723214', 34, 0, '90 Tỉnh Vĩnh Phúc, Huyện Lập Thạch, Xã Tiên Lữ', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\n\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\n\n<h3><strong>2. L&yacute; lịch</strong></h3>\n\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\n\n<ul>\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\n</ul>\n\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\n\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\n\n<h3><strong>4. Sức khỏe tốt</strong></h3>\n\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\n\n<h3><strong>5. Kinh nghiệm</strong></h3>\n\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\n\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\n\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\n\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\n\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\n\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\n\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\n\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\n\n<ul>\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\n	<li>Bước 5: Thu tiền cọc 50%.</li>\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\n</ul>', '[\"3ac0e-vi-tri-lap-dat-mieng-gio-dieu-hoa.jpg\",\"3ac0e-thiet-ke-mieng-gio-dieu-hoa.jpg\"]', 0, '2023-11-19 06:32:46', '2024-01-04 07:55:37'),
+(2, '373eb', 'NGuyễn Linh Nam', 'team-2.jpg', '+84868723214', 20, 0, '90 Tỉnh Vĩnh Phúc, Huyện Lập Thạch, Xã Tiên Lữ', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\n\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\n\n<h3><strong>2. L&yacute; lịch</strong></h3>\n\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\n\n<ul>\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\n</ul>\n\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\n\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\n\n<h3><strong>4. Sức khỏe tốt</strong></h3>\n\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\n\n<h3><strong>5. Kinh nghiệm</strong></h3>\n\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\n\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\n\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\n\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\n\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\n\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\n\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\n\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\n\n<ul>\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\n	<li>Bước 5: Thu tiền cọc 50%.</li>\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\n</ul>', 'https://linkedin.com/#', 0, '2023-11-19 06:32:46', '2023-12-08 09:45:17'),
+(3, 'c741c', 'Trần Văn Hải', 'GV3.png', '+84868723214', 20, 1, 'Thôn 1, Quảng Tân - Tuy Đức - Đăk Nông', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\n\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\n\n<h3><strong>2. L&yacute; lịch</strong></h3>\n\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\n\n<ul>\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\n</ul>\n\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\n\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\n\n<h3><strong>4. Sức khỏe tốt</strong></h3>\n\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\n\n<h3><strong>5. Kinh nghiệm</strong></h3>\n\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\n\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\n\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\n\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\n\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\n\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\n\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\n\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\n\n<ul>\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\n	<li>Bước 5: Thu tiền cọc 50%.</li>\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\n</ul>', NULL, 0, '2023-12-25 09:24:43', '2023-12-26 07:21:21'),
+(4, 'e59d6', 'Nguyễn Xuân Nhật', 'team-2.jpg', '+84868723214', 25, 1, 'Tỉnh Bắc Giang, Huyện Tân Yên, Xã Cao Thượng', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\n\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\n\n<h3><strong>2. L&yacute; lịch</strong></h3>\n\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\n\n<ul>\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\n</ul>\n\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\n\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\n\n<h3><strong>4. Sức khỏe tốt</strong></h3>\n\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\n\n<h3><strong>5. Kinh nghiệm</strong></h3>\n\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\n\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\n\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\n\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\n\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\n\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\n\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\n\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\n\n<ul>\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\n	<li>Bước 5: Thu tiền cọc 50%.</li>\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\n</ul>', '0', 0, '2023-12-26 07:03:44', '2023-12-26 07:03:44'),
+(5, '25bd2', 'Nguyễn Khánh Ngân', 'GVmessages-2.jpg', '0868723214', 40, 0, 'Tỉnh Bắc Kạn, Huyện Ba Bể, Xã Cao Thượng', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\n\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\n\n<h3><strong>2. L&yacute; lịch</strong></h3>\n\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\n\n<ul>\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\n</ul>\n\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\n\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\n\n<h3><strong>4. Sức khỏe tốt</strong></h3>\n\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\n\n<h3><strong>5. Kinh nghiệm</strong></h3>\n\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\n\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\n\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\n\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\n\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\n\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\n\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\n\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\n\n<ul>\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\n	<li>Bước 5: Thu tiền cọc 50%.</li>\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\n</ul>', '0', 0, '2023-12-26 07:27:10', '2023-12-26 07:27:10'),
+(6, '1e8d6', 'Hoàng Văn Quý', 'GVmessages-3.jpg', '0868723214', 25, 1, 'Tỉnh Phú Thọ, Huyện Cẩm Khê, Xã Tam Sơn', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\n\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\n\n<h3><strong>2. L&yacute; lịch</strong></h3>\n\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\n\n<ul>\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\n</ul>\n\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\n\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\n\n<h3><strong>4. Sức khỏe tốt</strong></h3>\n\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\n\n<h3><strong>5. Kinh nghiệm</strong></h3>\n\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\n\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\n\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\n\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\n\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\n\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\n\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\n\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\n\n<ul>\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\n	<li>Bước 5: Thu tiền cọc 50%.</li>\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\n</ul>', NULL, 0, '2023-12-26 07:30:45', '2023-12-26 07:31:06'),
+(7, '3ac00', 'Trương Thị Tuyết', 'team-1.jpg', '+84868723214', 34, 0, '90 Tỉnh Vĩnh Phúc, Huyện Lập Thạch, Xã Tiên Lữ', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\r\n\r\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. L&yacute; lịch</strong></h3>\r\n\r\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\r\n\r\n<ul>\r\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\r\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\r\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\r\n</ul>\r\n\r\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\r\n\r\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\r\n\r\n<h3><strong>4. Sức khỏe tốt</strong></h3>\r\n\r\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\r\n\r\n<h3><strong>5. Kinh nghiệm</strong></h3>\r\n\r\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\r\n\r\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\r\n\r\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\r\n\r\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\r\n\r\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\r\n\r\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\r\n\r\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\r\n\r\n<ul>\r\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\r\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\r\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\r\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\r\n	<li>Bước 5: Thu tiền cọc 50%.</li>\r\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\r\n</ul>', 'https://linkedin.com/#', 0, '2023-11-19 06:32:46', '2023-12-25 08:49:39'),
+(8, '373e0', 'NGuyễn Linh Nam', 'team-2.jpg', '+84868723214', 20, 0, '90 Tỉnh Vĩnh Phúc, Huyện Lập Thạch, Xã Tiên Lữ', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\r\n\r\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. L&yacute; lịch</strong></h3>\r\n\r\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\r\n\r\n<ul>\r\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\r\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\r\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\r\n</ul>\r\n\r\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\r\n\r\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\r\n\r\n<h3><strong>4. Sức khỏe tốt</strong></h3>\r\n\r\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\r\n\r\n<h3><strong>5. Kinh nghiệm</strong></h3>\r\n\r\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\r\n\r\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\r\n\r\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\r\n\r\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\r\n\r\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\r\n\r\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\r\n\r\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\r\n\r\n<ul>\r\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\r\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\r\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\r\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\r\n	<li>Bước 5: Thu tiền cọc 50%.</li>\r\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\r\n</ul>', 'https://linkedin.com/#', 0, '2023-11-19 06:32:46', '2023-12-08 09:45:17'),
+(9, 'c7410', 'Trần Văn Hải', 'GV3.png', '+84868723214', 20, 1, 'Thôn 1, Quảng Tân - Tuy Đức - Đăk Nông', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\r\n\r\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. L&yacute; lịch</strong></h3>\r\n\r\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\r\n\r\n<ul>\r\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\r\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\r\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\r\n</ul>\r\n\r\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\r\n\r\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\r\n\r\n<h3><strong>4. Sức khỏe tốt</strong></h3>\r\n\r\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\r\n\r\n<h3><strong>5. Kinh nghiệm</strong></h3>\r\n\r\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\r\n\r\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\r\n\r\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\r\n\r\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\r\n\r\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\r\n\r\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\r\n\r\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\r\n\r\n<ul>\r\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\r\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\r\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\r\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\r\n	<li>Bước 5: Thu tiền cọc 50%.</li>\r\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\r\n</ul>', NULL, 0, '2023-12-25 09:24:43', '2023-12-26 07:21:21'),
+(10, 'e59d0', 'Nguyễn Xuân Nhật', 'team-2.jpg', '+84868723214', 25, 1, 'Tỉnh Bắc Giang, Huyện Tân Yên, Xã Cao Thượng', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\r\n\r\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. L&yacute; lịch</strong></h3>\r\n\r\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\r\n\r\n<ul>\r\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\r\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\r\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\r\n</ul>\r\n\r\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\r\n\r\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\r\n\r\n<h3><strong>4. Sức khỏe tốt</strong></h3>\r\n\r\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\r\n\r\n<h3><strong>5. Kinh nghiệm</strong></h3>\r\n\r\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\r\n\r\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\r\n\r\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\r\n\r\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\r\n\r\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\r\n\r\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\r\n\r\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\r\n\r\n<ul>\r\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\r\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\r\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\r\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\r\n	<li>Bước 5: Thu tiền cọc 50%.</li>\r\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\r\n</ul>', '0', 0, '2023-12-26 07:03:44', '2023-12-26 07:03:44'),
+(11, '25bd0', 'Nguyễn Khánh Ngân', 'GVmessages-2.jpg', '0868723214', 40, 0, 'Tỉnh Bắc Kạn, Huyện Ba Bể, Xã Cao Thượng', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\r\n\r\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. L&yacute; lịch</strong></h3>\r\n\r\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\r\n\r\n<ul>\r\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\r\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\r\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\r\n</ul>\r\n\r\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\r\n\r\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\r\n\r\n<h3><strong>4. Sức khỏe tốt</strong></h3>\r\n\r\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\r\n\r\n<h3><strong>5. Kinh nghiệm</strong></h3>\r\n\r\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\r\n\r\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\r\n\r\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\r\n\r\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\r\n\r\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\r\n\r\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\r\n\r\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\r\n\r\n<ul>\r\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\r\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\r\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\r\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\r\n	<li>Bước 5: Thu tiền cọc 50%.</li>\r\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\r\n</ul>', '0', 0, '2023-12-26 07:27:10', '2023-12-26 07:27:10');
+INSERT INTO `tbl_housekeeper` (`id`, `housekeeper_id`, `name`, `image`, `phone`, `age`, `gender`, `address`, `des`, `content`, `files`, `status`, `created_at`, `updated_at`) VALUES
+(12, '1e8d0', 'Hoàng Văn Quý', 'GVmessages-3.jpg', '0868723214', 25, 1, 'Tỉnh Phú Thọ, Huyện Cẩm Khê, Xã Tam Sơn', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\r\n\r\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. L&yacute; lịch</strong></h3>\r\n\r\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\r\n\r\n<ul>\r\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\r\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\r\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\r\n</ul>\r\n\r\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\r\n\r\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\r\n\r\n<h3><strong>4. Sức khỏe tốt</strong></h3>\r\n\r\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\r\n\r\n<h3><strong>5. Kinh nghiệm</strong></h3>\r\n\r\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\r\n\r\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\r\n\r\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\r\n\r\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\r\n\r\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\r\n\r\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\r\n\r\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\r\n\r\n<ul>\r\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\r\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\r\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\r\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\r\n	<li>Bước 5: Thu tiền cọc 50%.</li>\r\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\r\n</ul>', NULL, 0, '2023-12-26 07:30:45', '2023-12-26 07:31:06'),
+(13, 'c74aa', 'Trần Văn Hải', 'GV3.png', '+84868723214', 20, 1, 'Thôn 1, Quảng Tân - Tuy Đức - Đăk Nông', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\r\n\r\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. L&yacute; lịch</strong></h3>\r\n\r\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\r\n\r\n<ul>\r\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\r\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\r\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\r\n</ul>\r\n\r\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\r\n\r\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\r\n\r\n<h3><strong>4. Sức khỏe tốt</strong></h3>\r\n\r\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\r\n\r\n<h3><strong>5. Kinh nghiệm</strong></h3>\r\n\r\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\r\n\r\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\r\n\r\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\r\n\r\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\r\n\r\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\r\n\r\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\r\n\r\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\r\n\r\n<ul>\r\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\r\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\r\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\r\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\r\n	<li>Bước 5: Thu tiền cọc 50%.</li>\r\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\r\n</ul>', NULL, 0, '2023-12-25 09:24:43', '2023-12-26 07:21:21'),
+(14, 'e59daa', 'Nguyễn Xuân Nhật', 'team-2.jpg', '+84868723214', 25, 1, 'Tỉnh Bắc Giang, Huyện Tân Yên, Xã Cao Thượng', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\r\n\r\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. L&yacute; lịch</strong></h3>\r\n\r\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\r\n\r\n<ul>\r\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\r\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\r\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\r\n</ul>\r\n\r\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\r\n\r\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\r\n\r\n<h3><strong>4. Sức khỏe tốt</strong></h3>\r\n\r\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\r\n\r\n<h3><strong>5. Kinh nghiệm</strong></h3>\r\n\r\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\r\n\r\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\r\n\r\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\r\n\r\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\r\n\r\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\r\n\r\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\r\n\r\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\r\n\r\n<ul>\r\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\r\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\r\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\r\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\r\n	<li>Bước 5: Thu tiền cọc 50%.</li>\r\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\r\n</ul>', '0', 0, '2023-12-26 07:03:44', '2023-12-26 07:03:44'),
+(15, '25baa', 'Nguyễn Khánh Ngân', 'GVmessages-2.jpg', '0868723214', 40, 0, 'Tỉnh Bắc Kạn, Huyện Ba Bể, Xã Cao Thượng', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\r\n\r\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. L&yacute; lịch</strong></h3>\r\n\r\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\r\n\r\n<ul>\r\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\r\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\r\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\r\n</ul>\r\n\r\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\r\n\r\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\r\n\r\n<h3><strong>4. Sức khỏe tốt</strong></h3>\r\n\r\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\r\n\r\n<h3><strong>5. Kinh nghiệm</strong></h3>\r\n\r\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\r\n\r\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\r\n\r\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\r\n\r\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\r\n\r\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\r\n\r\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\r\n\r\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\r\n\r\n<ul>\r\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\r\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\r\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\r\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\r\n	<li>Bước 5: Thu tiền cọc 50%.</li>\r\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\r\n</ul>', '0', 0, '2023-12-26 07:27:10', '2023-12-26 07:27:10'),
+(16, '1e8aa', 'Hoàng Văn Quý', 'GVmessages-3.jpg', '0868723214', 25, 1, 'Tỉnh Phú Thọ, Huyện Cẩm Khê, Xã Tam Sơn', 'JupViec là công ty chuyên nghiệp giúp việc nhà giờ theo giờ, có đầy đủ thông tin về công việc, tiện lợi và đánh giá. Bạn có thể đặt dịch vụ ngay, tìm người giúp việc nhà tiêu chuẩn, tổng vệ sinh,', '<h3><strong>1. Tổng quan</strong></h3>\r\n\r\n<p>Đ&acirc;y l&agrave; ti&ecirc;u ch&iacute; đầu ti&ecirc;n cũng như quan trọng nhất trong việc lựa chọn người gi&uacute;p việc để ở hay thời gian. Phẩm chất v&agrave; đạo đức l&agrave; những yếu tố được h&igrave;nh th&agrave;nh ngay từ nhỏ n&ecirc;n kh&oacute; thay đổi. Đ&acirc;y l&agrave; l&yacute; do tại sao ch&uacute;ng t&ocirc;i sẵn s&agrave;ng chấp nhận để đ&agrave;o tạo một người vụng về kh&ocirc;ng c&oacute; chuy&ecirc;n m&ocirc;n nhưng c&oacute; phẩm chất tốt, nhưng một người l&agrave;m việc tốt nhưng kh&ocirc;ng c&oacute; phẩm chất tốt th&igrave; kh&ocirc;ng đ&aacute;ng tin cậy cho kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. L&yacute; lịch</strong></h3>\r\n\r\n<p>Hồ sơ l&yacute; lịch, kh&ocirc;ng c&oacute; tiền &aacute;n, tiền sự.</p>\r\n\r\n<ul>\r\n	<li>Đối với người gi&uacute;p việc gia đ&igrave;nh: ch&uacute;ng t&ocirc;i sẽ ưu ti&ecirc;n những ứng vi&ecirc;n kh&ocirc;ng gặp qu&aacute; nhiều vấn đề trong gia đ&igrave;nh.</li>\r\n	<li>Đối với người gi&uacute;p việc theo giờ: d&agrave;nh cho c&aacute;c ứng vi&ecirc;n sinh vi&ecirc;n hoặc người lao động trẻ.</li>\r\n	<li>Tất cả c&aacute;c cộng t&aacute;c vi&ecirc;n điều được kh&aacute;m sức khỏe đầy đủ.</li>\r\n</ul>\r\n\r\n<h3><strong>3. Trung thực &ndash; T&iacute;ch cực &ndash; Vui vẻ</strong></h3>\r\n\r\n<p>Bằng kinh nghiệm chuy&ecirc;n m&ocirc;n của hơn 10 năm trong lĩnh vực n&agrave;y, ch&uacute;ng t&ocirc;i c&oacute; thể x&aacute;c định t&iacute;nh c&aacute;ch th&ocirc;ng qua một số c&acirc;u hỏi, cử chỉ, sắc th&aacute;i nhất định.</p>\r\n\r\n<h3><strong>4. Sức khỏe tốt</strong></h3>\r\n\r\n<p>Để người gi&uacute;p việc c&oacute; thể l&agrave;m tốt c&ocirc;ng việc của m&igrave;nh v&agrave; xứng đ&aacute;ng với mọi việc trong nh&agrave; th&igrave; c&ocirc; ấy phải c&oacute; sức khỏe tốt. Tất cả c&aacute;c ứng cử vi&ecirc;n đến với trung t&acirc;m từ 18 tuổi đến 50 tuổi, phải vượt qua kỳ kiểm tra y tế ho&agrave;n to&agrave;n kh&ocirc;ng mắc c&aacute;c bệnh truyền nhiễm.</p>\r\n\r\n<h3><strong>5. Kinh nghiệm</strong></h3>\r\n\r\n<p>Để đảm bảo c&ocirc;ng việc được ho&agrave;n th&agrave;nh, người cung cấp người gi&uacute;p việc gia đ&igrave;nh tại nh&agrave; hoặc tại ch&uacute;ng t&ocirc;i c&oacute; nghĩa vụ đ&agrave;o tạo lại kỹ năng l&agrave;m việc để sử dụng c&aacute;c thiết bị hiện đại trong gia đ&igrave;nh. Việc n&agrave;y gi&uacute;p người lao động kh&ocirc;ng bị kh&oacute; khăn trong qu&aacute; tr&igrave;nh l&agrave;m việc sau n&agrave;y.</p>\r\n\r\n<p><img alt=\"giup viec nha theo gio\" src=\"https://viecnha.vn/wp-content/uploads/2022/04/giup-viec-nha-tphcm.png\" style=\"height:100%; width:100%\" /></p>\r\n\r\n<h2><strong>Dịch vụ gi&uacute;p việc nh&agrave; theo giờ uy t&iacute;n, chuy&ecirc;n nghiệp &ndash; 5 sao</strong></h2>\r\n\r\n<p>Một nh&agrave; cung cấp chuy&ecirc;n nghiệp v&agrave; c&oacute; uy t&iacute;n phải c&oacute; thể cung cấp cho kh&aacute;ch h&agrave;ng những điều sau:</p>\r\n\r\n<h3><strong>1. Hợp đồng r&otilde; r&agrave;ng</strong></h3>\r\n\r\n<p>Tất cả c&aacute;c thỏa thuận v&agrave; chi ph&iacute; giữa c&aacute;c b&ecirc;n sẽ được ghi trong hợp đồng, đảm bảo quyền lợi của người lao động, đơn vị cung ứng dịch vụ v&agrave; kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<h3><strong>2. Quy tr&igrave;nh l&agrave;m việc chuy&ecirc;n nghiệp</strong></h3>\r\n\r\n<p><em><strong>Quy tr&igrave;nh cung cấp dịch vụ dọn ph&ograve;ng theo giờ tr&ecirc;n viecnha.vn như sau:</strong></em></p>\r\n\r\n<ul>\r\n	<li>Bước 1: Nhận th&ocirc;ng tin y&ecirc;u cầu dịch vụ.</li>\r\n	<li>Bước 2: Nh&acirc;n vi&ecirc;n b&ecirc;n viecnha.vn tư vấn dịch vụ ph&ugrave; hợp.</li>\r\n	<li>Bước 3: Tr&igrave;nh b&agrave;y những ứng vi&ecirc;n người gi&uacute;p việc ph&ugrave; hợp.</li>\r\n	<li>Bước 4: K&iacute; hợp đồng dịch vụ.</li>\r\n	<li>Bước 5: Thu tiền cọc 50%.</li>\r\n	<li>Bước 6: Nh&acirc;n vi&ecirc;n người gi&uacute;p việc đến l&agrave;m việc thực hiện theo hợp đồng dịch vụ.</li>\r\n</ul>', NULL, 0, '2023-12-26 07:30:45', '2023-12-26 07:31:06');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_payment`
+-- Cấu trúc bảng cho bảng `tbl_infomation`
+--
+
+CREATE TABLE `tbl_infomation` (
+  `info_id` int(10) UNSIGNED NOT NULL,
+  `info_map` text NOT NULL,
+  `info_address` varchar(255) NOT NULL,
+  `info_email` varchar(255) NOT NULL,
+  `info_phone` varchar(255) NOT NULL,
+  `info_fanpage` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_infomation`
+--
+
+INSERT INTO `tbl_infomation` (`info_id`, `info_map`, `info_address`, `info_email`, `info_phone`, `info_fanpage`, `created_at`, `updated_at`) VALUES
+(1, '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.445822527863!2d108.1660373757599!3d16.042338740156055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142196a44fb4411%3A0x952dbc76aab04c29!2zOTAgTMOqIEhp4bq_biBNYWksIEhvw6AgTWluaCwgTGnDqm4gQ2hp4buDdSwgxJDDoCBO4bq1bmcsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1704449845305!5m2!1svi!2s\" width=\"100%\" height=\"850\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 'Địa điểm', 'minhnghia11a1@gmail.com', '0868723214', '<div class=\"fb-page\" data-href=\"https://www.facebook.com/profile.php?id=61554815891622\" data-tabs=\"timeline\" data-width=\"500\" data-height=\"800\" data-small-header=\"false\" data-adapt-container-width=\"true\" data-hide-cover=\"false\" data-show-facepile=\"true\"><blockquote cite=\"https://www.facebook.com/profile.php?id=61554815891622\" class=\"fb-xfbml-parse-ignore\"><a href=\"https://www.facebook.com/profile.php?id=61554815891622\">Website Dọn dẹp</a></blockquote></div>', '2024-01-05 10:18:34', '2024-01-05 11:01:22');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tbl_payment`
 --
 
 CREATE TABLE `tbl_payment` (
@@ -447,38 +637,18 @@ CREATE TABLE `tbl_payment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tbl_payment`
+-- Đang đổ dữ liệu cho bảng `tbl_payment`
 --
 
 INSERT INTO `tbl_payment` (`payment_id`, `payment_method`, `created_at`, `updated_at`) VALUES
-(1, 'Tiền mặt', NULL, NULL),
-(2, 'Thẻ quốc tế Visa', NULL, NULL),
-(3, 'VnPay', NULL, NULL),
-(4, 'Momo', NULL, NULL);
+(1, 'Thanh toán tiền mặt trực tiếp', NULL, NULL),
+(2, 'Thanh toán qua Momo', NULL, NULL),
+(3, 'Thanh toán qua Ví VnPay', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_product`
---
-
-CREATE TABLE `tbl_product` (
-  `product_id` int(10) UNSIGNED NOT NULL,
-  `product_name` varchar(255) NOT NULL,
-  `product_image` varchar(255) NOT NULL,
-  `product_price` varchar(255) NOT NULL,
-  `product_qty` int(11) NOT NULL,
-  `product_des` varchar(255) NOT NULL,
-  `product_content` text NOT NULL,
-  `product_status` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_province`
+-- Cấu trúc bảng cho bảng `tbl_province`
 --
 
 CREATE TABLE `tbl_province` (
@@ -489,7 +659,7 @@ CREATE TABLE `tbl_province` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `tbl_province`
+-- Đang đổ dữ liệu cho bảng `tbl_province`
 --
 
 INSERT INTO `tbl_province` (`province_id`, `province_name`, `province_type`, `city_id`) VALUES
@@ -1210,7 +1380,7 @@ INSERT INTO `tbl_province` (`province_id`, `province_name`, `province_type`, `ci
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_role`
+-- Cấu trúc bảng cho bảng `tbl_role`
 --
 
 CREATE TABLE `tbl_role` (
@@ -1221,7 +1391,7 @@ CREATE TABLE `tbl_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tbl_role`
+-- Đang đổ dữ liệu cho bảng `tbl_role`
 --
 
 INSERT INTO `tbl_role` (`role_id`, `role_name`, `created_at`, `updated_at`) VALUES
@@ -1232,12 +1402,13 @@ INSERT INTO `tbl_role` (`role_id`, `role_name`, `created_at`, `updated_at`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_service`
+-- Cấu trúc bảng cho bảng `tbl_service`
 --
 
 CREATE TABLE `tbl_service` (
   `service_id` int(10) UNSIGNED NOT NULL,
   `service_name` varchar(255) NOT NULL,
+  `service_views` varchar(50) DEFAULT '0',
   `service_image` varchar(255) NOT NULL,
   `service_slug` varchar(255) NOT NULL,
   `service_des` text NOT NULL,
@@ -1249,18 +1420,21 @@ CREATE TABLE `tbl_service` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tbl_service`
+-- Đang đổ dữ liệu cho bảng `tbl_service`
 --
 
-INSERT INTO `tbl_service` (`service_id`, `service_name`, `service_image`, `service_slug`, `service_des`, `service_price`, `service_content`, `service_status`, `created_at`, `updated_at`) VALUES
-(1, 'Giúp việc nhà theo giờ', 'cale75.png', 'giup-viec-ca-le', 'Nhịp sống đô thị đang dần trở nên bận rộn hơn với công việc và xã hội. Đặc biệt thời gian của người phụ nữ dành cho gia đình và chăm sóc nhà cửa', 80000, 'Nhịp sống đô thị đang dần trở nên bận rộn hơn với công việc và xã hội. Đặc biệt thời gian của người phụ nữ dành cho gia đình và chăm sóc nhà cửa cũng càng trở nên eo hẹp hơn. Vậy làm sao để cân bằng được giữa công việc và gia đình luôn là vấn đề khúc mắc của nhiều gia đình Việt. Đã có nhiều gia đình bỏ ra một khoản tiền lớn hằng tháng chỉ để thuê giúp việc cố định nhưng đôi lúc việc này trở nên không thực sự cần thiết vì không phải lúc nào cũng có việc để người giúp việc làm liên tục. Lúc này giúp việc nhà theo giờ sẽ là giải pháp hợp lý cho mọi gia đình!', 'on', NULL, NULL),
-(2, 'Giúp Việc Ca Cố Định', 'deep-cleaning-banner-ver2551.jpg', 'giup-viec-ca-co-dinh', 'Nhịp sống đô thị đang dần trở nên bận rộn hơn với công việc và xã hội. Đặc biệt thời gian của người phụ nữ dành cho gia đình và chăm sóc nhà cửa', 80000, 'Nhịp sống đô thị đang dần trở nên bận rộn hơn với công việc và xã hội. Đặc biệt thời gian của người phụ nữ dành cho gia đình và chăm sóc nhà cửa cũng càng trở nên eo hẹp hơn. Vậy làm sao để cân bằng được giữa công việc và gia đình luôn là vấn đề khúc mắc của nhiều gia đình Việt. Đã có nhiều gia đình bỏ ra một khoản tiền lớn hằng tháng chỉ để thuê giúp việc cố định nhưng đôi lúc việc này trở nên không thực sự cần thiết vì không phải lúc nào cũng có việc để người giúp việc làm liên tục. Lúc này giúp việc nhà theo giờ sẽ là giải pháp hợp lý cho mọi gia đình!', 'on', NULL, NULL),
-(3, 'Chăm sóc người già', 'deep-cleaning-banner-ver2551.jpg', 'cham-soc-nguoi-gia', 'Nhịp sống đô thị đang dần trở nên bận rộn hơn với công việc và xã hội. Đặc biệt thời gian của người phụ nữ dành cho gia đình và chăm sóc nhà cửa', 100000, 'Nhịp sống đô thị đang dần trở nên bận rộn hơn với công việc và xã hội. Đặc biệt thời gian của người phụ nữ dành cho gia đình và chăm sóc nhà cửa cũng càng trở nên eo hẹp hơn. Vậy làm sao để cân bằng được giữa công việc và gia đình luôn là vấn đề khúc mắc của nhiều gia đình Việt. Đã có nhiều gia đình bỏ ra một khoản tiền lớn hằng tháng chỉ để thuê giúp việc cố định nhưng đôi lúc việc này trở nên không thực sự cần thiết vì không phải lúc nào cũng có việc để người giúp việc làm liên tục. Lúc này giúp việc nhà theo giờ sẽ là giải pháp hợp lý cho mọi gia đình!', 'off', NULL, NULL);
+INSERT INTO `tbl_service` (`service_id`, `service_name`, `service_views`, `service_image`, `service_slug`, `service_des`, `service_price`, `service_content`, `service_status`, `created_at`, `updated_at`) VALUES
+(1, 'Giúp việc nhà theo giờ', '62', 'cale75.png', 'giup-viec-ca-le', 'Nhịp sống đô thị đang dần trở nên bận rộn hơn với công việc và xã hội. Đặc biệt thời gian của người phụ nữ dành cho gia đình và chăm sóc nhà cửa', 80000, '<h2><strong>V&igrave; sao n&ecirc;n chọn dịch vụ giặt r&egrave;m cửa tại nh&agrave; bTaskee</strong></h2>\n\n<h3>Nhanh ch&oacute;ng, tiện lợi</h3>\n\n<p>Chỉ với 30 gi&acirc;y, bạn c&oacute; thể đặt lịch vệ sinh r&egrave;m cửa qua ứng dụng bTaskee. Chuy&ecirc;n gia vệ sinh sẽ đến tận nơi trong v&ograve;ng 1 tiếng. Thời gian vệ sinh từ 1-2 tiếng t&ugrave;y thuộc v&agrave;o số lượng v&agrave; loại r&egrave;m gia đ&igrave;nh bạn.</p>\n\n<p>Với bTaskee, bạn c&oacute; thể chủ động lựa chọn địa điểm, thời gian vệ sinh theo mong muốn. bTaskee lu&ocirc;n sẵn s&agrave;ng hỗ trợ kh&aacute;ch h&agrave;ng trong mọi trường hợp. Sự linh hoạt, thuận tiện của bTaskee l&agrave; một điểm cộng lớn gi&uacute;p ghi dấu ấn trong l&ograve;ng kh&aacute;ch h&agrave;ng.</p>\n\n<p><img alt=\"Đặt lịch dịch vụ giặt rèm cửa tại nhà đơn tiện lợi qua app bTaskee.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/12/giao-dien-app-btaskee-2.jpg\" style=\"height:600px; width:900px\" /></p>\n\n<p>Đặt lịch dịch vụ giặt r&egrave;m cửa tại nh&agrave; đơn tiện lợi qua app bTaskee.</p>\n\n<h3>Dịch vụ chuy&ecirc;n nghiệp</h3>\n\n<p>Tất cả chuy&ecirc;n gia vệ sinh r&egrave;m của bTaskee đều được đ&agrave;o tạo b&agrave;i bản, đ&aacute;p ứng 4 ti&ecirc;u ch&iacute;: Th&aacute;i độ, tr&igrave;nh độ, khả năng xử l&yacute; t&igrave;nh huống v&agrave; thao t&aacute;c tr&ecirc;n ứng dụng.</p>\n\n<p>Th&ocirc;ng tin t&ecirc;n, h&igrave;nh ảnh, m&atilde; QR, đ&aacute;nh gi&aacute; của người l&agrave;m đều được cập nhật đầy đủ tr&ecirc;n ứng dụng. Kh&aacute;ch h&agrave;ng dễ d&agrave;ng x&aacute;c minh trước khi cho họ v&agrave;o nh&agrave; l&agrave;m việc. Gi&uacute;p đảm bảo an to&agrave;n cho kh&aacute;ch h&agrave;ng.</p>\n\n<p>Với kinh nghiệm d&agrave;y dặn v&agrave; sự tận t&acirc;m, nhiệt t&igrave;nh trong c&ocirc;ng việc, đội ngũ chuy&ecirc;n gia bTaskee sẽ mang đến cho kh&aacute;ch h&agrave;ng trải nghiệm dịch vụ vệ sinh r&egrave;m cửa h&agrave;i l&ograve;ng nhất.</p>\n\n<p><img alt=\"Các chuyên gia vệ sinh đều có lý lịch rõ ràng cùng kinh nghiệm, tác phong chuyên nghiệp\" src=\"https://www.btaskee.com/wp-content/uploads/2023/02/nhan-vien-bTaskee.jpg\" style=\"height:600px; width:900px\" /></p>\n\n<p><strong>Xem th&ecirc;m nội dung về chủ ghế r&egrave;m cửa:</strong></p>\n\n<ul>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-thao-rem-cua-de-giat/\">C&aacute;ch Th&aacute;o R&egrave;m Cửa Để Giặt</a>&nbsp;Đơn Giản Nhanh Ch&oacute;ng</em></strong></li>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cac-loai-rem-cua-so/\">C&aacute;c Loại R&egrave;m Cửa Sổ</a>&nbsp;Hiện Đại V&agrave; Sang Trọng Nhất Hiện Nay</em></strong></li>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/phong-tho-nen-chon-rem-cua-mau-gi/\">Ph&ograve;ng Thờ N&ecirc;n Chọn R&egrave;m Cửa M&agrave;u G&igrave;</a>&nbsp;Cho T&ocirc;n Nghi&ecirc;m?</em></strong></li>\n</ul>', 'on', NULL, NULL),
+(2, 'Giúp Việc Ca Cố Định', '5', 'deep-cleaning-banner-ver2551.jpg', 'giup-viec-ca-co-dinh', 'Nhịp sống đô thị đang dần trở nên bận rộn hơn với công việc và xã hội. Đặc biệt thời gian của người phụ nữ dành cho gia đình và chăm sóc nhà cửa', 80000, '<h2><strong>V&igrave; sao n&ecirc;n chọn dịch vụ giặt r&egrave;m cửa tại nh&agrave; bTaskee</strong></h2>\n\n<h3>Nhanh ch&oacute;ng, tiện lợi</h3>\n\n<p>Chỉ với 30 gi&acirc;y, bạn c&oacute; thể đặt lịch vệ sinh r&egrave;m cửa qua ứng dụng bTaskee. Chuy&ecirc;n gia vệ sinh sẽ đến tận nơi trong v&ograve;ng 1 tiếng. Thời gian vệ sinh từ 1-2 tiếng t&ugrave;y thuộc v&agrave;o số lượng v&agrave; loại r&egrave;m gia đ&igrave;nh bạn.</p>\n\n<p>Với bTaskee, bạn c&oacute; thể chủ động lựa chọn địa điểm, thời gian vệ sinh theo mong muốn. bTaskee lu&ocirc;n sẵn s&agrave;ng hỗ trợ kh&aacute;ch h&agrave;ng trong mọi trường hợp. Sự linh hoạt, thuận tiện của bTaskee l&agrave; một điểm cộng lớn gi&uacute;p ghi dấu ấn trong l&ograve;ng kh&aacute;ch h&agrave;ng.</p>\n\n<p><img alt=\"Đặt lịch dịch vụ giặt rèm cửa tại nhà đơn tiện lợi qua app bTaskee.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/12/giao-dien-app-btaskee-2.jpg\" style=\"height:600px; width:900px\" /></p>\n\n<p>Đặt lịch dịch vụ giặt r&egrave;m cửa tại nh&agrave; đơn tiện lợi qua app bTaskee.</p>\n\n<h3>Dịch vụ chuy&ecirc;n nghiệp</h3>\n\n<p>Tất cả chuy&ecirc;n gia vệ sinh r&egrave;m của bTaskee đều được đ&agrave;o tạo b&agrave;i bản, đ&aacute;p ứng 4 ti&ecirc;u ch&iacute;: Th&aacute;i độ, tr&igrave;nh độ, khả năng xử l&yacute; t&igrave;nh huống v&agrave; thao t&aacute;c tr&ecirc;n ứng dụng.</p>\n\n<p>Th&ocirc;ng tin t&ecirc;n, h&igrave;nh ảnh, m&atilde; QR, đ&aacute;nh gi&aacute; của người l&agrave;m đều được cập nhật đầy đủ tr&ecirc;n ứng dụng. Kh&aacute;ch h&agrave;ng dễ d&agrave;ng x&aacute;c minh trước khi cho họ v&agrave;o nh&agrave; l&agrave;m việc. Gi&uacute;p đảm bảo an to&agrave;n cho kh&aacute;ch h&agrave;ng.</p>\n\n<p>Với kinh nghiệm d&agrave;y dặn v&agrave; sự tận t&acirc;m, nhiệt t&igrave;nh trong c&ocirc;ng việc, đội ngũ chuy&ecirc;n gia bTaskee sẽ mang đến cho kh&aacute;ch h&agrave;ng trải nghiệm dịch vụ vệ sinh r&egrave;m cửa h&agrave;i l&ograve;ng nhất.</p>\n\n<p><img alt=\"Các chuyên gia vệ sinh đều có lý lịch rõ ràng cùng kinh nghiệm, tác phong chuyên nghiệp\" src=\"https://www.btaskee.com/wp-content/uploads/2023/02/nhan-vien-bTaskee.jpg\" style=\"height:600px; width:900px\" /></p>\n\n<p><strong>Xem th&ecirc;m nội dung về chủ ghế r&egrave;m cửa:</strong></p>\n\n<ul>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-thao-rem-cua-de-giat/\">C&aacute;ch Th&aacute;o R&egrave;m Cửa Để Giặt</a>&nbsp;Đơn Giản Nhanh Ch&oacute;ng</em></strong></li>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cac-loai-rem-cua-so/\">C&aacute;c Loại R&egrave;m Cửa Sổ</a>&nbsp;Hiện Đại V&agrave; Sang Trọng Nhất Hiện Nay</em></strong></li>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/phong-tho-nen-chon-rem-cua-mau-gi/\">Ph&ograve;ng Thờ N&ecirc;n Chọn R&egrave;m Cửa M&agrave;u G&igrave;</a>&nbsp;Cho T&ocirc;n Nghi&ecirc;m?</em></strong></li>\n</ul>', 'on', NULL, NULL),
+(3, 'Chăm sóc người cao tuổi', '1', 'caotuoi.png', 'cham-soc-nguoi-gia', 'Nhịp sống đô thị đang dần trở nên bận rộn hơn với công việc và xã hội. Đặc biệt thời gian của người phụ nữ dành cho gia đình và chăm sóc nhà cửa', 100000, '<h2><strong>V&igrave; sao n&ecirc;n chọn dịch vụ giặt r&egrave;m cửa tại nh&agrave; bTaskee</strong></h2>\n\n<h3>Nhanh ch&oacute;ng, tiện lợi</h3>\n\n<p>Chỉ với 30 gi&acirc;y, bạn c&oacute; thể đặt lịch vệ sinh r&egrave;m cửa qua ứng dụng bTaskee. Chuy&ecirc;n gia vệ sinh sẽ đến tận nơi trong v&ograve;ng 1 tiếng. Thời gian vệ sinh từ 1-2 tiếng t&ugrave;y thuộc v&agrave;o số lượng v&agrave; loại r&egrave;m gia đ&igrave;nh bạn.</p>\n\n<p>Với bTaskee, bạn c&oacute; thể chủ động lựa chọn địa điểm, thời gian vệ sinh theo mong muốn. bTaskee lu&ocirc;n sẵn s&agrave;ng hỗ trợ kh&aacute;ch h&agrave;ng trong mọi trường hợp. Sự linh hoạt, thuận tiện của bTaskee l&agrave; một điểm cộng lớn gi&uacute;p ghi dấu ấn trong l&ograve;ng kh&aacute;ch h&agrave;ng.</p>\n\n<p><img alt=\"Đặt lịch dịch vụ giặt rèm cửa tại nhà đơn tiện lợi qua app bTaskee.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/12/giao-dien-app-btaskee-2.jpg\" style=\"height:600px; width:900px\" /></p>\n\n<p>Đặt lịch dịch vụ giặt r&egrave;m cửa tại nh&agrave; đơn tiện lợi qua app bTaskee.</p>\n\n<h3>Dịch vụ chuy&ecirc;n nghiệp</h3>\n\n<p>Tất cả chuy&ecirc;n gia vệ sinh r&egrave;m của bTaskee đều được đ&agrave;o tạo b&agrave;i bản, đ&aacute;p ứng 4 ti&ecirc;u ch&iacute;: Th&aacute;i độ, tr&igrave;nh độ, khả năng xử l&yacute; t&igrave;nh huống v&agrave; thao t&aacute;c tr&ecirc;n ứng dụng.</p>\n\n<p>Th&ocirc;ng tin t&ecirc;n, h&igrave;nh ảnh, m&atilde; QR, đ&aacute;nh gi&aacute; của người l&agrave;m đều được cập nhật đầy đủ tr&ecirc;n ứng dụng. Kh&aacute;ch h&agrave;ng dễ d&agrave;ng x&aacute;c minh trước khi cho họ v&agrave;o nh&agrave; l&agrave;m việc. Gi&uacute;p đảm bảo an to&agrave;n cho kh&aacute;ch h&agrave;ng.</p>\n\n<p>Với kinh nghiệm d&agrave;y dặn v&agrave; sự tận t&acirc;m, nhiệt t&igrave;nh trong c&ocirc;ng việc, đội ngũ chuy&ecirc;n gia bTaskee sẽ mang đến cho kh&aacute;ch h&agrave;ng trải nghiệm dịch vụ vệ sinh r&egrave;m cửa h&agrave;i l&ograve;ng nhất.</p>\n\n<p><img alt=\"Các chuyên gia vệ sinh đều có lý lịch rõ ràng cùng kinh nghiệm, tác phong chuyên nghiệp\" src=\"https://www.btaskee.com/wp-content/uploads/2023/02/nhan-vien-bTaskee.jpg\" style=\"height:600px; width:900px\" /></p>\n\n<p><strong>Xem th&ecirc;m nội dung về chủ ghế r&egrave;m cửa:</strong></p>\n\n<ul>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-thao-rem-cua-de-giat/\">C&aacute;ch Th&aacute;o R&egrave;m Cửa Để Giặt</a>&nbsp;Đơn Giản Nhanh Ch&oacute;ng</em></strong></li>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cac-loai-rem-cua-so/\">C&aacute;c Loại R&egrave;m Cửa Sổ</a>&nbsp;Hiện Đại V&agrave; Sang Trọng Nhất Hiện Nay</em></strong></li>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/phong-tho-nen-chon-rem-cua-mau-gi/\">Ph&ograve;ng Thờ N&ecirc;n Chọn R&egrave;m Cửa M&agrave;u G&igrave;</a>&nbsp;Cho T&ocirc;n Nghi&ecirc;m?</em></strong></li>\n</ul>', 'off', NULL, NULL),
+(4, 'Tổng vệ sinh', '3', 'sofa.png', 'tong-ve-sinh', 'Nhịp sống đô thị đang dần trở nên bận rộn hơn với công việc và xã hội. Đặc biệt thời gian của người phụ nữ dành cho gia đình và chăm sóc nhà cửa', 80000, '<h2><strong>V&igrave; sao n&ecirc;n chọn dịch vụ giặt r&egrave;m cửa tại nh&agrave; bTaskee</strong></h2>\n\n<h3>Nhanh ch&oacute;ng, tiện lợi</h3>\n\n<p>Chỉ với 30 gi&acirc;y, bạn c&oacute; thể đặt lịch vệ sinh r&egrave;m cửa qua ứng dụng bTaskee. Chuy&ecirc;n gia vệ sinh sẽ đến tận nơi trong v&ograve;ng 1 tiếng. Thời gian vệ sinh từ 1-2 tiếng t&ugrave;y thuộc v&agrave;o số lượng v&agrave; loại r&egrave;m gia đ&igrave;nh bạn.</p>\n\n<p>Với bTaskee, bạn c&oacute; thể chủ động lựa chọn địa điểm, thời gian vệ sinh theo mong muốn. bTaskee lu&ocirc;n sẵn s&agrave;ng hỗ trợ kh&aacute;ch h&agrave;ng trong mọi trường hợp. Sự linh hoạt, thuận tiện của bTaskee l&agrave; một điểm cộng lớn gi&uacute;p ghi dấu ấn trong l&ograve;ng kh&aacute;ch h&agrave;ng.</p>\n\n<p><img alt=\"Đặt lịch dịch vụ giặt rèm cửa tại nhà đơn tiện lợi qua app bTaskee.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/12/giao-dien-app-btaskee-2.jpg\" style=\"height:600px; width:900px\" /></p>\n\n<p>Đặt lịch dịch vụ giặt r&egrave;m cửa tại nh&agrave; đơn tiện lợi qua app bTaskee.</p>\n\n<h3>Dịch vụ chuy&ecirc;n nghiệp</h3>\n\n<p>Tất cả chuy&ecirc;n gia vệ sinh r&egrave;m của bTaskee đều được đ&agrave;o tạo b&agrave;i bản, đ&aacute;p ứng 4 ti&ecirc;u ch&iacute;: Th&aacute;i độ, tr&igrave;nh độ, khả năng xử l&yacute; t&igrave;nh huống v&agrave; thao t&aacute;c tr&ecirc;n ứng dụng.</p>\n\n<p>Th&ocirc;ng tin t&ecirc;n, h&igrave;nh ảnh, m&atilde; QR, đ&aacute;nh gi&aacute; của người l&agrave;m đều được cập nhật đầy đủ tr&ecirc;n ứng dụng. Kh&aacute;ch h&agrave;ng dễ d&agrave;ng x&aacute;c minh trước khi cho họ v&agrave;o nh&agrave; l&agrave;m việc. Gi&uacute;p đảm bảo an to&agrave;n cho kh&aacute;ch h&agrave;ng.</p>\n\n<p>Với kinh nghiệm d&agrave;y dặn v&agrave; sự tận t&acirc;m, nhiệt t&igrave;nh trong c&ocirc;ng việc, đội ngũ chuy&ecirc;n gia bTaskee sẽ mang đến cho kh&aacute;ch h&agrave;ng trải nghiệm dịch vụ vệ sinh r&egrave;m cửa h&agrave;i l&ograve;ng nhất.</p>\n\n<p><img alt=\"Các chuyên gia vệ sinh đều có lý lịch rõ ràng cùng kinh nghiệm, tác phong chuyên nghiệp\" src=\"https://www.btaskee.com/wp-content/uploads/2023/02/nhan-vien-bTaskee.jpg\" style=\"height:600px; width:900px\" /></p>\n\n<p><strong>Xem th&ecirc;m nội dung về chủ ghế r&egrave;m cửa:</strong></p>\n\n<ul>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-thao-rem-cua-de-giat/\">C&aacute;ch Th&aacute;o R&egrave;m Cửa Để Giặt</a>&nbsp;Đơn Giản Nhanh Ch&oacute;ng</em></strong></li>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cac-loai-rem-cua-so/\">C&aacute;c Loại R&egrave;m Cửa Sổ</a>&nbsp;Hiện Đại V&agrave; Sang Trọng Nhất Hiện Nay</em></strong></li>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/phong-tho-nen-chon-rem-cua-mau-gi/\">Ph&ograve;ng Thờ N&ecirc;n Chọn R&egrave;m Cửa M&agrave;u G&igrave;</a>&nbsp;Cho T&ocirc;n Nghi&ecirc;m?</em></strong></li>\n</ul>', 'off', NULL, NULL),
+(5, 'Trông trẻ tại nhà', '1', 'trongtretainha.png', 'trong-tre-tai-nha', 'Nhịp sống đô thị đang dần trở nên bận rộn hơn với công việc và xã hội. Đặc biệt thời gian của người phụ nữ dành cho gia đình và chăm sóc nhà cửa', 80000, '<h2><strong>V&igrave; sao n&ecirc;n chọn dịch vụ giặt r&egrave;m cửa tại nh&agrave; bTaskee</strong></h2>\n\n<h3>Nhanh ch&oacute;ng, tiện lợi</h3>\n\n<p>Chỉ với 30 gi&acirc;y, bạn c&oacute; thể đặt lịch vệ sinh r&egrave;m cửa qua ứng dụng bTaskee. Chuy&ecirc;n gia vệ sinh sẽ đến tận nơi trong v&ograve;ng 1 tiếng. Thời gian vệ sinh từ 1-2 tiếng t&ugrave;y thuộc v&agrave;o số lượng v&agrave; loại r&egrave;m gia đ&igrave;nh bạn.</p>\n\n<p>Với bTaskee, bạn c&oacute; thể chủ động lựa chọn địa điểm, thời gian vệ sinh theo mong muốn. bTaskee lu&ocirc;n sẵn s&agrave;ng hỗ trợ kh&aacute;ch h&agrave;ng trong mọi trường hợp. Sự linh hoạt, thuận tiện của bTaskee l&agrave; một điểm cộng lớn gi&uacute;p ghi dấu ấn trong l&ograve;ng kh&aacute;ch h&agrave;ng.</p>\n\n<p><img alt=\"Đặt lịch dịch vụ giặt rèm cửa tại nhà đơn tiện lợi qua app bTaskee.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/12/giao-dien-app-btaskee-2.jpg\" style=\"height:600px; width:900px\" /></p>\n\n<p>Đặt lịch dịch vụ giặt r&egrave;m cửa tại nh&agrave; đơn tiện lợi qua app bTaskee.</p>\n\n<h3>Dịch vụ chuy&ecirc;n nghiệp</h3>\n\n<p>Tất cả chuy&ecirc;n gia vệ sinh r&egrave;m của bTaskee đều được đ&agrave;o tạo b&agrave;i bản, đ&aacute;p ứng 4 ti&ecirc;u ch&iacute;: Th&aacute;i độ, tr&igrave;nh độ, khả năng xử l&yacute; t&igrave;nh huống v&agrave; thao t&aacute;c tr&ecirc;n ứng dụng.</p>\n\n<p>Th&ocirc;ng tin t&ecirc;n, h&igrave;nh ảnh, m&atilde; QR, đ&aacute;nh gi&aacute; của người l&agrave;m đều được cập nhật đầy đủ tr&ecirc;n ứng dụng. Kh&aacute;ch h&agrave;ng dễ d&agrave;ng x&aacute;c minh trước khi cho họ v&agrave;o nh&agrave; l&agrave;m việc. Gi&uacute;p đảm bảo an to&agrave;n cho kh&aacute;ch h&agrave;ng.</p>\n\n<p>Với kinh nghiệm d&agrave;y dặn v&agrave; sự tận t&acirc;m, nhiệt t&igrave;nh trong c&ocirc;ng việc, đội ngũ chuy&ecirc;n gia bTaskee sẽ mang đến cho kh&aacute;ch h&agrave;ng trải nghiệm dịch vụ vệ sinh r&egrave;m cửa h&agrave;i l&ograve;ng nhất.</p>\n\n<p><img alt=\"Các chuyên gia vệ sinh đều có lý lịch rõ ràng cùng kinh nghiệm, tác phong chuyên nghiệp\" src=\"https://www.btaskee.com/wp-content/uploads/2023/02/nhan-vien-bTaskee.jpg\" style=\"height:600px; width:900px\" /></p>\n\n<p><strong>Xem th&ecirc;m nội dung về chủ ghế r&egrave;m cửa:</strong></p>\n\n<ul>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-thao-rem-cua-de-giat/\">C&aacute;ch Th&aacute;o R&egrave;m Cửa Để Giặt</a>&nbsp;Đơn Giản Nhanh Ch&oacute;ng</em></strong></li>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cac-loai-rem-cua-so/\">C&aacute;c Loại R&egrave;m Cửa Sổ</a>&nbsp;Hiện Đại V&agrave; Sang Trọng Nhất Hiện Nay</em></strong></li>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/phong-tho-nen-chon-rem-cua-mau-gi/\">Ph&ograve;ng Thờ N&ecirc;n Chọn R&egrave;m Cửa M&agrave;u G&igrave;</a>&nbsp;Cho T&ocirc;n Nghi&ecirc;m?</em></strong></li>\n</ul>', 'off', NULL, NULL),
+(6, 'Nấu ăn gia đình\r\n', '1', 'nau-an-com-nha-ngon-mieng.png', 'nau-an-gia-dinh', 'Nhịp sống đô thị đang dần trở nên bận rộn hơn với công việc và xã hội. Đặc biệt thời gian của người phụ nữ dành cho gia đình và chăm sóc nhà cửa', 100000, '<h2><strong>V&igrave; sao n&ecirc;n chọn dịch vụ giặt r&egrave;m cửa tại nh&agrave; bTaskee</strong></h2>\n\n<h3>Nhanh ch&oacute;ng, tiện lợi</h3>\n\n<p>Chỉ với 30 gi&acirc;y, bạn c&oacute; thể đặt lịch vệ sinh r&egrave;m cửa qua ứng dụng bTaskee. Chuy&ecirc;n gia vệ sinh sẽ đến tận nơi trong v&ograve;ng 1 tiếng. Thời gian vệ sinh từ 1-2 tiếng t&ugrave;y thuộc v&agrave;o số lượng v&agrave; loại r&egrave;m gia đ&igrave;nh bạn.</p>\n\n<p>Với bTaskee, bạn c&oacute; thể chủ động lựa chọn địa điểm, thời gian vệ sinh theo mong muốn. bTaskee lu&ocirc;n sẵn s&agrave;ng hỗ trợ kh&aacute;ch h&agrave;ng trong mọi trường hợp. Sự linh hoạt, thuận tiện của bTaskee l&agrave; một điểm cộng lớn gi&uacute;p ghi dấu ấn trong l&ograve;ng kh&aacute;ch h&agrave;ng.</p>\n\n<p><img alt=\"Đặt lịch dịch vụ giặt rèm cửa tại nhà đơn tiện lợi qua app bTaskee.\" src=\"https://www.btaskee.com/wp-content/uploads/2023/12/giao-dien-app-btaskee-2.jpg\" style=\"height:600px; width:900px\" /></p>\n\n<p>Đặt lịch dịch vụ giặt r&egrave;m cửa tại nh&agrave; đơn tiện lợi qua app bTaskee.</p>\n\n<h3>Dịch vụ chuy&ecirc;n nghiệp</h3>\n\n<p>Tất cả chuy&ecirc;n gia vệ sinh r&egrave;m của bTaskee đều được đ&agrave;o tạo b&agrave;i bản, đ&aacute;p ứng 4 ti&ecirc;u ch&iacute;: Th&aacute;i độ, tr&igrave;nh độ, khả năng xử l&yacute; t&igrave;nh huống v&agrave; thao t&aacute;c tr&ecirc;n ứng dụng.</p>\n\n<p>Th&ocirc;ng tin t&ecirc;n, h&igrave;nh ảnh, m&atilde; QR, đ&aacute;nh gi&aacute; của người l&agrave;m đều được cập nhật đầy đủ tr&ecirc;n ứng dụng. Kh&aacute;ch h&agrave;ng dễ d&agrave;ng x&aacute;c minh trước khi cho họ v&agrave;o nh&agrave; l&agrave;m việc. Gi&uacute;p đảm bảo an to&agrave;n cho kh&aacute;ch h&agrave;ng.</p>\n\n<p>Với kinh nghiệm d&agrave;y dặn v&agrave; sự tận t&acirc;m, nhiệt t&igrave;nh trong c&ocirc;ng việc, đội ngũ chuy&ecirc;n gia bTaskee sẽ mang đến cho kh&aacute;ch h&agrave;ng trải nghiệm dịch vụ vệ sinh r&egrave;m cửa h&agrave;i l&ograve;ng nhất.</p>\n\n<p><img alt=\"Các chuyên gia vệ sinh đều có lý lịch rõ ràng cùng kinh nghiệm, tác phong chuyên nghiệp\" src=\"https://www.btaskee.com/wp-content/uploads/2023/02/nhan-vien-bTaskee.jpg\" style=\"height:600px; width:900px\" /></p>\n\n<p><strong>Xem th&ecirc;m nội dung về chủ ghế r&egrave;m cửa:</strong></p>\n\n<ul>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cach-thao-rem-cua-de-giat/\">C&aacute;ch Th&aacute;o R&egrave;m Cửa Để Giặt</a>&nbsp;Đơn Giản Nhanh Ch&oacute;ng</em></strong></li>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/cac-loai-rem-cua-so/\">C&aacute;c Loại R&egrave;m Cửa Sổ</a>&nbsp;Hiện Đại V&agrave; Sang Trọng Nhất Hiện Nay</em></strong></li>\n	<li><strong><em><a href=\"https://www.btaskee.com/kinh-nghiem-hay/phong-tho-nen-chon-rem-cua-mau-gi/\">Ph&ograve;ng Thờ N&ecirc;n Chọn R&egrave;m Cửa M&agrave;u G&igrave;</a>&nbsp;Cho T&ocirc;n Nghi&ecirc;m?</em></strong></li>\n</ul>', 'off', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_shipping`
+-- Cấu trúc bảng cho bảng `tbl_shipping`
 --
 
 CREATE TABLE `tbl_shipping` (
@@ -1276,17 +1450,31 @@ CREATE TABLE `tbl_shipping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tbl_shipping`
+-- Đang đổ dữ liệu cho bảng `tbl_shipping`
 --
 
 INSERT INTO `tbl_shipping` (`shipping_id`, `user_id`, `shipping_image`, `shipping_name`, `shipping_email`, `shipping_phone`, `shipping_address`, `created_at`, `updated_at`) VALUES
-(1, '97f7f', 'nguoidung59grocery-assistant-lua-chon-da-dang.png', 'user1', 'user2@gmail.com', '0868723214', '90,Thành phố Hà Nội, Quận Hoàn Kiếm, Phường Hàng Đào', '2023-11-24 16:58:37', '2023-12-23 08:03:14'),
-(2, '9a820', NULL, 'Van chuyen 2', 'vanchuyen1@gmail.com', '+84868723214', '90,Tỉnh Hà Giang, Thành phố Hà Giang, Phường Ngọc Hà', '2023-11-25 08:02:15', '2023-11-25 09:01:53');
+(1, 'e09c5', 'nguoidung4grocery-assistant-lua-chon-da-dang.png', 'Trần Minh Nghĩa', 'minhnghia11a1@gmail.com', '0868723214', '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:45:57', '2023-12-26 07:54:53'),
+(2, '598aa', 'ndteam-1.jpg', 'Trần Công Vinh', 'minhnghia11a1@gmail.com', '0868723214', '086872321490,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(3, 'nd003', 'NDmessages-1.jpg', 'Lê Luwu Minh', 'minhnghia11a1@gmail.com', '0868723214', '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(4, 'nd004', 'NDmessages-3.jpg', 'Nguyễn Tiến', 'minhnghia11a1@gmail.com', '0868723214', '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(5, 'nd005', 'ndteam-1.jpg', 'Trần Văn Tạ', 'minhnghia11a1@gmail.com', '0868723214', '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(6, 'nd006', 'NDmessages-1.jpg', 'Trần Văn Hải Nam', 'minhnghia11a1@gmail.com', '0868723214', '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(7, 'nd007', 'ndteam-1.jpg', 'Trần Công Vinh', 'minhnghia11a1@gmail.com', '0868723214', '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(8, 'nd008', 'NDmessages-1.jpg', 'Trần Văn test 4', 'minhnghia11a1@gmail.com', '0868723214', '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(9, 'nd009', 'ndteam-1.jpg', 'Trần Thanh Nguyên', 'minhnghia11a1@gmail.com', '0868723214', '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(10, 'nd0010', 'NDmessages-3.jpg', 'Kim Quy Hải', 'minhnghia11a1@gmail.com', '0868723214', '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(11, 'nd0011', 'ndteam-3.jpg', 'Hồ Trần Lê Nam', 'minhnghia11a1@gmail.com', '0868723214', '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(12, 'nd0012', 'ndteam-1.jpg', 'NGuyễn Quý Ô', 'minhnghia11a1@gmail.com', '0868723214', '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(13, 'nd0013', 'NDmessages-3.jpg', 'Trần Văn test 3', 'minhnghia11a1@gmail.com', '0868723214', '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(14, 'nd0014', 'ndteam-3.jpg', 'Trần Văn test 2', 'minhnghia11a1@gmail.com', '0868723214', '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(15, 'nd0015', 'ndteam-1.jpg', 'Trần Văn test 1', 'minhnghia11a1@gmail.com', '0868723214', '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(16, '00000', '', 'Quản trị viên', 'admin@gmail.com', '', '', '2023-12-26 07:56:21', '2023-12-26 07:56:21');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_statistical`
+-- Cấu trúc bảng cho bảng `tbl_statistical`
 --
 
 CREATE TABLE `tbl_statistical` (
@@ -1298,85 +1486,83 @@ CREATE TABLE `tbl_statistical` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `tbl_statistical`
+-- Đang đổ dữ liệu cho bảng `tbl_statistical`
 --
 
 INSERT INTO `tbl_statistical` (`id_statistical`, `date`, `sales`, `profit`, `total_appointment`) VALUES
-(1, '2023-11-08', '20000000', '7000000', 10),
-(2, '2023-11-07', '68000000', '9000000', 8),
-(3, '2023-11-06', '30000000', '3000000', 7),
-(4, '2023-11-05', '45000000', '3800000', 9),
-(5, '2023-11-04', '30000000', '1500000', 12),
-(6, '2023-11-03', '8000000', '700000', 30),
-(7, '2023-11-02', '28000000', '23000000', 20),
-(8, '2023-11-01', '25000000', '20000000', 6),
-(9, '2023-10-31', '36000000', '28000000', 15),
-(10, '2023-10-30', '50000000', '13000000', 19),
-(11, '2023-10-29', '20000000', '15000000', 11),
-(12, '2023-10-28', '25000000', '16000000', 14),
-(13, '2020-10-27', '32000000', '17000000', 10),
-(14, '2020-10-26', '33000000', '19000000', 5),
-(15, '2023-10-25', '36000000', '18000000', 12),
-(16, '2023-10-24', '34000000', '20000000', 20),
-(17, '2023-10-23', '25000000', '16000000', 14),
-(18, '2023-10-22', '12000000', '7000000', 10),
-(19, '2023-10-21', '63000000', '19000000', 5),
-(20, '2023-10-20', '66000000', '18000000', 12),
-(21, '2023-10-19', '74000000', '20000000', 20),
-(22, '2023-10-18', '63000000', '19000000', 5),
-(23, '2023-10-17', '66000000', '18000000', 12),
-(24, '2023-10-16', '74000000', '20000000', 20),
-(25, '2023-10-15', '63000000', '19000000', 5),
-(26, '2020-10-14', '66000000', '18000000', 12),
-(27, '2020-10-13', '74000000', '20000000', 20),
-(28, '2020-10-12', '66000000', '18000000', 12),
-(29, '2020-10-11', '74000000', '20000000', 20),
-(30, '2020-10-10', '63000000', '19000000', 5),
-(31, '2020-10-09', '66000000', '18000000', 12),
-(32, '2020-10-08', '74000000', '20000000', 20),
-(33, '2020-10-07', '66000000', '18000000', 12),
-(34, '2020-10-06', '74000000', '20000000', 22),
-(35, '2020-10-05', '66000000', '18000000', 12),
-(36, '2020-10-04', '74000000', '20000000', 20),
-(37, '2020-10-03', '63000000', '19000000', 5),
-(38, '2020-10-02', '66000000', '18000000', 12),
-(39, '2020-10-01', '74000000', '20000000', 20),
-(40, '2020-09-30', '63000000', '19000000', 5),
-(41, '2020-09-29', '66000000', '18000000', 12),
-(42, '2020-09-28', '74000000', '20000000', 20),
-(43, '2020-09-27', '66000000', '18000000', 12),
-(44, '2020-09-26', '74000000', '20000000', 22),
-(45, '2020-09-25', '66000000', '18000000', 12),
-(46, '2020-09-24', '74000000', '20000000', 20),
-(47, '2020-09-23', '63000000', '19000000', 5),
-(48, '2020-09-22', '66000000', '18000000', 12),
-(49, '2020-09-21', '74000000', '20000000', 20),
-(50, '2020-09-20', '63000000', '19000000', 5),
-(51, '2020-09-19', '66000000', '18000000', 12),
-(52, '2020-09-18', '74000000', '20000000', 20),
-(53, '2020-09-17', '66000000', '18000000', 12),
-(54, '2020-09-16', '74000000', '20000000', 22),
-(55, '2020-09-15', '66000000', '18000000', 12),
-(56, '2020-09-14', '74000000', '20000000', 20),
-(57, '2020-09-13', '63000000', '19000000', 5),
-(58, '2020-09-12', '66000000', '18000000', 12),
-(59, '2020-09-11', '74000000', '20000000', 20),
-(60, '2020-09-10', '63000000', '19000000', 5),
-(61, '2020-09-09', '66000000', '18000000', 12),
-(62, '2020-09-08', '74000000', '20000000', 20),
-(63, '2020-09-07', '66000000', '18000000', 12),
-(64, '2020-09-06', '74000000', '20000000', 22),
-(65, '2020-09-05', '66000000', '18000000', 12),
-(66, '2020-09-04', '74000000', '20000000', 20),
-(67, '2020-09-03', '63000000', '19000000', 5),
-(68, '2020-09-02', '66000000', '18000000', 12),
-(69, '2020-09-01', '74000000', '20000000', 20),
-(71, '2023-12-24', '25950000', '23385000', 4);
+(1, '2023-11-08', '200000', '70000', 1),
+(2, '2023-11-07', '680000', '90000', 3),
+(3, '2023-11-06', '-300000', '10000', 0),
+(4, '2023-11-05', '80000', '12000', 1),
+(5, '2023-11-04', '-1350000', '150000', 0),
+(6, '2023-11-03', '80000', '12000', 1),
+(7, '2023-11-02', '280000', '23000', 2),
+(8, '2023-11-01', '250000', '25000', 1),
+(14, '2023-12-26', '6200000', '620000', 4),
+(17, '2023-12-23', '3220000', '507000', 3),
+(18, '2023-12-22', '3450000', '403000', 3),
+(19, '2023-12-21', '2760000', '232000', 4),
+(20, '2023-12-20', '660000', '60000', 2),
+(21, '2023-12-19', '740000', '70000', 3),
+(22, '2023-12-18', '-680000', '120000', 3),
+(23, '2023-12-17', '6600000', '180000', 5),
+(24, '2023-12-16', '3180000', '318000', 7),
+(25, '2023-12-15', '630000', '50000', 5),
+(26, '2023-12-14', '660000', '66000', 2),
+(27, '2023-12-13', '504000', '63000', 2),
+(28, '2023-12-12', '200000', '18000', 4),
+(33, '2023-10-28', '660000', '180000', 2),
+(34, '2023-10-26', '7400000', '800000', 8),
+(35, '2023-10-25', '80000', '185000', 1),
+(36, '2023-10-24', '560000', '100000', 1),
+(37, '2023-10-23', '6300000', '800000', 2),
+(38, '2023-10-22', '1200000', '120000', 1),
+(39, '2023-10-21', '270000', '27000', 1),
+(40, '2023-10-20', '0', '0', 0),
+(41, '2023-10-18', '-450000', '4500', 0),
+(42, '2023-10-17', '4600000', '200000', 3),
+(43, '2023-10-16', '6800000', '700000', 5),
+(44, '2023-10-13', '5400000', '1850000', 8),
+(45, '2023-10-11', '350000', '450000', 4),
+(46, '2023-10-09', '-480000', '120000', 3),
+(47, '2023-10-08', '630000', '63000', 5),
+(48, '2023-10-07', '380000', '38000', 1),
+(49, '2023-10-06', '1800000', '1800000', 5),
+(50, '2023-10-05', '2400000', '240000', 5),
+(51, '2023-10-02', '780000', '78000', 2),
+(52, '2023-10-01', '800000', '', 4),
+(53, '2023-11-28', '660000', '18000', 2),
+(54, '2023-11-27', '-1450000', '200000', 0),
+(55, '2023-11-26', '90000', '18000', 0),
+(56, '2023-11-25', '740000', '200000', 5),
+(57, '2023-11-24', '630000', '50000', 2),
+(58, '2023-11-23', '450000', '45000', 1),
+(59, '2023-11-22', '300000', '30000', 1),
+(60, '2023-11-20', '-50000', '120000', 0),
+(61, '2023-11-18', '660000', '50000', 3),
+(62, '2023-11-16', '740000', '74000', 5),
+(63, '2023-11-15', '900000', '90000', 4),
+(64, '2023-11-14', '-450000', '200000', 0),
+(65, '2023-11-13', '-1560000', '180000', 0),
+(66, '2023-11-12', '720000', '72000', 3),
+(67, '2023-11-11', '-630000', '190000', 5),
+(68, '2023-11-10', '660000', '180000', 4),
+(69, '2023-11-09', '740000', '100000', 0),
+(71, '2023-12-24', '789500', '763850', 7),
+(72, '2023-12-25', '1000000', '500000', 2),
+(76, '2023-12-27', '-1400000', '544000', 2),
+(77, '2023-12-28', '980500', '98050', 2),
+(78, '2023-12-29', '240000', '24000', 1),
+(80, '2023-12-31', '350000', '35000', 1),
+(81, '2024-01-01', '1180000', '118000', 3),
+(82, '2024-01-03', '450000', '45000', 1),
+(83, '2024-01-04', '370500', '37050', 1),
+(84, '2024-01-08', '270000', '27000', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_ward`
+-- Cấu trúc bảng cho bảng `tbl_ward`
 --
 
 CREATE TABLE `tbl_ward` (
@@ -1387,7 +1573,7 @@ CREATE TABLE `tbl_ward` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `tbl_ward`
+-- Đang đổ dữ liệu cho bảng `tbl_ward`
 --
 
 INSERT INTO `tbl_ward` (`ward_id`, `ward_name`, `ward_type`, `province_id`) VALUES
@@ -12564,7 +12750,7 @@ INSERT INTO `tbl_ward` (`ward_id`, `ward_name`, `ward_type`, `province_id`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Cấu trúc bảng cho bảng `users`
 --
 
 CREATE TABLE `users` (
@@ -12581,50 +12767,74 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Đang đổ dữ liệu cho bảng `users`
 --
 
 INSERT INTO `users` (`id`, `user_id`, `role_id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, '73794', 1, 'admin', 'admin@gmail.com', NULL, '$2y$10$t.EXxyT4XuboTOBWWVz/NOW9j5er/yXu79/TGFPQmzqbB2PVw.HcC', 'l5rpbFf8CA5ELj00TMmFT5qzgpWfGXrj2KWiNKmxqh4o0OGJKCqXT0RCFIIS', '2023-11-19 06:07:44', '2023-11-19 06:07:44'),
-(7, '934c0', 2, 'Nguyễn Văn A', 'housekeeper3@gmail.com', NULL, '$2y$10$jJZBOzhIHT4Ufn90cXkCquDdHfcZglVjWk83fMnwL6ZwZuLZ6jXGm', NULL, '2023-11-19 06:32:46', '2023-11-19 06:32:46'),
-(9, '934c1', 2, 'NGuyễn B', 'housekeeper1@gmail.com', NULL, '$2y$10$jJZBOzhIHT4Ufn90cXkCquDdHfcZglVjWk83fMnwL6ZwZuLZ6jXGm', NULL, '2023-11-19 06:32:46', '2023-11-19 07:10:29'),
-(10, '934cc', 3, 'NGuyễn B', 'member1@gmail.com', NULL, '$2y$10$jJZBOzhIHT4Ufn90cXkCquDdHfcZglVjWk83fMnwL6ZwZuLZ6jXGm', NULL, '2023-11-19 06:32:46', '2023-11-19 07:10:29'),
-(11, 'b87b3', 3, 'ádas', 'aaaaaaaaaaad@gmail.com', NULL, '$2y$10$z29z1Jg9xLGhOiqaj5z1NO5xcmRYxrHFTCQZKt9HJKHgtb3cQZTKq', NULL, '2023-11-24 16:53:55', '2023-11-24 16:53:55'),
-(14, '052f0', 3, 'Trần Minh Nghiã', 'user1@gmail.com', NULL, '$2y$10$6.x6rILuntpx8/OimycgwORcpFP1bk.992JDhCfP1PoAjexR8Qoc.', NULL, '2023-11-24 16:55:50', '2023-11-24 16:55:50'),
-(15, '97f7f', 3, 'user1', 'user2@gmail.com', NULL, '$2y$10$zjOUimkX9TcIgQRtmiZuw.5nMm5KS6TYItxonXclfdv4UgE4860DS', NULL, '2023-11-24 16:58:37', '2023-11-24 16:58:37'),
-(16, '9a820', 3, 'Member2', 'demo@gmail.com', NULL, '$2y$10$l2TYXe6nySxnf60l1Fs0h.SLsrp9J1efJa6AHsNShdXQKAo5cr3iq', NULL, '2023-11-25 08:02:15', '2023-11-25 08:02:15');
+(1, '00000', 1, 'Quản trị Viên', 'admin@gmail.com', NULL, '$2y$10$SFa7vfGyDqlyBM8sP/PCXuq4TTf4dHm2wx1rjlIOzylHZYWvymVLe', NULL, '2023-12-25 23:18:58', '2023-12-25 23:18:58'),
+(2, '3ac0e', 2, 'Trương Thị Tuyết', 'giupviec1@gmail.com', NULL, '$2y$10$MiWBloP6OHucZuNeXrd.9uioTsTbFFjwuSVJDxpXWh5uHEPeS2B4q', NULL, '2023-12-25 23:55:29', '2023-12-25 23:55:29'),
+(3, '373eb', 2, 'Nguyễn Linh Nam', 'nguyenlinhnam@gmail.com', NULL, '$2y$10$c7K2xSxmFBhR2Hj6pvWLVOhLcIfdqptW9N93.FL5bGtlqB4F.Ooh2', NULL, '2023-12-25 23:58:39', '2023-12-25 23:58:39'),
+(4, 'c741c', 2, 'Trần Văn Hải', 'tranvanhai@gmail.com', NULL, '$2y$10$4JTPMIOpBVInFmpprGK0q.bswSFp9KOe8GJQI6QLZ3XHVvd3iOZIi', NULL, '2023-12-26 00:01:31', '2023-12-26 00:01:31'),
+(5, 'e59d6', 2, 'Nguyễn Xuân Nhật', 'nguỹenxuannhat@gmail.com', NULL, '$2y$10$y1E7UyI9sjp866UDlbC2UOq1.zjrUmtuuygDHaxFU1v5kNHvo/.Ha', NULL, '2023-12-26 00:03:44', '2023-12-26 00:03:44'),
+(6, '25bd2', 2, 'Nguyễn Khánh Ngân', 'nguyenkhanhngan@gmail.com', NULL, '$2y$10$0xx1LfdC7hW6pCMQM.hZaOtv5dPvU1TQeHqnp8/4cyD2IVwXNLAj2', NULL, '2023-12-26 00:27:10', '2023-12-26 00:27:10'),
+(7, '1e8d6', 2, 'Hoàng Văn Quý', 'hoangvanquy@gmail.com', NULL, '$2y$10$7T9ZfIAECEg8NALTAVxQ/ePjl3kzbcQV5HmOo1kiZfeTEjh0FDh02', NULL, '2023-12-26 00:30:45', '2023-12-26 00:30:45'),
+(8, '3ac00', 2, 'Lê Thị Tuyết', 'lethituyet@gmail.com', NULL, '$2y$10$MiWBloP6OHucZuNeXrd.9uioTsTbFFjwuSVJDxpXWh5uHEPeS2B4q', NULL, '2023-12-25 23:55:29', '2023-12-25 23:55:29'),
+(9, '373e0', 2, 'Trần Văn Ninh', 'tranvanlinh@gmail.com', NULL, '$2y$10$c7K2xSxmFBhR2Hj6pvWLVOhLcIfdqptW9N93.FL5bGtlqB4F.Ooh2', NULL, '2023-12-25 23:58:39', '2023-12-25 23:58:39'),
+(10, 'c7410', 2, 'Nguyễ Văn Hải', 'nguyenvanhai@gmail.com', NULL, '$2y$10$4JTPMIOpBVInFmpprGK0q.bswSFp9KOe8GJQI6QLZ3XHVvd3iOZIi', NULL, '2023-12-26 00:01:31', '2023-12-26 00:01:31'),
+(11, 'e59d0', 2, 'Trần Nhật Nam', 'trannhatnam@gmail.com', NULL, '$2y$10$y1E7UyI9sjp866UDlbC2UOq1.zjrUmtuuygDHaxFU1v5kNHvo/.Ha', NULL, '2023-12-26 00:03:44', '2023-12-26 00:03:44'),
+(12, '25bd0', 2, 'Trần Văn Bắc', 'tranvanbac@gmail.com', NULL, '$2y$10$0xx1LfdC7hW6pCMQM.hZaOtv5dPvU1TQeHqnp8/4cyD2IVwXNLAj2', NULL, '2023-12-26 00:27:10', '2023-12-26 00:27:10'),
+(13, '1e8d0', 2, 'Nguyễn Kim Hằng', 'nguyenkimhang@gmail.com', NULL, '$2y$10$7T9ZfIAECEg8NALTAVxQ/ePjl3kzbcQV5HmOo1kiZfeTEjh0FDh02', NULL, '2023-12-26 00:30:45', '2023-12-26 00:30:45'),
+(14, 'c74aa', 2, 'Lương Hữu Khánh', 'luonghuukhanh@gmail.com', NULL, '$2y$10$4JTPMIOpBVInFmpprGK0q.bswSFp9KOe8GJQI6QLZ3XHVvd3iOZIi', NULL, '2023-12-26 00:01:31', '2023-12-26 00:01:31'),
+(15, 'e5daa', 2, 'Nguyễn Thiện', 'thien@gmail.com', NULL, '$2y$10$y1E7UyI9sjp866UDlbC2UOq1.zjrUmtuuygDHaxFU1v5kNHvo/.Ha', NULL, '2023-12-26 00:03:44', '2023-12-26 00:03:44'),
+(16, '25baa', 2, 'Tràn Kim Ngân', 'trangngan@gmail.com', NULL, '$2y$10$0xx1LfdC7hW6pCMQM.hZaOtv5dPvU1TQeHqnp8/4cyD2IVwXNLAj2', NULL, '2023-12-26 00:27:10', '2023-12-26 00:27:10'),
+(17, '1e8aa', 2, 'Văn Quý', 'vanquy@gmail.com', NULL, '$2y$10$7T9ZfIAECEg8NALTAVxQ/ePjl3kzbcQV5HmOo1kiZfeTEjh0FDh02', NULL, '2023-12-26 00:30:45', '2023-12-26 00:30:45'),
+(18, 'e09c5', 3, 'Trần Minh Nghĩa', 'minhnghia11a1@gmail.com', NULL, '$2y$10$rERmG8kpNBshgzQhmGmFKeHsKZIZRpQiCnDIQ1nNZx8HbX6L1iwt2', NULL, '2023-12-26 07:45:57', '2024-01-06 16:20:43'),
+(19, '598aa', 3, 'Trần Công Vinh', 'congvinh@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(20, 'nd003', 3, 'Lê Lưu Minh', 'luuminh100@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(21, 'nd004', 3, 'Nguyễn Tiến', 'nguyentien4@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(22, 'nd005', 3, 'Trần Văn Tạ', 'nguoivanta@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(23, 'nd006', 3, 'Trần Văn Hải Nam', 'Hainam@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(24, 'nd007', 3, 'Trần Công Vinh', 'member1@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(25, 'nd008', 3, 'Trần Văn test 4', 'nguoidung4@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(26, 'nd009', 3, 'Trần Thanh Nguyên', 'NguyenThanh@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(33, 'nd0015', 3, 'Kim Quy Hải', 'Kimono@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(34, 'nd0010', 3, 'Hồ Trần Lê Nam', 'LeNam01@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(35, 'nd0011', 3, 'NGuyễn Quý Ô', 'NguyenQuy@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(36, 'nd0012', 3, 'Trần Văn test 3', 'nguoidung3@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(37, 'nd0013', 3, 'Trần Văn test 2', 'nguoidung2@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(38, 'nd0014', 3, 'Trần Văn test 1', 'nguoidung1@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21');
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `failed_jobs`
+-- Chỉ mục cho bảng `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indexes for table `migrations`
+-- Chỉ mục cho bảng `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `password_resets`
+-- Chỉ mục cho bảng `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indexes for table `payment_online`
+-- Chỉ mục cho bảng `payment_online`
 --
 ALTER TABLE `payment_online`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `personal_access_tokens`
+-- Chỉ mục cho bảng `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
@@ -12632,110 +12842,111 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `tbl_blog`
+-- Chỉ mục cho bảng `tbl_blog`
 --
 ALTER TABLE `tbl_blog`
   ADD PRIMARY KEY (`blog_id`);
 
 --
--- Indexes for table `tbl_booking`
+-- Chỉ mục cho bảng `tbl_booking`
 --
 ALTER TABLE `tbl_booking`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `book_id` (`book_id`);
 
 --
--- Indexes for table `tbl_booking_details`
+-- Chỉ mục cho bảng `tbl_booking_details`
 --
 ALTER TABLE `tbl_booking_details`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tbl_category`
---
-ALTER TABLE `tbl_category`
-  ADD PRIMARY KEY (`category_id`);
-
---
--- Indexes for table `tbl_city`
+-- Chỉ mục cho bảng `tbl_city`
 --
 ALTER TABLE `tbl_city`
   ADD PRIMARY KEY (`city_id`);
 
 --
--- Indexes for table `tbl_comment`
+-- Chỉ mục cho bảng `tbl_comment`
 --
 ALTER TABLE `tbl_comment`
   ADD PRIMARY KEY (`comment_id`);
 
 --
--- Indexes for table `tbl_coupon`
+-- Chỉ mục cho bảng `tbl_contact`
+--
+ALTER TABLE `tbl_contact`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `tbl_coupon`
 --
 ALTER TABLE `tbl_coupon`
   ADD PRIMARY KEY (`coupon_id`);
 
 --
--- Indexes for table `tbl_history`
+-- Chỉ mục cho bảng `tbl_history`
 --
 ALTER TABLE `tbl_history`
   ADD PRIMARY KEY (`history_id`);
 
 --
--- Indexes for table `tbl_housekeeper`
+-- Chỉ mục cho bảng `tbl_housekeeper`
 --
 ALTER TABLE `tbl_housekeeper`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tbl_payment`
+-- Chỉ mục cho bảng `tbl_infomation`
+--
+ALTER TABLE `tbl_infomation`
+  ADD PRIMARY KEY (`info_id`);
+
+--
+-- Chỉ mục cho bảng `tbl_payment`
 --
 ALTER TABLE `tbl_payment`
   ADD PRIMARY KEY (`payment_id`);
 
 --
--- Indexes for table `tbl_product`
---
-ALTER TABLE `tbl_product`
-  ADD PRIMARY KEY (`product_id`);
-
---
--- Indexes for table `tbl_province`
+-- Chỉ mục cho bảng `tbl_province`
 --
 ALTER TABLE `tbl_province`
   ADD PRIMARY KEY (`province_id`);
 
 --
--- Indexes for table `tbl_role`
+-- Chỉ mục cho bảng `tbl_role`
 --
 ALTER TABLE `tbl_role`
   ADD PRIMARY KEY (`role_id`);
 
 --
--- Indexes for table `tbl_service`
+-- Chỉ mục cho bảng `tbl_service`
 --
 ALTER TABLE `tbl_service`
   ADD PRIMARY KEY (`service_id`);
 
 --
--- Indexes for table `tbl_shipping`
+-- Chỉ mục cho bảng `tbl_shipping`
 --
 ALTER TABLE `tbl_shipping`
   ADD PRIMARY KEY (`shipping_id`);
 
 --
--- Indexes for table `tbl_statistical`
+-- Chỉ mục cho bảng `tbl_statistical`
 --
 ALTER TABLE `tbl_statistical`
-  ADD PRIMARY KEY (`id_statistical`);
+  ADD PRIMARY KEY (`id_statistical`),
+  ADD UNIQUE KEY `date` (`date`);
 
 --
--- Indexes for table `tbl_ward`
+-- Chỉ mục cho bảng `tbl_ward`
 --
 ALTER TABLE `tbl_ward`
   ADD PRIMARY KEY (`ward_id`);
 
 --
--- Indexes for table `users`
+-- Chỉ mục cho bảng `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -12743,122 +12954,122 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_user_id_unique` (`user_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `failed_jobs`
+-- AUTO_INCREMENT cho bảng `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
--- AUTO_INCREMENT for table `payment_online`
+-- AUTO_INCREMENT cho bảng `payment_online`
 --
 ALTER TABLE `payment_online`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `personal_access_tokens`
+-- AUTO_INCREMENT cho bảng `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tbl_blog`
+-- AUTO_INCREMENT cho bảng `tbl_blog`
 --
 ALTER TABLE `tbl_blog`
-  MODIFY `blog_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `blog_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `tbl_booking`
+-- AUTO_INCREMENT cho bảng `tbl_booking`
 --
 ALTER TABLE `tbl_booking`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- AUTO_INCREMENT for table `tbl_booking_details`
+-- AUTO_INCREMENT cho bảng `tbl_booking_details`
 --
 ALTER TABLE `tbl_booking_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- AUTO_INCREMENT for table `tbl_category`
---
-ALTER TABLE `tbl_category`
-  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tbl_comment`
+-- AUTO_INCREMENT cho bảng `tbl_comment`
 --
 ALTER TABLE `tbl_comment`
-  MODIFY `comment_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `comment_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `tbl_coupon`
+-- AUTO_INCREMENT cho bảng `tbl_contact`
+--
+ALTER TABLE `tbl_contact`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `tbl_coupon`
 --
 ALTER TABLE `tbl_coupon`
-  MODIFY `coupon_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `coupon_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `tbl_history`
+-- AUTO_INCREMENT cho bảng `tbl_history`
 --
 ALTER TABLE `tbl_history`
-  MODIFY `history_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `history_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
--- AUTO_INCREMENT for table `tbl_housekeeper`
+-- AUTO_INCREMENT cho bảng `tbl_housekeeper`
 --
 ALTER TABLE `tbl_housekeeper`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `tbl_payment`
+-- AUTO_INCREMENT cho bảng `tbl_infomation`
+--
+ALTER TABLE `tbl_infomation`
+  MODIFY `info_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `tbl_payment`
 --
 ALTER TABLE `tbl_payment`
-  MODIFY `payment_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `payment_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `tbl_product`
---
-ALTER TABLE `tbl_product`
-  MODIFY `product_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tbl_role`
+-- AUTO_INCREMENT cho bảng `tbl_role`
 --
 ALTER TABLE `tbl_role`
   MODIFY `role_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `tbl_service`
+-- AUTO_INCREMENT cho bảng `tbl_service`
 --
 ALTER TABLE `tbl_service`
-  MODIFY `service_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `service_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `tbl_shipping`
+-- AUTO_INCREMENT cho bảng `tbl_shipping`
 --
 ALTER TABLE `tbl_shipping`
-  MODIFY `shipping_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `shipping_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `tbl_statistical`
+-- AUTO_INCREMENT cho bảng `tbl_statistical`
 --
 ALTER TABLE `tbl_statistical`
-  MODIFY `id_statistical` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id_statistical` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
