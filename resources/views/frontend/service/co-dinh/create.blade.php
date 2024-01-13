@@ -226,6 +226,31 @@
 <!-- Đặt lịch End -->
 <script>
     $(document).ready(function(){
+        $(document).on('click','#submitTime',function(){
+            var book_date = $('input[name="book_date"]').val();
+            console.log(book_date);
+            var book_time_start = $(".book_time_start").val();
+            var split_checkdate = book_date.split(',');
+
+            var now = date();
+            var check = split_checkdate.includes(now);
+            console.log(check);
+            if (check == true) {
+                var split_time = book_time_start.split(':');
+                const nowdate = new Date();
+                const hour = nowdate.getHours();
+                var hous_start = (split_time[0]) - 2;
+                if (hous_start < hour) {
+                    // alert('Thời gian hợp lệ')
+                    swal({
+                            icon: "error",
+                            title: "Thời gian làm việc trong ngày "+now+' Không hợp lệ',
+                            text: "Vui lòng điều chỉnh lại lịch làm việc!",
+                            });
+
+                }
+            }
+            });
         var today = new Date();
         var html ='';
         const weekday = ["T2","T3","T4","T5","T6","T7","CN"];
@@ -250,8 +275,6 @@
         var input = document.getElementById(id);
         var timePicker = document.createElement('div');
         timePicker.classList.add('time-picker');
-        input.value = '08:30';
-
         //open timepicker
         input.onclick= function(){
             timePicker.classList.toggle('open');
@@ -350,7 +373,44 @@
             var book_notes = $('textarea[name="book_notes"]').val();
 
             var package_type = Number($('input[name="package_type"]:checked').val());
-            $.ajax({
+            var split_checkdate = book_date.split(',');
+
+            var now = date();
+            var check = split_checkdate.includes(now);
+            console.log(check);
+            if (check == true) {
+                var split_time = book_time_start.split(':');
+                const nowdate = new Date();
+                const hour = nowdate.getHours();
+                var hous_start = (split_time[0]) - 2;
+                if (hous_start < hour) {
+                    // alert('Thời gian hợp lệ')
+                    swal({
+                        icon: "error",
+                        title: "Thời gian làm việc trong ngày "+now+' Không hợp lệ',
+                        text: "Vui lòng điều chỉnh lại lịch làm việc!",
+                        });
+
+                }else{
+                    $.ajax({
+                        url : "{{route('home.giup-viec.check-Booking')}}",
+                        method: 'GET',
+                        data:{book_date:book_date,
+                            book_price:book_price,
+                            book_time_number:book_time_number,
+                            book_time_start:book_time_start,
+                            service_id:service_id,
+                            Klcv:Klcv,book_notes:book_notes,
+                            package_type:package_type},
+                        success:function(data){
+                            $('#modal-check-default').html(data);
+                            $('#exampleModal').modal('show');
+                        }
+                    });
+                }
+            }
+            if (check == false) {
+                $.ajax({
                 url : "{{route('home.giup-viec.check-Booking')}}",
                 method: 'GET',
                 data:{book_date:book_date,
@@ -366,6 +426,7 @@
 
                 }
             });
+            }
 
             $(document).on('change', '#coupon', function(e){
                 var coupon = $(this).val();

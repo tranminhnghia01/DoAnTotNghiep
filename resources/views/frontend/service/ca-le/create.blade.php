@@ -204,7 +204,7 @@
         var input = document.getElementById(id);
         var timePicker = document.createElement('div');
         timePicker.classList.add('time-picker');
-        input.value = '08:30';
+        // input.value = '08:30';
 
         //open timepicker
         input.onclick= function(){
@@ -296,6 +296,27 @@
             $('input[name="book_date"]').val(book_date);
         });
 
+        $(document).on('click','#submitTime',function(){
+            var book_date = $('input[name="book_date"]').val();
+            var book_time_start = $(".book_time_start").val();
+            var now = date();
+            if (book_date == now) {
+                var split_time = book_time_start.split(':');
+                const nowdate = new Date();
+                const hour = nowdate.getHours();
+                var hous_start = (split_time[0]) - 2;
+                if (hous_start < hour) {
+                    // alert('Thời gian hợp lệ')
+                    swal({
+                            icon: "error",
+                            title: "Không hợp lệ...",
+                            text: "Vui lòng chọn lại thời gian!",
+                            });
+
+                }
+            }
+            });
+
 
         $("#check").on('click',function(){
             var book_date = $('input[name="book_date"]').val();
@@ -314,14 +335,19 @@
                 $('textarea[name="list_options"]').val(book_options);
             });
 
-            var date = new Date();
+
             var checkhours = true;
-            var now = date.toLocaleDateString();
-            var hoursnow =  date.getHours();
+            var now = date();
             if (now == book_date) {
                 var split_time = book_time_start.split(':');
-                var hous_start = Number(split_time[0]) - 2;
-                if (hous_start >= hoursnow) {
+                console.log(split_time);
+
+                const nowdate = new Date();
+                const hour = nowdate.getHours();
+                console.log(hour);
+                var hous_start = (split_time[0]) - 2;
+                console.log(hous_start);
+                if (hous_start >= hour) {
                     checkhours = true;
                 }else{
                     checkhours = false;
@@ -329,6 +355,7 @@
             }else{
                 checkhours = true;
             }
+
             if (checkhours == true) {
                 $.ajax({
                     url : "{{route('home.giup-viec.check-Booking')}}",
@@ -348,7 +375,7 @@
                 });
 
             }else{
-                alert('Thời gian không họp lệ, Vui lòng chọn lại');
+                alert('Thời gian không hợp lệ, Vui lòng chọn lại');
             };
 
             $(document).on('change', '#coupon', function(e){

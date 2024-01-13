@@ -112,14 +112,14 @@ class CouponController extends Controller
         // dd($shipping);
         $coupon = Coupon::where('coupon_id',$coupon_id)->first();
         // dd($coupon);
-        // Mail::to('minhnghia11a1@gmail.com')->send(new MailCoupon($coupon));
+        Mail::to('minhnghia11a1@gmail.com')->send(new MailCoupon($coupon));
 
-        foreach ($shipping as $key => $value) {
-            $email = $value->shipping_email;
-            Mail::to($email)->send(new MailCoupon($coupon));
+        // foreach ($shipping as $key => $value) {
+        //     $email = $value->shipping_email;
+        //     Mail::to($email)->send(new MailCoupon($coupon));
 
-        }
-            $msg = 'Gửi thư cảm ơn thành công';
+        // }
+            $msg = 'Gửi mã giảm giá cho khách hàng thành công';
             $style ='success';
             return redirect()->back()->with(compact('msg','style'));
 
