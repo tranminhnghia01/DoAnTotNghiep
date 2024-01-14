@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Housekeeper;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,10 +16,13 @@ class AdminAuthentication
      */
     public function handle($request, Closure $next)
     {
+        $user_id = Auth::user()->user_id;
+        $housekeeper = Housekeeper::where("housekeeper_id", $user_id)->first();
+        // dd($housekeeper);
         if( Auth::check() && Auth::user()->role_id == 1 ){
             return $next($request);
         }
-        if(Auth::check() && Auth::user()->role_id == 2 ){
+        if(Auth::check() && $housekeeper == true ){
             return $next($request);
         }
         else{

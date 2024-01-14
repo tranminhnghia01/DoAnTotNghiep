@@ -95,6 +95,11 @@
             <a href="{{ route('admin.housekeeper.index') }}">
               <i class="bi bi-circle"></i><span>Người giúp việc</span>
             </a>
+            <li>
+                <a href="{{ route('admin.housekeeper-handle') }}">
+                  <i class="bi bi-circle"></i><span>Đăng ký người giúp việc</span>
+                </a>
+              </li>
           </li>
         </ul>
       </li><!-- End Icons Nav -->

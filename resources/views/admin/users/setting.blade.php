@@ -120,9 +120,9 @@
   <div class="row mb-3">
     <label for="status" class="col-md-4 col-lg-3 col-form-label">Trạng thái</label>
     <div class="col-md-8">
-        <select    class="form-select "  name="status">
-        <option selected value="0">Kích hoạt</option>
-        <option value="1">Vô hiệu hóa</option>
+        <select    class="form-select"  name="status">
+        <option selected value="0">Duyệt</option>
+        <option value="1">Bỏ duyệt</option>
         </select>
     </div>
   </div>

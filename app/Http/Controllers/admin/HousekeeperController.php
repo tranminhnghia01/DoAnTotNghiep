@@ -22,11 +22,11 @@ class HousekeeperController extends Controller
     public function index()
     {
         $role = Role::all();
-        $housekeeper = Housekeeper::join('users', 'users.user_id', '=', 'tbl_housekeeper.housekeeper_id')
-        ->join('tbl_role','tbl_role.role_id','=','users.role_id')->orderBy('status', 'desc')->get();
+        $housekeeper = Housekeeper::where('status',0)->orderBy('created_at', 'desc')->get();
         // dd($housekeepers);
         return view('admin.users.list')->with(compact('housekeeper','role'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -106,7 +106,6 @@ class HousekeeperController extends Controller
         $city = City::all();
 
         $user = User::where('user_id',$id)->first();
-        $role = Role::find($user->role_id);
 
         $housekeeper = Housekeeper::join('users', 'users.user_id', '=', 'tbl_housekeeper.housekeeper_id')
         ->join('tbl_role','tbl_role.role_id','=','users.role_id')->where('housekeeper_id',$id)->first();
@@ -114,7 +113,7 @@ class HousekeeperController extends Controller
         $book = History::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_history.book_id')
         ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_booking_details.book_id')->where('tbl_history.housekeeper_id',$id)->get();
 
-        return view('admin.users.show')->with(compact('housekeeper','role','user','city','book'));
+        return view('admin.users.show')->with(compact('housekeeper','user','city','book'));
     }
 
     /**
@@ -209,5 +208,17 @@ class HousekeeperController extends Controller
             $msg = 'Cập nhật chi tiết thành công';
             $style = 'success';
             return redirect()->back()->with(compact('msg','style'));
+    }
+
+
+    public function destroy($user_id){
+        $housekeeper = Housekeeper::where('housekeeper_id', $user_id)->first();
+        if($housekeeper){
+            $housekeeper->delete();
+
+            $msg = 'Xóa đơn yêu cầu thành công';
+            $style = 'success';
+            return redirect()->back()->with(compact('msg','style'));
+        }
     }
 }

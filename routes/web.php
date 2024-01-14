@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('/Moon.com')->name('home.')->group(function (){
-    Route::get('/', [App\Http\Controllers\frontend\HomeController::class, 'index'])->name('index');
+    Route::get('/', [App\Http\Controllers\frontend\HomeController::class, 'index'])->name('index')->middleware('member');
     Route::get('/login', [App\Http\Controllers\frontend\LoginController::class,'index'])->name('login')->middleware('memberNotLogin');
     Route::post('/login', [App\Http\Controllers\frontend\LoginController::class,'login'])->middleware('member');
     Route::get('/register', [App\Http\Controllers\frontend\LoginController::class,'show_register'])->name('register')->middleware('memberNotLogin');
@@ -120,6 +120,9 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 
 
     Route::resource('housekeeper', App\Http\Controllers\admin\HousekeeperController::class);
+    Route::get('/processing/housekeeper', [App\Http\Controllers\admin\AccountController::class,'register_house'])->name('housekeeper-handle');
+    Route::get('/processing/destroy/{user_id}', [App\Http\Controllers\admin\AccountController::class,'register_destroy'])->name('housekeeper-destroy');
+
     Route::resource('Nguoi-dung', App\Http\Controllers\admin\MemberController::class);
     Route::get('/contact', [App\Http\Controllers\admin\ContactController::class,'index'])->name('contact.index');
     Route::post('/contact/save', [App\Http\Controllers\admin\ContactController::class,'update'])->name('contact.update');

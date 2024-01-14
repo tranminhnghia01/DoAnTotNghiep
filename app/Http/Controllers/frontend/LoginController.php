@@ -36,9 +36,19 @@ class LoginController extends Controller
             'password'=>$request->password,
         ];
 
-        if (Auth::attempt($login)) {
-            $msg = "Đăng nhập thành công";
-            $style ="success";
+        $user = User::where('email',$data['email'])->first();
+        if($user){
+            $user_id = $user->user_id;
+            $shipping = Shipping::where('user_id',$user_id)->first();
+
+            if($shipping && Auth::attempt($login)){
+                $msg = "Đăng nhập thành công";
+                $style ="success";
+            }
+            else{
+                $msg = "Đăng nhập không thành công";
+                $style ="danger";
+            }
         }
         else{
             $msg = "Đăng nhập không thành công";

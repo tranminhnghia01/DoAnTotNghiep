@@ -32,7 +32,7 @@ class ContactController extends Controller
     }
 
     public function about(){
-        $about = Contact::all();
+        $about = Contact::orderBy('created_at','ASC')->get();
         return view('admin.contact.list')->with(compact('about'));
     }
 

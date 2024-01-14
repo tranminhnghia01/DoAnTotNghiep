@@ -6,7 +6,7 @@
 
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Liên hệ</h5>
+            <h5 class="card-title">Ý kiến phản hồi khách hàng</h5>
 
             <!-- Table with stripped rows -->
             <div class="card card-body">
@@ -27,6 +27,7 @@
                       <th>Vấn đề</th>
                       <th>Nội dung</th>
                       <th>Trạng thái</th>
+                      <th>Ngày hỏi</th>
                       <th>Tùy chọn</th>
                     </tr></thead>
                     <tbody>
@@ -48,14 +49,14 @@
                                 <h6 class="user-name mb-0 font-weight-medium" data-name="Emma Adams">
                                   {{ $value->contact_name }}
                                 </h6>
-                                {{-- <small class="user-work text-muted" data-occupation="Web Developer">Web Developer</small> --}}
                               </div>
                             </div>
                           </div>
                         </td>
                         <td>
-                          <span class="usr-email-addr" data-email="adams@mail.com">{{ $value->contact_email }}</span>
-                        </td>
+                            <span class="usr-email-addr" data-email="adams@mail.com">{{ $value->contact_email }}</span>
+                          </td>
+
                         <td>
                           <span class="usr-location" data-location="Boston, USA">{{ $value->contact_subject }}</span>
                         </td>
@@ -70,6 +71,9 @@
                             <span class="btn btn-danger">phản hồi</span>
 
                             @endif
+                          </td>
+                          <td>
+                            <span class="usr-email-addr" data-email="adams@mail.com">{{ date('H:m, d/m/Y',strtotime($value->created_at)) }}</span>
                           </td>
                         <td>
                           <div class="action-btn">

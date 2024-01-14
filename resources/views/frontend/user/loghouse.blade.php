@@ -30,7 +30,7 @@
 
                             <div class="col-md-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên" value="{{ Auth::user()->name }}">
                                     <label for="email">Họ tên</label>
                                 </div>
                                 @error('name')
@@ -40,7 +40,7 @@
 
                             <div class="col-md-12">
                                 <div class="form-floating">
-                                     <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                     <input type="email" class="form-control" id="email" name="email" placeholder="Email" readonly value="{{ Auth::user()->email }}">
                                     <label for="email">Email</label>
                                 </div>
                                 @error('email')

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\City;
+use App\Models\Housekeeper;
 use App\Models\Province;
 use App\Models\Role;
 use App\Models\User;
@@ -147,4 +148,24 @@ class AccountController extends Controller
 
         return back()->with(compact('msg','style'));
     }
+
+
+    public function register_house(Request $request)
+    {
+
+        $housekeeper = Housekeeper::where('status',1)->orderBy('created_at', 'desc')->get();
+        // dd($housekeeper);
+        return view('admin.users.register')->with(compact('housekeeper'));
+    }
+    public function register_destroy($user_id){
+        $housekeeper = Housekeeper::where('housekeeper_id', $user_id)->first();
+        if($housekeeper){
+            $housekeeper->delete();
+
+            $msg = 'Xóa đơn yêu cầu thành công';
+            $style = 'success';
+            return redirect()->back()->with(compact('msg','style'));
+        };
+    }
+
 }

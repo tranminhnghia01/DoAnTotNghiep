@@ -12,6 +12,7 @@ use App\Models\Infomation;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Mail;
 
@@ -35,7 +36,9 @@ class HomeController extends Controller
 
 
    public function housekeeper(){
-    $housekeeper = Housekeeper::where('status',0)->paginate(8);
+        $id= Auth::id();
+        // $user = User::findOrFail($id);
+    // $housekeeper = Housekeeper::where('h',0)->paginate(8);
     return view('frontend.pages.list-housekeeper')->with(compact('housekeeper'));
    }
 
@@ -57,13 +60,16 @@ class HomeController extends Controller
    }
 
    public function create() {
+        // $housekeeper = Housekeeper::where('status',0)->paginate(8);
         return view('frontend.user.loghouse');
     }
 
     public function store(HousekeeperRequest $request) {
         $data = $request->all();
         // dd($data);
-        $user_id = substr(md5(microtime()),rand(0,26),5);
+        // $user_id = substr(md5(microtime()),rand(0,26),5);
+        $id= Auth::id();
+        $user = User::findOrFail($id);
 
         $file = $request->image;
 
@@ -71,16 +77,7 @@ class HomeController extends Controller
             $data['image'] = "housekeeper".$file->getClientOriginalName();
         }
 
-        $info = [
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make(12345678),
-            'role_id' => 2,
-            'user_id' => $user_id,
 
-        ];
-        $user = User::create($info);
-        if($user){
             $data['housekeeper_id'] = $user->user_id;
 
             Housekeeper::create($data);
@@ -89,7 +86,6 @@ class HomeController extends Controller
             $style = "success";
 
             return Redirect()->back()->with(compact('msg','style'));
-        }
 
 
     }

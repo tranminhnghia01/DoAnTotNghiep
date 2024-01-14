@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Shipping;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,13 +19,17 @@ class MemberAuthentication
             if (Auth::check()== false) {
             return $next($request);
         }
-        if( Auth::check() && Auth::user()->role_id == 3 ){
-            return $next($request);
-        }else{
-            Auth::logout();
-            $msg = 'Tài khoản của bạn không có quyền truy cập vào trang này. Vui lòng đăng ký hoặc dùng tài khoản khác!';
-            $style='danger';
-           return redirect()->route('home.login')->with(compact('msg','style'));
+        if( Auth::check()){
+            $user_id = Auth::user()->user_id;
+            $check_member = Shipping::where('user_id',$user_id)->first();
+            if($check_member){
+                return $next($request);
+            }else{
+                Auth::logout();
+                $msg = 'Tài khoản của bạn không có quyền truy cập vào trang này. Vui lòng đăng ký hoặc dùng tài khoản khác!';
+                $style='danger';
+                return redirect()->route('home.login')->with(compact('msg','style'));
+            }
         }
     }
 }
