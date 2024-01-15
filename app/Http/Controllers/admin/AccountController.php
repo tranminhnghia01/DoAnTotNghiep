@@ -56,6 +56,14 @@ class AccountController extends Controller
         return redirect()->back()->with(compact('msg','style'));
 
     }
+    public function housekeeper_status_processing($user_id){
+        $housekeeper = Housekeeper::where('housekeeper_id',$user_id)->first();
+        // dd($housekeeper);
+        $housekeeper->update(['status'=>0]);
+        $msg = 'Duyệt tài khoản người dùng đăng ký thành công';
+        $style = 'success';
+        return redirect()->route('admin.housekeeper.index')->with(compact('msg','style'));
+    }
 
 
 

@@ -116,4 +116,11 @@ class ContactController extends Controller
             echo 'Phản hồi thành công';
         }
     }
+
+    public function destroy(Request $request){
+        $id = $request->id;
+        $contact = Contact::find($id);
+        $contact->delete();
+        echo "Xóa câu hỏi thành công";
+    }
 }

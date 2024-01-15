@@ -30,6 +30,8 @@
                                     <th>Dịch vụ</th>
                                     <th>Tổng tiền</th>
                                     <th></th>
+                                    <th></th>
+
                                 </tr>
                             </thead>
                             <tbody>

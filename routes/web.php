@@ -122,6 +122,8 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
     Route::resource('housekeeper', App\Http\Controllers\admin\HousekeeperController::class);
     Route::get('/processing/housekeeper', [App\Http\Controllers\admin\AccountController::class,'register_house'])->name('housekeeper-handle');
     Route::get('/processing/destroy/{user_id}', [App\Http\Controllers\admin\AccountController::class,'register_destroy'])->name('housekeeper-destroy');
+    Route::get('/change/status/{user_id}', [App\Http\Controllers\admin\AccountController::class,'housekeeper_status_processing'])->name('housekeeper.processing');
+
 
     Route::resource('Nguoi-dung', App\Http\Controllers\admin\MemberController::class);
     Route::get('/contact', [App\Http\Controllers\admin\ContactController::class,'index'])->name('contact.index');
@@ -131,6 +133,8 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 
     Route::get('/contact/about/reply', [App\Http\Controllers\admin\ContactController::class,'about_reply'])->name('contact.about-reply');
     Route::post('/contact/about/reply/save', [App\Http\Controllers\admin\ContactController::class,'store_about_reply'])->name('contact.about-reply-store');
+    Route::get('/contact/about/destroy', [App\Http\Controllers\admin\ContactController::class,'destroy'])->name('contact.about-destroy');
+
 
 
 

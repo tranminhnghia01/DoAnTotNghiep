@@ -77,6 +77,9 @@
                 </div>
 
               </div>
+              @if ($housekeeper->status == 1)
+                <div class="btn btn-primary"><a href="{{ route('admin.housekeeper.processing',$housekeeper->housekeeper_id) }}">Duyệt tài khoản</a></div>
+              @endif
 
               <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 

@@ -10,7 +10,8 @@
                   <th>Ngày bắt đầu làm việc</th>
                   <th>Dịch vụ</th>
                   <th>Tổng hóa đơn</th>
-                  <th></th>
+                  <th> </th>
+
               </tr>
           </thead>
           <tbody>
@@ -41,8 +42,6 @@
                           <td>{{ $value->service_name }}</td>
                           <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
                           <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}"><i class="bi bi-eye"></i></button></td>
-
-
                       </tr>
                   @endif
 

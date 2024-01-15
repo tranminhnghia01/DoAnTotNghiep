@@ -244,6 +244,39 @@
 
     });
 
+    $('.destroy-contact').on('click',function(){
+         var id = $(this).data('contact_id');
+         swal({
+            title: "Hủy ??",
+            text: 'Bạn có chắc muốn xóa bỏ dòng này!',
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var history_id = $(this).data('book-id');
+                    $.ajax({
+                        url : "{{route('admin.contact.about-destroy')}}",
+                        method: 'GET',
+                        data:{id:id},
+                        success:function(data){
+                            swal("Thành công! Đơn đặt lịch của bạn đã được hủy!", {
+                                    icon: "success",
+                                });
+                            window.setTimeout(function() {
+                                location.reload();
+                            },3000);
+                        }
+                    });
+                } else {
+                    swal("Thoát thao tác thành công!");
+                }
+            });
+
+
+    });
+
     $(document).on('click', '#btn-store-contact-reply', function(e){
 
         // alert(12);
