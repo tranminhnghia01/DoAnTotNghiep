@@ -36,9 +36,8 @@ class HomeController extends Controller
 
 
    public function housekeeper(){
-        $id= Auth::id();
-        // $user = User::findOrFail($id);
-    // $housekeeper = Housekeeper::where('h',0)->paginate(8);
+        $housekeeper = Housekeeper::where('status',0)->paginate(6);
+
     return view('frontend.pages.list-housekeeper')->with(compact('housekeeper'));
    }
 
@@ -61,6 +60,14 @@ class HomeController extends Controller
 
    public function create() {
         // $housekeeper = Housekeeper::where('status',0)->paginate(8);
+        $id = Auth::id();
+        $user = User::findOrFail($id);
+        $housekeeper = Housekeeper::where('housekeeper_id',$user->user_id)->first();
+        // if($housekeeper){
+        //     return redirect()->route('login');
+        // }else{
+        //     return view('frontend.user.loghouse');
+        // }
         return view('frontend.user.loghouse');
     }
 
@@ -79,6 +86,7 @@ class HomeController extends Controller
 
 
             $data['housekeeper_id'] = $user->user_id;
+            // dd($data);
 
             Housekeeper::create($data);
             $file->move('uploads/users', $data['image']);

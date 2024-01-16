@@ -67,6 +67,7 @@
                                             @foreach ($bill as $keys )
                                             @if ($keys->book_id == $value->book_id)
                                                 lại công việc
+                                                @break
                                             @endif
                                         @endforeach
                                         </a></td>

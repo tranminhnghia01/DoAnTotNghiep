@@ -53,7 +53,9 @@
 
             <a href="{{ route('home.blog.index') }}" class="nav-item nav-link">Kinh nghiệm hay</a>
             <a href="{{ route('home.lienhe') }}" class="nav-item nav-link">Liên Hệ</a>
-        <a href="{{ route('home.housekeeper') }}" class="nav-item nav-link">Trở thành đối tác</a>
+            @if (Auth::check())
+                <a href="{{ route('home.housekeeper') }}" class="nav-item nav-link">Trở thành đối tác</a>
+            @endif
         </div>
 
         @if (Auth::check())

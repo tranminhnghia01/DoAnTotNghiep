@@ -82,7 +82,8 @@ class BookingController extends Controller
         // dd($book);
 
         if($book){
-            $checkhis = History::where('book_id',$book_id)->first();
+            $checkhis = History::latest()->where('book_id',$book_id)->first();
+            // dd($checkhis);
             if($checkhis){
                 $checkYoN = History::where('book_id',$book_id)->where('housekeeper_id',$housekeeper_id)->first();
                 if($checkYoN){
@@ -94,8 +95,9 @@ class BookingController extends Controller
                         'book_id' => $checkhis->book_id,
                         'history_status' => 2,
                         'housekeeper_id' => $housekeeper_id,
-                        'history_previous_date' => $checkhis->date_finish,
+                        'history_previous_date' => $checkhis->date_finish + $checkhis->history_previous_date ,
                     ];
+                    // dd($info);
                 $history = History::create($info);
                 }
 
@@ -148,6 +150,8 @@ class BookingController extends Controller
             ->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')
             ->where('tbl_history.book_id',$book_id)->first();
         // dd($book);
+        $check = History::where('book_id',$book_id)->get();
+        $count = (count($check));
         $payment = Payment::find($book->payment_id);
         $coupon = Coupon::find($book->coupon_id);
         if($coupon == true){
@@ -201,7 +205,7 @@ class BookingController extends Controller
                         </div>
                         <div class="modal-body" style="color: #000;">
                             <div class="row g-3">';
-                                if ($history) {
+                                if ($history && $count <= 2) {
                                     $path = asset('uploads/users/'. $history->image);
 
                                     $output.='
@@ -216,7 +220,7 @@ class BookingController extends Controller
                             </div>
 
                             </div>';
-                            if($history->history_notes){
+                            if($history->history_notes && $count <= 2){
                                 $output.='<p style="color: "> Ghi chú: '.$history->history_notes.' </p>';
                             };
                             }
@@ -257,7 +261,7 @@ class BookingController extends Controller
                                         <p class="check-date">'.$count_date.'</p>
                                     </div>
                                     ';
-                                    if($history){
+                                    if($history && $count <= 2){
                                         $output.='
                                             <div style="display: flex; justify-content: space-between">
                                                 <label for="">Số buổi đã hoàn thành</label>
@@ -380,11 +384,13 @@ class BookingController extends Controller
         ->where('age','>=',$age_start)
         ->where('age','<=',$age_end)
         ->where('gender',$gender)
+        ->where('status',0)
         ->get();
         }else{
             $house = Housekeeper::where('name','LIKE','%'.$keywords.'%')
         ->where('age','>=',$age_start)
         ->where('age','<=',$age_end)
+        ->where('status',0)
         ->get();
         }
         // dd($house);
@@ -445,17 +451,17 @@ class BookingController extends Controller
                     <td><button class="btn btn-default">Giao công việc</button></td>';
                 }else{
                     $output.='
-                    <td><span style="color: green">Không trùng lịch</span></td>
+                    <td><span style="color: green"> Không trùng lịch</span></td>
                     <td>
                         <form action="'.route('admin.appointment.post-confirm',$book->book_id ).'" method="post">
                             <input type="hidden" name="_token" value="'.csrf_token().'" />
                             <input type="hidden" name="housekeeper_id" value="'.$value->housekeeper_id.'">
-                            <button type="submit" class="btn btn-primary" data-id="'.$value->housekeeper_id.'" >Giao công việc</button>
+                            <button type="submit" class="btn btn-primary" data-id="'.$value->housekeeper_id.'"> Giao công việc</button>
                         </form>
                     </td>';
                 }
                 $output.='
-                <td><a class="btn btn-default">Xem chi tiết</a></td>';
+                <td><a href="'.route('admin.housekeeper.show',$value->housekeeper_id).'" class="btn btn-default">Xem chi tiết </a></td>';
             };
 
         };

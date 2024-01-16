@@ -93,7 +93,7 @@
                             <div class="comment-body">
                                 <p> {{ $val->comment }} </p>
                             </div>
-                            <div class="comment-meta font-alt">{{ date('d/m/Y',strtotime($val->created_at))}} - <a href="#">Phản hồi</a>
+                            <div class="comment-meta font-alt">{{ date('d/m/Y',strtotime($val->created_at))}}
                             </div>
                             </div>
                             @if ($val->reply)
@@ -106,7 +106,7 @@
                                     <div class="comment-body">
                                         <p>{{ $val->reply }}</p>
                                     </div>
-                                    <div class="comment-meta font-alt">{{ date('d/m/Y',strtotime($val->updated_at))}} - <a href="#">Phản hồi</a>
+                                    <div class="comment-meta font-alt">{{ date('d/m/Y',strtotime($val->updated_at))}}
                                     </div>
                                 </div>
                             </div>

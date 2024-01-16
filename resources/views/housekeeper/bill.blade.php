@@ -14,7 +14,6 @@
                             <th>STT</th>
                             <th>Mã hóa đơn</th>
                             <th>Đã hoàn thành(Buổi)</th>
-                            <th>Tổng tiền</th>
                             <th>Thanh toán(Lý do)</th>
                             <th>Trạng thái</th>
                             <th>Trạng thái</th>
@@ -31,10 +30,7 @@
                             <tr>
                                 <td>{{ $key+1}}</td>
                                 <td>{{ $value->book_id}}</td>
-                                    <td>{{ $value->date_finish }}/{{ count($date)-$value->history_previous_date }}</td>
-
-
-                                <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
+                                <td>{{ $value->date_finish }}/{{ count($date)-$value->history_previous_date }}</td>
                                 <td>
                                     @if ($value->payment_id == 1)
                                         @if ($value->service_id == 2)
@@ -56,37 +52,17 @@
                                         <td><span class="badge border-success border-1 text-success" style="color: white;width: 170px;">Hoàn thành</span></td>
                                 @endswitch
                                 @if ($value->processing == 1)
-                                <td>
-                                            <span class="btn btn-danger">chưa duyệt</span>
-                                        </td>
-                                        @else
-                                        <td>
-                                            <span class="btn btn-primary">Đã duyệt</span>
-                                                    </td>
-                                        @endif
+                                    <td>
+                                        <span class="btn btn-danger">chưa duyệt</span>
+                                    </td>
+                                @else
+                                    <td>
+                                        <span class="btn btn-primary">Đã duyệt</span>
+                                    </td>
+                                @endif
                                 <td><a href="{{ route('admin.details-book.show',$value->history_id) }}" class="btn btn-default btn-booking-details" id="{{ $value->history_id }}">Xem chi tiết</a></td>
-
                                 <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}"><i class="bi bi-eye"></i></button></td>
-
-
                             </tr>
-                            {{-- <td><div class="dropdown">
-                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                <a class="dropdown-item" href=""
-                                    ><i class="bx bx-edit-alt me-1"></i> Sửa</a
-                                >
-
-                                <form action="" method="post">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i>Xóa</button>
-                                </form>
-                                </div>
-                            </div></td> --}}
-
                             @endforeach
                         <div id="modal-details"></div>
                     </tbody>

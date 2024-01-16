@@ -40,9 +40,9 @@
 
               <div class="widget">
                 <div class="input-group mb-3">
-                    <form action="">
-                        <input type="text" class="form-control" placeholder="Search...">
-                        <button type="submit" class="input-group-text" ><i class="fa fa-search"></i></button>
+                    <form action="" style="width: 100%;">
+                        <input type="text" class="form-control" placeholder="Search..." style="float: left;width: 85%">
+                        <button type="submit" class="input-group-text" style="font-size: 24px;" ><i class="fa fa-search"></i></button>
                     </form>
                 </div>
               </div>
