@@ -1,80 +1,82 @@
-@extends('frontend.setting.account')
-@section('content-booking')
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title"></h5>
-        <table class="table datatable">
-        <thead>
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th>Ngày bắt đầu làm việc</th>
-                <th>Dịch vụ</th>
-                <th>Tổng hóa đơn</th>
-                <th>Tình trạng</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($book as $key=>$value )
-                @php
-                    $time= explode(':',$value->book_time_start);
-                    $time_end = $time[0]+ $value->book_time_number.':'.$time[1];
-                    $weekday = [
-                        'Monday' => 'Thứ 2',
-                        'Tuesday' => 'Thứ 3',
-                        'Wednesday' => 'Thứ 4',
-                        'Thursday' => 'Thứ 5',
-                        'Friday' => 'Thứ 6',
-                        'Saturday' => 'Thứ 7',
-                        'Sunday' => 'Chủ nhật',
-                    ];
-                    $date =  explode(",",$value->book_date);
-                            $changedate = explode("/",$date[0]);
-                            $date[0] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
+<form action="{{ route('home.Account.update') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="row mb-3">
+        <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Ảnh nền</label>
+        <div class="col-md-8 col-lg-9">
+            @if (empty($shipping->shipping_image))
+                    <img src="{{ asset('admin/assets/img/apple-touch-icon.png') }}" alt="Profile">
+                @else
+                    <img src="{{ asset('uploads/users/'.$shipping->shipping_image) }}" alt="Profile" style="width: 150px;height: 150px;">
 
-                    $checkcomment = 0;
-                @endphp
-                <tr>
-                    <td>{{ $key+1}}</td>
-                    <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start }}</td>
-                    <td>{{ $value->service_name }}</td>
-                    <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
-                    @switch($value->book_status)
-                        @case(1)
-                            <td><span class="btn btn-warning" style="color: white;width: 170px;">Đang đợi xác nhận</span></td>
-                            @break
-                        @case(2)
-                            <td><span class="btn btn-success" style="color: white;width: 170px;">Đã xác nhận </span></td>
-                            @break
-                        @case(3)
-                            <td><span class="btn btn-danger" style="color: white;width: 170px;">Đã hủy</span></td>
-                            @break
-                        @default
-                            @foreach ($check_comment as $checkCM =>$valCM )
-                                @if ($valCM->book_id == $value->book_id)
-                                    @php
-                                        $checkcomment = 1;
-                                    @endphp
-                                @endif
-                            @endforeach
-                            @if ($checkcomment == 1)
-                                <td><a  class="btn btn-primary" href="{{ route('home.home-housekeeper.show',$valCM->housekeeper_id) }}" style="color: white;width: 170px;">Xem đánh giá</a></td>
-                            @else
-                                <td><span class="btn btn-primary danhgia" id="danhgia"  data-book_id="{{ $value->book_id}}" style="color: white;width: 170px;">Đánh giá</span><br></td>
-                            @endif
-                        @break
-                    @endswitch
-                    <td><a href="{{ route('home.Account.show.details',$value->book_id) }}" >Xem chi tiết</a></td>
-                    <td><button type="submit" class="btn btn-default btn-details" id="{{ $value->book_id }}"><i class="fa fa-eye"></i></button></td>
-                </tr>
-            @endforeach
-            <div id="modal-details"></div>
-            <div id="modal-danhgia"></div>
-        </tbody>
-        </table>
+                @endif
+        <div class="pt-2">
+            <label for="uploadImage"  class="btn btn-primary btn-sm" title="Upload new profile image" style="color: #fff">
+                <i class="bi bi-upload"><input type="file" name="image" id="uploadImage"  accept="image/png, image/jpeg" hidden /></i></label>
+            <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+        </div>
+        </div>
     </div>
-</div>
 
-@endsection
+    <div class="row mb-3">
+        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Họ tên</label>
+        <div class="col-md-8 col-lg-9">
+        <input name="name" type="text" class="form-control" id="name" value="{{ $shipping->shipping_name }}">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="Job" class="col-md-4 col-lg-3 col-form-label">Vị trí</label>
+        <div class="col-md-8 col-lg-9">
+        <input name="role_name" type="text" class="form-control" id="Job" readonly
+            value="Người sủ dụng hệ thống">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="Country" class="col-md-4 col-lg-3 col-form-label">Địa chỉ</label>
+        <div class="col-md-3">
+            <select id="city"  class="form-select  choose city" >
+            <option >Thành phố...</option>
+            @foreach ($city as $item)
+                    <option value="{{ $item->city_id }}">{{ $item->city_name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select id="province" class="form-select  choose province">
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select id="ward"  class="form-select ward">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="Address" class="col-md-4 col-lg-3 col-form-label">Chi tiết</label>
+        <div class="col-md-8 col-lg-9">
+        <input name="address" type="text" class="form-control" id="address" value="{{ $shipping->shipping_address }}">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Số điện thoại</label>
+        <div class="col-md-8 col-lg-9">
+        <input name="phone" type="text" class="form-control" id="phone" value="{{ $shipping->shipping_phone }}">
+        </div>
+    </div>
+
+    </fieldset>
+
+    <div class="row mb-3">
+        <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+        <div class="col-md-8 col-lg-9">
+        <input name="email" type="email" class="form-control" id="email" value="{{ $user->email }}" readonly>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+    </div>
+</form>

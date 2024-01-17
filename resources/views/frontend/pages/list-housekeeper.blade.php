@@ -1,10 +1,3 @@
-{{-- @extends('frontend.layouts.app')
-@section('content')
-
-@include('frontend.layouts.team')
-
-@endsection --}}
-
 @extends('frontend.layouts.app')
 @section('content')
 <div class="container-xxl py-5">
@@ -43,49 +36,6 @@
               </div>
 
             </div>
-            {{-- <div class="col-sm-4 ">
-
-              <div class="widget">
-                <div class="input-group mb-3">
-                    <form action="" style="width: 100%;">
-                        <input type="text" class="form-control" placeholder="Search..." style="float: left;width: 85%">
-                        <button type="submit" class="input-group-text" style="font-size: 24px;" ><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
-              </div>
-              <div class="widget">
-                <h5 class="widget-title font-alt">Danh mục bài viết</h5>
-                <ul class="icon-list">
-                  <li><a href="#">Photography - 7</a></li>
-                  <li><a href="#">Web Design - 3</a></li>
-                  <li><a href="#">Illustration - 12</a></li>
-                  <li><a href="#">Marketing - 1</a></li>
-                  <li><a href="#">Wordpress - 16</a></li>
-                </ul>
-              </div>
-              <div class="widget">
-                <h5 class="widget-title font-alt">Bài viết phổ biến</h5>
-                <ul class="widget-posts">
-                  <li class="clearfix">
-                    <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-3.jpg" alt="Post Thumbnail" style="width: 64px;height: 64px"/></a></div>
-                    <div class="widget-posts-body">
-                      <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
-                      <div class="widget-posts-meta">23 january</div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="widget">
-                <h5 class="widget-title font-alt">Những ý kiến gần đây</h5>
-                <ul class="icon-list">
-                  <li>Maria on <a href="#">Designer Desk Essentials</a></li>
-                  <li>John on <a href="#">Realistic Business Card Mockup</a></li>
-                  <li>Andy on <a href="#">Eco bag Mockup</a></li>
-                  <li>Jack on <a href="#">Bottle Mockup</a></li>
-                  <li>Mark on <a href="#">Our trip to the Alps</a></li>
-                </ul>
-              </div>
-            </div> --}}
           </div>
     </div>
 </div>

@@ -77,6 +77,8 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
     Route::post('/checkout', [App\Http\Controllers\frontend\UserController::class,'update']);
 
     Route::get('/Account', [App\Http\Controllers\frontend\UserController::class,'index'])->name('appointment.index');
+    Route::get('/Account/book', [App\Http\Controllers\frontend\UserController::class,'list_book'])->name('appointment.account.index');
+
     Route::post('/Account/update', [App\Http\Controllers\frontend\UserController::class,'update'])->name('Account.update');
     Route::get('/Account/book/{book_id}', [App\Http\Controllers\frontend\UserController::class,'show_details'])->name('Account.show.details');
 
@@ -93,9 +95,6 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
     //Phương thức thanh toán
     Route::post('/Account/payment/online/{book_id}', [App\Http\Controllers\frontend\BookingController::class,'payment_Online'])->name('appointment.payment.online');
-    // Route::post('/momo', [App\Http\Controllers\frontend\BookingController::class,'momo_Online'])->name('momo');
-    // Route::post('/onepay', [App\Http\Controllers\frontend\BookingController::class,'onepay_Online'])->name('onepay');
-
     Route::get('dat-lich/thanks',[App\Http\Controllers\HomeController::class, 'thanks'])->name('thanks');
 
 });

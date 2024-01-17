@@ -63,7 +63,7 @@
             <a href="#" class="btn btn-orange rounded-0 py-4 px-lg-5 d-none d-lg-block nav-link dropdown-toggle"  data-bs-toggle="dropdown">{{ Auth::user()->name }}<i class="fas fa-user" style="padding-left: 10px;"></i></a>
             <div class="dropdown-menu rounded-0 rounded-bottom m-0" style="width: 90%">
                     <a style="padding:8px" href="{{ route('home.appointment.index') }}" class="dropdown-item"><i class="fas fa-user-cog"  style="padding-right: 10px"></i>Cài đặt</a>
-                    <a style="padding:8px" href="{{ route('home.appointment.index') }}" class="dropdown-item"><i class="fas fa-tasks"  style="padding-right: 10px"></i>Quản lý đơn</a>
+                    <a style="padding:8px" href="{{ route('home.appointment.account.index') }}" class="dropdown-item"><i class="fas fa-tasks"  style="padding-right: 10px"></i>Quản lý đơn</a>
                     <a style="padding:8px" href="{{ route('home.logout') }}" class="dropdown-item"><i class="fas fa-sign-out-alt"  style="padding-right: 10px"></i>Đăng xuất</a>
             </div>
         </div>

@@ -7,27 +7,23 @@
         <div class="row g-4">
             @foreach ($housekeeper as $key=>$val)
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-            <a href="{{ route('home.home-housekeeper.show',$val->housekeeper_id) }}">
-
-                <div class="team-item position-relative rounded overflow-hidden">
-                    <div class="overflow-hidden">
-                        <img class="img-fluid" src="{{ asset('uploads/users/'.$val->image) }}" alt="" style="width: 100%; height: 300px">
-                    </div>
-                    <div class="team-text bg-light text-center p-4">
-                        <h5>{{  $val->name }}</h5>
-
-                        <div class="team-social text-center">
-                            <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
+                <a href="{{ route('home.home-housekeeper.show',$val->housekeeper_id) }}">
+                    <div class="team-item position-relative rounded overflow-hidden">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="{{ asset('uploads/users/'.$val->image) }}" alt="" style="width: 100%; height: 300px">
+                        </div>
+                        <div class="team-text bg-light text-center p-4">
+                            <h5>{{  $val->name }}</h5>
+                            <div class="team-social text-center">
+                                <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-        </a>
-
+                </a>
             </div>
             @endforeach
-            {{ $housekeeper->links('pagination::bootstrap-5') }}
         </div>
     </div>
 </div>

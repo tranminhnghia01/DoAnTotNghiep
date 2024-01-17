@@ -28,6 +28,13 @@ class UserController extends Controller
      */
     public function index()
     {
+        $id= Auth::id();
+        $user = User::findOrFail($id);
+        $shipping = Shipping::where('user_id', $user->user_id)->first();
+        $city = City::all();
+        return view('frontend.setting.account')->with(compact('shipping','user','city'));
+    }
+    public function list_book(){
         $order = "";
         $book = "";
         $id= Auth::id();
@@ -41,7 +48,7 @@ class UserController extends Controller
         ->get();
         $check_comment = Comment::join('tbl_history', 'tbl_history.history_id', '=', 'tbl_comment.history_id')->get();
 
-        return view('frontend.setting.profile')->with(compact('book','shipping','user','city','check_comment'));
+        return view('frontend.setting.listbook')->with(compact('book','shipping','user','city','check_comment'));
     }
 
     public function update(Request $request)

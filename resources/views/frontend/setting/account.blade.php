@@ -45,11 +45,6 @@
                     <li class="nav-item" role="presentation">
                       <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit" aria-selected="false" role="tab" tabindex="-1">Cập nhật hồ sơ</button>
                     </li>
-
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings" aria-selected="false" role="tab" tabindex="-1">Quản lý đơn lịch</button>
-                    </li>
-
                     <li class="nav-item" role="presentation">
                       <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password" aria-selected="false" role="tab" tabindex="-1">Thay đổi mật khẩu</button>
                     </li>
@@ -104,20 +99,12 @@
 
                       <!-- Profile Edit Form -->
                       <!-- Profile Edit Form -->
-                    @include('frontend.setting.profile-edit')
+                    @include('frontend.setting.profile')
 
                         <!-- End Profile Edit Form -->
 
 
                     </div>
-
-                    <div class="tab-pane fade pt-3" id="profile-settings" role="tabpanel">
-
-                      <!-- Quản lý đơn lịch -->
-                      @yield('content-booking')
-
-                    </div>
-
                     <div class="tab-pane fade pt-3" id="profile-change-password" role="tabpanel">
                       <!-- Change Password Form -->
                       <form action="{{ route('home.update-password') }}" method="POST">
