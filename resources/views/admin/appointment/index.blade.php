@@ -25,6 +25,7 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
+                                    <th>Mã đơn lịch</th>
                                     <th>Người đăng việc</th>
                                     <th>Ngày bắt đầu làm việc</th>
                                     <th>Dịch vụ</th>
@@ -56,6 +57,7 @@
                                     @if ($value->book_status == 1)
                                     <tr>
                                         <td>{{ $key+1}}</td>
+                                        <td>{{ $value->book_id }}</td>
                                         <td>{{ $value->shipping_name }}</td>
 
                                             <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start}}  </td>

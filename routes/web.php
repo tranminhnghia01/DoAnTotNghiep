@@ -90,6 +90,7 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
     //Danh gia
     Route::get('/Account/Danh-gia', [App\Http\Controllers\frontend\BookingController::class,'danhgia'])->name('appointment.danhgia');
+    Route::get('/Account/Danh-gia-show', [App\Http\Controllers\frontend\BookingController::class,'danhgia_show'])->name('appointment.danhgia-show');
     Route::post('/Account/Danh-gia', [App\Http\Controllers\frontend\BookingController::class,'post_danhgia']);
 
 

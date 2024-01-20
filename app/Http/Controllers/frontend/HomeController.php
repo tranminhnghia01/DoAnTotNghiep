@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\HousekeeperRequest;
+use App\Models\City;
 use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Housekeeper;
@@ -62,19 +63,18 @@ class HomeController extends Controller
         // $housekeeper = Housekeeper::where('status',0)->paginate(8);
         $id = Auth::id();
         $user = User::findOrFail($id);
+        $city = City::all();
         $housekeeper = Housekeeper::where('housekeeper_id',$user->user_id)->first();
         // if($housekeeper){
         //     return redirect()->route('login');
         // }else{
         //     return view('frontend.user.loghouse');
         // }
-        return view('frontend.user.loghouse');
+        return view('frontend.user.loghouse')->with(compact('city'));
     }
 
     public function store(HousekeeperRequest $request) {
         $data = $request->all();
-        // dd($data);
-        // $user_id = substr(md5(microtime()),rand(0,26),5);
         $id= Auth::id();
         $user = User::findOrFail($id);
 
@@ -87,12 +87,16 @@ class HomeController extends Controller
 
             $data['housekeeper_id'] = $user->user_id;
             // dd($data);
-
-            Housekeeper::create($data);
-            $file->move('uploads/users', $data['image']);
-            $msg = "Đăng ký gửi thông tin tài khoản thành công! Bạn vui lòng chờ trong khi chúng tôi duyệt tài khoản";
-            $style = "success";
-
+            $check = Housekeeper::where('housekeeper_id',$user->user_id)->first();
+            if($check){
+                $msg = "Email tài khoản đã đăng ký vui lòng truy cập vào hệ thống người giúp việc hoặc thử lại sau";
+                $style = "warning";
+            }else{
+                Housekeeper::create($data);
+                $file->move('uploads/users', $data['image']);
+                $msg = "Đăng ký gửi thông tin tài khoản thành công! Bạn vui lòng chờ trong khi chúng tôi duyệt tài khoản";
+                $style = "success";
+            }
             return Redirect()->back()->with(compact('msg','style'));
 
 

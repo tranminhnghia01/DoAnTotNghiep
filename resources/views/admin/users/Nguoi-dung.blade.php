@@ -15,9 +15,9 @@
                         <th scope="col">#</th>
                         <th scope="">Ảnh</th>
                         <th scope="col">Họ tên</th>
+                        <th scope="col">Mã tài khoản</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Địa chỉ</th>
-                        <th scope="col"></th>
+                        {{-- <th scope="col"></th> --}}
                         <th scope="col"></th>
                     </tr>
                 </tr>
@@ -35,9 +35,9 @@
 
                     @endif" alt="" style="width: 80px;height: 80px;"></td>
                     <td>{{ $val->name }}</td>
+                    <td>{{ $val->user_id }}</td>
                     <td>{{ $val->email }}</td>
-                    <td>{{ $val->role_name }}</td>
-                    <td><a href="{{ route('admin.Nguoi-dung.show',$val->user_id) }}">Xem chi tiết</a></td>
+                    {{-- <td><a href="{{ route('admin.Nguoi-dung.show',$val->user_id) }}">Xem chi tiết</a></td> --}}
                     <td><div class="dropdown">
                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                         <i class="bx bx-dots-vertical-rounded"></i>
@@ -46,8 +46,7 @@
                         <a class="dropdown-item" href=""
                             ><i class="bx bx-edit-alt me-1"></i> Sửa</a
                         >
-
-                        <form action="" method="post">
+                        <form action="{{ route('admin.Nguoi-dung.destroy',$val->id) }}" method="post">
                             @method('DELETE')
                             @csrf
                             <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i>Xóa</button>

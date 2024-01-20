@@ -3,7 +3,7 @@
     <div class="row mb-3">
         <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Ảnh nền</label>
         <div class="col-md-8 col-lg-9">
-            @if (empty($shipping->shipping_image))
+            @if ($shipping->shipping_image)
                     <img src="{{ asset('admin/assets/img/apple-touch-icon.png') }}" alt="Profile">
                 @else
                     <img src="{{ asset('uploads/users/'.$shipping->shipping_image) }}" alt="Profile" style="width: 150px;height: 150px;">

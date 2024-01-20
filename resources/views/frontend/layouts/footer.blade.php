@@ -56,8 +56,8 @@
 
              // Đánh giá post
     $(document).on('click', '.btn-danhgia-post', function(e){
-
-        var comment = $('#danhgia').val();
+        var comment = $('textarea[name="comment"]').val();
+        // alert(comment);
         if (Value == 0) {
             alert('Vui lòng đánh giá sao');
         }else{
@@ -84,17 +84,17 @@
                         swal("Thành công! Bạn đã đánh giá đon thành công!", {
                             icon: "success",
                             });
-                            // window.setTimeout(function() {
-                            //     location.reload();
-                            // },3000);
+                            window.setTimeout(function() {
+                                location.reload();
+                            },3000);
                         },
                         error: function (request, status, error) {
                             swal("Có lỗi xảy ra! Vui lòng kiểm tra lại thông tin.", {
                             icon: "danger",
                             });
-                            // window.setTimeout(function() {
-                            //     location.reload();
-                            // },3000);
+                            window.setTimeout(function() {
+                                location.reload();
+                            },3000);
                         }
                     });
             } else {

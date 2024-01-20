@@ -5,6 +5,8 @@
           <thead>
               <tr>
                   <th>STT</th>
+                  <th>Mã hóa đơn</th>
+                  <th>Mã đơn lịch</th>
                   <th>Người nhận</th>
                   <th>Người đặt</th>
                   <th>Ngày bắt đầu làm việc</th>
@@ -36,6 +38,8 @@
                   @if ($value->history_status == 2)
                       <tr>
                           <td>{{ $key+1}}</td>
+                          <td>{{ $value->history_id }}</td>
+                          <td>{{ $value->book_id }}</td>
                           <td>{{ $value->name }}</td>
                           <td>{{ $value->shipping_name }}</td>
                           <td>{{ $weekday[date('l',strtotime($date[0]))].', '. date('d/m/Y',strtotime($date[0])).' - '. $value->book_time_start.' - '. $time_end}}</td>

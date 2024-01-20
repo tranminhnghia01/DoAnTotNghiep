@@ -13,9 +13,9 @@
                     <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Ngày duyệt hóa đơn</th>
                             <th>Mã hóa đơn</th>
                             <th>Mã đơn lịch</th>
+                            <th>Ngày duyệt hóa đơn</th>
                             <th>Trạng thái</th>
                             <th></th>
                         </tr>
@@ -25,9 +25,10 @@
                             @foreach ($book as $key => $value )
                             <tr>
                                 <td>{{ $key+1}}</td>
-                                <td>{{ date(' H:i, d/m/Y',strtotime($value->updated_at)) }}</td>
                                 <td>{{ $value->history_id }}</td>
                                 <td>{{ $value->book_id }}</td>
+                                <td>{{ date(' H:i, d/m/Y',strtotime($value->updated_at)) }}</td>
+
                                 @switch($value->history_status)
                                     @case(3)
                                         <td><span class="badge border-danger border-1 text-danger" style="color: white;width: 170px;">Đã hủy</span></td>

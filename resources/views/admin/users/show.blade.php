@@ -75,11 +75,12 @@
                   <div class="col-lg-3 col-md-4 label">Email</div>
                   <div class="col-lg-9 col-md-8">{{ $housekeeper->email }}</div>
                 </div>
-
-              </div>
-              @if ($housekeeper->status == 1)
+                @if ($housekeeper->status == 1)
                 <div class="btn btn-primary"><a href="{{ route('admin.housekeeper.processing',$housekeeper->housekeeper_id) }}" style="color: #fff">Duyệt tài khoản</a></div>
-              @endif
+                <div class="btn btn-secondary" onclick="history.back()"><a  style="color: #fff">Không quan tâm </a></div>
+                @endif
+              </div>
+
 
               <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 

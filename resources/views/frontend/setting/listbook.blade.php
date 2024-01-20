@@ -40,7 +40,7 @@
                             @endphp
                             @if ($value->book_status == 1 || $value->book_status ==2)
                                 <div style="display: flex; justify-content: space-between; padding: 10px; align-items: center; min-height: 100px; border: 1px solid #ccc; border-radius: 5px;color: #000; font-weight: 500;margin-bottom: 12px;letter-spacing: -1px;">
-                                    <div style="min-width: 250px">
+                                    <div style="min-width: 250px;max-width: 260px;">
                                         <p style="margin: 0">Địa chỉ<br> <span style="color: #2c2a2a;font-size: 12px">{{ $value->book_address }}</span></p>
                                     </div>
                                     <div style="min-width: 100px"><p style="margin: 0">{{ number_format($value->book_total) }} <sup>đ</sup> </p></div>
@@ -57,8 +57,6 @@
                                         @endif
                                     <div>
                                         <a href="{{ route('home.Account.show.details',$value->book_id) }}" >Xem chi tiết</a>
-                                    </div>
-                                    <div>
                                         <button type="submit" class="btn btn-default btn-details" id="{{ $value->book_id }}"><i class="fa fa-eye"></i></button>
                                     </div>
                                 </div>
@@ -98,11 +96,10 @@
                                             @endif
                                         @endforeach
                                         @if ($checkcomment == 1)
-                                            <a  class="btn btn-primary" href="{{ route('home.home-housekeeper.show',$valCM->housekeeper_id) }}" style="color: white;width: 170px;">Xem đánh giá</a>
+                                            <a  class="btn btn-primary show-danhgia" id="show-danhgia" data-book_id="{{ $value->book_id}}" style="color: white;width: 170px;">Xem đánh giá</a>
                                         @else
                                             <span class="btn btn-primary danhgia" id="danhgia"  data-book_id="{{ $value->book_id}}" style="color: white;width: 170px;">Đánh giá</span>
                                         @endif
-
                                     @endif
 
                                     <div>
@@ -235,6 +232,23 @@
                 var _token = $('input[name="_token"]').val();
                 $.ajax({
                     url : "{{route('home.appointment.danhgia')}}",
+                    method: 'GET',
+                    data:{book_id:book_id},
+                    success:function(data){
+                        $('#modal-danhgia').html(data);
+                        $('#Modaldanhgia').modal('show');
+                    }
+                });
+            });
+
+            $('.show-danhgia').on('click',function(){
+                // $('#modal-details').show();
+                // alert('234');
+                var book_id = $(this).data('book_id');
+                // alert(book_id);
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url : "{{route('home.appointment.danhgia-show')}}",
                     method: 'GET',
                     data:{book_id:book_id},
                     success:function(data){

@@ -64,7 +64,7 @@
       @enderror
     </div>
   </div>
-
+{{--
   <div class="row mb-3">
     <label class="col-sm-2 col-form-label" for="basic-default-email">Mô tả</label>
     <div class="col-sm-10">
@@ -75,14 +75,14 @@
       <span style="color: red">{{ $message }}</span>
     @enderror
     </div>
-  </div>
+  </div> --}}
 
   <div class="row mb-3">
     <label class="col-sm-2 col-form-label" for="basic-default-message" >Chi tiết</label>
     <div class="col-sm-10">
-      <textarea name="coupon_content" id="coupon_content" class="form-control"
-        aria-label="Hi, Do you have a moment to talk Joe?" aria-describedby="basic-icon-default-message2" >{{ $coupon->coupon_content }}</textarea>
-      @error('coupon_content')
+      <textarea name="coupon_des" id="coupon_content" class="form-control"
+        aria-label="Hi, Do you have a moment to talk Joe?" aria-describedby="basic-icon-default-message2" >{{ $coupon->coupon_des }}</textarea>
+      @error('coupon_des')
         <span style="color: red">{{ $message }}</span>
       @enderror
     </div>

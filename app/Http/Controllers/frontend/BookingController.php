@@ -55,10 +55,7 @@ class BookingController extends Controller
         $data = $request->all();
         $book_id = $request->book_id;
        $output ='';
-        $history = History::where('tbl_history.book_id',$book_id)
-        ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
-        ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
-        ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking.payment_id')
+        $history = History::latest('tbl_history.created_at')->where('tbl_history.book_id',$book_id)
         ->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')->first();
         $path = asset('uploads/users/'. $history->image);
         // dd($history);
@@ -114,6 +111,75 @@ class BookingController extends Controller
 
     }
 
+    public function danhgia_show(Request $request){
+        $book_id = $request->book_id;
+        // dd($book_id);
+       $output ='';
+        $history = History::latest('tbl_history.created_at')->where('tbl_history.book_id',$book_id)
+        ->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')
+        ->first();
+        $comment = Comment::where('history_id',$history->history_id)->first();
+        // dd($comment);
+
+        $path = asset('uploads/users/'. $history->image);
+        // dd($history);
+
+       $output.='<div class="modal fade" id="Modaldanhgia" tabindex="-1" aria-labelledby="ModaldanhgiaLabel" aria-modal="true" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="bg-white modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModaldanhgiaLabel">Đánh giá và bình luận công việc</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="color: #000;">
+
+                            <div class="row g-3">
+                                <h5 class="modal-title">Người giúp việc</h5>
+                                <div class="col-sm-3" style="    border: 1px solid #ccc;border-radius: 5px;padding: 20px;">
+                                    <img src="'.$path.'" alt="Girl in a jacket" width="150px" height="150px">
+                                </div>
+                                <div class="col-sm-9" style="    border: 1px solid #ccc;border-radius: 5px;padding: 20px;">
+                                <p style="font-weight: 600">'.$history->name.'</p>
+                                <p> Số điện thoại: (+84)  '.$history->phone.'</p>
+                                <p> Mô tả:  '.$history->des.'</p>
+                            </div>
+                                <h5 class="modal-title">Đánh giá: </h5>
+                                <div class="rate">
+                                <div class="vote">';
+                                 for ($i=1; $i <= 5; $i++) {
+                                    if($i <= $comment->rate){
+                                        $output.='
+                                            <div class="star_'.$i.' ratings_stars ratings_over"><input value="1" type="radio" name="rate" hidden></div>
+                                        ';
+                                    }else{
+                                        $output.='
+                                            <div class="star_'.$i.' ratings_stars"><input value="1" type="radio" name="rate" hidden></div>
+                                        ';
+                                    };
+                                 }
+
+                                    $output.='
+                                    <span class="rate-np">'.$comment->rate.'</span>
+                                </div>
+                            </div>
+                                <div class="col-sm-12" style=" border: 1px solid #ccc; border-radius: 5px; padding: 20px;">
+                                    <p style="font-weight: 600">Bình luận</p>
+                                    <div style="display: flex; justify-content: space-between">
+                                        <textarea  name="comment" rows="4" class="form-control" readonly  style="color: black;background: #fff; ">'.$comment->comment.'</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary  py-3"  style="width:150px"><i class="tf-ion-close" aria-hidden="true">Thoát</i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+        echo $output;
+
+    }
+
     public function post_danhgia(CommentRequest $request){
         $id= Auth::id();
         $user = User::findOrFail($id);
@@ -131,7 +197,7 @@ class BookingController extends Controller
                 'comment'=> $data['comment'],
                 'rate'=> $data['rate'],
             ];
-
+            // dd('success');
             $comment = Comment::create($info_comment);
 
         };
@@ -171,18 +237,16 @@ class BookingController extends Controller
         //Thanh toán vnpay
         switch ($data['payment_id']) {
             case 3:
-            $this->vnpay_Payment($book_id,$history->book_total);
-
+                $this->vnpay_Payment($book_id,$history->book_total);
                 break;
-                case 2:
-                    return $this->momo_Online($book_id,$history->book_total);
-                        break;
+            case 2:
+                return $this->momo_Online($book_id,$history->book_total);
+                break;
 
             default:
-            $msg = "Thao tác không thành công.Vui lòng thử lại sau!";
-            $style ="danger";
-        return redirect()->back()->with(compact('msg','style'));
-
+                $msg = "Thao tác không thành công.Vui lòng thử lại sau!";
+                $style ="danger";
+                return redirect()->back()->with(compact('msg','style'));
                 break;
         }
 
@@ -199,38 +263,35 @@ class BookingController extends Controller
         $redirectUrl = route('home.thanks');
         $ipnUrl = "http://127.0.0.1:8000/Moon.com/Account/quan-ly-don/$book_id";
         $extraData = "";
-
-
-            $requestId = time() . "";
-            $requestType = "payWithATM";
-            // $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
-            //before sign HMAC SHA256 signature
-            $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
-            $signature = hash_hmac("sha256", $rawHash, $secretKey);
-            // dd($signature);
-            $data = array('partnerCode' => $partnerCode,
-                'partnerName' => "Test",
-                "storeId" => "MomoTestStore",
-                'requestId' => $requestId,
-                'amount' => $amount,
-                'orderId' => $orderId,
-                'orderInfo' => $orderInfo,
-                'redirectUrl' => $redirectUrl,
-                'ipnUrl' => $ipnUrl,
-                'lang' => 'vi',
-                'extraData' => $extraData,
-                'requestType' => $requestType,
-                'signature' => $signature);
+        $requestId = time() . "";
+        $requestType = "payWithATM";
+        // $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
+        //before sign HMAC SHA256 signature
+        $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+        $signature = hash_hmac("sha256", $rawHash, $secretKey);
+        // dd($signature);
+        $data = array('partnerCode' => $partnerCode,
+            'partnerName' => "Test",
+            "storeId" => "MomoTestStore",
+            'requestId' => $requestId,
+            'amount' => $amount,
+            'orderId' => $orderId,
+            'orderInfo' => $orderInfo,
+            'redirectUrl' => $redirectUrl,
+            'ipnUrl' => $ipnUrl,
+            'lang' => 'vi',
+            'extraData' => $extraData,
+            'requestType' => $requestType,
+            'signature' => $signature);
         // dd($data);
-            $result = $this->execPostRequest($endpoint, json_encode($data));
-            // dd($result);
-            $jsonResult = json_decode($result, true);  // decode json
+        $result = $this->execPostRequest($endpoint, json_encode($data));
+        // dd($result);
+        $jsonResult = json_decode($result, true);  // decode json
         // dd($jsonResult);
         $jsonResult['redirect'] = $jsonResult['payUrl'];
             //Just a example, please check more in there
         // dd($jsonResult['payUrl']);
-            return redirect()->to($jsonResult['redirect']);
-
+        return redirect()->to($jsonResult['redirect']);
             // return header('Location: ' . $jsonResult['payUrl']);
 
     }
@@ -298,12 +359,12 @@ class BookingController extends Controller
         $returnData = array('code' => '00'
             , 'message' => 'success'
             , 'data' => $vnp_Url);
-            if (isset($_POST['redirect'])) {
-                header('Location: ' . $vnp_Url);
-                die();
-            } else {
-                echo json_encode($returnData);
-            }
+        if (isset($_POST['redirect'])) {
+            header('Location: ' . $vnp_Url);
+            die();
+        } else {
+            echo json_encode($returnData);
+        }
      }
 
 

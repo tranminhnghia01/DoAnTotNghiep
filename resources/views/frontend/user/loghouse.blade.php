@@ -67,6 +67,33 @@
                                 @enderror
                             </div>
 
+                            <div class="row g-3" style="padding: 0px;margin-left: 0px; margin-top: auto;">
+                                <div class="col-md-4">
+                                <div class="form-floating">
+
+                                    <select id="city"  class="form-select  choose city" >
+                                    <option >Thành phố...</option>
+                                    @foreach ($city as $item)
+                                            <option value="{{ $item->city_id }}">{{ $item->city_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating">
+
+                                    <select id="province" class="form-select  choose province">
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                <div class="form-floating">
+                                    <select id="ward"  class="form-select ward">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="address" name="address" placeholder="Địa chỉ">

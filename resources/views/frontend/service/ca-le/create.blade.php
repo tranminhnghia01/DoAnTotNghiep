@@ -309,8 +309,8 @@
                     // alert('Thời gian hợp lệ')
                     swal({
                             icon: "error",
-                            title: "Không hợp lệ...",
-                            text: "Vui lòng chọn lại thời gian!",
+                            title: "Thời gian phải sau "+(hour+2)+':00 h...',
+                            text: 'Vui lòng chọn lại thời gian bắt đầu làm việc',
                             });
 
                 }

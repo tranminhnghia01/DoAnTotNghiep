@@ -22,7 +22,7 @@ class HousekeeperController extends Controller
     public function index()
     {
         $role = Role::all();
-        $housekeeper = Housekeeper::where('status',0)->orderBy('created_at', 'desc')->get();
+        $housekeeper = Housekeeper::where('tbl_housekeeper.status',0)->join('users','users.user_id','=','tbl_housekeeper.housekeeper_id')->orderBy('tbl_housekeeper.created_at', 'desc')->get();
         // dd($housekeepers);
         return view('admin.users.list')->with(compact('housekeeper','role'));
     }
@@ -215,8 +215,7 @@ class HousekeeperController extends Controller
         $housekeeper = Housekeeper::where('housekeeper_id', $user_id)->first();
         if($housekeeper){
             $housekeeper->delete();
-
-            $msg = 'Xóa đơn yêu cầu thành công';
+            $msg = 'Xóa người giúp việc cầu thành công';
             $style = 'success';
             return redirect()->back()->with(compact('msg','style'));
         }

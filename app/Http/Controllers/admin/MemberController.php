@@ -26,7 +26,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $member = User::join('tbl_role','tbl_role.role_id','=','users.role_id')->join('tbl_shipping','tbl_shipping.user_id','=','users.user_id')->where('users.role_id',3)->get();
+        $member = User::join('tbl_shipping','tbl_shipping.user_id','=','users.user_id')->get();
         return view('admin.users.Nguoi-dung')->with(compact('member'));
     }
 
@@ -159,6 +159,7 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
+        // dd($id);
         if (User::find($id)->delete()) {
             $style = 'success';
             $msg = 'Xóa tài khoản người dùng thành công! ';

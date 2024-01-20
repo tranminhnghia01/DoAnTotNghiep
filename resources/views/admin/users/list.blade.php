@@ -15,6 +15,7 @@
                         <th scope="col">#</th>
                         <th scope="">Ảnh</th>
                         <th scope="col">Họ tên</th>
+                        <th scope="col">Mã người giúp việc</th>
                         <th scope="col">Email</th>
                         <th scope="col">Tình trạng</th>
                         <th scope="col"></th>
@@ -34,6 +35,7 @@
                     {{ asset('uploads/users/'.$val->image )}}
                     @endif" alt="" style="width: 80px;height: 80px;"></td>
                     <td>{{ $val->name }}</td>
+                    <td>{{ $val->housekeeper_id }}</td>
                     <td>{{ $val->email }}</td>
                     <td>
                         @if ($val->status == 1)

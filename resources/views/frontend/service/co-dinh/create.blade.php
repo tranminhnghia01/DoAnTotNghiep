@@ -244,7 +244,7 @@
                     // alert('Thời gian hợp lệ')
                     swal({
                             icon: "error",
-                            title: "Thời gian làm việc trong ngày "+now+' Không hợp lệ',
+                            title: "Thời gian làm việc trong ngày "+now+'phải sau'+(hour +2)+':00h',
                             text: "Vui lòng điều chỉnh lại lịch làm việc!",
                             });
 
@@ -387,7 +387,7 @@
                     // alert('Thời gian hợp lệ')
                     swal({
                         icon: "error",
-                        title: "Thời gian làm việc trong ngày "+now+' Không hợp lệ',
+                        title: "Thời gian làm việc trong ngày "+now+'phải sau'+(hour +2)+':00h' ,
                         text: "Vui lòng điều chỉnh lại lịch làm việc!",
                         });
 
