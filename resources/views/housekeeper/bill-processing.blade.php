@@ -10,13 +10,12 @@
             <div class="table-responsive">
                 <table class="table datatable" style="text-align: center">
                     <thead>
-                        <tr>
+                        <tr >
                             <th>STT</th>
                             <th>Mã hóa đơn</th>
                             <th>Mã đơn lịch</th>
                             <th>Thanh toán(Lý do)</th>
                             <th>Trạng thái đơn lịch</th>
-                            <th>Trạng thái</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -29,8 +28,8 @@
                             @endphp
                             <tr>
                                 <td>{{ $key+1}}</td>
-                                <td>{{ $value->history_id }}</td>
-                                <td>{{ $value->book_id }}</td>
+                                <td>{{ $value->history_id}}</td>
+                                <td>{{ $value->book_id}}</td>
                                 <td>
                                     @if ($value->payment_id == 1)
                                         @if ($value->service_id == 2)
@@ -51,15 +50,6 @@
                                     @default
                                         <td><span class="badge border-success border-1 text-success" style="color: white;width: 170px;">Hoàn thành</span></td>
                                 @endswitch
-                                @if ($value->processing == 1)
-                                    <td>
-                                        <span class="btn btn-danger">chưa duyệt</span>
-                                    </td>
-                                @else
-                                    <td>
-                                        <span class="btn btn-primary">Đã duyệt</span>
-                                    </td>
-                                @endif
                                 <td><a href="{{ route('admin.details-book.show',$value->history_id) }}" class="btn btn-default btn-booking-details" id="{{ $value->history_id }}">Xem chi tiết</a></td>
                                 <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}"><i class="bi bi-eye"></i></button></td>
                             </tr>

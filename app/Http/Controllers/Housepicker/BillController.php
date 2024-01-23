@@ -25,14 +25,30 @@ class BillController extends Controller
         $user = User::findOrFail($id);
 
         $book = History::join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
-            ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
-            ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
-            ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
-            ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking.payment_id')
+            ->where('processing',1)
             ->where('housekeeper_id',$user->user_id)
             ->whereBetween('tbl_history.history_status', [3, 4])
             ->get();
         return view('housekeeper.bill')->with(compact('book','user'));
+
+        // dd($book);
+    }
+
+    public function index_processing()
+    {
+        $id= Auth::id();
+        $user = User::findOrFail($id);
+
+        $book = History::join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
+            ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
+            ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
+            ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
+            ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking.payment_id')
+            ->where('processing',0)
+            ->where('housekeeper_id',$user->user_id)
+            ->whereBetween('tbl_history.history_status', [3, 4])
+            ->get();
+        return view('housekeeper.bill-processing')->with(compact('book','user'));
 
         // dd($book);
     }

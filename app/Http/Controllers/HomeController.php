@@ -57,6 +57,9 @@ class HomeController extends Controller
                 'SecureHash'=> $_GET['vnp_SecureHash'],
             ];
         $book= Book::where('book_id',$_GET['vnp_TxnRef'])->first();
+        // $book= Book::where('book_id','c5809')->first();
+
+        // dd($book->book_total/10);
             $check = PaymentOnline::where('TxnRef',$data['TxnRef'])->first();
             if($check){
                 return Redirect()->route('home.index');
@@ -65,22 +68,21 @@ class HomeController extends Controller
                 if($paymentOnline){
                     $book= Book::where('book_id',$_GET['vnp_TxnRef'])->first();
                     $book->update(['payment_id'=>3]);
-
                     $now = Carbon::now()->format('Y-m-d');
                     $update_statistical = Statistic::where('date' ,$now)->first();
                     // dd($update_statistical);
                     if($update_statistical){
                         $info_static = [
-                            'sales' => $update_statistical->sales + ($paymentOnline->Amount)/100,
-                            'profit' => $update_statistical->profit + ($paymentOnline->Amount)/1000,
+                            'sales' => $update_statistical->sales + ($book->book_total),
+                            'profit' => $update_statistical->profit +($book->book_total/10),
                             'total_appointment'=> $update_statistical->total_appointment + 1,
                         ];
                         $update_statistical->update($info_static);
                     }else{
                         $info_static = [
                             'date' => $now,
-                            'sales' => ($paymentOnline->Amount)/100,
-                            'profit' => ($paymentOnline->Amount)/1000,
+                            'sales' =>$book->book_total/1,
+                            'profit' =>$book->book_total/10,
                             'total_appointment'=> 1,
                         ];
                         Statistic::create($info_static);

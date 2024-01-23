@@ -302,7 +302,7 @@ class BookingController extends Controller
 
     public function vnpay_Payment($book_id,$book_total){
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://127.0.0.1:8000/Moon.com/dat-lich/thanks";
+        $vnp_Returnurl = "http://websitemoon.vn/Moon.com/dat-lich/thanks";
         $vnp_TmnCode = "KETREN3N";//Mã website tại VNPAY
         $vnp_HashSecret = "EVZTCKKWRQVUHMPECQCXZLPRAVYCPSJO"; //Chuỗi bí mật
 

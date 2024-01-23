@@ -58,11 +58,11 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $shipping = Shipping::where('user_id', $user->user_id)->first();
 
-        // dd($user);
+        // dd($shipping);
         if ($shipping->shipping_image != 0) {
             $old_img = $shipping->shipping_image;
         }
-        // dd($old_img);
+        // dd($data);
         $file = $request->shipping_image;
         // dd($file);
         if (!empty($file)) {

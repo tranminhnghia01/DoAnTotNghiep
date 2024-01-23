@@ -78,7 +78,11 @@ class BookingController extends Controller
     public function post_Confirm(Request $request,$book_id){
         $housekeeper_id = $request->housekeeper_id;
         $housekeeper = Housekeeper::where('housekeeper_id',$housekeeper_id)->first();
-        $book = Book::where('book_id',$book_id)->first();
+        $book = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
+        ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
+        ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
+        ->where('tbl_booking.book_id', $book_id)
+        ->first();
         // dd($book);
 
         if($book){

@@ -43,7 +43,7 @@
             </a>
           </li>
           <li>
-            <a href="{{ route('admin.Appoin-bill') }}">
+            <a href="{{ route('admin.Appoin-bill-processing') }}">
               <i class="bi bi-circle"></i><span>Đã duyệt</span>
             </a>
           </li>
