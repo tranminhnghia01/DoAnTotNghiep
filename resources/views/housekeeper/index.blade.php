@@ -87,7 +87,7 @@
                                     ">
                                         <div>
                                             <p>Đánh giá công việc</p>
-                                            <textarea type="text" name="history_notes" style="    outline: rgb(204, 204, 204);
+                                            <textarea type="text" name="history_notes" style="outline: rgb(204, 204, 204);
                                             font-size: 14px;
                                             width: 100%;">{{ $value->history_notes }}</textarea>
                                             @if ($value->service_id == 2 && $value->payment_id == 1)

@@ -17,7 +17,6 @@
                             <th>Mã đơn lịch</th>
                             <th>HTTT</th>
                             <th>Hóa đơn gốc</th>
-                            <th>Thanh toán</th>
                             <th>Hoàn trả</th>
                             <th>Trạng thái</th>
                             <th>Ý kiến</th>
@@ -50,7 +49,6 @@
                                     $total_fund = $total_price*0.8;
                                 @endphp
                                 <td>{{ number_format($value->book_total - $value->book_total/count($date) *$value->history_previous_date ) }} <sup>đ</sup> </td>
-                                <td>{{ number_format($total_fund) }} <sup>đ</sup> </td>
                                 @if ($value->history_status == 3)
                                     <td><span class="badge border-danger border-1 text-danger">{{ number_format($total_fund) }} <sup>đ</sup> </span></td>
                                 @else

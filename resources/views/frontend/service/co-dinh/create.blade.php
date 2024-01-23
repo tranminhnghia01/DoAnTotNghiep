@@ -123,21 +123,21 @@
                         <script src="{{ asset('date/bootstrap-datepicker.min.js') }}"></script>
                         <script>
                             function getFullDays(month,book_dates) {
-                                // console.log(book_dates);
+                                // console.log('listday'+book_dates);
                                 var package_type = month;
                                 var day = '';
                                 for (let i = 0; i < package_type; i++) {
                                     var today = new Date();
 
                                     var nextmoth = today.getMonth() + i;
-                                    // console.log(nextmoth);
+                                    // console.log('thang'+nextmoth);
                                     if (nextmoth > 11) {
                                         var daychange = new Date(today.getFullYear() + 1, nextmoth-12, 1);
                                     } else {
-                                        var daychange = new Date(today.getFullYear(), today.getMonth(),today.getDate());
+                                        var daychange = new Date(today.getFullYear(), nextmoth,today.getDate());
                                     }
 
-                                    // console.log(daychange);
+                                    // console.log('ngay'+daychange);
                                     var d = new Date(daychange),
                                     month = d.getMonth(),
                                     mondays = [];
@@ -159,6 +159,8 @@
 
                                 }
                                     return day;
+                                    console.log('Danh sách ngày được chọn'+day);
+
 
                             }
 
@@ -173,13 +175,15 @@
                                     // $('textarea[name="list_options"]').val(book_options);
                                 });
 
-                                // console.log(month);
-                                // console.log(book_dates);
+                                console.log('Gói'+month);
+                                console.log('Ngày'+book_dates);
                                 for (let i = 0; i < book_dates.length; i++) {
+                                    console.log('numberday'+book_dates[i]);
                                     var daysMonths = getFullDays(month,book_dates[i]);
                                     full += daysMonths;
                                 }
-                                // console.log(full.slice(0, -1));
+
+                                console.log(full.slice(0, -1));
                                 $('input[name="book_date"]').val(full.slice(0, -1));
                             });
 
