@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Housepicker;
+namespace App\Http\Controllers\Housekeeper;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;

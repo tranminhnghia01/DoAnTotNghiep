@@ -200,12 +200,12 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 
 
     // Chức năng người giúp việc
-    Route::get('/Appoin/list', [App\Http\Controllers\Housepicker\BookingController::class,'index'])->name('Appoin-index');
-    Route::get('/Appoin/profile', [App\Http\Controllers\Housepicker\BookingController::class,'profile'])->name('Appoin-profile');
-    Route::get('/Appoin/Bill', [App\Http\Controllers\Housepicker\BillController::class,'index'])->name('Appoin-bill');
-    Route::get('/Appoin/Bill/processing', [App\Http\Controllers\Housepicker\BillController::class,'index_processing'])->name('Appoin-bill-processing');
+    Route::get('/Appoin/list', [App\Http\Controllers\Housekeeper\BookingController::class,'index'])->name('Appoin-index');
+    Route::get('/Appoin/profile', [App\Http\Controllers\Housekeeper\BookingController::class,'profile'])->name('Appoin-profile');
+    Route::get('/Appoin/Bill', [App\Http\Controllers\Housekeeper\BillController::class,'index'])->name('Appoin-bill');
+    Route::get('/Appoin/Bill/processing', [App\Http\Controllers\Housekeeper\BillController::class,'index_processing'])->name('Appoin-bill-processing');
 
-    Route::get('/Appoin/ChamCong/{book_id}', [App\Http\Controllers\Housepicker\BillController::class,'ChamCong'])->name('Appoin-ChamCong');
-    Route::post('/Appoin/list/destroy', [App\Http\Controllers\Housepicker\BillController::class,'destroy'])->name('Appoin-detail-destroy');
+    Route::get('/Appoin/ChamCong/{book_id}', [App\Http\Controllers\Housekeeper\BillController::class,'ChamCong'])->name('Appoin-ChamCong');
+    Route::post('/Appoin/list/destroy', [App\Http\Controllers\Housekeeper\BillController::class,'destroy'])->name('Appoin-detail-destroy');
 
 });
