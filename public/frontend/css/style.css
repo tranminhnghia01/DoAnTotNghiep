@@ -695,9 +695,6 @@
 }
 
 .options-input:checked~.options-text {
-    /* border: 1px solid orange;
-    color: orange; */
-    /* background-color: #FF8228; */
     border: 1px solid #FF8228;
     color: #FF8228;
 }

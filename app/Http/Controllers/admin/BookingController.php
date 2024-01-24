@@ -472,3 +472,4 @@ class BookingController extends Controller
         echo ($output);
     }
 }
+

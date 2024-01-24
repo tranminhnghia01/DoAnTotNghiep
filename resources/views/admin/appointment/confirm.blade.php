@@ -53,7 +53,7 @@
                                             <span class="badge border-success border-1 text-success">Đã thanh toán</span>
                                         @endif
                                     </td>
-                                    <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $book->book_id }}">Xem chi tiết</button></td>
+                                    <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $book->book_id }}"><i class="bi bi-eye"></i></a></button></td>
 
 
                                 </tr>
@@ -159,6 +159,7 @@
                             <th>Tổng đơn đã nhận trong tháng này</th>
                             <th>Tình trạng</th>
                             <th></th>
+                            {{-- <th></th> --}}
                         </tr>
                     </thead>
                     <tbody id="list-search-confirm">
@@ -224,7 +225,7 @@
                                     </td>
 
                                 @endif
-                                <td><a href="{{ route('admin.housekeeper.show',$value->housekeeper_id) }}" class="btn btn-default"><i class="bi bi-eye"></i></a></td>
+                                <td><a href="{{ route('admin.housekeeper.show',$value->housekeeper_id) }}" class="btn btn-default">Xem chi tiết</td>
                             </tr>
                             @endforeach
                     </tbody>

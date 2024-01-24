@@ -35,8 +35,75 @@
 
                 </div>
 
-                <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
-                    {!! $housekeeper->content !!}
+                <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;font-size: 20px;">
+                    <ul class="nav nav-tabs nav-tabs-bordered" role="tablist">
+
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview" aria-selected="true" role="tab">Mô tả</button>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit" aria-selected="false" role="tab" tabindex="-1">Phản hồi</button>
+                        </li>
+                      </ul>
+                      <div class="tab-content pt-2">
+
+                        <div class="tab-pane fade profile-overview active show" id="profile-overview" role="tabpanel" style="margin-top: 20px !important">
+                          <h2 class="card-title">Chi tiết người giúp việc</h2>
+
+                            {!! $housekeeper->content !!}
+                        </div>
+
+                        <div class="tab-pane fade profile-edit" id="profile-edit" role="tabpanel">
+                            <div class="comments" style="margin-top: 20px !important">
+                          <h2 class="card-title">Bình luận </h2>
+
+                                @foreach ($comment as $key =>$val )
+
+                                    <div class="comment clearfix">
+                                    <div class="comment-avatar"><img src="{{ asset('uploads/users/'.$val->image) }}" alt="avatar" style="width: 50px;height: 50px;"></div>
+                                    <div class="comment-content clearfix">
+                                    <div class="comment-author font-alt"><a href="#">{{ $val->name }}</a></div>
+                                    <div class="comment-author font-alt"><a href="#">  @for ($i = 1 ; $i<=5 ;$i++)
+                                        @if ($i <= $val->rate)
+                                        <img src="{{ asset('rate/images/200/start-active.png') }}"  style="width: 10px">
+                                        @else
+                                        <img src="{{ asset('rate/images/200/start.png') }}" style="width: 10px">
+
+                                        @endif
+                                    @endfor</a></div>
+
+
+                                    <div class="comment-body">
+                                        <p> {{ $val->comment }} </p>
+                                    </div>
+                                    <div class="comment-meta font-alt">{{ date('d/m/Y',strtotime($val->created_at))}}
+                                    </div>
+                                    </div>
+                                    @if ($val->reply)
+                                    <div class="comment clearfix">
+                                        <div class="comment-avatar"><img src="{{ asset('admin/assets/img/apple-touch-icon.png') }}" alt="avatar" style="width: 50px;height: 50px;"></div>
+                                        <div class="comment-content clearfix">
+                                            <div class="comment-author font-alt">
+                                                <a href="#">Quản trị viên</a>
+                                            </div>
+                                            <div class="comment-body">
+                                                <p>{{ $val->reply }}</p>
+                                            </div>
+                                            <div class="comment-meta font-alt">{{ date('d/m/Y',strtotime($val->updated_at))}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        </div>
+
+                      </div><!-- End Bordered Tabs -->
+
                     <nav>
                         <ul class="pagination justify-content-end">
                             @if ($previous)
@@ -71,51 +138,6 @@
                             @endif
                         </ul>
                       </nav><!-- End Disabled and active states -->
-
-                    <div class="comments">
-                        <h4 class="comment-title font-alt">Bình luận</h4>
-                        @foreach ($comment as $key =>$val )
-
-                            <div class="comment clearfix">
-                            <div class="comment-avatar"><img src="{{ asset('uploads/users/'.$val->image) }}" alt="avatar" style="width: 50px;height: 50px;"></div>
-                            <div class="comment-content clearfix">
-                            <div class="comment-author font-alt"><a href="#">{{ $val->name }}</a></div>
-                            <div class="comment-author font-alt"><a href="#">  @for ($i = 1 ; $i<=5 ;$i++)
-                                @if ($i <= $val->rate)
-                                <img src="{{ asset('rate/images/200/start-active.png') }}"  style="width: 10px">
-                                @else
-                                <img src="{{ asset('rate/images/200/start.png') }}" style="width: 10px">
-
-                                @endif
-                            @endfor</a></div>
-
-
-                            <div class="comment-body">
-                                <p> {{ $val->comment }} </p>
-                            </div>
-                            <div class="comment-meta font-alt">{{ date('d/m/Y',strtotime($val->created_at))}}
-                            </div>
-                            </div>
-                            @if ($val->reply)
-                            <div class="comment clearfix">
-                                <div class="comment-avatar"><img src="{{ asset('admin/assets/img/apple-touch-icon.png') }}" alt="avatar" style="width: 50px;height: 50px;"></div>
-                                <div class="comment-content clearfix">
-                                    <div class="comment-author font-alt">
-                                        <a href="#">Quản trị viên</a>
-                                    </div>
-                                    <div class="comment-body">
-                                        <p>{{ $val->reply }}</p>
-                                    </div>
-                                    <div class="comment-meta font-alt">{{ date('d/m/Y',strtotime($val->updated_at))}}
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
-
-                            </div>
-                        @endforeach
-
-                    </div>
 
                 </div>
             </div>

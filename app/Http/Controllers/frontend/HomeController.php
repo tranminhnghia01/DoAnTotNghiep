@@ -53,9 +53,9 @@ class HomeController extends Controller
             $sum_rate += $value->rate;
             $avg = $sum_rate/($key+1);
         }
-        $previous = Housekeeper::where('housekeeper_id', '<', $housekeeper->housekeeper_id)->max('housekeeper_id');
+        $previous = Housekeeper::where('housekeeper_id', '<', $housekeeper->housekeeper_id)->where('status',0)->max('housekeeper_id');
         // get next user id
-        $next = Housekeeper::where('housekeeper_id', '>', $housekeeper->housekeeper_id)->min('housekeeper_id');
+        $next = Housekeeper::where('housekeeper_id', '>', $housekeeper->housekeeper_id)->where('status',0)->min('housekeeper_id');
         return view('frontend.pages.housekeeper-details')->with(compact('housekeeper','comment','avg','previous','next'));
    }
 

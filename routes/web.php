@@ -39,7 +39,7 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
 
 
-    // begin Nav
+    // begin Menu
         Route::get('/houses', [App\Http\Controllers\frontend\HomeController::class, 'housekeeper'])->name('home-housekeeper');
         Route::get('/houses/show/{housekeepet_id}', [App\Http\Controllers\frontend\HomeController::class, 'housekeeper_show'])->name('home-housekeeper.show');
         Route::get('/housekeeper', [App\Http\Controllers\frontend\HomeController::class,'create'])->name('housekeeper');
@@ -47,15 +47,10 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
         Route::resource('blog', App\Http\Controllers\frontend\BlogController::class);
         Route::resource('service', App\Http\Controllers\frontend\ServiceController::class);
-
-
-    // End Nav
+    // End Menu
 
     //user register housekeeper
-
-
-
-
+    //Lấy address
     Route::post('/select-address',[App\Http\Controllers\frontend\LoginController::class,'select_address'])->name('select-address');
 
 
@@ -84,8 +79,8 @@ Route::prefix('/Moon.com')->name('home.')->group(function (){
 
 
     //ca cố định
-    Route::get('/Account/cale', [App\Http\Controllers\frontend\UserController::class,'show'])->name('appointment.show');
-    Route::post('/Account/huy-cale', [App\Http\Controllers\frontend\UserController::class,'destroy'])->name('appointment.destroy');
+    Route::get('/Account/booking', [App\Http\Controllers\frontend\UserController::class,'show'])->name('appointment.show');
+    Route::post('/Account/huy-booking', [App\Http\Controllers\frontend\UserController::class,'destroy'])->name('appointment.destroy');
 
 
     //Danh gia
@@ -134,12 +129,6 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
     Route::get('/contact/about/reply', [App\Http\Controllers\admin\ContactController::class,'about_reply'])->name('contact.about-reply');
     Route::post('/contact/about/reply/save', [App\Http\Controllers\admin\ContactController::class,'store_about_reply'])->name('contact.about-reply-store');
     Route::get('/contact/about/destroy', [App\Http\Controllers\admin\ContactController::class,'destroy'])->name('contact.about-destroy');
-
-
-
-
-
-
 
      //show appointment housekeeper
     // Route::get('/details-housekeeper/{housekeeper_id}', [App\Http\Controllers\admin\HousekeeperController::class,'show_Details'])->name('housekeeper.appointment-details');
