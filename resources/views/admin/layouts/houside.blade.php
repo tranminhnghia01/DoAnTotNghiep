@@ -2,12 +2,6 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item">
-        <a class="nav-link " href="index.html">
-          <i class="bi bi-grid"></i>
-          <span>Bảng điều khiển</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
 
       <li class="nav-heading">Pages</li>
 
@@ -25,12 +19,6 @@
           <span>Danh sách đơn lịch</span>
         </a>
       </li><!-- End Profile Page Nav -->
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('admin.Appoin-bill') }}">
-          <i class="bi bi-calendar-date"></i>
-          <span>Hóa đơn</span>
-        </a>
-      </li><!-- End Profile Page Nav --> --}}
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">

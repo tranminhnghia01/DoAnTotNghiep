@@ -4,23 +4,23 @@
         <div class="col-lg-7 px-5 text-start">
             <div class="h-100 d-inline-flex align-items-center py-3 me-4">
                 <small class="fa fa-map-marker-alt text-orange me-2"></small>
-                <small>123 Street, New York, USA</small>
+                <small>{{ $info->info_address }}</small>
             </div>
             <div class="h-100 d-inline-flex align-items-center py-3">
                 <small class="far fa-clock text-orange me-2"></small>
-                <small>Mon - Fri : 09.00 AM - 09.00 PM</small>
+                <small>Thứ 2 - Chủ nhật : 00.00 AM - 00.00 PM</small>
             </div>
         </div>
         <div class="col-lg-5 px-5 text-end">
             <div class="h-100 d-inline-flex align-items-center py-3 me-4">
                 <small class="fa fa-phone-alt text-orange me-2"></small>
-                <small>+012 345 6789</small>
+                <small>(+84) {{ $info->info_phone }}</small>
             </div>
             <div class="h-100 d-inline-flex align-items-center">
-                <a class="btn btn-sm-square rounded-circle bg-white text-orange me-1" href=""><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-sm-square rounded-circle bg-white text-orange me-1" href=""><i class="fab fa-twitter"></i></a>
-                <a class="btn btn-sm-square rounded-circle bg-white text-orange me-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                <a class="btn btn-sm-square rounded-circle bg-white text-orange me-0" href=""><i class="fab fa-instagram"></i></a>
+                <a class="btn btn-sm-square rounded-circle bg-white text-orange me-1"><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-sm-square rounded-circle bg-white text-orange me-1"><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-sm-square rounded-circle bg-white text-orange me-1"><i class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-sm-square rounded-circle bg-white text-orange me-0"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
 
 <!-- Navbar Start -->
 <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s">
-    <a href="" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+    <a href="{{route('home.index') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
         <h1 class="m-0 text-orange"><i class="fas fa-braille me-3"></i>Website Giúp việc nhà theo giờ</h1>
     </a>
     <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -40,7 +40,7 @@
             <a href="{{ route('home.index') }}" class="nav-item nav-link active">Trang chủ</a>
             <a href="{{ route('home.home-housekeeper') }}" class="nav-item nav-link"> Giúp việc</a>
             <div class="nav-item dropdown">
-                <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Dịch vụ</a>
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Dịch vụ</a>
                 <div class="dropdown-menu rounded-0 rounded-bottom m-0">
                     <a href="{{ route('home.service.index') }}" class="dropdown-item">Tất cả</a>
 
