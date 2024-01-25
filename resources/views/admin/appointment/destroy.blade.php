@@ -4,7 +4,7 @@
         <table class="table datatable" style="text-align: center">
             <thead>
                 <tr>
-                    <th>STT</th>
+                    <th>Mã hóa đơn</th>
                     <th>Mã đơn lịch</th>
                     <th>Tổng hóa đơn</th>
                     <th>Lý do</th>
@@ -14,14 +14,13 @@
             </thead>
             <tbody>
                 {{-- @if (!empty($book)) --}}
-                    @foreach ($bill as $key=>$value )
-
+                    @foreach ($bill as $key =>$value )
                     @if ($value->book_status == 3)
                     <tr>
-                        <td>{{ $key+1}}</td>
+                        <td>{{ $value->history_id }}</td>
                         <td>{{ $value->book_id }}</td>
                         <td>{{ number_format($value->book_total) }} <sup>đ</sup> </td>
-                        <td>{{ $value->book_notes }}</td>
+                        <td><span  style="float: left">{{ $value->book_notes }}</span></td>
                         <td><span class="btn btn-danger" style="color: white;width: 170px;">Đã hủy</span></td>
                         <td><button type="button" class="btn btn-default btn-booking-details" id="{{ $value->book_id }}"><i class="bi bi-eye"></i></button></td>
                     </tr>

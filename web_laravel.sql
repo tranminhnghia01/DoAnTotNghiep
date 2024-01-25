@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 25, 2024 lúc 02:20 PM
+-- Thời gian đã tạo: Th1 25, 2024 lúc 05:17 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -136,7 +136,8 @@ INSERT INTO `payment_online` (`id`, `Amount`, `BankCode`, `BankTranNo`, `CardTyp
 (20, '30000000', 'NCB', 'VNP14289555', 'ATM', 'Thanh toán đơn đặt lịch', '20240122154304', '00', 'KETREN3N', '14289555', '00', 'c5808', '3a87d64e7ebc42ece5af4f65b08c32278ab9342d2dccb5ef6a57e75ef0ab712ce3daaa5211d5b6d2cca94a57669e6c0ade44437813ca076c7355be08bc36a342', NULL, NULL),
 (21, '450000', 'momo', '1706026072', 'napas', 'Thanh toán qua MoMo', '1706026131080', '0', 'MOMOBKUN20180529', '3133093228', 'Successful.', 'edcf5', 'f507ae25b57349f7efeaf2c60af3d610189752fdb53a49ac5c6c688d405a76f8', NULL, NULL),
 (22, '489000000', 'NCB', 'VNP14290732', 'ATM', 'Thanh toán đơn đặt lịch', '20240123231404', '00', 'KETREN3N', '14290732', '00', '4336b', '3997ea84382b87694935803db8cb05c8ec46b6c6faa3b622b5b31ec51b2d85c2015057dc36f3962944b2f70f12536b81c1872cdbe2d400f6e320ab0193fcd7ed', NULL, NULL),
-(23, '630000', 'momo', '1706111026', 'napas', 'Thanh toán qua MoMo', '1706111087811', '0', 'MOMOBKUN20180529', '3133362223', 'Successful.', '976de', '0c96b3b1f55ad114db6683584c9dc698b18377caafe534e44983898d21da6060', NULL, NULL);
+(23, '630000', 'momo', '1706111026', 'napas', 'Thanh toán qua MoMo', '1706111087811', '0', 'MOMOBKUN20180529', '3133362223', 'Successful.', '976de', '0c96b3b1f55ad114db6683584c9dc698b18377caafe534e44983898d21da6060', NULL, NULL),
+(24, '199000000', 'NCB', 'VNP14292705', 'ATM', 'Thanh toán đơn đặt lịch', '20240125220139', '00', 'KETREN3N', '14292705', '00', '5dfa0', '3ac2c60c2e3827596e9eeb3a63a7030a16bf8f3e95bc056a3136c5fb20cad4c6a489dc3d95a7b82f7e5bf749d4f9f66f731000ca68ac22504a88d8dda4430e07', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -239,7 +240,7 @@ INSERT INTO `tbl_booking` (`id`, `book_id`, `coupon_id`, `payment_id`, `service_
 (13, '31112', 2, 1, 1, 3, 400000, 4, 'Tỉnh Quảng Ngãi, Huyện Sơn Hà, Xã Sơn Bao', NULL, '2023-12-28 12:43:18', '2023-12-26 14:46:49'),
 (14, '31113', 0, 3, 2, 2, 1200000, 3, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Tôi chuyển công việc và không thể tiếp tục công việc được nữa', '2023-12-29 12:44:50', '2024-01-20 07:07:23'),
 (16, '1f9dc', 5, 1, 1, 5, 180500, 4, 'Tỉnh Bắc Kạn, Huyện Ba Bể, Xã Cao Thượng', NULL, '2023-12-27 08:19:40', '2023-12-28 08:12:10'),
-(17, '5dfa0', 4, 1, 2, 5, 1990000, 2, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Tôi cân nữ và trên 30 tuổi', '2023-12-27 08:21:51', '2023-12-27 10:54:04'),
+(17, '5dfa0', 4, 3, 2, 5, 1990000, 2, '90,Tỉnh Vĩnh Phúc, Huyện Vĩnh Tường, Xã Phú Thịnh', 'Tôi cân nữ và trên 30 tuổi', '2023-12-27 08:21:51', '2024-01-25 15:40:40'),
 (18, '4336b', 2, 3, 2, 5, 4890000, 3, 'Tỉnh Vĩnh Phúc, Thành phố Vĩnh Yên, Phường Đống Đa', 'Tôi có công việc đột xuất và không thể tiếp tục gói dịch vụ này được, Shop giúp tôi hủy với. Cảm ơn shop', '2023-12-27 08:23:38', '2024-01-23 16:19:01'),
 (19, '923a7', 0, 1, 1, 7, 270000, 4, 'Tỉnh Bắc Giang, Huyện Tân Yên, Xã Cao Thượng', 'Ca giờ', '2023-12-28 08:47:22', '2024-01-01 10:16:22'),
 (20, '7ab36', 0, 1, 1, 7, 480000, 4, 'Tỉnh Bắc Ninh, Huyện Yên Phong, Xã Tam Đa', 'Ca giờ ngày 30', '2023-12-28 08:47:55', '2024-01-01 10:16:54'),
@@ -264,7 +265,7 @@ INSERT INTO `tbl_booking` (`id`, `book_id`, `coupon_id`, `payment_id`, `service_
 (39, '89f9c', 5, 1, 1, 1, 256500, 4, 'Thôn 1, Quảng Tân - Tuy Đức - Đăk Nông', 'Tôi cần người giúp việc là Nam và trên 30 tuổi', '2024-01-16 02:37:01', '2024-01-16 07:39:59'),
 (40, 'c8ad3', 0, 1, 1, 1, 240000, 4, 'Tỉnh Hải Dương, Huyện Tứ Kỳ, Xã Dân Chủ', NULL, '2024-01-17 01:27:54', '2024-01-22 08:45:41'),
 (41, '14a94', 0, 1, 2, 8, 2520000, 1, 'Tỉnh Bắc Ninh, Huyện Yên Phong, Xã Tam Đa', NULL, '2024-01-18 04:33:34', '2024-01-18 04:33:34'),
-(42, '21224', 0, 1, 1, 8, 300000, 1, 'Tỉnh Bắc Ninh, Huyện Yên Phong, Xã Tam Đa', 'Cần Nam và trên 30 tuổi', '2024-01-18 04:34:18', '2024-01-18 04:34:18'),
+(42, '21224', 0, 1, 1, 8, 300000, 2, 'Tỉnh Bắc Ninh, Huyện Yên Phong, Xã Tam Đa', 'Cần Nam và trên 30 tuổi', '2024-01-18 04:34:18', '2024-01-25 15:41:31'),
 (43, '5d775', 0, 1, 1, 2, 360000, 2, 'Thành phố Hà Nội, Quận Tây Hồ, Phường Xuân La', 'Không có gì mới', '2024-01-20 05:36:05', '2024-01-24 15:49:45'),
 (44, 'c5808', 0, 3, 1, 24, 300000, 4, 'Số 41, Tỉnh Hà Giang, Huyện Yên Minh, Xã Na Khê', NULL, '2024-01-22 07:38:00', '2024-01-22 08:45:46'),
 (45, 'ff850', 0, 3, 2, 24, 960000, 4, 'Số 41, Tỉnh Hà Giang, Huyện Yên Minh, Xã Na Khê', NULL, '2024-01-22 07:39:42', '2024-01-23 15:36:30'),
@@ -443,7 +444,7 @@ CREATE TABLE `tbl_comment` (
   `rate` int(11) NOT NULL,
   `comment` text NOT NULL,
   `reply` text DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -453,22 +454,22 @@ CREATE TABLE `tbl_comment` (
 --
 
 INSERT INTO `tbl_comment` (`comment_id`, `history_id`, `name`, `image`, `rate`, `comment`, `reply`, `status`, `created_at`, `updated_at`) VALUES
-(1, 3, 'Lê Thị Tuyết', 'nguoidung59grocery-assistant-lua-chon-da-dang.png', 5, 'Đặt lịch giá rẻ hơn những chỗ khác nhưng rất chất lượng thì rất tốt được kiểm tra lại nên mình rất thích nha🥰🥰🥰', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 0, '2023-12-23 10:42:05', '2024-01-17 15:56:26'),
-(2, 17, 'Nguyễ Hoàng ANh', 'user2.jpg', 5, 'Lorem Ipsum is a Latin phrase that has been used as the standard dummy text for the printing and typesetting industry since the 1500s. Learn about its origin, variations, and how to use it in your', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', NULL, '2023-12-24 16:40:12', '2023-12-25 14:44:36'),
-(3, 30, 'Lê Cẩm Tú', 'user4.jpg', 5, 'Dịch vụ rẻ hơn so với thị trường, có nhiều mã free ship và giảm giá, app chất lượng.', 'Chào bạn, cảm ơn bạn đã phản hồi. Moon xin ghi nhận ý kiến của bạn để cải thiện ứng dụng và chất lượng dịch vụ hơn nữa. Để có thể hỗ trợ bạn nhanh chóng và hiệu quả nhất, hãy chia sẻ thông tin chi tiết về vấn đề của bạn qua giúp moon nhé. Xin cảm ơn.', NULL, '2023-12-27 07:28:30', '2023-12-28 08:26:04'),
-(4, 34, 'Nguyễn Văn Hoàng', 'user1.jpg', 4, 'Tôi hoàn toàn ưng ý .', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', NULL, '2023-12-28 08:08:55', '2023-12-28 08:26:14'),
+(1, 3, 'Lê Thị Tuyết', 'nguoidung59grocery-assistant-lua-chon-da-dang.png', 5, 'Đặt lịch giá rẻ hơn những chỗ khác nhưng rất chất lượng thì rất tốt được kiểm tra lại nên mình rất thích nha🥰🥰🥰', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 0, '2023-12-23 10:42:05', '2024-01-25 16:02:15'),
+(2, 17, 'Nguyễ Hoàng ANh', 'user2.jpg', 5, 'Lorem Ipsum is a Latin phrase that has been used as the standard dummy text for the printing and typesetting industry since the 1500s. Learn about its origin, variations, and how to use it in your', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 0, '2023-12-24 16:40:12', '2023-12-25 14:44:36'),
+(3, 30, 'Lê Cẩm Tú', 'user4.jpg', 5, 'Dịch vụ rẻ hơn so với thị trường, có nhiều mã free ship và giảm giá, app chất lượng.', 'Chào bạn, cảm ơn bạn đã phản hồi. Moon xin ghi nhận ý kiến của bạn để cải thiện ứng dụng và chất lượng dịch vụ hơn nữa. Để có thể hỗ trợ bạn nhanh chóng và hiệu quả nhất, hãy chia sẻ thông tin chi tiết về vấn đề của bạn qua giúp moon nhé. Xin cảm ơn.', 0, '2023-12-27 07:28:30', '2023-12-28 08:26:04'),
+(4, 34, 'Nguyễn Văn Hoàng', 'user1.jpg', 4, 'Tôi hoàn toàn ưng ý .', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 0, '2023-12-28 08:08:55', '2023-12-28 08:26:14'),
 (5, 35, 'Trần Nam Cao', 'user3.jpg', 3, 'Cô giúp việc rất thân thiện', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 0, '2023-12-28 08:17:16', '2024-01-17 15:56:23'),
-(6, 27, 'Hoàng Anh Hiếu', 'user5.jpg', 5, '5 sao giỏi', 'Chào bạn, cảm ơn bạn đã phản hồi. Moon xin ghi nhận ý kiến của bạn để cải thiện ứng dụng và chất lượng dịch vụ hơn nữa. Để có thể hỗ trợ bạn nhanh chóng và hiệu quả nhất, hãy chia sẻ thông tin chi tiết về vấn đề của bạn qua giúp moon nhé. Xin cảm ơn.', NULL, '2023-12-28 08:17:34', '2023-12-28 08:26:11'),
+(6, 27, 'Hoàng Anh Hiếu', 'user5.jpg', 5, '5 sao giỏi', 'Chào bạn, cảm ơn bạn đã phản hồi. Moon xin ghi nhận ý kiến của bạn để cải thiện ứng dụng và chất lượng dịch vụ hơn nữa. Để có thể hỗ trợ bạn nhanh chóng và hiệu quả nhất, hãy chia sẻ thông tin chi tiết về vấn đề của bạn qua giúp moon nhé. Xin cảm ơn.', 0, '2023-12-28 08:17:34', '2023-12-28 08:26:11'),
 (7, 28, 'Trương Thị Tuyết', 'user6.jpg', 4, 'Cũng đc', 'Chào bạn, cảm ơn bạn đã phản hồi. Moon xin ghi nhận ý kiến của bạn để cải thiện ứng dụng và chất lượng dịch vụ hơn nữa. Để có thể hỗ trợ bạn nhanh chóng và hiệu quả nhất, hãy chia sẻ thông tin chi tiết về vấn đề của bạn qua giúp moon nhé. Xin cảm ơn.', 0, '2023-12-28 08:17:46', '2024-01-13 16:24:28'),
 (8, 23, 'Nguyễn Khánh Ngân', 'user7.jpg', 5, 'quá đươc luôn', 'Chào bạn, cảm ơn bạn đã phản hồi. Moon xin ghi nhận ý kiến của bạn để cải thiện ứng dụng và chất lượng dịch vụ hơn nữa. Để có thể hỗ trợ bạn nhanh chóng và hiệu quả nhất, hãy chia sẻ thông tin chi tiết về vấn đề của bạn qua giúp moon nhé. Xin cảm ơn.', 0, '2023-12-28 08:18:03', '2024-01-13 16:24:26'),
 (9, 49, 'Trần Bích Phượng', 'user8.png', 5, 'Tuyệt vời Tôi sẽ tiếp tục sư dụng dịch vụ của bạn', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 0, '2024-01-01 10:08:13', '2024-01-17 15:56:20'),
-(10, 31, 'Trần Công Vinh', 'user1.jpg', 3, 'Tuyệt vời, Sau khi hoàn thành 1 ngày làm việc mệt mỏi về nhà thấy ngôi nhà sạch sẽ, tôi cảm thấy mình khỏe ra 5 sao nhé ;))', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', NULL, '2024-01-20 06:47:24', '2024-01-24 16:02:49'),
-(11, 72, 'Huy', 'nguoidung84GVmessages-3.jpg', 4, 'Cô giúp việc vui tính dọn dẹp nhà cửa rất sạch sẽ', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', NULL, '2024-01-23 16:03:19', '2024-01-24 16:02:44'),
-(12, 71, 'Huy', 'nguoidung84GVmessages-3.jpg', 3, 'Còn 1 số chỗ chưa sạch sẽ mong lần sau có thể làm công việc kĩ hơn', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', NULL, '2024-01-23 16:04:08', '2024-01-24 16:02:24'),
-(13, 74, 'Huy', 'nguoidung84GVmessages-3.jpg', 2, 'Rất là tốt', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', NULL, '2024-01-23 16:09:43', '2024-01-24 16:02:20'),
-(14, 37, 'Trần Văn Tạ', 'user4.jpg', 5, 'Rất tuyệt', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', NULL, '2024-01-23 16:13:27', '2024-01-24 16:02:18'),
-(15, 39, 'Lê Lưu Minh', 'user2.jpg', 5, 'Tuyệt vời tôi sẽ tiếp tục sử dụng dịch vụ của hệ thống', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 1, '2024-01-24 09:51:35', '2024-01-24 16:02:38'),
-(16, 75, 'Phạm Linh Băng', 'nguoidung35user6.jpg', 5, 'Rất ấn tượng', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 1, '2024-01-24 15:48:12', '2024-01-24 16:02:36');
+(10, 31, 'Trần Công Vinh', 'user1.jpg', 3, 'Tuyệt vời, Sau khi hoàn thành 1 ngày làm việc mệt mỏi về nhà thấy ngôi nhà sạch sẽ, tôi cảm thấy mình khỏe ra 5 sao nhé ;))', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 0, '2024-01-20 06:47:24', '2024-01-24 16:02:49'),
+(11, 72, 'Huy', 'nguoidung84GVmessages-3.jpg', 4, 'Cô giúp việc vui tính dọn dẹp nhà cửa rất sạch sẽ', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 0, '2024-01-23 16:03:19', '2024-01-24 16:02:44'),
+(12, 71, 'Huy', 'nguoidung84GVmessages-3.jpg', 3, 'Còn 1 số chỗ chưa sạch sẽ mong lần sau có thể làm công việc kĩ hơn', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 0, '2024-01-23 16:04:08', '2024-01-24 16:02:24'),
+(13, 74, 'Huy', 'nguoidung84GVmessages-3.jpg', 2, 'Rất là tốt', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 0, '2024-01-23 16:09:43', '2024-01-24 16:02:20'),
+(14, 37, 'Trần Văn Tạ', 'user4.jpg', 5, 'Rất tuyệt', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 0, '2024-01-23 16:13:27', '2024-01-24 16:02:18'),
+(15, 39, 'Lê Lưu Minh', 'user2.jpg', 5, 'Tuyệt vời tôi sẽ tiếp tục sử dụng dịch vụ của hệ thống', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 0, '2024-01-24 09:51:35', '2024-01-25 15:52:15'),
+(16, 75, 'Phạm Linh Băng', 'nguoidung35user6.jpg', 5, 'Rất ấn tượng', 'Chào bạn, Moon.com rất vui khi nhận được phản hồi tích cực từ bạn. Moon sẽ tiếp tục cố gắng phát triển ứng dụng và dịch vụ tốt hơn nữa trong tương lai. Rất hi vọng bạn vẫn luôn tin tưởng đồng hành và ủng hộ moon', 0, '2024-01-24 15:48:12', '2024-01-25 16:15:48');
 
 -- --------------------------------------------------------
 
@@ -581,7 +582,7 @@ INSERT INTO `tbl_history` (`history_id`, `book_id`, `housekeeper_id`, `date_fini
 (35, '21115', '25bd2', 1, 0, NULL, NULL, '4', 0, '2023-12-26 13:56:42', '2023-12-27 10:55:39'),
 (36, '4336b', '373eb', 17, 0, NULL, '1141000', '3', 0, '2023-12-27 10:53:35', '2024-01-23 16:22:37'),
 (37, '1f9dc', '3ac0e', 1, 0, NULL, NULL, '4', 0, '2023-12-27 10:53:58', '2023-12-28 08:13:53'),
-(38, '5dfa0', 'e59d6', 0, 0, NULL, NULL, '2', 1, '2023-12-27 10:54:04', '2023-12-27 10:54:04'),
+(38, '5dfa0', 'e59d6', 5, 0, 'Tôi có công việc đột xuất và không thể tiếp tục hoàn thành công việc này được nữa', NULL, '2', 1, '2023-12-27 10:54:04', '2024-01-25 15:40:40'),
 (39, '21114', 'c741c', 18, 0, '-Hoàn thành đơn lịch', NULL, '4', 1, '2023-12-27 10:54:08', '2024-01-24 09:49:14'),
 (40, '4b0fc', '1e8d6', 0, 0, NULL, NULL, '2', 1, '2023-12-28 08:55:20', '2023-12-28 08:55:20'),
 (41, '17c57', '1e8d6', 0, 0, NULL, NULL, '2', 1, '2023-12-28 08:55:26', '2023-12-28 08:55:26'),
@@ -615,7 +616,8 @@ INSERT INTO `tbl_history` (`history_id`, `book_id`, `housekeeper_id`, `date_fini
 (75, '04939', 'e59d0', 1, 0, 'Hoàn thành Công việc', NULL, '4', 0, '2024-01-24 15:17:40', '2024-01-24 15:47:47'),
 (76, '976de', 'e59d0', 2, 0, NULL, '168000', '3', 0, '2024-01-24 15:43:24', '2024-01-24 15:47:44'),
 (77, '53579', '373e0', 0, 0, NULL, NULL, '2', 1, '2024-01-24 15:49:29', '2024-01-24 15:49:29'),
-(78, '5d775', '373e0', 0, 0, NULL, NULL, '2', 1, '2024-01-24 15:49:45', '2024-01-24 15:49:45');
+(78, '5d775', '373e0', 0, 0, NULL, NULL, '2', 1, '2024-01-24 15:49:45', '2024-01-24 15:49:45'),
+(79, '21224', '373eb', 0, 0, NULL, NULL, '2', 1, '2024-01-25 15:41:31', '2024-01-25 15:41:31');
 
 -- --------------------------------------------------------
 
@@ -1634,7 +1636,8 @@ INSERT INTO `tbl_statistical` (`id_statistical`, `date`, `sales`, `profit`, `tot
 (86, '2024-01-20', '270000', '27000', 1),
 (88, '2024-01-22', '1260000', '126000', 2),
 (89, '2024-01-23', '4629000', '862250', 4),
-(90, '2024-01-24', '849000', '143700', 2);
+(90, '2024-01-24', '849000', '143700', 2),
+(91, '2024-01-25', '1990000', '199000', 1);
 
 -- --------------------------------------------------------
 
@@ -12852,7 +12855,7 @@ INSERT INTO `users` (`id`, `user_id`, `role_id`, `name`, `email`, `email_verifie
 (2, '3ac0e', 2, 'Trương Thị Tuyết', 'giupviec1@gmail.com', NULL, '$2y$10$MiWBloP6OHucZuNeXrd.9uioTsTbFFjwuSVJDxpXWh5uHEPeS2B4q', NULL, '2023-12-25 23:55:29', '2023-12-25 23:55:29'),
 (3, '373eb', 2, 'Nguyễn Linh Nam', 'nguyenlinhnam@gmail.com', NULL, '$2y$10$c7K2xSxmFBhR2Hj6pvWLVOhLcIfdqptW9N93.FL5bGtlqB4F.Ooh2', 'ZOCcgt9N0HBjrxGu6Vo2hazDlydMmKOrDN1RQLGxJCzTuiN4EHVl7tVI1P3f', '2023-12-25 23:58:39', '2023-12-25 23:58:39'),
 (4, 'c741c', 2, 'Trần Văn Hải', 'tranvanhai@gmail.com', NULL, '$2y$10$4JTPMIOpBVInFmpprGK0q.bswSFp9KOe8GJQI6QLZ3XHVvd3iOZIi', NULL, '2023-12-26 00:01:31', '2023-12-26 00:01:31'),
-(5, 'e59d6', 2, 'Nguyễn Xuân Nhật', 'nguỹenxuannhat@gmail.com', NULL, '$2y$10$y1E7UyI9sjp866UDlbC2UOq1.zjrUmtuuygDHaxFU1v5kNHvo/.Ha', NULL, '2023-12-26 00:03:44', '2023-12-26 00:03:44'),
+(5, 'e59d6', 2, 'Nguyễn Xuân Nhật', 'nguyenxuannhat@gmail.com', NULL, '$2y$10$y1E7UyI9sjp866UDlbC2UOq1.zjrUmtuuygDHaxFU1v5kNHvo/.Ha', NULL, '2023-12-26 00:03:44', '2023-12-26 00:03:44'),
 (6, '25bd2', 2, 'Nguyễn Khánh Ngân', 'nguyenkhanhngan@gmail.com', NULL, '$2y$10$0xx1LfdC7hW6pCMQM.hZaOtv5dPvU1TQeHqnp8/4cyD2IVwXNLAj2', NULL, '2023-12-26 00:27:10', '2023-12-26 00:27:10'),
 (7, '1e8d6', 2, 'Hoàng Văn Quý', 'hoangvanquy@gmail.com', NULL, '$2y$10$7T9ZfIAECEg8NALTAVxQ/ePjl3kzbcQV5HmOo1kiZfeTEjh0FDh02', NULL, '2023-12-26 00:30:45', '2023-12-26 00:30:45'),
 (8, '3ac00', 2, 'Lê Thị Tuyết', 'lethituyet@gmail.com', NULL, '$2y$10$MiWBloP6OHucZuNeXrd.9uioTsTbFFjwuSVJDxpXWh5uHEPeS2B4q', NULL, '2023-12-25 23:55:29', '2023-12-25 23:55:29'),
@@ -12862,14 +12865,14 @@ INSERT INTO `users` (`id`, `user_id`, `role_id`, `name`, `email`, `email_verifie
 (12, '25bd0', 2, 'Trần Văn Bắc', 'tranvanbac@gmail.com', NULL, '$2y$10$0xx1LfdC7hW6pCMQM.hZaOtv5dPvU1TQeHqnp8/4cyD2IVwXNLAj2', NULL, '2023-12-26 00:27:10', '2023-12-26 00:27:10'),
 (13, '1e8d0', 2, 'Nguyễn Kim Hằng', 'nguyenkimhang@gmail.com', NULL, '$2y$10$7T9ZfIAECEg8NALTAVxQ/ePjl3kzbcQV5HmOo1kiZfeTEjh0FDh02', NULL, '2023-12-26 00:30:45', '2023-12-26 00:30:45'),
 (14, 'c74aa', 2, 'Lương Hữu Khánh', 'luonghuukhanh@gmail.com', NULL, '$2y$10$4JTPMIOpBVInFmpprGK0q.bswSFp9KOe8GJQI6QLZ3XHVvd3iOZIi', NULL, '2023-12-26 00:01:31', '2023-12-26 00:01:31'),
-(15, 'e5daa', 2, 'Nguyễn Thiện', 'thien@gmail.com', NULL, '$2y$10$y1E7UyI9sjp866UDlbC2UOq1.zjrUmtuuygDHaxFU1v5kNHvo/.Ha', NULL, '2023-12-26 00:03:44', '2023-12-26 00:03:44'),
-(16, '25baa', 2, 'Tràn Kim Ngân', 'trangngan@gmail.com', NULL, '$2y$10$0xx1LfdC7hW6pCMQM.hZaOtv5dPvU1TQeHqnp8/4cyD2IVwXNLAj2', NULL, '2023-12-26 00:27:10', '2023-12-26 00:27:10'),
+(15, 'e5daa', 2, 'Nguyễn Thiện', 'nguyenthien@gmail.com', NULL, '$2y$10$y1E7UyI9sjp866UDlbC2UOq1.zjrUmtuuygDHaxFU1v5kNHvo/.Ha', NULL, '2023-12-26 00:03:44', '2023-12-26 00:03:44'),
+(16, '25baa', 2, 'Tràn Kim Ngân', 'trankimngan@gmail.com', NULL, '$2y$10$0xx1LfdC7hW6pCMQM.hZaOtv5dPvU1TQeHqnp8/4cyD2IVwXNLAj2', NULL, '2023-12-26 00:27:10', '2023-12-26 00:27:10'),
 (17, '1e8aa', 2, 'Nguyễn Hồng Băng', 'nguyenhongbang@gmail.com', NULL, '$2y$10$7T9ZfIAECEg8NALTAVxQ/ePjl3kzbcQV5HmOo1kiZfeTEjh0FDh02', NULL, '2023-12-26 00:30:45', '2023-12-26 00:30:45'),
 (18, 'e09c5', 3, 'Trần Minh Nghĩa', 'minhnghia11a1@gmail.com', NULL, '$2y$10$rERmG8kpNBshgzQhmGmFKeHsKZIZRpQiCnDIQ1nNZx8HbX6L1iwt2', NULL, '2023-12-26 07:45:57', '2024-01-06 16:20:43'),
-(19, '598aa', 3, 'Trần Công Vinh', 'congvinh@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
-(20, 'nd003', 3, 'Lê Lưu Minh', 'luuminh100@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
-(21, 'nd004', 3, 'Nguyễn Tiến', 'nguyentien4@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
-(22, 'nd005', 3, 'Trần Văn Tạ', 'nguoivanta@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(19, '598aa', 3, 'Trần Công Vinh', 'trancongvinh@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(20, 'nd003', 3, 'Lê Lưu Minh', 'leluuminh@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(21, 'nd004', 3, 'Nguyễn Tiến', 'nguyentien@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
+(22, 'nd005', 3, 'Trần Văn Tạ', 'tranvanta@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
 (23, 'nd006', 3, 'Trần Văn Hải Nam', 'Hainam@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
 (24, 'nd007', 3, 'Trần Công Vinh', 'member1@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
 (25, 'nd008', 3, 'Ngô Hoàng Anh', 'nguoidung4@gmail.com', NULL, '$2y$10$8bMDTcGRvqGerm8gWOCFUO0fQHUrsYpizRoMBnMLsVug4jG98x6ru', NULL, '2023-12-26 07:56:21', '2023-12-26 07:56:21'),
@@ -13053,7 +13056,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT cho bảng `payment_online`
 --
 ALTER TABLE `payment_online`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT cho bảng `personal_access_tokens`
@@ -13101,7 +13104,7 @@ ALTER TABLE `tbl_coupon`
 -- AUTO_INCREMENT cho bảng `tbl_history`
 --
 ALTER TABLE `tbl_history`
-  MODIFY `history_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `history_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_housekeeper`
@@ -13143,7 +13146,7 @@ ALTER TABLE `tbl_shipping`
 -- AUTO_INCREMENT cho bảng `tbl_statistical`
 --
 ALTER TABLE `tbl_statistical`
-  MODIFY `id_statistical` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id_statistical` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT cho bảng `users`

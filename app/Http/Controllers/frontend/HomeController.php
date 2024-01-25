@@ -45,6 +45,7 @@ class HomeController extends Controller
    public function housekeeper_show($housekeeper_id){
         $housekeeper = Housekeeper::where('housekeeper_id',$housekeeper_id)->first();
         $comment = Comment::join('tbl_history', 'tbl_history.history_id', '=', 'tbl_comment.history_id')
+        ->where('tbl_comment.status',0)
         ->where('tbl_history.housekeeper_id',$housekeeper_id)->get();
 
         $sum_rate = 0;

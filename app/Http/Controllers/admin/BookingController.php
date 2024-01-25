@@ -40,7 +40,7 @@ class BookingController extends Controller
                 ->join('tbl_service', 'tbl_service.service_id', '=', 'tbl_booking.service_id')
                 ->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')
                 ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_booking.shipping_id')
-                ->orderBy('tbl_booking.created_at', 'desc')->get();
+                ->orderBy('tbl_history.created_at', 'desc')->get();
 
         return view('admin.appointment.index')->with(compact('book','user','bill'));
     }
@@ -87,13 +87,17 @@ class BookingController extends Controller
 
         if($book){
             $checkhis = History::latest()->where('book_id',$book_id)->first();
+            $msg = "Đã giao công việc thành công";
+            $style = "success";
             // dd($checkhis);
             if($checkhis){
                 $checkYoN = History::where('book_id',$book_id)->where('housekeeper_id',$housekeeper_id)->first();
                 if($checkYoN){
                     $checkhis->update(['history_status'=>2]);
-                    $msg = "Giao lại công việc cho người giúp việc này!";
+                    $msg = "Thành công Giao lại công việc cho người giúp việc này!";
                     $style = "success";
+                $history = $checkhis;
+
                 }else{
                     $info = [
                         'book_id' => $checkhis->book_id,
@@ -119,9 +123,6 @@ class BookingController extends Controller
                 $bookupdate = Book::where('book_id',$book_id)->first();
                 $bookupdate->update(['book_status'=>2]);
                 Mail::to('minhnghia11a1@gmail.com')->send(new MailNotify($book));
-                $msg = "Đã giao công việc thành công";
-                $style = "success";
-
             }else{
                 $msg = "Có lỗi xảy ra. Vui lòng kiểm tra lại!";
                     $style = "danger";
@@ -373,6 +374,8 @@ class BookingController extends Controller
         $gender = $data['gender'];
         $age_start = $data['age_start'];
         $age_end = $data['age_end'];
+        $housekeeper_id = $data['housekeeper_id'];
+        // dd($housekeeper_id);
         $output = '';
         $book_id = $data['book_id'];
         $book = Book::join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
@@ -385,6 +388,8 @@ class BookingController extends Controller
 
         if($gender){
             $house = Housekeeper::where('name','LIKE','%'.$keywords.'%')
+        ->where('housekeeper_id','LIKE','%'.$housekeeper_id.'%')
+
         ->where('age','>=',$age_start)
         ->where('age','<=',$age_end)
         ->where('gender',$gender)
@@ -392,6 +397,7 @@ class BookingController extends Controller
         ->get();
         }else{
             $house = Housekeeper::where('name','LIKE','%'.$keywords.'%')
+        ->where('housekeeper_id','LIKE','%'.$housekeeper_id.'%')
         ->where('age','>=',$age_start)
         ->where('age','<=',$age_end)
         ->where('status',0)

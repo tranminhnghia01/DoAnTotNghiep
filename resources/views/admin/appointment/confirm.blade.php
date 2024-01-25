@@ -94,10 +94,18 @@
             <form class="row g-3" id="search-confirm">
                 <div class="col">
                     <div class="form-floating">
-                      <input type="email" class="form-control" id="floatingEmail"  name="book_id" value="{{ $book->book_id }}" readonly>
+                      <input type="text" class="form-control" id="floatingEmail"  name="book_id" value="{{ $book->book_id }}" readonly>
                       <label for="floatingEmail">Mã đơn lịch</label>
                     </div>
                   </div>
+
+                  <div class="col">
+                    <div class="form-floating">
+                      <input type="text" class="form-control" id="floatingEmail" placeholder="Mã người giúp việc" name="search_housekeeper_id">
+                      <label for="floatingEmail">Mã giúp việc</label>
+                    </div>
+                  </div>
+
                 <div class="col">
                   <div class="form-floating">
                     <input type="email" class="form-control" id="floatingEmail" placeholder="Your Email" name="keywords">

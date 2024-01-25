@@ -15,23 +15,6 @@
                 </div>
             </div>
             @endforeach
-
-            <div class="testimonial-item text-center">
-                <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="{{ asset('frontend/img/testimonial-2.jpg') }}" style="width: 100px; height: 100px;">
-                <div class="testimonial-text rounded text-center p-4">
-                    <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                    <h5 class="mb-1">Patient Name</h5>
-                    <span class="fst-italic">Chuyên nghiệp</span>
-                </div>
-            </div>
-            <div class="testimonial-item text-center">
-                <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="{{ asset('frontend/img/testimonial-3.jpg') }}" style="width: 100px; height: 100px;">
-                <div class="testimonial-text rounded text-center p-4">
-                    <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                    <h5 class="mb-1">Patient Name</h5>
-                    <span class="fst-italic">Chuyên nghiệp</span>
-                </div>
-            </div>
         </div>
     </div>
 </div>

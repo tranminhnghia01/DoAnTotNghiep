@@ -48,6 +48,8 @@
             $('.change-status-comment').click(function(){
                 var comment_id = $(this).data('comment_id');
                 var status = $(this).val();
+                console.log(status);
+                console.log(comment_id);
 
                 $.ajax({
                 url : "{{route('admin.change-status-comment')}}",
@@ -208,14 +210,17 @@
         var age_start = $('#search-confirm').find('select[name="age_start"]').val();
         var age_end = $('#search-confirm').find('select[name="age_end"]').val();
         var book_id = $('#search-confirm').find('input[name="book_id"]').val();
+        var housekeeper_id = $('#search-confirm').find('input[name="search_housekeeper_id"]').val();
+
         console.log(keywords);
         console.log(gender);
         console.log(age_start);
         console.log(age_end);
+        console.log(housekeeper_id);
         $.ajax({
             url : "{{route('admin.appointment.search-confirm')}}",
             method: 'GET',
-            data:{keywords:keywords,gender:gender,age_start:age_start,age_end:age_end,book_id:book_id},
+            data:{keywords:keywords,gender:gender,age_start:age_start,age_end:age_end,book_id:book_id,housekeeper_id:housekeeper_id},
             success:function(data){
                 $('#list-search-confirm').html(data);
             }

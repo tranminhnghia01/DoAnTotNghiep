@@ -63,7 +63,7 @@
                                     <div class="comment clearfix">
                                     <div class="comment-avatar"><img src="{{ asset('uploads/users/'.$val->image) }}" alt="avatar" style="width: 50px;height: 50px;"></div>
                                     <div class="comment-content clearfix">
-                                    <div class="comment-author font-alt"><a href="#">{{ $val->name }}</a></div>
+                                    <div class="comment-author font-alt"><a href="#">{{ $val->name }} </a> {{ date('d/m/Y',strtotime($val->created_at))}}</div>
                                     <div class="comment-author font-alt"><a href="#">  @for ($i = 1 ; $i<=5 ;$i++)
                                         @if ($i <= $val->rate)
                                         <img src="{{ asset('rate/images/200/start-active.png') }}"  style="width: 10px">
@@ -71,32 +71,30 @@
                                         <img src="{{ asset('rate/images/200/start.png') }}" style="width: 10px">
 
                                         @endif
-                                    @endfor</a></div>
+                                        @endfor</a>
+                                    </div>
 
 
                                     <div class="comment-body">
                                         <p> {{ $val->comment }} </p>
                                     </div>
-                                    <div class="comment-meta font-alt">{{ date('d/m/Y',strtotime($val->created_at))}}
-                                    </div>
                                     </div>
                                     @if ($val->reply)
-                                    <div class="comment clearfix">
-                                        <div class="comment-avatar"><img src="{{ asset('admin/assets/img/apple-touch-icon.png') }}" alt="avatar" style="width: 50px;height: 50px;"></div>
-                                        <div class="comment-content clearfix">
-                                            <div class="comment-author font-alt">
-                                                <a href="#">Quản trị viên</a>
-                                            </div>
-                                            <div class="comment-body">
-                                                <p>{{ $val->reply }}</p>
-                                            </div>
-                                            <div class="comment-meta font-alt">{{ date('d/m/Y',strtotime($val->updated_at))}}
+                                        <div class="comment clearfix">
+                                            <div class="comment-avatar"><img src="{{ asset('admin/assets/img/apple-touch-icon.png') }}" alt="avatar" style="width: 50px;height: 50px;"></div>
+                                            <div class="comment-content clearfix">
+                                                <div class="comment-author font-alt">
+                                                    <a href="#">Quản trị viên </a>{{ date('d/m/Y',strtotime($val->updated_at))}}
+                                                </div>
+                                                <div class="comment-body">
+                                                    <p>{{ $val->reply }}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     @endif
 
                                     </div>
+                                    <hr>
                                 @endforeach
 
                             </div>
