@@ -23,7 +23,7 @@
                                     <input type="file" class="form-control" id="image" name="image" style="padding-top: 16px;
                                     background: #fff;">
                                 </div>
-                            @error('shipping_image')
+                            @error('image')
                                     <span style="color: red">{{ $message }}</span>
                                 @enderror
                          </div>

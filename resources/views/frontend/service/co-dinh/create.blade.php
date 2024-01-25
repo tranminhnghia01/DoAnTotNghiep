@@ -106,12 +106,18 @@
 
 
         <div class="col-md-12" >
-            <div class="row">
+            <div class="row"  style="padding: 0 14px">
                 <div class="form-floating form-control border-0 bg-white" style="display: flex; padding: 0">
-                    <p style="font-size: 14px; color: #000" for="">Xem hoặc thay đổi lịch làm việc:</p>
-                        <div class="input-group date " style="height: 51px;width: 100px; ">
+                    <p style="font-size: 14px;
+                    color: orange;
+                    line-height: 55px;
+                    margin: 0;
+                    margin-left: 30px;
+                    font-weight: 600;" for="">Xem hoặc thay đổi lịch làm việc:</p>
+                        <div class="input-group date " style="height: 55px;    width: 132px;">
                             <input type="text" class="form-control border-0" name="book_date" data-date-multidate-separator=";"><span class="input-group-addon"><i class="far fa-calendar" style="height: 100%;
                                 font-size: 21px;
+                                line-height: 35px;
                                 margin: auto;
                                 padding: 8px;
                                 padding-right: 8px;
@@ -134,7 +140,7 @@
                                     if (nextmoth > 11) {
                                         var daychange = new Date(today.getFullYear() + 1, nextmoth-12, 1);
                                     } else {
-                                        var daychange = new Date(today.getFullYear(), nextmoth,today.getDate());
+                                        var daychange = new Date(today.getFullYear(), nextmoth,1);
                                     }
 
                                     // console.log('ngay'+daychange);

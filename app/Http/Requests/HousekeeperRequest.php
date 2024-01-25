@@ -30,13 +30,16 @@ class HousekeeperRequest extends FormRequest
             'phone'=>'required|max:12',
             'email'=>'required',
             'address'=>'required',
-            'image' =>'image|mimes:png,jpg|max:2048'
+            'image' =>'required|image|mimes:png,jpg|max:2048',
         ];
     }
     public function messages()
     {
         return[
             'required' =>':attribute không được để trống',
+            'image' => ':attribute không đúng định dạng',
+            'mimes' => ':attribute không đúng định dạng',
+            'max' => ':attribute không đúng định dạng',
         ];
     }
     public function attributes()

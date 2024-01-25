@@ -60,17 +60,11 @@ class HomeController extends Controller
    }
 
    public function create() {
-        // $housekeeper = Housekeeper::where('status',0)->paginate(8);
         $id = Auth::id();
         $user = User::findOrFail($id);
         $city = City::all();
         $housekeeper = Housekeeper::where('housekeeper_id',$user->user_id)->first();
-        // if($housekeeper){
-        //     return redirect()->route('login');
-        // }else{
-        //     return view('frontend.user.loghouse');
-        // }
-        return view('frontend.user.loghouse')->with(compact('city'));
+        return view('frontend.user.register-housekeeper')->with(compact('city'));
     }
 
     public function store(HousekeeperRequest $request) {
