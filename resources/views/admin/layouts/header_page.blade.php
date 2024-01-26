@@ -19,14 +19,14 @@
       <ul class="d-flex align-items-center">
 
         <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
+          <a class="nav-link nav-icon search-bar-toggle " >
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
 
         <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-icon"  data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
             <span class="badge bg-primary badge-number">4</span>
           </a><!-- End Notification Icon -->
@@ -34,7 +34,7 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
               You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+              <a href=""><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -92,7 +92,7 @@
               <hr class="dropdown-divider">
             </li>
             <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
+              <a href="">Show all notifications</a>
             </li>
 
           </ul><!-- End Notification Dropdown Items -->
@@ -101,7 +101,7 @@
 
         <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-icon"  data-bs-toggle="dropdown">
             <i class="bi bi-chat-left-text"></i>
             <span class="badge bg-success badge-number">5</span>
           </a><!-- End Messages Icon -->
@@ -109,14 +109,14 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
             <li class="dropdown-header">
               Bạn có 5 tin nhắn mới
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+              <a href=""><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
                 @foreach ($notify as $item)
                 <li class="message-item">
-                    <a href="#">
+                    <a href="">
                 <img src="{{ asset('uploads/users/'.$item->image) }}" alt=""  style="width: 44px;height: 40px;" class="rounded-circle">
                 <div>
                   <h4>{{  $item->name }}</h4>
@@ -131,7 +131,7 @@
 
 
             <li class="dropdown-footer">
-              <a href="#">Hiển thị tất cả</a>
+              <a href="">Hiển thị tất cả</a>
             </li>
 
           </ul><!-- End Messages Dropdown Items -->
@@ -140,7 +140,7 @@
 
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0"  data-bs-toggle="dropdown">
             <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
           </a><!-- End Profile Iamge Icon -->
 

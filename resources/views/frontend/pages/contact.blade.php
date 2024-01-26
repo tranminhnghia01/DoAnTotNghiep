@@ -6,7 +6,7 @@
             <h1 class="display-3 text-white mb-3 animated slideInDown">Liên hệ chúng tôi</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb text-uppercase mb-0">
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" >Trang chủ</a></li>
                     <li class="breadcrumb-item text-orange active" aria-current="page">Liên hệ</li>
                 </ol>
             </nav>

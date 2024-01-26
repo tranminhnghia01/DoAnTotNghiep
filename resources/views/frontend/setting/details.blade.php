@@ -20,10 +20,10 @@
                       <h2>{{ $shipping->shipping_name }}</h2>
                       <h3>Khách hàng</h3>
                       <div class="social-links mt-2">
-                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        <a  class="twitter"><i class="bi bi-twitter"></i></a>
+                        <a  class="facebook"><i class="bi bi-facebook"></i></a>
+                        <a  class="instagram"><i class="bi bi-instagram"></i></a>
+                        <a  class="linkedin"><i class="bi bi-linkedin"></i></a>
                       </div>
                     </div>
                 </div>
@@ -79,7 +79,11 @@
                                 @if($book->service_id == 2)
                                     <div style="display: flex; justify-content: space-between">
                                         <label for="">Số buổi đã hoàn thành</label>
-                                        <p class="check-date">{{ $history->date_finish + $history->history_previous_date }}</p>
+                                        @if ($history)
+                                            <p class="check-date">{{ $history->date_finish + $history->history_previous_date }}</p>
+                                        @else
+                                            <p class="check-date">0</p>
+                                        @endif
                                     </div>
                                 @endif
                                 <div style="display: flex; justify-content: space-between">

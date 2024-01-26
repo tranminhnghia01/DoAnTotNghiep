@@ -100,7 +100,7 @@
                       @foreach ($blog as $key => $val)
                           <tr>
                               <th scope="row">{{ $key+1 }}</th>
-                              <td><a href="#"class="text-primary fw-bold">{{$val->blog_title}}</a></td>
+                              <td><a class="text-primary fw-bold">{{$val->blog_title}}</a></td>
                               <td>{{ $val->blog_views }}</td>
                           </tr>
                       @endforeach
@@ -131,7 +131,7 @@
                      @foreach ($service as $key => $val)
                          <tr>
                              <th scope="row">{{ $key+1 }}</th>
-                             <td><a href="#"class="text-primary fw-bold">{{$val->service_name}}</a></td>
+                             <td><a class="text-primary fw-bold">{{$val->service_name}}</a></td>
                              <td>{{ $val->service_views }}</td>
                          </tr>
                      @endforeach

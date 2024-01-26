@@ -11,10 +11,10 @@
             <h2></h2>
             <h3></h3>
             <div class="social-links mt-2">
-              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              <a  class="twitter"><i class="bi bi-twitter"></i></a>
+              <a  class="facebook"><i class="bi bi-facebook"></i></a>
+              <a  class="instagram"><i class="bi bi-instagram"></i></a>
+              <a  class="linkedin"><i class="bi bi-linkedin"></i></a>
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@
                     <div class="pt-2">
                         <label for="uploadImage"  class="btn btn-primary btn-sm" title="Upload new profile image" style="color: #fff">
                             <i class="bi bi-upload"><input type="file" name="image" id="uploadImage"  accept="image/png, image/jpeg" hidden /></i></label>
-                        <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                        <a  class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
                     </div>
                     </div>
                 </div>

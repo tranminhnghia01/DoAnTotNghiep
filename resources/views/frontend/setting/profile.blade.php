@@ -11,7 +11,7 @@
         <div class="pt-2">
             <label for="uploadImage"  class="btn btn-primary btn-sm" title="Upload new profile image" style="color: #fff">
                 <i class="bi bi-upload"><input type="file" name="shipping_image" id="uploadImage"  accept="image/png, image/jpeg" hidden /></i></label>
-            <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+            <a  class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
         </div>
         </div>
     </div>

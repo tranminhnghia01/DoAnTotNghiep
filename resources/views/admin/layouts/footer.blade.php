@@ -1,6 +1,6 @@
 
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a  class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('admin/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
@@ -18,6 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/wheelnav@1.7.1/js/dist/raphael.min.js"></script> --}}
 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
 
@@ -419,7 +420,7 @@
             fillOpacity :0.6,
             hideHOver : 'auto',
             parseTime :false,
-
+            // resize:true,
             xkey: 'date',
             ykeys: ['appointment','sales','profit'],
             behaveLikeLine: true,

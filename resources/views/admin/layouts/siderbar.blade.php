@@ -19,7 +19,7 @@
       </li><!-- End Profile Page Nav -->
       <li class="nav-heading">Quản lý</li>
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" >
           <i class="ri-file-list-3-line"></i><span>Dịch vụ</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -36,7 +36,7 @@
         </ul>
     </li><!-- End Tables Nav -->
     <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#appointment-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#appointment-nav" data-bs-toggle="collapse" >
             <i class="bi bi-calendar-date"></i></i><span>Danh sách đơn lịch</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="appointment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -50,7 +50,7 @@
       </li><!-- End Icons Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#billprocessing-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#billprocessing-nav" data-bs-toggle="collapse" >
             <i class="bi bi-calendar-date"></i></i><span>Hóa đơn</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="billprocessing-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -69,7 +69,7 @@
         </ul>
       </li><!-- End Icons Nav -->
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#chartsnav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#chartsnav" data-bs-toggle="collapse" >
           <i class="bi bi-bar-chart"></i><span>Thống kê</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="chartsnav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -82,7 +82,7 @@
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" >
           <i class="bi bi-gem"></i><span>Tài khoản</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -105,7 +105,7 @@
       </li><!-- End Icons Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#comment-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#comment-nav" data-bs-toggle="collapse" >
           <i class="bi bi-gem"></i><span>Bình luận/ Đánh giá</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="comment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -122,7 +122,7 @@
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" >
           <i class="ri-coupon-3-line"></i><span>Mã giảm giá</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -136,7 +136,7 @@
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" >
           <i class="bi bi-menu-button-wide"></i><span>Bài viết</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">

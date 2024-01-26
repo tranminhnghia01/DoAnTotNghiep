@@ -196,6 +196,7 @@ class BookingController extends Controller
                 'image'=> $shipping->shipping_image,
                 'comment'=> $data['comment'],
                 'rate'=> $data['rate'],
+                'status'=> 1,
             ];
             // dd('success');
             $comment = Comment::create($info_comment);

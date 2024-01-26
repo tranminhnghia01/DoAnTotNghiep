@@ -11,10 +11,10 @@
             <h2> {{ $user->name }} </h2>
             <h3></h3>
             <div class="social-links mt-2">
-              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              <a  class="twitter"><i class="bi bi-twitter"></i></a>
+              <a  class="facebook"><i class="bi bi-facebook"></i></a>
+              <a  class="instagram"><i class="bi bi-instagram"></i></a>
+              <a  class="linkedin"><i class="bi bi-linkedin"></i></a>
             </div>
           </div>
         </div>

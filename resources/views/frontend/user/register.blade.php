@@ -49,7 +49,7 @@
                             <div class="col-12">
                                 <div class="form-check">
                                   <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                                  <label class="form-check-label" for="acceptTerms">Tôi đồng ý và chấp nhận <a href="#">các điều khoản và điều kiện</a></label>
+                                  <label class="form-check-label" for="acceptTerms">Tôi đồng ý và chấp nhận <a href="">các điều khoản và điều kiện</a></label>
                                   <div class="invalid-feedback">Bạn phải đồng ý trước khi gửi tạo tài khoản.</div>
                                 </div>
                               </div>

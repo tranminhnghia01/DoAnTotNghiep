@@ -3,15 +3,15 @@
     <div class="card top-selling overflow-auto">
 
       <div class="filter">
-        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+        <a class="icon"  data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
           <li class="dropdown-header text-start">
             <h6>Filter</h6>
           </li>
 
-          <li><a class="dropdown-item" href="#">Hôm nay</a></li>
-          <li><a class="dropdown-item" href="#">Tháng này</a></li>
-          <li><a class="dropdown-item" href="#">Năm nay</a></li>
+          <li><a class="dropdown-item" >Hôm nay</a></li>
+          <li><a class="dropdown-item" >Tháng này</a></li>
+          <li><a class="dropdown-item" >Năm nay</a></li>
         </ul>
       </div>
 
@@ -33,8 +33,8 @@
                     @if ($val_name->shipping_id == $val->shipping_id)
                 <tr>
 
-                    <th scope="row"><a href="#"><img src="assets/img/product-1.jpg" alt="">{{ $key+1 }}</a></th>
-                    <td><a href="#"class="text-primary fw-bold">{{$val_name->name}}</a></td>
+                    <th scope="row"><a href=""><img src="assets/img/product-1.jpg" alt="">{{ $key+1 }}</a></th>
+                    <td><a class="text-primary fw-bold">{{$val_name->name}}</a></td>
                     <td class="fw-bold" style="text-align: right;padding-right: 10%">{{ number_format($val->total) }} <sup>đ</sup></td>
                     <td>{{ $val->count_booking }}</td>
                 </tr>
