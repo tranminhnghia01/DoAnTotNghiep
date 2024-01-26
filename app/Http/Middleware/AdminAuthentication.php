@@ -23,7 +23,15 @@ class AdminAuthentication
             return $next($request);
         }
         if(Auth::check() && $housekeeper == true ){
-            return $next($request);
+            if($housekeeper->status == '1'){
+                Auth::logout();
+                $msg = 'Tài khoản này đang chờ duyệt, bạn vui lòng sử dụng tài khoản khác hoặc thử lại sau! xin cảm ơn.';
+                $style = 'warning';
+                return redirect('/login')->with(compact('msg','style'));
+            }else{
+                return $next($request);
+
+            }
         }
         else{
             Auth::logout();

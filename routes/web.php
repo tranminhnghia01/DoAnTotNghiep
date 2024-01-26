@@ -137,6 +137,10 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
 
 
     Route::resource('service', App\Http\Controllers\admin\ServiceController::class);
+    //Bảng giá
+    Route::get('/Bang-gia', [App\Http\Controllers\admin\CommentController::class, 'banggia'])->name('banggia.index');
+
+
     Route::resource('coupon', App\Http\Controllers\admin\CouponController::class);
     // Gửi mail hàng loạt
     Route::get('/coupon/mail/{coupon_id}', [App\Http\Controllers\admin\CouponController::class, 'mail_list_coupon'])->name('mail-list-coupon');
@@ -176,14 +180,9 @@ Route::prefix('/home')->name('admin.')->middleware('admin')->group(function ()
     ///Đánh giá bình luận
     Route::get('/Đanh-gia', [App\Http\Controllers\admin\CommentController::class, 'index'])->name('comment.index');
     Route::get('/Đanh-gia/thanks/{comment_id}', [App\Http\Controllers\admin\CommentController::class, 'thanks'])->name('comment.thanks');
-
-
     Route::get('/Đanh-gia/change-status-comment', [App\Http\Controllers\admin\CommentController::class, 'change_status_comment'])->name('change-status-comment');
-
     Route::post('/reply/{comment_id}', [App\Http\Controllers\admin\CommentController::class, 'reply'])->name('comment.reply');
 
-    //Bảng giá
-    Route::get('/Bang-gia', [App\Http\Controllers\admin\CommentController::class, 'banggia'])->name('banggia.index');
 
 
 

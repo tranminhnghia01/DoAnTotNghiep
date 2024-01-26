@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Blog;
 use App\Models\Book;
+use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Housekeeper;
 use App\Models\Infomation;
@@ -40,9 +41,9 @@ class AppServiceProvider extends ServiceProvider
             $Count_blog = Blog::all()->count();
             $service_nav = Service::all();
             $info = Infomation::first();
+            $notify = Comment::orderBy('created_at','desc')->paginate(5);
 
-            // dd($info);
-            $view->with(compact('Count_house','Count_user','Count_service','Count_book','Count_account','service_nav','Count_blog','info'));
+            $view->with(compact('Count_house','Count_user','Count_service','Count_book','Count_account','service_nav','Count_blog','info','notify'));
         });
     }
 }
