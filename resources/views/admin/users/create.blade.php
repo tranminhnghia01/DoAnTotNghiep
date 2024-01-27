@@ -47,6 +47,9 @@
                         <a  class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
                     </div>
                     </div>
+                    @error('image')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
                 </div>
 
                 <div class="row mb-3">

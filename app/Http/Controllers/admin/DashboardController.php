@@ -84,7 +84,7 @@ class DashboardController extends Controller
         $cuoithang_truoc = Carbon::now()->subMonth()->endOfMonth()->format('Y-m-d');
 
         $sub7days = Carbon::now()->subDays(7)->format('Y-m-d');
-        $sub365days = Carbon::now()->subDays(100)->format('Y-m-d');
+        $sub365days = Carbon::now()->subDays(365)->format('Y-m-d');
 
         $now = Carbon::now()->format('Y-m-d');
 
@@ -115,7 +115,7 @@ class DashboardController extends Controller
                         'profit' => $value->profit,
                         'appointment' => $value->total_appointment,
                     );
-                
+
             }
             echo $data = json_encode($chart_data);
         }

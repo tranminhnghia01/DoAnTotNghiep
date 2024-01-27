@@ -6,7 +6,7 @@
 
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Danh sách</h5>
+            <h5 class="card-title">Danh sách người giúp việc</h5>
             <!-- Table with stripped rows -->
             <table class="table datatable">
               <thead>

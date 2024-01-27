@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tbl_service', function (Blueprint $table) {
             $table->increments('service_id');
-            $table->String('service_views');
+            $table->integer('service_views')->default(0);
             $table->string('service_name');
             $table->string('service_image');
             $table->text('service_des');

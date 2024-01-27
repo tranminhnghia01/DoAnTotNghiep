@@ -19,7 +19,7 @@ return new class extends Migration
             $table->String('blog_image');
             $table->text('blog_des');
             $table->text('blog_content');
-            $table->String('blog_views');
+            $table->integer('blog_views')->default(0);
             $table->timestamps();
         });
     }

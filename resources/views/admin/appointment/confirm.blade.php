@@ -63,6 +63,9 @@
                 </div>
 
                 <div class="row g-3">
+                    @php
+                        $numberday = 0;
+                    @endphp
                     @foreach ($checkhisbook as $keyC => $valC  )
                     <div class="col-sm-3">
                         <h5 class="modal-title">Thông tin lý do hủy</h5>
@@ -75,11 +78,13 @@
                         <p style="color: red"> Lý do hủy: {{ $valC->history_notes }} </p>
                     </div>
                     </div>
-
+                        @php
+                             $numberday += $valC->date_finish + $valC->history_previouse_date;
+                        @endphp
                         {{-- {{$valC->housekeeper_id }} đã hủy đơn lịch trên  --}}
                     @endforeach
                 </div>
-
+                {{-- <p>{{ $numberday }}</p> --}}
                 <!-- End Table with stripped rows -->
 
               </div>
@@ -208,11 +213,11 @@
                                         $date =  explode(",",$book->book_date);
                                     @endphp
                                     @if ($valcheck->housekeeper_id == $value->housekeeper_id)
-                                        @for ($i = 0; $i < count($date); $i++)
+                                        @for ($i = $numberday; $i < count($date); $i++)
                                             @if (in_array($date[$i], $datecheck))
-                                            @php
-                                                $status[$key] = 1;
-                                            @endphp
+                                                @php
+                                                    $status[$key] = 1;
+                                                @endphp
                                             @endif
 
                                         @endfor

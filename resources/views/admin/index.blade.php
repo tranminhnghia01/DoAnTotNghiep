@@ -82,38 +82,7 @@
              </div><!-- End Website Traffic -->
          </div><!-- End Right side columns -->
 
-         {{-- Bài viết xem nhiều --}}
-         <div class="col-lg-3">
-            <div class="card top-selling overflow-auto">
-                <div class="card-body pb-0">
-                  <h5 class="card-title">Bài viết xem nhiều</h5>
-
-                  <table class="table table-borderless">
-                    <thead>
-                      <tr>
-                        <th scope="col">STT</th>
-                        <th scope="col">Tên</th>
-                        <th scope="col">Số lần</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach ($blog as $key => $val)
-                          <tr>
-                              <th scope="row">{{ $key+1 }}</th>
-                              <td><a class="text-primary fw-bold">{{$val->blog_title}}</a></td>
-                              <td>{{ $val->blog_views }}</td>
-                          </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-
-                </div>
-
-              </div>
-          </div><!-- End bài viết xem nhiều -->
-
-
-         {{-- DỊch vụ xem nhiều --}}
+      {{-- DỊch vụ xem nhiều --}}
           <div class="col-lg-3">
            <div class="card top-selling overflow-auto">
                <div class="card-body pb-0">
@@ -142,6 +111,37 @@
 
              </div>
          </div><!-- Bài viết xem nhiều -->
+    {{-- Bài viết xem nhiều --}}
+    <div class="col-lg-3">
+        <div class="card top-selling overflow-auto">
+            <div class="card-body pb-0">
+              <h5 class="card-title">Bài viết xem nhiều</h5>
+
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Số lần</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($blog as $key => $val)
+                      <tr>
+                          <th scope="row">{{ $key+1 }}</th>
+                          <td><a class="text-primary fw-bold">{{$val->blog_title}}</a></td>
+                          <td>{{ $val->blog_views }}</td>
+                      </tr>
+                  @endforeach
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+      </div><!-- End bài viết xem nhiều -->
+
+
 
 
       </div>
