@@ -270,6 +270,8 @@
                             swal("Thành công! Đơn đặt lịch của bạn đã được hủy!", {
                                     icon: "success",
                                 });
+
+                                history.back();
                             window.setTimeout(function() {
                                 location.reload();
                             },3000);

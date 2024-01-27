@@ -328,44 +328,94 @@ class BookingController extends Controller
         $history = History::where('history_id',$history_id)->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')
                 ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
                 ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
-        ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking.payment_id')->first();
+                ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking.payment_id')->first();
+        if($history){
+            $paymentonline = PaymentOnline::where('TxnRef',$history->book_id)->first();
 
-        $paymentonline = PaymentOnline::where('TxnRef',$history->book_id)->first();
 
-
-        $coupon = Coupon::find($history->coupon_id);
-        if($coupon == true){
-            $coupon_number = $coupon->coupon_number;
-            if($coupon->coupon_method == 0){
-                $method = '%';
+            $coupon = Coupon::find($history->coupon_id);
+            if($coupon == true){
+                $coupon_number = $coupon->coupon_number;
+                if($coupon->coupon_method == 0){
+                    $method = '%';
+                }else{
+                    $method = 'đ';
+                }
             }else{
-                $method = 'đ';
+                $coupon_number = '';
+                $method = '';
             }
-        }else{
-            $coupon_number = '';
-            $method = '';
+
+            $listdate= explode(",",$history['book_date']);
+            $count_date= count($listdate);
+            // dd($count_date);
+            for ($i=0; $i < $count_date; $i++) {
+                $changedate = explode("/", $listdate[$i]);
+                $listdate[$i] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
+                $timestamp = strtotime( $listdate[$i]);
+
+            }
+
+            $shipping = Shipping::where('shipping_id', $history->shipping_id)->first();
+
+            // dd($history);
+            $split_time = explode(":",$history->book_time_start);
+            $time_end = $split_time[0]+$history->book_time_number .':'.$split_time[1];
+
+            return view('admin.appointment.details-single')->with(compact('time_end','listdate','method','coupon_number','history','shipping','paymentonline','user'));
+
         }
-
-        $listdate= explode(",",$history['book_date']);
-         $count_date= count($listdate);
-        // dd($count_date);
-        for ($i=0; $i < $count_date; $i++) {
-            $changedate = explode("/", $listdate[$i]);
-             $listdate[$i] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
-            $timestamp = strtotime( $listdate[$i]);
-
+        else{
+            return redirect()->route('admin.home');
         }
-
-        $shipping = Shipping::where('shipping_id', $history->shipping_id)->first();
-
-        // dd($history);
-        $split_time = explode(":",$history->book_time_start);
-        $time_end = $split_time[0]+$history->book_time_number .':'.$split_time[1];
-
-        return view('admin.appointment.details-single')->with(compact('time_end','listdate','method','coupon_number','history','shipping','paymentonline','user'));
-
-
     }
+
+//     public function show(Request $request, $history_id){
+//         // dd($book_id);
+//         $id= Auth::id();
+//        $user = User::findOrFail($id);
+
+//        $history = History::where('history_id',$history_id)->join('tbl_housekeeper', 'tbl_housekeeper.housekeeper_id', '=', 'tbl_history.housekeeper_id')
+//                ->join('tbl_booking', 'tbl_booking.book_id', '=', 'tbl_history.book_id')
+//                ->join('tbl_booking_details', 'tbl_booking_details.book_id', '=', 'tbl_booking.book_id')
+//        ->join('tbl_payment', 'tbl_payment.payment_id', '=', 'tbl_booking.payment_id')->first();
+
+//        $paymentonline = PaymentOnline::where('TxnRef',$history->book_id)->first();
+
+
+//        $coupon = Coupon::find($history->coupon_id);
+//        if($coupon == true){
+//            $coupon_number = $coupon->coupon_number;
+//            if($coupon->coupon_method == 0){
+//                $method = '%';
+//            }else{
+//                $method = 'đ';
+//            }
+//        }else{
+//            $coupon_number = '';
+//            $method = '';
+//        }
+
+//        $listdate= explode(",",$history['book_date']);
+//         $count_date= count($listdate);
+//        // dd($count_date);
+//        for ($i=0; $i < $count_date; $i++) {
+//            $changedate = explode("/", $listdate[$i]);
+//             $listdate[$i] = $changedate[1].'/'.$changedate[0].'/'.$changedate[2];
+//            $timestamp = strtotime( $listdate[$i]);
+
+//        }
+
+//        $shipping = Shipping::where('shipping_id', $history->shipping_id)->first();
+
+//        // dd($history);
+//        $split_time = explode(":",$history->book_time_start);
+//        $time_end = $split_time[0]+$history->book_time_number .':'.$split_time[1];
+
+//        return view('admin.appointment.details-single')->with(compact('time_end','listdate','method','coupon_number','history','shipping','paymentonline','user'));
+
+
+//    }
 
     public function search_confirm(Request $request){
 

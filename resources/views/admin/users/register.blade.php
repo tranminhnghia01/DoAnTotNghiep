@@ -117,11 +117,11 @@
                           </div>
                         </td>
                         <td><img src="
-                            @if (empty($val->image))
+                            @if (empty($value->image))
                         {{ asset('admin/assets/img/apple-touch-icon.png' )}}
 
                         @else
-                        {{ asset('uploads/users/'.$val->image )}}
+                        {{ asset('uploads/users/'.$value->image )}}
                         @endif" alt="" style="width: 80px;height: 80px;"></td>
                         <td>
                           <div class="d-flex align-items-center">
